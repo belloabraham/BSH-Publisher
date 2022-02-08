@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'publisher';
+  number = 0;
+  
+  get count() {
+    return this.number++
+  }
+
+  hello() {
+    this.number++
+  }
+
 }
