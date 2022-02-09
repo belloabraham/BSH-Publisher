@@ -4,6 +4,7 @@ import { Route } from 'src/data/route';
 
 const routes: Routes = [
   { path: '', redirectTo: Route.auth, pathMatch: 'full' },
+  { path: Route.notfound, loadChildren: () => import('./404/not-found.module').then(m => m.NotFoundModule) },
   { path: '**', redirectTo: Route.notfound },
 ];
 
