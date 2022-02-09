@@ -12,7 +12,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
-import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
+import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
     AppRoutingModule,
     HttpClientModule,
     TranslocoRootModule,
+    FlexLayoutModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
