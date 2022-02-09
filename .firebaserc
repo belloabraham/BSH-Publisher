@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bookshelfhub-fa4cf": {
+      "hosting": {
+        "publisher": [
+          "pubs-bookshelhub"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bookshelfhub-fa4cf"
+  }
+}

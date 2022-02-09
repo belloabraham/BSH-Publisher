@@ -116,6 +116,16 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "publisher:build:production",
+            "firebaseProject": "bookshelfhub-fa4cf",
+            "firebaseHostingSite": "pubs-bookshelhub"
+          }
         }
       }
     }
