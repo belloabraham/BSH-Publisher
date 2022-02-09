@@ -1,0 +1,21 @@
+export var bookTags = [
+  { tag: 'Engineering and Mathematics' },
+  { tag: 'Data Analysis' },
+  { tag: 'Islam' },
+  { tag: 'Christianity' },
+  { tag: 'Biography' },
+  { tag: 'Literature' },
+  { tag: 'Health and Fitness' },
+  { tag: 'Exam or Test Preparation' },
+  { tag: 'Humour' },
+  { tag: 'Relationships' },
+  { tag: 'Psychology' },
+  { tag: 'Novel' },
+  { tag: 'Transportation' },
+  { tag: 'Fashion' },
+  { tag: 'Music' },
+  { tag: 'Computer Programming' },
+  { tag: 'Archeology' },
+  { tag: 'Civil Engineering' },
+];
+        
