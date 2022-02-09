@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
   selector: 'app-not-found',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundComponent{
 
-  constructor() { }
+  constructor(cdRef: ChangeDetectorRef) { 
+      cdRef.detach
+  }
 
 }
