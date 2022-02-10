@@ -1,28 +1,22 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Languages } from 'src/data/languages';
+import { SubSink } from 'subsink';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'publisher';
-  number = 0;
-  
+export class AppComponent implements OnInit, OnDestroy {
+  subscriptions = new SubSink();
   constructor(ref: ChangeDetectorRef) {
-    ref.detach()
+    ref.detach();
   }
-
-  hi(value:any){
-    console.log(value.value)
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
+  ngOnInit(): void {
 
-  get count() {
-    return this.number++
+   ;
+    
   }
-
-  hello() {
-    this.number++
-    console.log(this.number)
-  }
-
 }
