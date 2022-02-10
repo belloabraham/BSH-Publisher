@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Config } from 'src/data/config';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
@@ -12,7 +12,9 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class AuthComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  constructor(private title: Title, private localeService: LocaleService) {}
+  constructor(private cdRef: ChangeDetectorRef,  private title: Title, private localeService: LocaleService) {
+      cdRef.detach()
+  }
 
   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
