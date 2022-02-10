@@ -1,3 +1,3 @@
-export enum StringResKey {
- 
+export enum StringResKeys {
+  title = 'auth_title',
 }

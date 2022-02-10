@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
-import { StringResKey } from './locale/string-res-keys';
+import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
   selector: 'app-not-found',
@@ -22,9 +22,9 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
-      .subscribe((value) => {
+      .subscribe(_ => {
         this.title.setTitle(
-          this.localeService.translate(StringResKey.title)
+          this.localeService.translate(StringResKeys.title)
         );
       })
   }

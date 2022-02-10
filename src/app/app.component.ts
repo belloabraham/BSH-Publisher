@@ -11,12 +11,12 @@ import { SubSink } from 'subsink';
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
-  constructor(private localeService: LocaleService) {
+  constructor(private localeService: LocaleService) { 
   }
 
   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
-      .onLangLoadSuccess(Languages.english)
+      .loadLanguage(Languages.english)
       .subscribe(() => {
         this.localeService.setIsLangLoadSuccessfully(true);
       });
