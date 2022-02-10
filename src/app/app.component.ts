@@ -11,7 +11,8 @@ import { SubSink } from 'subsink';
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
-  constructor(private localeService: LocaleService) {}
+  constructor(private localeService: LocaleService) {
+  }
 
   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
@@ -25,5 +26,5 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  
+
 }
