@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoEvents, TranslocoService } from '@ngneat/transloco';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Providers } from 'src/data/providers';
 
@@ -9,10 +9,21 @@ import { Providers } from 'src/data/providers';
 })
 export class LocaleService {
 
+  private isLangLoadSuccessfully = new ReplaySubject<boolean>(0)
+
   constructor(private translocoService: TranslocoService) { }
 
+  setIsLangLoadSuccessfully(value:boolean) {
+    this.isLangLoadSuccessfully.next(value)
+  }
+
+
+  getIsLangLoadSuccessfullyObs() {
+    return this.isLangLoadSuccessfully
+  }
+
+
   onLangLoadSuccess(lang:string): Observable<TranslocoEvents>{
-  
     this.translocoService.load(lang)
     return this.translocoService.events$.pipe(
       filter(e => e.type === 'translationLoadSuccess')

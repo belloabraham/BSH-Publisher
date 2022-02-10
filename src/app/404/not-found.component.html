@@ -1,11 +1,13 @@
-   <div>
+   <div *transloco="let t">
             
-                <h2> Oops the page you are looking for does not exist
+
+                <h2>
+                   {{ t('not_found_msg') }}
                 </h2>
                   
                 <img class="img" src="/assets/images/404.svg" >
         
-                <a routerLink="/" class="btn btn-primary" >Go Home </a>
+                <a routerLink="/" class="btn btn-primary" >{{ t('go_home') }} </a>
            
     </div>
 
