@@ -26,6 +26,7 @@
     "firebase": "^9.4.0",
     "google-libphonenumber": "^3.2.27",
     "immutable": "^4.0.0",
+    "ng-connection-service": "^1.0.4",
     "notiflix": "^3.2.4",
     "rxfire": "^6.0.0",
     "rxjs": "~7.5.0",

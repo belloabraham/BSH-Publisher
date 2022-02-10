@@ -20,6 +20,10 @@
     </div>
 </div>
 
+<div *ngIf="isNotConnected$ | async"  class="bg-warning warning-panel">
+<span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam maiores voluptate iusto a</span>
+</div>
+
 <router-outlet></router-outlet>
 
 
