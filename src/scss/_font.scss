@@ -1,6 +1,7 @@
+@use './utils';
 @font-face {
     font-family: 'Berlin';
-        src: url('assets/fonts/Berlin-Bold.woff2') format('woff2');
+        src: url('../assets/fonts/Berlin-Bold.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -8,7 +9,7 @@
 
 @font-face {
     font-family: 'Berlin';
-    src: url('assets/fonts/Berlin-Regular.woff2') format('woff2');
+    src: url('../assets/fonts/Berlin-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -16,4 +17,11 @@
 
 body{
     font-family: Berlin, Helvetica, sans-serif;
+}
+html{
+    scroll-behavior: smooth;
+    font-size: 100%;
+    @include utils.hiResDisp{
+        font-size: 150%
+    }
 }

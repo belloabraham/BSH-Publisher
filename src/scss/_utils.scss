@@ -1,0 +1,3 @@
+@mixin hiResDisp {
+    @media (min-width:2560px) {@content}
+};
