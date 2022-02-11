@@ -2,5 +2,6 @@
     "not_found_title":"Error 404 - Page Not Found",
     "go_home":"Go Home",
     "not_found_msg":"Oops the page you are looking for does not exist",
-    "auth_title":"Sign in - {{value}}" 
+    "auth_title":"Sign in - {{value}}",
+    "no_connection_msg":"No internet connection, connect your computer to the internet to continue using Bookshelf Hub"
 }
