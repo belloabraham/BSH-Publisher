@@ -9,12 +9,22 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
+    path: Route.welcome,
+    loadChildren: () =>
+      import('./welcome/welcome.module').then((m) => m.WelcomeModule),
+  },
+  {
+    path: Route.verifyEmail,
+    loadChildren: () =>
+      import('./verify-email/verify-email.module').then(
+        (m) => m.VerifyEmailModule
+      ),
+  },
+  {
     path: Route.notfound,
     loadChildren: () =>
       import('./404/not-found.module').then((m) => m.NotFoundModule),
   },
-  { path: 'verify-email', loadChildren: () => import('./verify-email/verify-email.module').then(m => m.VerifyEmailModule) },
-  { path: 'welcome', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule) },
   { path: '**', redirectTo: Route.notfound },
 ];
 
