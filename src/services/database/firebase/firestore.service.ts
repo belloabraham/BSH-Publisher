@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Providers } from 'src/data/providers';
 import {
   doc,
   getDoc,
@@ -15,33 +14,32 @@ import {
   getDocs,
 } from '@angular/fire/firestore';
 import { Logger } from 'src/helpers/utils/logger';
+import { IDatabase } from '../idatabase';
 import { ErrorCodes } from './ErrorCodes';
 
 
-@Injectable({
-  providedIn: Providers.root,
-})
-export class FirestoreService {
+@Injectable()
+export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
 
-  async addDoc<T>(
+   addDocData<T>(
     path: string,
     pathSegment: string[],
     type: T,
     merge = { merge: true }
-  ) {
+  ):Promise<void> {
     let docRef = doc(this.firestore, path, ...pathSegment);
-    return await setDoc(docRef, type, merge);
+    return  setDoc(docRef, type, merge);
   }
 
-  deleteDoc(path: string, pathSegment: string[]) {
+  deleteDoc(path: string, pathSegment: string[]):Promise<void> {
     let docRef = doc(this.firestore, path, ...pathSegment);
     return deleteDoc(docRef);
   }
 
-  async getArrayOfData<T>(path: string, queryConstraint: QueryConstraint[]) {
+  getArrayOfDocData<T>(path: string, queryConstraint: QueryConstraint[]): Promise <T[]> {
     let q = query(collection(this.firestore, path), ...queryConstraint);
-    return await getDocs(q).then((querySnapshot) => {
+    return  getDocs(q).then((querySnapshot) => {
       let dataArray: T[] = [];
       querySnapshot.forEach((queryDoc) => {
         if (queryDoc.exists()) {
@@ -55,7 +53,7 @@ export class FirestoreService {
     });
   }
 
-  getLiveArrayOfData<T>(
+  getLiveArrayOfDocData<T>(
     path: string,
     queryConstraint: QueryConstraint[],
     onNext: (type: T[]) => void,
@@ -81,7 +79,7 @@ export class FirestoreService {
         onError(code);
         if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
           setTimeout(() => {
-            this.getLiveArrayOfData(path, queryConstraint, onNext, onError);
+            this.getLiveArrayOfDocData(path, queryConstraint, onNext, onError);
           }, 2000);
         }
       },
@@ -102,7 +100,7 @@ export class FirestoreService {
     });
   }
 
-  getLiveData<T>(
+  getLiveDocData<T>(
     path: string,
     pathSegment: string[],
     onNext: (type: T) => void
@@ -122,7 +120,7 @@ export class FirestoreService {
         let code = error.code.toString();
         if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
           setTimeout(() => {
-            this.getLiveData(path, pathSegment, onNext);
+            this.getLiveDocData(path, pathSegment, onNext);
           }, 2000);
         }
       },

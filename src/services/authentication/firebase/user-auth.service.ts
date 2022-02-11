@@ -1,5 +1,4 @@
 import { Injectable, Optional } from '@angular/core';
-import { Providers } from 'src/data/providers';
 import { Auth, authState, signOut, UserCredential } from '@angular/fire/auth';
 import { GoogleAuthService } from './google-auth.service';
 import { EmailAuthService } from './email-auth.service';
@@ -10,9 +9,7 @@ import { IUserAuth } from '../iuser-auth';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: Providers.root,
-})
+@Injectable()
 export class UserAuthService implements IUserAuth {
   constructor(
     private googleAuth: GoogleAuthService,
