@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Translation, TranslocoEvents, TranslocoService } from '@ngneat/transloco';
-import { filter, Observable, ReplaySubject } from 'rxjs';
+import {  TranslocoService } from '@ngneat/transloco';
+import { ReplaySubject } from 'rxjs';
+import { MaxCachedItem } from 'src/data/max-cached-item';
 import { Providers } from 'src/data/providers';
 
 @Injectable({
   providedIn: Providers.root,
 })
 export class LocaleService {
-  private isLangLoadSuccessfully = new ReplaySubject<boolean>(0);
+  private isLangLoadSuccessfully = new ReplaySubject<boolean>(MaxCachedItem.one);
 
   constructor(private translocoService: TranslocoService) {}
 
