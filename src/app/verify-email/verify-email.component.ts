@@ -1,15 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { SubSink } from 'subsink';
+import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
   styleUrls: ['./verify-email.component.scss']
 })
-export class VerifyEmailComponent implements OnInit {
+export class VerifyEmailComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  private subscriptions = new SubSink();
+  
+  constructor(
+    private title: Title,
+    private localeService: LocaleService,
+    cdRef:ChangeDetectorRef
+  ) {
+    cdRef.detach()
+  }
 
   ngOnInit(): void {
+    this.subscriptions.sink = this.localeService
+      .getIsLangLoadSuccessfullyObs()
+      .subscribe(_ => {
+        this.title.setTitle(
+          this.localeService.translate(StringResKeys.title)
+        );
+      })
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

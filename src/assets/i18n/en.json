@@ -9,8 +9,15 @@
 
 
     "auth_title":"Sign in - {{value}}",
-    
     "invalid_email_error":"Enter the  email address this link was sent to. <br><i>Error Code: {{value}}</i>",
-    "network_error":"Network error, make sure your computer is connected to the internet and try again. <br><i>Error Code: {{value}}</i>"
+    "network_error":"Network error, make sure your computer is connected to the internet and try again. <br><i>Error Code: {{value}}</i>",
+    
 
+    "verify_email_title":"Verify Email - {{value}}",
+
+   "complete_sign_up_title":"Complete Sign Up - {{value}}",
+
+    "dashboard_title":"Dashboard - {{value}}",
+
+    "empty_book_store_title":"Empty Book Store - {{value}}"
 }
