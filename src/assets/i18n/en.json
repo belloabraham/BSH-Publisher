@@ -1,10 +1,11 @@
 {
+    "app_name":"Bookshelf Hub",
     "not_found_title":"Error 404 - Page Not Found",
     "go_home":"Go Home",
     "not_found_msg":"Oops the page you are looking for does not exist",
 
 
-    "no_connection_error":"Can not connect to BookShelf Hub because there is no internet connection",
+    "no_connection_error":"Can not connect to {{value}} because there is no internet connection",
 
 
     "auth_title":"Sign in - {{value}}",

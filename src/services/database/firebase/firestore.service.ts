@@ -1,0 +1,104 @@
+import { Injectable } from '@angular/core';
+import { Providers } from 'src/data/providers';
+import {
+  doc,
+  getDoc,
+  setDoc,
+  Firestore,
+  FirestoreError,
+  deleteDoc,
+  onSnapshot,
+  collection,
+  QueryConstraint,
+  query,
+  writeBatch,
+  getDocs,
+} from '@angular/fire/firestore';
+import { Logger } from 'src/helpers/utils/logger';
+import { ErrorCodes } from './ErrorCodes';
+
+
+@Injectable({
+  providedIn: Providers.root,
+})
+export class FirestoreService {
+  constructor(private firestore: Firestore) {}
+
+  async addDoc<T>(
+    path: string,
+    pathSegment: string[],
+    type: T,
+    merge = { merge: true }
+  ) {
+    let docRef = doc(this.firestore, path, ...pathSegment);
+    return await setDoc(docRef, type, merge);
+  }
+
+  deleteDoc(path: string, pathSegment: string[]) {
+    let docRef = doc(this.firestore, path, ...pathSegment);
+    return deleteDoc(docRef);
+  }
+
+  async getArrayOfData<T>(path: string, queryConstraint: QueryConstraint[]) {
+    let q = query(collection(this.firestore, path), ...queryConstraint);
+    return await getDocs(q).then((querySnapshot) => {
+      let dataArray: T[] = [];
+      querySnapshot.forEach((queryDoc) => {
+        if (queryDoc.exists()) {
+          let data = queryDoc.data();
+          let json = JSON.stringify(data);
+          let type: T = JSON.parse(json);
+          dataArray.push(type);
+        }
+      });
+      return dataArray;
+    });
+  }
+
+  getLiveArrayOfData<T>(
+    path: string,
+    queryConstraint: QueryConstraint[],
+    onNext: (type: T[]) => void,
+    onError: (errorCode: string) => void
+  ) {
+    let q = query(collection(this.firestore, path), ...queryConstraint);
+    let dataArray: T[] = [];
+    onSnapshot(q, {
+      next: (querySnapShot) => {
+        querySnapShot.forEach((queryDoc) => {
+          if (queryDoc.exists()) {
+            let data = queryDoc.data();
+            let json = JSON.stringify(data);
+            let type: T = JSON.parse(json);
+            dataArray.push(type);
+          }
+        });
+        onNext(dataArray);
+      },
+      error: (error: FirestoreError) => {
+        Logger.error('FirestoreService', 'getLiveArrayOfData', error);
+        let code = error.code.toString();
+        onError(code);
+        if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
+          setTimeout(() => {
+            this.getLiveArrayOfData(path, queryConstraint, onNext, onError);
+          }, 2000);
+        }
+      },
+    });
+  }
+
+   getDocData<T>(path: string, pathSegment: string[]): Promise<T | null> {
+    let docRef = doc(this.firestore, path, ...pathSegment);
+    return  getDoc(docRef).then((docSnapShot) => {
+      if (docSnapShot.exists()) {
+        let data = docSnapShot.data();
+        let json = JSON.stringify(data);
+        let type: T = JSON.parse(json);
+        return type;
+      } else {
+        return null;
+      }
+    });
+  }
+}

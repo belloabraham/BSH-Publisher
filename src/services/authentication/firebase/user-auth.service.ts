@@ -18,11 +18,11 @@ export class UserAuthService {
     private localeService:LocaleService
   ) {}
 
-  signInWithEmailLink(
+   signInWithEmailLink(
     email: string,
     emailLink: string
   ): Promise<UserCredential> {
-    return this.emailAuth.signInWithEmailLink(email, emailLink);
+    return  this.emailAuth.signInWithEmailLink(email, emailLink);
   }
 
   sendSignInLinkToEmail(email: string): Promise<void> {
