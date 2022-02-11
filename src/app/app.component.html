@@ -21,7 +21,7 @@
 </div>
 
 <div  *ngIf="isNotConnected$ | async"  class="warning-panel" >
-<span  *transloco="let t"> {{ t('no_connection_msg') }}</span>
+<span  *transloco="let t"> {{ t('no_connection_error') }}</span>
 </div>
 
 <router-outlet></router-outlet>

@@ -1,3 +1,0 @@
-export enum StringResKey {
- title = ""
-}

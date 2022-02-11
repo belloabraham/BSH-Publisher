@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { NavigationEnd, NavigationStart, ResolveEnd, ResolveStart, Router } from '@angular/router';
+import { ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import { merge, Observable, of } from 'rxjs';
 import { filter, map, mapTo, tap } from 'rxjs/operators';
