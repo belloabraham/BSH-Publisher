@@ -88,9 +88,9 @@ export class FirestoreService {
     });
   }
 
-   getDocData<T>(path: string, pathSegment: string[]): Promise<T | null> {
+  getDocData<T>(path: string, pathSegment: string[]): Promise<T | null> {
     let docRef = doc(this.firestore, path, ...pathSegment);
-    return  getDoc(docRef).then((docSnapShot) => {
+    return getDoc(docRef).then((docSnapShot) => {
       if (docSnapShot.exists()) {
         let data = docSnapShot.data();
         let json = JSON.stringify(data);
@@ -99,6 +99,33 @@ export class FirestoreService {
       } else {
         return null;
       }
+    });
+  }
+
+  getLiveData<T>(
+    path: string,
+    pathSegment: string[],
+    onNext: (type: T) => void
+  ) {
+    let ref = doc(this.firestore, path, ...pathSegment);
+    onSnapshot(ref, {
+      next: (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          let data = docSnapshot.data();
+          let json = JSON.stringify(data);
+          let type: T = JSON.parse(json);
+          onNext(type);
+        }
+      },
+      error: (error: FirestoreError) => {
+        Logger.error('FirestoreService', 'getLiveData', error);
+        let code = error.code.toString();
+        if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
+          setTimeout(() => {
+            this.getLiveData(path, pathSegment, onNext);
+          }, 2000);
+        }
+      },
     });
   }
 }
