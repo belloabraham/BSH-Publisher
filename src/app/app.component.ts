@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ResolveEnd, ResolveStart, Router } from '@angular/router';
+import {  NavigationEnd, ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import { merge, Observable, of } from 'rxjs';
-import { filter, map, mapTo, tap } from 'rxjs/operators';
+import { delay, filter, map, mapTo } from 'rxjs/operators';
 import { Config } from 'src/data/config';
 
 import { Languages } from 'src/data/languages';
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
-  isStarting$: Observable<boolean> = of(true);
+  isStarting$:Observable<boolean> = of(true);
   isNotConnected$: Observable<boolean> = of(true);
 
   constructor(
@@ -35,8 +35,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadLanguageRes();
 
-    this.isNotConnected$ = this.connectionService.monitor()
-      .pipe( map(x=>!x))
+    this.isNotConnected$ = this.connectionService
+      .monitor()
+      .pipe(map((x) => !x));
 
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
@@ -45,14 +46,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.hideLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveEnd),
-      mapTo(false),
-      tap((_) => {
-        this.isStarting$ = of(false);
-      })
+      mapTo(false)
     );
 
+    this.isStarting$ = this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      mapTo(false)
+    );
+
+
     this.isLoading$ = merge(this.hideLoaderEvent$, this.showLoaderEvent$);
+   
   }
+
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

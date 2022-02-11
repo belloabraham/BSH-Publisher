@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CompleteSignUpRoutingModule } from './complete-sign-up-routing.module';
 import { CompleteSignUpComponent } from './complete-sign-up.component';
+import { TranslocoModule } from '@ngneat/transloco';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CompleteSignUpComponent } from './complete-sign-up.component';
   ],
   imports: [
     CommonModule,
-    CompleteSignUpRoutingModule
+    CompleteSignUpRoutingModule,
+    TranslocoModule
   ]
 })
 export class CompleteSignUpModule { }

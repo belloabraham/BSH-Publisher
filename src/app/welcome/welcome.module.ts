@@ -11,7 +11,7 @@ import { WelcomeComponent } from './welcome.component';
   ],
   imports: [
     CommonModule,
-    WelcomeRoutingModule
+    WelcomeRoutingModule,
   ]
 })
 export class WelcomeModule { }

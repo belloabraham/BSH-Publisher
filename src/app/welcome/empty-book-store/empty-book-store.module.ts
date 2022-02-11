@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { EmptyBookStoreRoutingModule } from './empty-book-store-routing.module';
 import { EmptyBookStoreComponent } from './empty-book-store.component';
+import { TranslocoModule } from '@ngneat/transloco';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { EmptyBookStoreComponent } from './empty-book-store.component';
   ],
   imports: [
     CommonModule,
-    EmptyBookStoreRoutingModule
+    EmptyBookStoreRoutingModule,
+    TranslocoModule
   ]
 })
 export class EmptyBookStoreModule { }
