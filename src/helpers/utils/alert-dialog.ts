@@ -1,6 +1,5 @@
 
-import { Confirm } from 'notiflix';
-import { Report } from 'notiflix/build/notiflix-report-aio';
+import { Confirm, Report } from 'notiflix';
 
 export class AlertDialog {
 

@@ -1,5 +1,3 @@
-@import '../root/color';
-
 
 .indeterminate-progress {
     animation-delay: 200ms;
@@ -13,7 +11,7 @@
     width: 100%;
     overflow: hidden;
     left: 0;
-    background-color: $accent;
+    background-color: #fd7e14;
     height: .2rem;
     box-shadow: none;
     .indeterminate {

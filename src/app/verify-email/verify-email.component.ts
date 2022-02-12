@@ -83,7 +83,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
         });*/
       }
 
-      Logger.error('VerifyEmailComponent', 'signInwithEmail', error);
+      Logger.error('VerifyEmailComponent', 'verifyEmailWithLink', error);
     }
   }
 

@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeComponent } from './welcome.component';
 
 
 @NgModule({
-  declarations: [
-    WelcomeComponent
-  ],
+  declarations: [WelcomeComponent],
   imports: [
     CommonModule,
     WelcomeRoutingModule,
-  ]
+    provideFirestore(() => getFirestore()),
+  ],
 })
-export class WelcomeModule { }
+export class WelcomeModule {}
