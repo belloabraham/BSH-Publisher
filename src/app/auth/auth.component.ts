@@ -64,8 +64,16 @@ export class AuthComponent implements OnInit, OnDestroy {
       });
   }
 
-  signInWithGoogleRedirect() {
-    this.userAuth.signInWithGoogleRedirect();
+  async signInWithGoogleRedirect() {
+    try {
+     await this.userAuth.signInWithGoogleRedirect()
+    } catch (error:any) {
+      Logger.error('AuthComponent', 'signInWithGoogleRedirect', error.message);
+      const message = this.userAuth.getErrorMessage(error);
+      AlertDialog.error(message, this.signInErrorTitle, this.ok, {
+        plainText: false,
+      });
+    }
   }
 
   async signInWithEmail() {
@@ -94,7 +102,9 @@ export class AuthComponent implements OnInit, OnDestroy {
            value: email,
          }
        );
-       AlertDialog.success(msg, title, this.ok);
+       AlertDialog.success(msg, title, this.ok, {
+         plainText: false,
+       });
     } catch (error:any) {
        Logger.error('AuthComponent', 'sendSignInLinkToEmail', error.message);
        const message = this.userAuth.getErrorMessage(error);
