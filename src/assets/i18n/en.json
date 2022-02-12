@@ -12,15 +12,26 @@
     "auth_welcome_msg":"Sign in to start selling on {{value}}",
     "email_address":"Email address",
     "sign_in_with_google":"Sign in with Google",
-    "or":"or",
+    "or":"Or",
     "invalid_email_msg":"Enter a valid email address",
     "sign_in":"Sign in",
+    "link_sent_title":"Login Link Sent",
+    "link_sent_msg":"A link has beeen sent to <b>{{value}}</b>, click on it to login",
+    "sign_in_error_title":"Error - Unable to sign in",
+
+
     "invalid_email_error":"Enter the  email address this link was sent to. <br><i>Error Code: {{value}}</i>",
     "network_error":"Network error, make sure your computer is connected to the internet and try again. <br><i>Error Code: {{value}}</i>",
+
+    "verify_email":"Verify email",
+    "enter_your_email_add":"Enter your email address",
+    "enter_signin_link_email":"Enter the email address that recieved this link",
+    "email_verif_title":"Email verification is required",
+    "email_verif_sub_title":"Verify your email address",
     
 
     "verify_email_title":"Verify Email - {{value}}",
-
+    
    "complete_sign_up_title":"Complete Sign Up - {{value}}",
 
     "dashboard_title":"Dashboard - {{value}}",

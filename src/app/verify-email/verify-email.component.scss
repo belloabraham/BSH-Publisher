@@ -1,0 +1,24 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+     button, h5, input{
+        width: 18.75rem;
+    }
+    h5,h4{
+        text-align: center;
+    }
+}
+
+.logo{
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+      width: 5rem;
+        height: 5rem;
+        background-color: white;
+        border-radius: 1.6rem;
+         img{
+        width: 3rem;
+    }
+}

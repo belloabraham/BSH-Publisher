@@ -1,21 +1,21 @@
-<div *transloco="let t"  class="container">
+<div *transloco="let t"  class="container d-flex flex-column align-items-center justify-content-center pb-1">
 
-    <div class="logo shadow-sm">
+    <div class="logo shadow-sm d-flex align-items-center justify-content-center">
      <img src="assets/images/logo.svg" >
     </div>
    
     
-    <div class="form">
+    <div class="form d-flex flex-column align-items-center justify-content-center">
 
             <h5>{{ t('auth_welcome_msg', {value: t('app_name')}) }} </h5>
 
-        <form [formGroup]="emailSignInForm" (ngSubmit)="sendSignInLinkToEmail()">
+        <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
 
 <div class="mb-3">
   <label for="emailFC" class="form-label"> {{ t('email_address') }}
 </label>
-  <input type="email" class="form-control is-invalid"  formControlName="emailFC" id="emailFC" placeholder="name@example.com">
-  <div *ngIf="emailFC.dirty && (emailFC.hasError('pattern') || emailFC.hasError('required'))" id="emailFC" class="invalid-feedback">
+  <input type="email" class="form-control" [ngClass]="{'is-invalid':hasError}" formControlName="emailFC" id="emailFC" placeholder="name@example.com">
+  <div *ngIf="hasError" id="emailFC" class="invalid-feedback">
       {{ t('invalid_email_msg') }}
     </div>
 </div>
@@ -23,8 +23,9 @@
             <button type="submit" class="btn btn-primary">{{ t('sign_in') }}</button>
         </form>
         <span>{{ t('or') | uppercase}}</span>
-
-         <button (click)="signInWithGoogleRedirect()" class="btn btn-outline-primary">{{ t('sign_in_with_google') }}</button>    
+         <button (click)="signInWithGoogleRedirect()" class="btn btn-outline-primary google d-flex align-items-center justify-content-center"> <img src="assets/images/google.png" >  
+          <span>{{ t('sign_in_with_google') }}</span>
+          </button>    
     </div>
         
 </div>

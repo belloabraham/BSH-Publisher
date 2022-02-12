@@ -1,37 +1,34 @@
-@mixin vertical-alingn {
-     display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-}
 
 .container{
-     @include vertical-alingn;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     gap: 2rem;
 
     button, h5, input{
-        width: 300px;
+        width: 18.75rem;
     }
     h5{
         text-align: center
     }
     .form{
-       @include vertical-alingn;
        gap: .5rem;
+    }
+
+    .google{
+        gap:.5rem;
+         img{
+           width: 1.5rem;
+       }
     }
     .logo{
         width: 6.5rem;
         height: 6.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         background-color: white;
-        border-radius: 35px;
-    }
-    img{
+        border-radius: 2.2rem;
+         img{
         width: 4rem;
     }
+    }
+   
 }

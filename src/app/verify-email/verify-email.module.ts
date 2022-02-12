@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { VerifyEmailRoutingModule } from './verify-email-routing.module';
 import { VerifyEmailComponent } from './verify-email.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslocoModule } from '@ngneat/transloco';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { VerifyEmailComponent } from './verify-email.component';
   ],
   imports: [
     CommonModule,
-    VerifyEmailRoutingModule
+    VerifyEmailRoutingModule,
+    ReactiveFormsModule,
+    TranslocoModule
   ]
 })
 export class VerifyEmailModule { }
