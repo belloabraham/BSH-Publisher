@@ -9,6 +9,12 @@
 
 
     "auth_title":"Sign in - {{value}}",
+    "auth_welcome_msg":"Sign in to start selling on {{value}}",
+    "email_address":"Email address",
+    "sign_in_with_google":"Sign in with Google",
+    "or":"or",
+    "invalid_email_msg":"Enter a valid email address",
+    "sign_in":"Sign in",
     "invalid_email_error":"Enter the  email address this link was sent to. <br><i>Error Code: {{value}}</i>",
     "network_error":"Network error, make sure your computer is connected to the internet and try again. <br><i>Error Code: {{value}}</i>",
     

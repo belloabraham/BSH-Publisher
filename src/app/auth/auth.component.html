@@ -1,1 +1,30 @@
-<p>auth works!</p>
+<div *transloco="let t"  class="container">
+
+    <div class="logo shadow-sm">
+     <img src="assets/images/logo.svg" >
+    </div>
+   
+    
+    <div class="form">
+
+            <h5>{{ t('auth_welcome_msg', {value: t('app_name')}) }} </h5>
+
+        <form [formGroup]="emailSignInForm" (ngSubmit)="sendSignInLinkToEmail()">
+
+<div class="mb-3">
+  <label for="emailFC" class="form-label"> {{ t('email_address') }}
+</label>
+  <input type="email" class="form-control is-invalid"  formControlName="emailFC" id="emailFC" placeholder="name@example.com">
+  <div *ngIf="emailFC.dirty && (emailFC.hasError('pattern') || emailFC.hasError('required'))" id="emailFC" class="invalid-feedback">
+      {{ t('invalid_email_msg') }}
+    </div>
+</div>
+
+            <button type="submit" class="btn btn-primary">{{ t('sign_in') }}</button>
+        </form>
+        <span>{{ t('or') | uppercase}}</span>
+
+         <button (click)="signInWithGoogleRedirect()" class="btn btn-outline-primary">{{ t('sign_in_with_google') }}</button>    
+    </div>
+        
+</div>

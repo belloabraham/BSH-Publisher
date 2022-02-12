@@ -1,0 +1,37 @@
+@mixin vertical-alingn {
+     display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+}
+
+.container{
+     @include vertical-alingn;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    gap: 2rem;
+
+    button, h5, input{
+        width: 300px;
+    }
+    h5{
+        text-align: center
+    }
+    .form{
+       @include vertical-alingn;
+       gap: .5rem;
+    }
+    .logo{
+        width: 6.5rem;
+        height: 6.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        border-radius: 35px;
+    }
+    img{
+        width: 4rem;
+    }
+}
