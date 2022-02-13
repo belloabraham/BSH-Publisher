@@ -9,18 +9,18 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-     canLoad:[NotAuthGuard],
+    canLoad: [NotAuthGuard],
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: Route.welcome,
-    canLoad:[AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: () =>
       import('./welcome/welcome.module').then((m) => m.WelcomeModule),
   },
   {
     path: Route.verifyEmail,
-    canLoad:[VerifyEmailGuard],
+    canLoad: [VerifyEmailGuard],
     loadChildren: () =>
       import('./verify-email/verify-email.module').then(
         (m) => m.VerifyEmailModule
