@@ -1,19 +1,15 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Providers } from 'src/data/providers';
-import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH } from 'src/services/authentication/user-auth.token';
 import { Route as Routes } from 'src/data/route';
+import { Auth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: Providers.any,
 })
 export class AuthGuard implements CanLoad {
-  constructor(
-    @Inject(USER_AUTH) private userAuth: IUserAuth,
-    private router: Router
-  ) {}
+  constructor(private router: Router, @Optional() private auth: Auth) {}
 
   canLoad(
     route: Route,
@@ -23,12 +19,11 @@ export class AuthGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    
-    if (this.userAuth.getPubId()) {
-       return true
+    if (this.auth.currentUser) {
+      return true;
     } else {
       this.router.navigateByUrl(Routes.root);
-      return false
+      return false;
     }
   }
 }
