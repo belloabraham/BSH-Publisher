@@ -23,12 +23,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
-        this.title.setTitle(
-          this.localeService.paramTranslate(StringResKeys.title, {
-            value: Config.appName,
-          })
-        );
+        this.setTitle()
       });
+  }
+
+  private setTitle() {
+    this.title.setTitle(
+      this.localeService.paramTranslate(StringResKeys.title, {
+        value: Config.appName,
+      })
+    );
   }
 
   ngOnDestroy(): void {
