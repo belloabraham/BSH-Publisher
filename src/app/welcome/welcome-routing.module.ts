@@ -10,10 +10,8 @@ const routes: Routes = [
     component: WelcomeComponent,
     children: [
       {
-        path: '', pathMatch: 'full', redirectTo: Route.completeSignUp
-      },
-      {
-        path: Route.completeSignUp,
+        path: '',
+        pathMatch: 'full',
         loadChildren: () =>
           import('./complete-sign-up/complete-sign-up.module').then(
             (m) => m.CompleteSignUpModule

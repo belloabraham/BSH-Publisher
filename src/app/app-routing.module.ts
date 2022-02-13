@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
+import { NotAuthGuard } from './auth/not-auth.guard';
 import { VerifyEmailGuard } from './verify-email/verify-email.guard';
 import { AuthGuard } from './welcome/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: Route.auth, pathMatch: 'full' },
   {
-    path: Route.auth,
+    path: '',
+    pathMatch: 'full',
+     canLoad:[NotAuthGuard],
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
@@ -25,11 +27,10 @@ const routes: Routes = [
       ),
   },
   {
-    path: Route.notfound,
+    path: '**',
     loadChildren: () =>
       import('./404/not-found.module').then((m) => m.NotFoundModule),
   },
-  { path: '**', redirectTo: Route.notfound },
 ];
 
 @NgModule({
