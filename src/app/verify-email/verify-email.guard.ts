@@ -38,14 +38,16 @@ export class VerifyEmailGuard implements CanLoad {
   }
 
   private async verifyEmailWithLink(email: string):Promise<boolean> {
-    try {
-      await this.userAuth.signInWithEmailLink(email, location.href);
-      localStorage.removeItem(Settings.userEmail);
+   return  this.userAuth.signInWithEmailLink(email, location.href)
+      .then(() => {
+        this.userAuth.signInWithEmailLink(email, location.href);
+        localStorage.removeItem(Settings.userEmail);
       this.router.navigateByUrl(Routes.welcome);
       return false
-    } catch (error: any) {
-      Logger.error('VerifyEmailGuard', 'verifyEmailWithLink', error);
-      return true
-    }
+      })
+      .catch(error => {
+        Logger.error('VerifyEmailGuard', 'verifyEmailWithLink', error);
+        return true;
+    })
   }
 }
