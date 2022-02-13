@@ -7,12 +7,13 @@ import { Regex } from 'src/data/regex';
 import { Route } from 'src/data/route';
 import { Settings } from 'src/data/settings';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
 import { ErrorCodes } from 'src/services/authentication/firebase/error-codes';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
-import { StringResKeys } from './locale/string-res-keys';
+import { StringResKeys } from '../auth/locale/string-res-keys';
 
 @Component({
   selector: 'app-verify-email',
@@ -28,8 +29,9 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
     Validators.pattern(Regex.email),
   ]);
   hasError = false;
-
-
+  signInErrorTitle = '';
+  ok = '';
+  
   constructor(
     private title: Title,
     private localeService: LocaleService,
@@ -44,7 +46,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
 
   private setTitle() {
     this.title.setTitle(
-      this.localeService.paramTranslate(StringResKeys.title, {
+      this.localeService.paramTranslate(StringResKeys.verifyEmailTitle, {
         value: Config.appName,
       })
     );
@@ -55,6 +57,10 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
+        this.ok = this.localeService.translate(StringResKeys.ok);
+        this.signInErrorTitle = this.localeService.translate(
+          StringResKeys.signInErrorTitle
+        );
       });
   }
 
@@ -78,12 +84,15 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
         this.hasError = true;
       } else {
         const message = this.userAuth.getErrorMessage(error);
-      /*  this.alertDialog.error(message, this.signInErrorTitle, this.okTxt, {
+        AlertDialog.error(message, this.signInErrorTitle, this.ok, {
           plainText: false,
-        });*/
+        });
+              Logger.error(
+                'VerifyEmailComponent',
+                'verifyEmailWithLink',
+                error
+              );
       }
-
-      Logger.error('VerifyEmailComponent', 'verifyEmailWithLink', error);
     }
   }
 

@@ -4,4 +4,5 @@ export enum StringResKeys {
   linkSentMsg = 'link_sent_msg',
   ok = 'ok',
   signInErrorTitle = 'sign_in_error_title',
+  verifyEmailTitle = "verify_email_title"
 }
