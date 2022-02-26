@@ -1,13 +1,13 @@
-<div *transloco="let t">
+<div class="root" *transloco="let t">
 
     <div class="d-flex align-items-baseline justify-content-start mb-4">
         <div class="logo shadow-sm d-flex align-items-center justify-content-center">
             <img src="assets/images/logo.svg">
         </div>
-        <h3>{{ t('complete_signup_header') }}</h3>
+        <h3 class="flex-fill text-center" >{{ t('complete_signup_header') }}</h3>
     </div>
 
-    <div class="pb-2">
+    <div class="pb-2 w-100 d-flex justify-content-center">
 
         <div class="parent border">
 
@@ -55,19 +55,14 @@
 
                         </label>
 
+
                         <div class="input-group">
-                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">+234</button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Separated link</a></li>
-                            </ul>
-                            <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                            <select   class="form-select" id="inputGroupSelect01">
+                                <option  selected>+2345</option>
+                                <option value="male">{{ t('male') }}</option>
+                                <option value="female">{{ t('female') }}</option>
+                            </select>
+                         <input style="width: 50%"  type="text" class="form-control"  aria-label="Text input with dropdown button">
                         </div>
 
                         <div class="input-group">

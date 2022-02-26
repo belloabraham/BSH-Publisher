@@ -2,6 +2,13 @@
 @use '../../../scss/components/logo'as *;
 @use '../../../scss/variables/input'as *;
 
+.root{
+    width: 100%;
+    height: 100%; 
+    overflow: scroll
+}
+
+
 .logo{
     @include logo;
 }
@@ -30,6 +37,7 @@ button[type="submit"], input {
         width: 6rem;
     }
 }
+
 .fullname{
     gap: 2rem;
 }
