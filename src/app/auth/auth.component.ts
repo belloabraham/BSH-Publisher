@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { fromEvent, of } from 'rxjs';
-import { distinctUntilChanged, tap, throttleTime } from 'rxjs/operators';
 import { Config } from 'src/data/config';
 import { Regex } from 'src/data/regex';
 import { Settings } from 'src/data/settings';

@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Config } from 'src/data/config';
+import { Regex } from 'src/data/regex';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
@@ -9,26 +12,45 @@ import { StringResKeys } from './locale/string-res-keys';
   selector: 'app-complete-sign-up',
   templateUrl: './complete-sign-up.component.html',
   styleUrls: ['./complete-sign-up.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompleteSignUpComponent implements OnInit , OnDestroy{
+export class CompleteSignUpComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
+  userDataForm!: FormGroup;
+  firstNameFC = new FormControl(undefined, Validators.required);
+  lastNameFC = new FormControl(undefined, Validators.required);
+
   constructor(
     private title: Title,
-    private localeService: LocaleService
-  ) {
+    private localeService: LocaleService,
+    private router: Router
+  ) {}
+
+  hello() {
+    console.log(this.firstNameFC.touched)
+  }
+
+  submitFormData() { }
+  
+  private generateForm() {
+    return new FormGroup({
+      firstNameFC: this.firstNameFC,
+      lastNameFC:this.lastNameFC
+    })
   }
 
   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
-       this.title.setTitle(
-         this.localeService.paramTranslate(StringResKeys.title, {
-           value: Config.appName,
-         })
-       );
+        this.title.setTitle(
+          this.localeService.paramTranslate(StringResKeys.title, {
+            value: Config.appName,
+          })
+        );
       });
+    
+    this.userDataForm = this.generateForm()
   }
 
   ngOnDestroy(): void {

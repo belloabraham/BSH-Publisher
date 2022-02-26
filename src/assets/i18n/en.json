@@ -32,7 +32,26 @@
 
     "verify_email_title":"Verify Email - {{value}}",
     
+    
    "complete_sign_up_title":"Complete Sign Up - {{value}}",
+    "complete_signup_header":"You are one step close to becoming a publisher",
+    "complete_signup_sub_header":"Tell us about you",
+    "first_name":"First name",
+    "full_name":"Full name",
+    "last_name":"Last name",
+    "name_field_required":"Name field is required",
+    "gender_required":"Gender field is required",
+    "phone_numer_required":"Your phone number is required",
+    "continue":"Continue",
+    "phone":"Phone",
+    "gender":"Gender",
+    "invalid_phone":"Enter a valid phone number",
+    "male":"Male",
+    "female":"Female",
+    "choose":"Choose...",
+
+
+
 
     "dashboard_title":"Dashboard - {{value}}",
 

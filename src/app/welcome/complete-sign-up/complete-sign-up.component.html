@@ -1,1 +1,97 @@
-<p>complete-sign-up works!</p>
+<div *transloco="let t">
+
+    <div class="d-flex align-items-baseline justify-content-start mb-4">
+        <div class="logo shadow-sm d-flex align-items-center justify-content-center">
+            <img src="assets/images/logo.svg">
+        </div>
+        <h3>{{ t('complete_signup_header') }}</h3>
+    </div>
+
+    <div class="pb-2">
+
+        <div class="parent border">
+
+            <div class="illustration bg-white p-4 p-lg-5">
+                <img src="assets/images/about-you.svg">
+            </div>
+
+            <div class="p-2 form">
+
+                <h4 class="mb-3">{{ t('complete_signup_sub_header') }}</h4>
+
+                <form [formGroup]="userDataForm" (ngSubmit)="submitFormData()">
+
+
+
+                    <div class="d-flex mb-2 fullname">
+
+                        <label class="form-label flex-shrink-0"> {{ t('full_name') }}
+                        </label>
+
+                        <div>
+                            <input type="text" class="form-control"
+                                [ngClass]="{'is-invalid':firstNameFC.hasError('required') && firstNameFC.touched}"
+                                placeholder="{{ t('first_name') }}" formControlName="firstNameFC" id="firstNameFC">
+                            <div *ngIf="firstNameFC.hasError('required') && firstNameFC.touched" id="firstNameFC"
+                                class="invalid-feedback">
+                                {{ t('name_field_required') }}
+                            </div>
+                        </div>
+
+                        <div>
+                            <input type="text" class="form-control"
+                                [ngClass]="{'is-invalid':lastNameFC.hasError('required') && lastNameFC.touched}"
+                                placeholder="{{ t('last_name') }}" formControlName="lastNameFC" id="lastNameFC">
+                            <div *ngIf="lastNameFC.hasError('required') && lastNameFC.touched" id="lastNameFC"
+                                class="invalid-feedback">
+                                {{ t('name_field_required') }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-2 phone align-items-center">
+
+                        <label class="form-label flex-shrink-0 ">{{ t('phone') }}
+
+                        </label>
+
+                        <div class="input-group">
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">+234</button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Separated link</a></li>
+                            </ul>
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-group-text" for="inputGroupSelect01">{{ t('gender') }}</label>
+                            <select class="form-select" id="inputGroupSelect01">
+                                <option selected>{{ t('choose') }}</option>
+                                <option value="male">{{ t('male') }}</option>
+                                <option value="female">{{ t('female') }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">{{ t('continue') }}</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>

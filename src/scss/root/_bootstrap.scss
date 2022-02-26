@@ -2,7 +2,7 @@
 @import '../../../node_modules/bootstrap/scss/functions';
 
 //Color Reset
-@import '../variables';
+@import '../variables/boostrap';
 
 //Required By Bootrap
 @import '../../../node_modules/bootstrap/scss/variables';
@@ -17,6 +17,8 @@
 @import '../../../node_modules/bootstrap/scss/type';
 @import '../../../node_modules/bootstrap/scss/forms';
 @import '../../../node_modules/bootstrap/scss/containers';
+@import '../../../node_modules/bootstrap/scss/dropdown';
+
 
 
 //Required By Bootrap

@@ -11,7 +11,10 @@
 
         <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
 
-<div class="mb-3">
+
+
+          
+<div class="mb-2">
   <label for="emailFC" class="form-label"> {{ t('email_address') }}
 </label>
   <input type="email" class="form-control" [ngClass]="{'is-invalid':hasError}" formControlName="emailFC" id="emailFC" placeholder="name@example.com">
