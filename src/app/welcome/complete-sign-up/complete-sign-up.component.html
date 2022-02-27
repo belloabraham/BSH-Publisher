@@ -74,12 +74,15 @@
                                 </option>
                             </select>
                             <input  style="width: 50%;"
-                                [ngClass]="{'is-invalid':phoneFC.hasError('required') && phoneFC.touched}"
-                                formControlName="phoneFC" type="number" class="form-control rounded-end"
+                                [ngClass]="{'is-invalid':(phoneFC.hasError('required')|| isInvalidPhoneNum) && phoneFC.touched}"
+                                formControlName="phoneFC" type="number" class="form-control rounded-end phone-input"
                                 aria-label="Text input with dropdown button">
                             <div *ngIf="phoneFC.hasError('required') && phoneFC.touched" id="phoneFC"
                                 class="invalid-feedback">
                                 {{ t('phone_numer_required') }}
+                            </div>
+                            <div *ngIf="isInvalidPhoneNum" id="phoneFC" class="invalid-feedback">
+                                {{ t('invalid_phone') }}
                             </div>
                         </div>
 

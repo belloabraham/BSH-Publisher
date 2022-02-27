@@ -5,7 +5,18 @@ export function isValidPhone(
   countryCode: string,
   diallingCode: string
 ): boolean {
-  var cc = countryCode?.toUpperCase();
-  const phoneNumberObj = parsePhoneNumber(diallingCode + phoneNumber);
-  return phoneNumberObj.isValid()
+  try {
+     const number = parsePhoneNumber(diallingCode + phoneNumber);
+     let nationalFormatNumb = number?.formatNational();
+
+     if (nationalFormatNumb) {
+        return isValidPhoneNumber(
+         nationalFormatNumb,
+         countryCode.toUpperCase() as CountryCode
+       );
+    }
+    return false
+  } catch (error) {
+    return false
+  }
 }

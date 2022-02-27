@@ -2,6 +2,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    //CLeave Js
+    "allowSyntheticDefaultImports": true,
+    //Defaults
     "skipLibCheck": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

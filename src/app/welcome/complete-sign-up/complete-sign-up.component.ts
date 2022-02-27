@@ -38,13 +38,17 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy {
 
   countries: ICountry[] = countries;
   diallingCodes: ICountry[] = diallingCodes;
-  dialingCodeByCountry? = countries[0].callingCode;
+  dialingCodeByCountry?= countries[0].callingCode;
+  isInvalidPhoneNum = false;
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
     private router: Router
-  ) {}
+  ) {
+
+  }
+ 
 
   onCountrySelectChanged(event: any) {
     let value = event.target.value;
@@ -53,26 +57,24 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy {
     })?.callingCode;
   }
 
-  onDiallinCodeSelectedChanged(event:any) {
-   this.dialingCodeByCountry = event.target.value;
+  onDiallinCodeSelectedChanged(event: any) {
+    this.dialingCodeByCountry = event.target.value;
   }
 
-  private isValidPhoneNumber(phoneNumber:string) {
-    let countryCode = this.countries.find(
-      country => {
-        return country.callingCode === this.dialingCodeByCountry
-      }
-    )?.code
-
+  private isValidPhoneNumber(phoneNumber: string) {
+    let countryCode = this.countries.find((country) => {
+      return country.callingCode === this.dialingCodeByCountry;
+    })?.code;
     return isValidPhone(phoneNumber, countryCode!, this.dialingCodeByCountry!);
   }
 
+
+
   submitFormData() {
     if (this.isValidPhoneNumber(this.phoneFC.value)) {
-      console.log("Valid")
+      this.isInvalidPhoneNum=false
     } else {
-      console.log("Not valid")
-      this.phoneFC.hasError('Not valid');
+      this.isInvalidPhoneNum = true
     }
   }
 
@@ -96,7 +98,6 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy {
           })
         );
       });
-
     this.userDataForm = this.generateForm();
   }
 
