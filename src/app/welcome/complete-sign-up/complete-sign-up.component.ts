@@ -1,10 +1,22 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Config } from 'src/data/config';
-import { Regex } from 'src/data/regex';
+import { countries } from 'src/data/countries';
+import { diallingCodes } from 'src/data/dialling-code';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { isValidPhone } from 'src/helpers/utils/validators';
+import { ICountry } from 'src/models/icountry';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
@@ -17,8 +29,16 @@ import { StringResKeys } from './locale/string-res-keys';
 export class CompleteSignUpComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   userDataForm!: FormGroup;
-  firstNameFC = new FormControl(undefined, Validators.required);
-  lastNameFC = new FormControl(undefined, Validators.required);
+  validName = [Validators.required, Validators.minLength(2)];
+  firstNameFC = new FormControl(undefined, this.validName);
+  lastNameFC = new FormControl(undefined, this.validName);
+  genderFC = new FormControl(undefined, [Validators.required]);
+  phoneFC = new FormControl(undefined, [Validators.required]);
+  countryFC = new FormControl(undefined, [Validators.required]);
+
+  countries: ICountry[] = countries;
+  diallingCodes: ICountry[] = diallingCodes;
+  dialingCodeByCountry? = countries[0].callingCode;
 
   constructor(
     private title: Title,
@@ -26,17 +46,44 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  hello() {
-    console.log(this.firstNameFC.touched)
+  onCountrySelectChanged(event: any) {
+    let value = event.target.value;
+    this.dialingCodeByCountry = this.countries.find((country) => {
+      return country.name === value;
+    })?.callingCode;
   }
 
-  submitFormData() { }
-  
+  onDiallinCodeSelectedChanged(event:any) {
+   this.dialingCodeByCountry = event.target.value;
+  }
+
+  private isValidPhoneNumber(phoneNumber:string) {
+    let countryCode = this.countries.find(
+      country => {
+        return country.callingCode === this.dialingCodeByCountry
+      }
+    )?.code
+
+    return isValidPhone(phoneNumber, countryCode!, this.dialingCodeByCountry!);
+  }
+
+  submitFormData() {
+    if (this.isValidPhoneNumber(this.phoneFC.value)) {
+      console.log("Valid")
+    } else {
+      console.log("Not valid")
+      this.phoneFC.hasError('Not valid');
+    }
+  }
+
   private generateForm() {
     return new FormGroup({
       firstNameFC: this.firstNameFC,
-      lastNameFC:this.lastNameFC
-    })
+      lastNameFC: this.lastNameFC,
+      genderFC: this.genderFC,
+      phoneFC: this.phoneFC,
+      countryFC: this.countryFC,
+    });
   }
 
   ngOnInit(): void {
@@ -49,8 +96,8 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy {
           })
         );
       });
-    
-    this.userDataForm = this.generateForm()
+
+    this.userDataForm = this.generateForm();
   }
 
   ngOnDestroy(): void {

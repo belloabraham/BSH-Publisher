@@ -45,11 +45,11 @@
     "continue":"Continue",
     "phone":"Phone",
     "gender":"Gender",
+    "country":"Country",
+    "country_required":"Your country of residence is required",
     "invalid_phone":"Enter a valid phone number",
     "male":"Male",
     "female":"Female",
-    "choose":"Choose...",
-
 
 
 
