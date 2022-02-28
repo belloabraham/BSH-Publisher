@@ -645,11 +645,6 @@ export var diallingCodes: ICountry[] = [
     callingCode: '+358',
   },
   {
-    name: 'Fiji',
-    code: 'FJ',
-    callingCode: '+679',
-  },
-  {
     name: 'France',
     code: 'FR',
     callingCode: '+33',
@@ -658,157 +653,6 @@ export var diallingCodes: ICountry[] = [
     name: 'Belarus',
     code: 'BY',
     callingCode: '+375',
-  },
-  {
-    name: 'Brunei',
-    code: 'BN',
-    callingCode: '+673',
-  },
-  {
-    name: 'Norfolk Island',
-    code: 'NF',
-    callingCode: '+672',
-  },
-  {
-    name: 'New Caledonia',
-    code: 'NC',
-    callingCode: '+687',
-  },
-  {
-    name: 'Niue',
-    code: 'NU',
-    callingCode: '+683',
-  },
-
-  {
-    name: 'Nauru',
-    code: 'NR',
-    callingCode: '+674',
-  },
-  {
-    name: 'Australia',
-    code: 'AU',
-    callingCode: '+61',
-  },
-  {
-    name: 'Cocos (Keeling) Islands',
-    code: 'CC',
-    callingCode: '+61',
-  },
-  {
-    name: 'Thailand',
-    code: 'TH',
-    callingCode: '+66',
-  },
-  {
-    name: 'Timor-Leste',
-    code: 'TL',
-    callingCode: '+670',
-  },
-  {
-    name: 'Tonga',
-    code: 'TO',
-    callingCode: '+676',
-  },
-  {
-    name: 'Solomon Islands',
-    code: 'SB',
-    callingCode: '+677',
-  },
-  {
-    name: 'Vanuatu',
-    code: 'VU',
-    callingCode: '+678',
-  },
-  {
-    name: 'Wallis and Futuna',
-    code: 'WF',
-    callingCode: '+681',
-  },
-  {
-    name: 'Samoa',
-    code: 'WS',
-    callingCode: '+685',
-  },
-  {
-    name: 'Cook Islands',
-    code: 'CK',
-    callingCode: '+682',
-  },
-  {
-    name: 'Micronesia',
-    code: 'FM',
-    callingCode: '+691',
-  },
-  {
-    name: 'Singapore',
-    code: 'SG',
-    callingCode: '+65',
-  },
-  {
-    name: 'French Polynesia',
-    code: 'PF',
-    callingCode: '+689',
-  },
-  {
-    name: 'Marshall Islands',
-    code: 'MH',
-    callingCode: '+692',
-  },
-  {
-    name: 'New Zealand',
-    code: 'NZ',
-    callingCode: '+64',
-  },
-  {
-    name: 'Tuvalu',
-    code: 'TV',
-    callingCode: '+688',
-  },
-  {
-    name: 'Pitcairn Islands',
-    code: 'PN',
-    callingCode: '+64',
-  },
-  {
-    name: 'Kiribati',
-    code: 'KI',
-    callingCode: '+686',
-  },
-  {
-    name: 'Philippines',
-    code: 'PH',
-    callingCode: '+63',
-  },
-  {
-    name: 'Indonesia',
-    code: 'ID',
-    callingCode: '+62',
-  },
-  {
-    name: 'Tokelau',
-    code: 'TK',
-    callingCode: '+690',
-  },
-  {
-    name: 'Malaysia',
-    code: 'MY',
-    callingCode: '+60',
-  },
-  {
-    name: 'Palau',
-    code: 'PW',
-    callingCode: '+680',
-  },
-  {
-    name: 'Christmas Island',
-    code: 'CX',
-    callingCode: '+61',
-  },
-  {
-    name: 'Papua New Guinea',
-    code: 'PG',
-    callingCode: '+675',
   },
   {
     name: 'Switzerland',
@@ -1052,6 +896,162 @@ export var diallingCodes: ICountry[] = [
     name: 'Kazakhstan',
     code: 'KZ',
     callingCode: '+76',
+  },
+  {
+    name: 'Fiji',
+    code: 'FJ',
+    callingCode: '+679',
+  },
+  {
+    name: 'Brunei',
+    code: 'BN',
+    callingCode: '+673',
+  },
+  {
+    name: 'Norfolk Island',
+    code: 'NF',
+    callingCode: '+672',
+  },
+  {
+    name: 'New Caledonia',
+    code: 'NC',
+    callingCode: '+687',
+  },
+  {
+    name: 'Niue',
+    code: 'NU',
+    callingCode: '+683',
+  },
+
+  {
+    name: 'Nauru',
+    code: 'NR',
+    callingCode: '+674',
+  },
+  {
+    name: 'Australia',
+    code: 'AU',
+    callingCode: '+61',
+  },
+  {
+    name: 'Cocos (Keeling) Islands',
+    code: 'CC',
+    callingCode: '+61',
+  },
+  {
+    name: 'Thailand',
+    code: 'TH',
+    callingCode: '+66',
+  },
+  {
+    name: 'Timor-Leste',
+    code: 'TL',
+    callingCode: '+670',
+  },
+  {
+    name: 'Tonga',
+    code: 'TO',
+    callingCode: '+676',
+  },
+  {
+    name: 'Solomon Islands',
+    code: 'SB',
+    callingCode: '+677',
+  },
+  {
+    name: 'Vanuatu',
+    code: 'VU',
+    callingCode: '+678',
+  },
+  {
+    name: 'Wallis and Futuna',
+    code: 'WF',
+    callingCode: '+681',
+  },
+  {
+    name: 'Samoa',
+    code: 'WS',
+    callingCode: '+685',
+  },
+  {
+    name: 'Cook Islands',
+    code: 'CK',
+    callingCode: '+682',
+  },
+  {
+    name: 'Micronesia',
+    code: 'FM',
+    callingCode: '+691',
+  },
+  {
+    name: 'Singapore',
+    code: 'SG',
+    callingCode: '+65',
+  },
+  {
+    name: 'French Polynesia',
+    code: 'PF',
+    callingCode: '+689',
+  },
+  {
+    name: 'Marshall Islands',
+    code: 'MH',
+    callingCode: '+692',
+  },
+  {
+    name: 'New Zealand',
+    code: 'NZ',
+    callingCode: '+64',
+  },
+  {
+    name: 'Tuvalu',
+    code: 'TV',
+    callingCode: '+688',
+  },
+  {
+    name: 'Pitcairn Islands',
+    code: 'PN',
+    callingCode: '+64',
+  },
+  {
+    name: 'Kiribati',
+    code: 'KI',
+    callingCode: '+686',
+  },
+  {
+    name: 'Philippines',
+    code: 'PH',
+    callingCode: '+63',
+  },
+  {
+    name: 'Indonesia',
+    code: 'ID',
+    callingCode: '+62',
+  },
+  {
+    name: 'Tokelau',
+    code: 'TK',
+    callingCode: '+690',
+  },
+  {
+    name: 'Malaysia',
+    code: 'MY',
+    callingCode: '+60',
+  },
+  {
+    name: 'Palau',
+    code: 'PW',
+    callingCode: '+680',
+  },
+  {
+    name: 'Christmas Island',
+    code: 'CX',
+    callingCode: '+61',
+  },
+  {
+    name: 'Papua New Guinea',
+    code: 'PG',
+    callingCode: '+675',
   },
   {
     name: 'Russia',

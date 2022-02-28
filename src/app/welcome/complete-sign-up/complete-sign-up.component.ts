@@ -11,9 +11,11 @@ import {
 } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Config } from 'src/data/config';
 import { countries } from 'src/data/countries';
 import { diallingCodes } from 'src/data/dialling-code';
+import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { isValidPhone } from 'src/helpers/utils/validators';
 import { ICountry } from 'src/models/icountry';
@@ -26,7 +28,7 @@ import { StringResKeys } from './locale/string-res-keys';
   styleUrls: ['./complete-sign-up.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompleteSignUpComponent implements OnInit, OnDestroy {
+export class CompleteSignUpComponent implements OnInit, OnDestroy, ICanDeactivate {
   private subscriptions = new SubSink();
   userDataForm!: FormGroup;
   validName = [Validators.required, Validators.minLength(2)];
@@ -47,6 +49,15 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
 
+  }
+
+
+  canExit(): Observable<boolean> | Promise<boolean> | boolean{
+    if (this.userDataForm.dirty) {
+      return false
+    } else {
+      return true;
+    }
   }
  
 
