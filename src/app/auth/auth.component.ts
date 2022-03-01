@@ -76,7 +76,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     try {
       await this.userAuth.signInWithGoogleRedirect();
     } catch (error: any) {
-      Logger.error('AuthComponent', 'signInWithGoogleRedirect', error.message);
+      Logger.error(this, 'signInWithGoogleRedirect', error.message);
       const message = this.userAuth.getErrorMessage(error);
       AlertDialog.error(message, this.signInErrorTitle, this.ok, {
         plainText: false,
@@ -111,7 +111,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         plainText: false,
       });
     } catch (error: any) {
-      Logger.error('AuthComponent', 'sendSignInLinkToEmail', error.message);
+      Logger.error(this, 'sendSignInLinkToEmail', error.message);
       const message = this.userAuth.getErrorMessage(error);
       AlertDialog.error(message, this.signInErrorTitle, this.ok, {
         plainText: false,

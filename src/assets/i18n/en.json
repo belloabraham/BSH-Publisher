@@ -53,6 +53,7 @@
 
     "no":"No",
     "yes":"Yes",
+    "ok":"Ok",
 
 
     "dashboard_title":"Dashboard - {{value}}",

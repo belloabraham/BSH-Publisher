@@ -92,7 +92,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
           plainText: false,
         });
               Logger.error(
-                'VerifyEmailComponent',
+                this,
                 'verifyEmailWithLink',
                 error
               );

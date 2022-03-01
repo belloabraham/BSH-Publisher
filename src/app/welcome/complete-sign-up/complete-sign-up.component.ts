@@ -125,7 +125,7 @@ export class CompleteSignUpComponent
           user
         );
       } catch (error) {
-        Logger.error('submitFormData', '', error);
+        Logger.error(this, 'submitFormData', error);
       }
 
     } else {
