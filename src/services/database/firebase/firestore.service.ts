@@ -16,7 +16,6 @@ import { Logger } from 'src/helpers/utils/logger';
 import { IDatabase } from '../idatabase';
 import { ErrorCodes } from './ErrorCodes';
 
-
 @Injectable()
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}

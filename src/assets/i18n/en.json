@@ -25,11 +25,9 @@
 
     "verify_email":"Verify email",
     "enter_your_email_add":"Enter your email address",
-    "enter_signin_link_email":"Enter the email address that recieved this link",
+    "enter_signin_link_email":"Enter the email address that recieved the link to this page",
     "email_verif_title":"Email verification is required",
     "email_verif_sub_title":"Verify your email address",
-    
-
     "verify_email_title":"Verify Email - {{value}}",
     
     

@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadLanguageRes();
-
+        
     this.isNotConnected$ = this.connectionService
       .monitor()
       .pipe(map((x) => !x));

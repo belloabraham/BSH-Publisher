@@ -5,7 +5,8 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-     button, h5, input{
+     button,
+     h5, .invalid-feedback, input {
         width: $input-width;
     }
     h5,h4{
