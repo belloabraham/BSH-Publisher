@@ -37,4 +37,6 @@ export class AlertDialog {
   ) {
     Report.failure(title, msg, btnTxt, callBackOrOption, options);
   }
+
+
 }

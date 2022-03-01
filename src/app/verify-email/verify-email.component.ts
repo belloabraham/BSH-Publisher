@@ -57,11 +57,15 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
-        this.ok = this.localeService.translate(StringResKeys.ok);
+        this.translateStringRes();
+      });
+  }
+
+  private translateStringRes() {
+    this.ok = this.localeService.translate(StringResKeys.ok);
         this.signInErrorTitle = this.localeService.translate(
           StringResKeys.signInErrorTitle
         );
-      });
   }
 
   verifyEmail() {

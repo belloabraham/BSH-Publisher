@@ -10,7 +10,6 @@ import {
   collection,
   QueryConstraint,
   query,
-  writeBatch,
   getDocs,
 } from '@angular/fire/firestore';
 import { Logger } from 'src/helpers/utils/logger';

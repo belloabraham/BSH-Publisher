@@ -1,24 +1,30 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { serverTimestamp } from '@angular/fire/firestore';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Config } from 'src/data/config';
 import { countries } from 'src/data/countries';
 import { diallingCodes } from 'src/data/dialling-code';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { AlertDialog } from 'src/helpers/utils/alert-dialog';
+import { Logger } from 'src/helpers/utils/logger';
 import { isValidPhone } from 'src/helpers/utils/validators';
 import { ICountry } from 'src/models/icountry';
+import { IUser } from 'src/models/iuser';
+import { IUserAuth } from 'src/services/authentication/iuser-auth';
+import { USER_AUTH } from 'src/services/authentication/user-auth.token';
+import { Collection } from 'src/services/database/collection';
+import { DATABASE } from 'src/services/database/database.token';
+import { IDatabase } from 'src/services/database/idatabase';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
@@ -28,7 +34,9 @@ import { StringResKeys } from './locale/string-res-keys';
   styleUrls: ['./complete-sign-up.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompleteSignUpComponent implements OnInit, OnDestroy, ICanDeactivate {
+export class CompleteSignUpComponent
+  implements OnInit, OnDestroy, ICanDeactivate
+{
   private subscriptions = new SubSink();
   userDataForm!: FormGroup;
   validName = [Validators.required, Validators.minLength(2)];
@@ -40,26 +48,40 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy, ICanDeactivat
 
   countries: ICountry[] = countries;
   diallingCodes: ICountry[] = diallingCodes;
-  dialingCodeByCountry?= countries[0].callingCode;
+  dialingCodeByCountry? = countries[0].callingCode;
   isInvalidPhoneNum = false;
+
+  canExitRoute = new Subject<boolean>();
+
+  unsavedFieldsMsgTitle = '';
+  unsavedFieldsMsg = '';
+  yes = '';
+  no = '';
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router: Router
-  ) {
+    private router: Router,
+    @Inject(DATABASE) private database: IDatabase,
+    @Inject(USER_AUTH) private userAuth: IUserAuth
+  ) {}
 
-  }
-
-
-  canExit(): Observable<boolean> | Promise<boolean> | boolean{
+  canExit(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.userDataForm.dirty) {
-      return false
+      console.log(this)
+      AlertDialog.warn(
+        this.unsavedFieldsMsg,
+        this.unsavedFieldsMsgTitle,
+        this.yes,
+        this.no,
+        () => this.canExitRoute.next(true),
+        () => this.canExitRoute.next(false)
+      );
+      return this.canExitRoute;
     } else {
       return true;
     }
   }
- 
 
   onCountrySelectChanged(event: any) {
     let value = event.target.value;
@@ -79,13 +101,35 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy, ICanDeactivat
     return isValidPhone(phoneNumber, countryCode!, this.dialingCodeByCountry!);
   }
 
-
-
-  submitFormData() {
+  async submitFormData() {
     if (this.isValidPhoneNumber(this.phoneFC.value)) {
-      this.isInvalidPhoneNum=false
+      this.isInvalidPhoneNum = false;
+
+      let userId = this.userAuth.getPubId()!;
+      let email = this.userAuth.getEmail()!;
+
+      let user: IUser = {
+        firstName: this.firstNameFC.value,
+        lastName: this.lastNameFC.value,
+        gender: this.genderFC.value,
+        nationality: this.countryFC.value,
+        phoneNumber: this.phoneFC.value,
+        email: email,
+        registeredDate: serverTimestamp(),
+      };
+
+      try {
+        await this.database.addDocData<IUser>(
+          Collection.publishers,
+          [userId],
+          user
+        );
+      } catch (error) {
+        Logger.error('submitFormData', '', error);
+      }
+
     } else {
-      this.isInvalidPhoneNum = true
+      this.isInvalidPhoneNum = true;
     }
   }
 
@@ -103,13 +147,29 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy, ICanDeactivat
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
-        this.title.setTitle(
-          this.localeService.paramTranslate(StringResKeys.title, {
-            value: Config.appName,
-          })
-        );
+        this.setTitle();
+        this.translateStringRes();
       });
     this.userDataForm = this.generateForm();
+  }
+
+  private setTitle() {
+    this.title.setTitle(
+      this.localeService.paramTranslate(StringResKeys.title, {
+        value: Config.appName,
+      })
+    );
+  }
+
+  private translateStringRes() {
+    this.no = this.localeService.translate(StringResKeys.no);
+    this.yes = this.localeService.translate(StringResKeys.yes);
+    this.unsavedFieldsMsg = this.localeService.translate(
+      StringResKeys.unsavedFieldsMsg
+    );
+    this.unsavedFieldsMsgTitle = this.localeService.translate(
+      StringResKeys.unsavedFieldsMsgTitle
+    );
   }
 
   ngOnDestroy(): void {

@@ -45,12 +45,16 @@
     "continue":"Continue",
     "phone":"Phone",
     "gender":"Gender",
-    "country":"Country",
-    "country_required":"Your country of residence is required",
+    "nationality":"Nationality",
+    "nationality_required":"Your country of residence is required",
     "invalid_phone":"Enter a valid phone number",
     "male":"Male",
     "female":"Female",
+    "unsaved_field_msg_title":"You have unsaved changes",
+    "unsaved_field_msg":"Are you saure you want to leave this page?", 
 
+    "no":"No",
+    "yes":"Yes",
 
 
     "dashboard_title":"Dashboard - {{value}}",

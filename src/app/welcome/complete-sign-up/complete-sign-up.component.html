@@ -2,7 +2,7 @@
 
     <div class="d-flex align-items-baseline justify-content-start mb-4">
         <div class="logo shadow-sm d-flex align-items-center justify-content-center">
-            <img src="assets/images/logo.svg">
+                <img src="assets/images/logo.svg">
         </div>
         <h3 class="flex-fill text-center">{{ t('complete_signup_header') }}</h3>
     </div>
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="d-flex mb-2 country">
-                        <label class="form-label flex-shrink-0">{{ t('country') }}</label>
+                        <label class="form-label flex-shrink-0">{{ t('nationality') }}</label>
                         <select (change)="onCountrySelectChanged($event)"  formControlName="countryFC"
                             [ngClass]="{'is-invalid':countryFC.hasError('required') && countryFC.touched}"
                             formControlName="countryFC" class="form-select" aria-label="Default select example">
@@ -59,7 +59,7 @@
 
                         <div *ngIf="countryFC.hasError('required') && countryFC.touched" id="countryFC"
                             class="invalid-feedback">
-                            {{ t('country_required') }}
+                            {{ t('nationality_required') }}
                         </div>
                     </div>
 

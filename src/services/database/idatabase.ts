@@ -1,7 +1,6 @@
 
 import { QueryConstraint } from '@angular/fire/firestore';
 
-
 export interface IDatabase {
   
   getArrayOfDocData: <T>(

@@ -5,6 +5,6 @@ import { FirestoreService } from "./firebase/firestore.service";
 import { IDatabase } from "./idatabase";
 
 export const DATABASE = new InjectionToken<IDatabase>('database', {
-  providedIn: Providers.root,
+  providedIn: Providers.any,
   factory: () => new FirestoreService(inject(Firestore)),
 });
