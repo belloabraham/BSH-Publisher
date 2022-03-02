@@ -1,13 +1,20 @@
 @use '../../../scss/components/logo'as *;
 @use '../../../scss/variables/input'as *;
+@use '../../../scss/variables/colors'as *;
+
 
 .logo {
   @include logo;
 }
 
 .logout{
-   font-weight: 900;
    font-size: 1.3rem;
+   margin: 2rem;
+
+   &:hover{
+     color: $accent;
+   }
+  
 }
 
 .illustration {
