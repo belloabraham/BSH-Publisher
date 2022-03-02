@@ -88,16 +88,19 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl(Route.welcome);
     } catch (error: any) {
       Shield.remove()
-      if (error.code === ErrorCodes.argumentError) {
-        this.hasError = true;
-      } else {
-        Logger.error(this, 'verifyEmailWithLink', error);
+      this.showEmailSignInErrorMsg(error)
+    }
+  }
 
-        const message = this.userAuth.getErrorMessage(error);
-        AlertDialog.error(message, this.signInErrorTitle, this.ok, {
-          plainText: false,
-        }); 
-      }
+  private showEmailSignInErrorMsg(error:any) {
+    if (error.code === ErrorCodes.argumentError) {
+      this.hasError = true;
+    } else {
+      Logger.error(this, 'verifyEmailWithLink', error);
+      const message = this.userAuth.getErrorMessage(error);
+      AlertDialog.error(message, this.signInErrorTitle, this.ok, {
+        plainText: false,
+      });
     }
   }
 
