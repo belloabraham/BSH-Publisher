@@ -1,0 +1,27 @@
+@use '../../../scss/components/logo'as *;
+@use '../../../scss/variables/input'as *;
+
+.logo {
+  @include logo;
+}
+
+.logout{
+   font-weight: 900;
+   font-size: 1.3rem;
+}
+
+.illustration {
+  width: 15rem;
+  height: auto;
+}
+
+.parent {
+  gap: 4rem;
+}
+
+.children {
+  gap: 4rem;
+  button {
+    width: $input-width;
+  }
+}

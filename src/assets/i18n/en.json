@@ -57,8 +57,12 @@
     "ok":"Ok",
     "error":"Error",
 
+    "empty_book_store_title":"Empty Book Store - {{value}}",
+    "empty_book_store_heading":"You currently have no book in the book store",
+    "publish_a_book":"Publish a book",
+    "logout":"Logout",
 
-    "dashboard_title":"Dashboard - {{value}}",
 
-    "empty_book_store_title":"Empty Book Store - {{value}}"
+    "dashboard_title":"Dashboard - {{value}}"
+
 }
