@@ -13,10 +13,12 @@ import { Observable, Subject } from 'rxjs';
 import { Config } from 'src/data/config';
 import { countries } from 'src/data/countries';
 import { diallingCodes } from 'src/data/dialling-code';
+import { Route } from 'src/data/route';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
+import { Shield } from 'src/helpers/utils/shield';
 import { isValidPhone } from 'src/helpers/utils/validators';
 import { ICountry } from 'src/models/icountry';
 import { IUser } from 'src/models/iuser';
@@ -38,6 +40,7 @@ export class CompleteSignUpComponent
   implements OnInit, OnDestroy, ICanDeactivate
 {
   private subscriptions = new SubSink();
+
   userDataForm!: FormGroup;
   validName = [Validators.required, Validators.minLength(2)];
   firstNameFC = new FormControl(undefined, this.validName);
@@ -53,10 +56,13 @@ export class CompleteSignUpComponent
 
   canExitRoute = new Subject<boolean>();
 
-  unsavedFieldsMsgTitle = '';
-  unsavedFieldsMsg = '';
-  yes = '';
-  no = '';
+  private unsavedFieldsMsgTitle = '';
+  private unsavedFieldsMsg = '';
+  private yes = '';
+  private no = '';
+  private ok = '';
+  private submitFormErrorMsg = '';
+  private error = '';
 
   constructor(
     private title: Title,
@@ -68,7 +74,7 @@ export class CompleteSignUpComponent
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.userDataForm.dirty) {
-      console.log(this)
+      console.log(this);
       AlertDialog.warn(
         this.unsavedFieldsMsg,
         this.unsavedFieldsMsgTitle,
@@ -102,8 +108,12 @@ export class CompleteSignUpComponent
   }
 
   async submitFormData() {
+
     if (this.isValidPhoneNumber(this.phoneFC.value)) {
-      this.isInvalidPhoneNum = false;
+
+      Shield.standard()
+      
+       this.isInvalidPhoneNum = false;
 
       let userId = this.userAuth.getPubId()!;
       let email = this.userAuth.getEmail()!;
@@ -118,16 +128,25 @@ export class CompleteSignUpComponent
         registeredDate: serverTimestamp(),
       };
 
-      try {
+     try {
         await this.database.addDocData<IUser>(
           Collection.publishers,
           [userId],
           user
         );
-      } catch (error) {
+       
+       Shield.remove();
+       
+         this.router.navigate([
+           Route.root,
+           Route.welcome,
+           Route.emptyBookStore,
+         ]);
+     } catch (error: any) {
+       Shield.remove();
         Logger.error(this, 'submitFormData', error);
+        AlertDialog.error(this.submitFormErrorMsg, this.error, this.ok);
       }
-
     } else {
       this.isInvalidPhoneNum = true;
     }
@@ -164,6 +183,11 @@ export class CompleteSignUpComponent
   private translateStringRes() {
     this.no = this.localeService.translate(StringResKeys.no);
     this.yes = this.localeService.translate(StringResKeys.yes);
+    this.error = this.localeService.translate(StringResKeys.error);
+    this.ok = this.localeService.translate(StringResKeys.ok);
+    this.submitFormErrorMsg = this.localeService.translate(
+      StringResKeys.submitFormErrorMsg
+    );
     this.unsavedFieldsMsg = this.localeService.translate(
       StringResKeys.unsavedFieldsMsg
     );

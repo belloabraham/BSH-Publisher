@@ -50,10 +50,12 @@
     "female":"Female",
     "unsaved_field_msg_title":"You have unsaved changes",
     "unsaved_field_msg":"Are you saure you want to leave this page?", 
+    "submit_form_error_msg":"Unable to submit your data, check your internet connection and try again",
 
     "no":"No",
     "yes":"Yes",
     "ok":"Ok",
+    "error":"Error",
 
 
     "dashboard_title":"Dashboard - {{value}}",

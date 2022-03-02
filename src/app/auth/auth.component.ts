@@ -13,6 +13,7 @@ import { Settings } from 'src/data/settings';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
+import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
@@ -95,28 +96,36 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   async sendSignInLinkToEmail(email: string) {
+    Shield.standard()
     try {
       await this.userAuth.sendSignInLinkToEmail(email);
       localStorage.setItem(Settings.userEmail, email);
-      const title = this.localeService.paramTranslate(
-        StringResKeys.linkSentTitle,
-        {
-          value: email,
-        }
-      );
-      const msg = this.localeService.paramTranslate(StringResKeys.linkSentMsg, {
-        value: email,
-      });
-      AlertDialog.success(msg, title, this.ok, {
-        plainText: false,
-      });
+      Shield.remove();
+      this.showMailSentSuccessMessage(email)
     } catch (error: any) {
+      Shield.remove();
       Logger.error(this, 'sendSignInLinkToEmail', error.message);
       const message = this.userAuth.getErrorMessage(error);
       AlertDialog.error(message, this.signInErrorTitle, this.ok, {
         plainText: false,
       });
     }
+  }
+
+  private showMailSentSuccessMessage(email:string) {
+     const title = this.localeService.paramTranslate(
+       StringResKeys.linkSentTitle,
+       {
+         value: email,
+       }
+     );
+     const msg = this.localeService.paramTranslate(StringResKeys.linkSentMsg, {
+       value: email,
+     });
+
+     AlertDialog.success(msg, title, this.ok, {
+       plainText: false,
+     });
   }
 
   private generateForm() {

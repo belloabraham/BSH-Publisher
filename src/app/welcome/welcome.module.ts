@@ -4,7 +4,6 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeComponent } from './welcome.component';
 
-
 @NgModule({
   declarations: [WelcomeComponent],
   imports: [

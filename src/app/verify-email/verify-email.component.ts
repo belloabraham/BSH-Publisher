@@ -9,6 +9,7 @@ import { Settings } from 'src/data/settings';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
+import { Shield } from 'src/helpers/utils/shield';
 import { ErrorCodes } from 'src/services/authentication/firebase/error-codes';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH } from 'src/services/authentication/user-auth.token';
@@ -79,23 +80,23 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   }
 
   private async verifyEmailWithLink(email: string) {
+    Shield.standard()
     try {
       await this.userAuth.signInWithEmailLink(email, location.href);
       localStorage.removeItem(Settings.userEmail);
+      Shield.remove()
       this.router.navigateByUrl(Route.welcome);
     } catch (error: any) {
+      Shield.remove()
       if (error.code === ErrorCodes.argumentError) {
         this.hasError = true;
       } else {
+        Logger.error(this, 'verifyEmailWithLink', error);
+
         const message = this.userAuth.getErrorMessage(error);
         AlertDialog.error(message, this.signInErrorTitle, this.ok, {
           plainText: false,
-        });
-              Logger.error(
-                this,
-                'verifyEmailWithLink',
-                error
-              );
+        }); 
       }
     }
   }
