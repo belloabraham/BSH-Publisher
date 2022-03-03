@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { DATABASE } from 'src/services/database/database.token';
 import { FirestoreService } from 'src/services/database/firebase/firestore.service';
 
@@ -14,5 +14,7 @@ import { FirestoreService } from 'src/services/database/firebase/firestore.servi
   ],
 })
 export class WelcomeComponent {
-  constructor() {}
+  constructor(cdRef: ChangeDetectorRef) {
+    cdRef.detach
+  }
 }

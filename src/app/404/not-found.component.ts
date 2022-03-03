@@ -12,7 +12,7 @@ import { StringResKeys } from './locale/string-res-keys';
 export class NotFoundComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   constructor(
-    cdRef: ChangeDetectorRef,
+     cdRef: ChangeDetectorRef,
     private title: Title,
     private localeService: LocaleService
   ) {
