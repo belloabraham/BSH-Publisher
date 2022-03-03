@@ -1,0 +1,35 @@
+@use '../../../../scss/components/logo'as *;
+@use '../../../../scss/variables/input'as *;
+@use '../../../../scss/variables/colors'as *;
+
+
+.logo {
+  @include logo;
+}
+
+.logout {
+  font-size: 1.3rem;
+  margin: 2rem;
+
+  &:hover {
+    color: $accent;
+  }
+
+}
+
+.illustration {
+  width: 15rem;
+  height: auto;
+}
+
+.parent {
+  gap: 4rem;
+}
+
+.children {
+  gap: 4rem;
+
+  button {
+    width: $input-width;
+  }
+}

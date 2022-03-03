@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Inject,
@@ -17,11 +16,11 @@ import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
-  selector: 'app-empty-book-store',
-  templateUrl: './empty-book-store.component.html',
-  styleUrls: ['./empty-book-store.component.scss'],
+  selector: 'app-empty-store',
+  templateUrl: './empty-store.component.html',
+  styleUrls: ['./empty-store.component.scss'],
 })
-export class EmptyBookStoreComponent implements OnInit, OnDestroy {
+export class EmptyStoreComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
   constructor(
@@ -29,9 +28,9 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
     private localeService: LocaleService,
     @Inject(USER_AUTH) private userAuth: IUserAuth,
     private router: Router,
-    cdRef:ChangeDetectorRef
+    cdRef: ChangeDetectorRef
   ) {
-    cdRef.detach
+    cdRef.detach;
   }
 
   ngOnInit(): void {

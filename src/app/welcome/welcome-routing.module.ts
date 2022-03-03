@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
 import { WelcomeComponent } from './welcome.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -20,8 +19,8 @@ const routes: Routes = [
       {
         path: Route.emptyBookStore,
         loadChildren: () =>
-          import('./empty-book-store/empty-book-store.module').then(
-            (m) => m.EmptyBookStoreModule
+          import('./book-store/book-store.module').then(
+            (m) => m.BookStoreModule
           ),
       },
       {
@@ -35,6 +34,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class WelcomeRoutingModule { }
+export class WelcomeRoutingModule {}
