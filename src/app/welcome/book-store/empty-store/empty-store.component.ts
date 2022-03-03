@@ -45,6 +45,10 @@ export class EmptyStoreComponent implements OnInit, OnDestroy {
       });
   }
 
+  publishBook() {
+    this.router.navigate([Route.root, Route.welcome, Route.emptyBookStore, Route.publishYourBook])
+  }
+
   logout() {
     this.userAuth.signOut().then(() => this.router.navigateByUrl(Route.root));
   }

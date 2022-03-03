@@ -1,0 +1,62 @@
+@forward '../../../scss/components/harmburger';
+@use '../../../scss/variables/colors' as *;
+
+$nav-width: 15rem;
+$tool-bar-height:3rem;
+
+.tool-bar{
+    height:  calc($tool-bar-height - 0.1rem);
+    z-index: 20;
+}
+
+.tool-bar-shadow{
+    height: $tool-bar-height;
+    z-index: 10;
+}
+
+
+.left-nav,.right-nav{
+z-index: 15;
+}
+
+//The sidenav itself
+.left-nav {
+  background-color: $secondary-dark;
+  display: inline-block;
+  position: fixed;
+  top: $tool-bar-height;
+  height: 100vh;
+  width: $nav-width;
+  left: -$nav-width;
+  transition: transform 0.3s;
+}
+
+//b. Nudge everything to the side
+.left-nav {
+  transition: transform 0.3s;
+  .sidenav-active & {
+    transform: translateX($nav-width);
+  }
+}
+
+.right-nav {
+  display: inline-block;
+  position: fixed;
+  top: $tool-bar-height;
+  height: 100vh;
+  width: $nav-width;
+  right: -$nav-width;
+  transition: transform 0.3s;
+}
+.right-nav {
+  transition: transform 0.3s;
+  .sidenav-active & {
+    transform: translateX($nav-width);
+  }
+}
+
+//c. Prevent body scroll
+.noscroll {
+  position: relative; //for ios
+  overflow: hidden;
+}

@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<div class="tool-bar fixed-top bg-white">
+<div class="menu-toggle">
+    <label class="menu-label" for="menu-checbox">
+        <input (change)="openLeftNav = !openLeftNav" type="checkbox" id="menu-checbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+</div>
+</div>
+
+<div class="tool-bar-shadow fixed-top shadow-sm"></div>
+
+
+<div [ngClass]="{'sidenav-active noscroll':openLeftNav}" >
+
+
+    <nav class="text-white left-nav">
+Hello
+    </nav>
+
+    <div class="main">
+      
+    </div>
+
+    <nav class="text-white right-nav" style="background-color: red;">
+        HI
+    </nav>
+
+</div>
+
+
