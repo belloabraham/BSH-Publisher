@@ -14,7 +14,8 @@ import { StringResKeys } from './locale/string-res-keys';
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
-  openLeftNav=true
+  openLeftNav = true
+  openRightNav = false
 
   constructor(
     private title: Title,
