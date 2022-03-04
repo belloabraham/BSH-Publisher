@@ -60,9 +60,12 @@
     "empty_book_store_title":"Empty Book Store - {{value}}",
     "empty_book_store_heading":"You currently have no book in the book store",
     "publish_a_book":"Publish a book",
-    "logout":"Logout",
+    "logout":"Log out",
 
 
-    "dashboard_title":"Dashboard - {{value}}"
+    "dashboard_title":"Dashboard - {{value}}",
+    "notifications":"Notifications",
+    "logout_all_dev":"Logout all devices",
+    "profile":"Profile"
 
 }

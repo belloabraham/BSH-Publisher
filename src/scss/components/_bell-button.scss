@@ -74,6 +74,7 @@ $size:1.1rem;
 
   span {
     position: relative;
+    user-select: none;
   }
 
   &::before {

@@ -1,11 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Route } from 'src/data/route';
 import { DashboardComponent } from './dashboard.component';
 
-const routes: Routes = [{ path: '', component: DashboardComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    component: DashboardComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: Route.myBooks,
+      },
+      {
+        path: Route.myBooks,
+        loadChildren: () =>
+          import('./my-books/my-books.module').then((m) => m.MyBooksModule),
+      },
+      {
+        path: Route.payment,
+        loadChildren: () =>
+          import('./payment/payment.module').then((m) => m.PaymentModule),
+      },
+      {
+        path: Route.collaborators,
+        loadChildren: () =>
+          import('./collaborators/collaborators.module').then(
+            (m) => m.CollaboratorsModule
+          ),
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

@@ -1,56 +1,114 @@
 @forward '../../../scss/components/harmburger';
 @forward '../../../scss/components/bell-button';
-@use '../../../scss/variables/colors' as *;
+@use '../../../scss/variables/colors'as *;
 
 $nav-width: 15rem;
 $tool-bar-height:3rem;
+$right-nav-width: calc($nav-width + 5rem);
 
-.tool-bar{
-    height:  calc($tool-bar-height - 0.1rem);
-    z-index: 20;
+
+.logo {
+  span {
+    font-size: 1.2rem;
+    color: black;
+  }
+
+  svg {
+    width: auto;
+    height: 2.2rem;
+  }
 }
 
-.tool-bar-shadow{
-    height: $tool-bar-height;
-    z-index: 10;
+.main {
+  min-height: 100vh;
+  padding-top: $tool-bar-height;
+  z-index: 1;
+  transition: transform 0.3s;
+}
+
+.notification-header {
+  h5 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+  }
+
+  background-color: $primary-dark;
+
+  svg {
+    stroke: white;
+  }
+}
+
+
+.tool-bar {
+  height: calc($tool-bar-height - 0.1rem);
+  z-index: 20;
+}
+
+.tool-bar-shadow {
+  height: $tool-bar-height;
+  z-index: 15;
 }
 
 
 //The sidenav itself
 .left-nav {
-  background-color: $secondary-dark;
+  background-color: $primary-dark;
   display: inline-block;
   position: fixed;
-  z-index: 15;
-  top: $tool-bar-height;
+  z-index: 10;
+  padding-top: $tool-bar-height;
   height: 100vh;
   width: $nav-width;
   left: -$nav-width;
   transition: transform 0.3s;
 }
 
-//b. Nudge everything to the side
-.left-nav {
+.toggle-main {
   transition: transform 0.3s;
-  .left-nav-active & {
-    transform: translateX($nav-width);
-  }
+  right: $nav-width;
+  transform: translateX($nav-width);
 }
+
+.toggle-left-nav {
+  transition: transform 0.3s;
+  transform: translateX($nav-width);
+}
+
 
 .right-nav {
   display: inline-block;
   position: fixed;
- // top: $tool-bar-height;
   height: 100vh;
   z-index: 25;
-  width: $nav-width;
-  right: -$nav-width;
+  width: $right-nav-width;
+  right: -$right-nav-width;
   transition: transform 0.3s;
 }
-.right-nav {
+
+.sidenav-active,
+.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  transition: background-color .3s, transform 0.3s;
+}
+
+.overlay {
+  z-index: 18;
+}
+
+.right-nav,
+.overlay {
   transition: transform 0.3s;
-  .right-nav-active & {
-    transform: translateX(-$nav-width);
+
+  .sidenav-active & {
+    transform: translateX(-$right-nav-width);
   }
 }
 
