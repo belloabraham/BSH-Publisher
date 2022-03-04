@@ -35,6 +35,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   openLeftNav = true;
   openRightNav = false;
 
+  collaborators = Route.collaborators
+  payment = Route.payment
+  myBooks = Route.myBooks
+
   constructor(
     private title: Title,
     private localeService: LocaleService,

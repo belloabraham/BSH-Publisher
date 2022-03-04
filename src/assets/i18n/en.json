@@ -69,6 +69,9 @@
     "profile":"Profile",
     "give_feedback":"Give feedback",
     "need_help":"Need Help?",
-    "contact_support":"Contact support Team"
+    "contact_support":"Contact support Team",
+    "my_books":"My Books",
+    "payment":"Payment",
+    "collaborators":"Collaborators"
 
 }
