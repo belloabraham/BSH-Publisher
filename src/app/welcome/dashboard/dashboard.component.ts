@@ -5,9 +5,13 @@ import { Config } from 'src/data/config';
 import { Route } from 'src/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH } from 'src/services/authentication/user-auth.token';
-import { DATABASE } from 'src/services/database/database.token';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
+import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
 import { IDatabase } from 'src/services/database/idatabase';
+import { FirebaseRemoteConfigService } from 'src/services/remote-config/firebase/firebase-remote-config.service';
+import { IRemoteConfig } from 'src/services/remote-config/i-remote-config';
+import { RemoteConfig } from 'src/services/remote-config/remote-config';
+import { REMOTE_CONFIG_IJTOKEN } from 'src/services/remote-config/remote.config.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
@@ -15,10 +19,18 @@ import { StringResKeys } from './locale/string-res-keys';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  providers: [
+    {
+      provide: REMOTE_CONFIG_IJTOKEN,
+      useClass: FirebaseRemoteConfigService,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
+  feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink)
+  helpLink= this.remoteConfig.getString(RemoteConfig.helpLink)
 
   openLeftNav = true;
   openRightNav = false;
@@ -26,9 +38,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    @Inject(DATABASE) private database: IDatabase,
-    @Inject(USER_AUTH) private userAuth: IUserAuth,
-    private router:Router
+    @Inject(DATABASE_IJTOKEN) private database: IDatabase,
+    @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,17 +52,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
   }
 
-
-   logout() {
-     this.userAuth.signOut()
-       .then(() => {
-         this.router.navigateByUrl(Route.root)
-       })
-   }
-  
-  logoutAllDevices() {
-    
+  logout() {
+    this.userAuth.signOut().then(() => {
+      this.router.navigateByUrl(Route.root);
+    });
   }
+
+  logoutAllDevices() {}
 
   private setTitle() {
     this.title.setTitle(

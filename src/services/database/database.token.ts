@@ -1,4 +1,4 @@
 import { inject, InjectionToken } from "@angular/core";
 import { IDatabase } from "./idatabase";
 
-export const DATABASE = new InjectionToken<IDatabase>('database');
+export const DATABASE_IJTOKEN = new InjectionToken<IDatabase>('database');

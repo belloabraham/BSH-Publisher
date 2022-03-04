@@ -15,7 +15,7 @@ import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH } from 'src/services/authentication/user-auth.token';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
@@ -40,7 +40,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(
     private title: Title,
-    @Inject(USER_AUTH) private userAuth: IUserAuth,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private localeService: LocaleService
   ) {}
 

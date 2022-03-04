@@ -66,6 +66,9 @@
     "dashboard_title":"Dashboard - {{value}}",
     "notifications":"Notifications",
     "logout_all_dev":"Logout all devices",
-    "profile":"Profile"
+    "profile":"Profile",
+    "give_feedback":"Give feedback",
+    "need_help":"Need Help?",
+    "contact_support":"Contact support Team"
 
 }

@@ -12,7 +12,7 @@ import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { ErrorCodes } from 'src/services/authentication/firebase/error-codes';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH } from 'src/services/authentication/user-auth.token';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from '../auth/locale/string-res-keys';
 
@@ -36,7 +36,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    @Inject(USER_AUTH) private userAuth: IUserAuth,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router
   ) {}
 

@@ -23,9 +23,9 @@ import { isValidPhone } from 'src/helpers/utils/validators';
 import { ICountry } from 'src/models/icountry';
 import { IUser } from 'src/models/iuser';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH } from 'src/services/authentication/user-auth.token';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { Collection } from 'src/services/database/collection';
-import { DATABASE } from 'src/services/database/database.token';
+import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
 import { IDatabase } from 'src/services/database/idatabase';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
@@ -68,8 +68,8 @@ export class CompleteSignUpComponent
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
-    @Inject(DATABASE) private database: IDatabase,
-    @Inject(USER_AUTH) private userAuth: IUserAuth
+    @Inject(DATABASE_IJTOKEN) private database: IDatabase,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {

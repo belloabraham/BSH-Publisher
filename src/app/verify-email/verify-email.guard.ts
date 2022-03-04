@@ -6,7 +6,7 @@ import { Route as Routes} from 'src/data/route';
 import { Settings } from 'src/data/settings';
 import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH } from 'src/services/authentication/user-auth.token';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 
 @Injectable({
   providedIn: Providers.any,
@@ -14,7 +14,7 @@ import { USER_AUTH } from 'src/services/authentication/user-auth.token';
 export class VerifyEmailGuard implements CanLoad {
   private userEmail = localStorage.getItem(Settings.userEmail);
 
-  constructor(@Inject(USER_AUTH) private userAuth: IUserAuth,  private router: Router) {}
+  constructor(@Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,  private router: Router) {}
 
    canLoad(
      route: Route,

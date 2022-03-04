@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { DATABASE } from 'src/services/database/database.token';
+import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
 import { FirestoreService } from 'src/services/database/firebase/firestore.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { FirestoreService } from 'src/services/database/firebase/firestore.servi
   styleUrls: ['./welcome.component.scss'],
   providers: [
     {
-      provide: DATABASE,
+      provide: DATABASE_IJTOKEN,
       useClass: FirestoreService,
     },
   ],

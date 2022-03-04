@@ -1,0 +1,67 @@
+
+$partial-white:#AFA5D9;
+$sm-nav-width: 68px;
+
+*,
+::before,
+::after {
+  box-sizing: border-box
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden
+}
+
+.nav_link {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  column-gap: 1rem;
+  padding: .5rem 0 .5rem 1.5rem
+}
+
+.nav_link {
+  position: relative;
+  color: $partial-white;
+  margin-bottom: 1.5rem;
+  transition: .3s
+}
+
+.nav_link:hover {
+  color: white
+}
+
+.nav_icon {
+  font-size: 1.25rem
+}
+
+.show {
+  left: 0
+}
+
+.active {
+  color: white
+}
+
+.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 2px;
+  height: 32px;
+  background-color: white
+}
+
+
+.l-navbar {
+  left: 0;
+  padding: 1rem 1rem 0 0
+}
+
+.show {
+  width: calc($sm-nav-width + 156px)
+}

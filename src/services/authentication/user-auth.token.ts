@@ -9,7 +9,7 @@ import { IUserAuth } from "./iuser-auth";
 
 
 
-export const USER_AUTH = new InjectionToken<IUserAuth>('user-auths', {
+export const USER_AUTH_IJTOKEN = new InjectionToken<IUserAuth>('user-auths', {
   providedIn: Providers.root,
   factory: () =>
     new UserAuthService(

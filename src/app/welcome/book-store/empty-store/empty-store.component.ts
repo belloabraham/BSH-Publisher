@@ -11,7 +11,7 @@ import { Config } from 'src/data/config';
 import { Route } from 'src/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH } from 'src/services/authentication/user-auth.token';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
@@ -26,7 +26,7 @@ export class EmptyStoreComponent implements OnInit, OnDestroy {
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    @Inject(USER_AUTH) private userAuth: IUserAuth,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
     cdRef: ChangeDetectorRef
   ) {
