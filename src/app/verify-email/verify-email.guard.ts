@@ -25,29 +25,28 @@ export class VerifyEmailGuard implements CanLoad {
     | boolean
     | UrlTree {
     
-     //*Check if user is autheneticated on the device already
+     //Check if user is autheneticated on the device already
     if (this.userAuth.getPubId()) {
       this.router.navigateByUrl(Routes.welcome);
       return false
-    } else if (this.userEmail) {//*check if the user sign in with mail on this device
+    } else if (this.userEmail) {//check if the user sign in with mail on this device
       return this.verifyEmailWithLink(this.userEmail);
     } else {
-      //*Allow navigation to verify email component
+      //Allow navigation to verify email component for email verification
       return true;
     }
   }
 
-  private async verifyEmailWithLink(email: string):Promise<boolean> {
-   return  this.userAuth.signInWithEmailLink(email, location.href)
-      .then(() => {
-        this.userAuth.signInWithEmailLink(email, location.href);
-        localStorage.removeItem(Settings.userEmail);
+  private async verifyEmailWithLink(email: string): Promise<boolean> {
+    try {
+      await this.userAuth.signInWithEmailLink(email, location.href);
+       localStorage.removeItem(Settings.userEmail);
       this.router.navigateByUrl(Routes.welcome);
-      return false
-      })
-      .catch(error => {
-        Logger.error('VerifyEmailGuard', 'verifyEmailWithLink', error);
-        return true;
-    })
+      return false;
+    } catch (error) {
+      //*Naviate to error page with error and page link
+       Logger.error('VerifyEmailGuard', 'verifyEmailWithLink', error);
+       return true;
+    }
   }
 }

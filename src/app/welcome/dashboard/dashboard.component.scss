@@ -9,7 +9,7 @@
 
 $nav-width: 14rem;
 $tool-bar-height:3rem;
-$right-nav-width: calc($nav-width + 5rem);
+$right-nav-width: 19rem;
 
 .root{
   font-family: Stickler;
@@ -23,7 +23,8 @@ $right-nav-width: calc($nav-width + 5rem);
   }
 }
 
-.top-toolbar {
+.top-toolbar,
+.tool-bar-shadow {
   left: $nav-width;
 }
 
@@ -40,7 +41,8 @@ $right-nav-width: calc($nav-width + 5rem);
   }
 
   .main,
-  .top-toolbar {
+  .top-toolbar,
+  .tool-bar-shadow {
     transition: transform 0.3s;
     right: -10rem;
     transform: translateX(-9.7rem);
@@ -96,7 +98,7 @@ $right-nav-width: calc($nav-width + 5rem);
   top: $tool-bar-height;
   right: 0;
   left: $nav-width;
-  z-index: 30;
+  z-index: 30;//5
   transition: transform 0.3s;
 }
 
@@ -118,12 +120,12 @@ $right-nav-width: calc($nav-width + 5rem);
 
 .tool-bar {
   height: $tool-bar-height;
-  z-index: 32;
+  z-index: 40; //15
 }
 
 .tool-bar-shadow {
   height: $tool-bar-height;
-  z-index: 31;
+  z-index: 35; //10
 }
 
 
@@ -132,7 +134,7 @@ $right-nav-width: calc($nav-width + 5rem);
   background-color: $primary-dark;
   display: inline-block;
   position: fixed;
-  z-index: 25;
+  z-index: 25;  //1
   height: 100vh;
   width: $nav-width;
   transition: transform 0.3s;
@@ -142,7 +144,7 @@ $right-nav-width: calc($nav-width + 5rem);
   display: inline-block;
   position: fixed;
   height: 100vh;
-  z-index: 35;
+  z-index: 50; //30
   top: $tool-bar-height;
   width: $right-nav-width;
   right: -$right-nav-width;
@@ -162,7 +164,7 @@ $right-nav-width: calc($nav-width + 5rem);
 }
 
 .overlay {
-  z-index: 33;
+  z-index: 45; //25
 }
 
 .right-nav,

@@ -10,6 +10,8 @@ export class PubDataGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
+    //*If find data save it to user data view model
+      //*If error navigate to error page passing route and error message
+      return true;
+    }
 }

@@ -140,7 +140,7 @@ export class CompleteSignUpComponent
          this.router.navigate([
            Route.root,
            Route.welcome,
-           Route.emptyBookStore,
+           Route.dashboard,
          ]);
      } catch (error: any) {
        Shield.remove();

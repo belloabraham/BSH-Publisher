@@ -5,16 +5,11 @@ import { Providers } from 'src/data/providers';
 import { Route as Routes } from 'src/data/route';
 import { Auth } from '@angular/fire/auth';
 
-
 @Injectable({
   providedIn: Providers.any,
 })
 export class NotAuthGuard implements CanLoad {
-
-  constructor(
-    @Optional() private auth: Auth,
-    private router: Router
-  ) {}
+  constructor(@Optional() private auth: Auth, private router: Router) {}
   canLoad(
     route: Route,
     segments: UrlSegment[]
@@ -24,12 +19,12 @@ export class NotAuthGuard implements CanLoad {
     | boolean
     | UrlTree {
     
-    //*If user is authenticated
+    //If user is authenticated
     if (this.auth.currentUser) {
       this.router.navigateByUrl(Routes.welcome);
       return false;
-    } 
-    
-      return true;
+    }
+
+    return true;
   }
 }

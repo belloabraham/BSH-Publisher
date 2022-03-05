@@ -6,7 +6,7 @@ import { Providers } from 'src/data/providers';
 @Injectable({
   providedIn: Providers.any
 })
-export class PubDataAndPublishedBookGuard implements CanLoad {
+export class PubDataGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
