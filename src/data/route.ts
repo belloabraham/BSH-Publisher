@@ -9,4 +9,5 @@ export class Route {
   static readonly myBooks = 'my-books';
   static readonly payment = 'payment';
   static readonly collaborators = 'collaborators';
+  static readonly profile = "profile";
 }

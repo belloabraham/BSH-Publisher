@@ -1,6 +1,7 @@
 @forward '../../../scss/components/harmburger';
 @forward '../../../scss/components/bell-button';
 @forward '../../../scss/components/side-nav-links';
+@forward '../../../scss/components/arrow_toggle_button';
 @use '../../../scss/variables/colors'as *;
 
 
@@ -9,9 +10,28 @@ $tool-bar-height:3rem;
 $right-nav-width: calc($nav-width + 5rem);
 
 
-.footer {
-  gap: .2rem;
+.collapse{
+ margin-bottom: 1rem;
+ label{
+   margin-left: .5rem;
+  transition: transform 0.3s;
+ }
+}
 
+.top-toolbar{
+  left: $nav-width;
+}
+
+
+.minimize {
+  span {
+    display: none;
+  }
+}
+
+.footer {
+  gap: .5rem;
+  padding: 1.5rem;
   a {
     font-size: 1rem;
   }
@@ -23,10 +43,11 @@ $right-nav-width: calc($nav-width + 5rem);
 }
 
 .logo {
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   padding-top: .3rem;
   font-size: 1.4rem;
   background-color: #160d27;
+  transition: transform 0.3s;
   svg {
     width: auto;
     height: 2.2rem;
@@ -35,8 +56,10 @@ $right-nav-width: calc($nav-width + 5rem);
 
 .main {
   min-height: 100vh;
-  padding-top: $tool-bar-height;
-  z-index: 1;
+  top: $tool-bar-height;
+   right: 0;
+   left: $nav-width;
+  z-index: 30;
   transition: transform 0.3s;
 }
 
@@ -58,13 +81,13 @@ $right-nav-width: calc($nav-width + 5rem);
 
 
 .tool-bar {
-  height: calc($tool-bar-height - 0.1rem);
-  z-index: 20;
+  height: $tool-bar-height;
+  z-index: 32;
 }
 
 .tool-bar-shadow {
   height: $tool-bar-height;
-  z-index: 15;
+  z-index: 31;
 }
 
 
@@ -73,32 +96,25 @@ $right-nav-width: calc($nav-width + 5rem);
   background-color: $primary-dark;
   display: inline-block;
   position: fixed;
-  z-index: 10;
+  z-index: 25;
   height: 100vh;
   width: $nav-width;
-  left: -$nav-width;
-  padding-top: $tool-bar-height;
   transition: transform 0.3s;
 }
 
-.toggle-main {
+.toggle-main,
+.toggle-navleft {
   transition: transform 0.3s;
-  right: $nav-width;
-  transform: translateX($nav-width);
+  right: -10rem;
+  transform: translateX(-9.7rem);
 }
-
-.toggle-left-nav {
-  transition: transform 0.3s;
-  transform: translateX($nav-width);
-}
-
 
 
 .right-nav {
   display: inline-block;
   position: fixed;
   height: 100vh;
-  z-index: 25;
+  z-index: 35;
   top: $tool-bar-height;
   width: $right-nav-width;
   right: -$right-nav-width;
@@ -117,9 +133,8 @@ $right-nav-width: calc($nav-width + 5rem);
   transition: background-color .3s, transform 0.3s;
 }
 
-
 .overlay {
-  z-index: 18;
+  z-index: 33;
 }
 
 .right-nav,

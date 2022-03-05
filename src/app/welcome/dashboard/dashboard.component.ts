@@ -32,12 +32,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink)
   helpLink= this.remoteConfig.getString(RemoteConfig.helpLink)
 
-  openLeftNav = true;
+  openLeftNav = false;
   openRightNav = false;
 
   collaborators = Route.collaborators
   payment = Route.payment
   myBooks = Route.myBooks
+  profile = Route.profile
 
   constructor(
     private title: Title,

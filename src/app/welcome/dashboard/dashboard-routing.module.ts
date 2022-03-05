@@ -30,6 +30,11 @@ const routes: Routes = [
             (m) => m.CollaboratorsModule
           ),
       },
+      {
+        path: Route.profile,
+        loadChildren: () =>
+          import('./profile/profile.module').then((m) => m.ProfileModule),
+      },
     ],
   },
 ];
