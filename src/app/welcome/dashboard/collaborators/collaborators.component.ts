@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-collaborators',
   templateUrl: './collaborators.component.html',
-  styleUrls: ['./collaborators.component.scss']
+  styleUrls: ['./collaborators.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CollaboratorsComponent implements OnInit {
-
+export class CollaboratorsComponent {
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

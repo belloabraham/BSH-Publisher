@@ -3,36 +3,57 @@
 @forward '../../../scss/components/side-nav-links';
 @forward '../../../scss/components/arrow_toggle_button';
 @use '../../../scss/variables/colors'as *;
+@use '../../../scss/visibility'as *;
+
 
 
 $nav-width: 14rem;
 $tool-bar-height:3rem;
 $right-nav-width: calc($nav-width + 5rem);
 
-
-.collapse{
- margin-bottom: 1rem;
- label{
-   margin-left: .5rem;
-  transition: transform 0.3s;
- }
+.root{
+  font-family: Stickler;
 }
 
-.top-toolbar{
+.collapse {
+  margin-bottom: 1rem;
+  label {
+    margin-left: .5rem;
+    transition: transform 0.3s;
+  }
+}
+
+.top-toolbar {
   left: $nav-width;
 }
 
 
 .minimize {
-  span {
-    display: none;
+  .app-name {
+    @include hideWithEase(0.3s)
   }
+
+  .footer {
+    span {
+      display: none;
+    }
+  }
+
+  .main,
+  .top-toolbar {
+    transition: transform 0.3s;
+    right: -10rem;
+    transform: translateX(-9.7rem);
+  }
+
 }
 
 .footer {
+  padding: 1.5rem 0;
   gap: .5rem;
-  padding: 1.5rem;
+  
   a {
+    padding: 0 1.5rem;
     font-size: 1rem;
   }
 
@@ -48,17 +69,33 @@ $right-nav-width: calc($nav-width + 5rem);
   font-size: 1.4rem;
   background-color: #160d27;
   transition: transform 0.3s;
+
   svg {
     width: auto;
     height: 2.2rem;
   }
 }
 
+.logout {
+  font-size: 1.5rem;
+  &:hover {
+    color: $primary;
+  }
+  svg{
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+}
+
+.notification-count{
+  font-family: Berlin;
+}
+
 .main {
   min-height: 100vh;
   top: $tool-bar-height;
-   right: 0;
-   left: $nav-width;
+  right: 0;
+  left: $nav-width;
   z-index: 30;
   transition: transform 0.3s;
 }
@@ -66,10 +103,9 @@ $right-nav-width: calc($nav-width + 5rem);
 .notification-header {
   height: 2.5rem;
 
-  h5 {
+  h4 {
     margin: 0;
     padding: 0;
-    font-size: 1.3rem;
   }
 
   background-color: $primary-dark;
@@ -101,14 +137,6 @@ $right-nav-width: calc($nav-width + 5rem);
   width: $nav-width;
   transition: transform 0.3s;
 }
-
-.toggle-main,
-.toggle-navleft {
-  transition: transform 0.3s;
-  right: -10rem;
-  transform: translateX(-9.7rem);
-}
-
 
 .right-nav {
   display: inline-block;

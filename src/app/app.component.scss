@@ -1,4 +1,9 @@
 @forward '../scss/components/indeterminate-progress';
 @forward '../scss/components/warning-panel';
+@use '../scss/visibility'as *;
 @import '../scss/components/preloader';
 
+
+.show {
+  @include showWithEase(.4s)
+}

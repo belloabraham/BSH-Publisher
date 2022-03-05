@@ -1,6 +1,6 @@
-<div *transloco="let t" [ngClass]="{'sidenav-active noscroll':openRightNav}">
+<div *transloco="let t" [ngClass]="{'sidenav-active noscroll':openRightNav, 'minimize':openLeftNav}" class="root">
 
-    <div [ngClass]="{'toggle-navleft':openLeftNav}" class="tool-bar fixed-top bg-white d-flex top-toolbar">
+    <div  class="tool-bar fixed-top bg-white d-flex top-toolbar">
 
         <div class="w-50 d-flex align-items-center">
            
@@ -9,20 +9,12 @@
 
         <div class="w-50 d-flex justify-content-end align-items-center pr-1">
 
-            <div class="btn-group">
-                <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Abraham
-                </button>
-                <ul class="dropdown-menu">
-                    <li><button (click)="logout()" class="dropdown-item">{{ t('logout') }}</button></li>
-                    <li><button class="dropdown-item">{{ t('profile') }}</button></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><button (click)="logoutAllDevices()" class="dropdown-item">{{ t('logout_all_dev') }}</button>
-                    </li>
-                </ul>
-            </div>
+            <button class="btn logout m-1" (click)="logout()">
+                <svg  viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
+                </svg> {{t('logout')}}
+            </button>
 
             <div (click)="openRightNav = !openRightNav" class="bell-icon">
                 <svg version="1.1" x="0px" y="0px" width="50px" height="30px" viewBox="0 0 50 30"
@@ -37,13 +29,12 @@
                     </g>
                 </svg>
 
-                <div class="notification-amount">
+                <div class="notification-count">
                     <span>1</span>
                 </div>
 
             </div>
         </div>
-
 
     </div>
 
@@ -72,8 +63,8 @@
                         transform="translate(-25.34 24.38)" fill="#fff" fill-rule="evenodd" />
                 </svg>
 
-                <span [ngClass]="{'d-none':openLeftNav}">
-                    ookshelf Hub
+                <span class="app-name">
+                    {{ t('app_name') | slice:1}}
                 </span>
 
             </div>
@@ -122,8 +113,8 @@
                 </div>
             </div>
 
-            <footer class="d-flex flex-column footer" [ngClass]="{'minimize':openLeftNav}"  >
-
+            <footer class="d-flex flex-column footer"   >
+<hr>
 
                 <a [href]="helpLink" class="text-muted" target="_blank"><span> {{ t('need_help') }} </span>   <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -147,12 +138,9 @@
 
     </div>
 
-    <div [ngClass]="{'toggle-main':openLeftNav}" class="main fixed-top bg-light">
+    <div class="main fixed-top bg-light">
 
-        <p style="font-size: 3rem;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi exercitationem
-            voluptas iste atque tempore quibusdam voluptatem ut, ipsum, voluptatum corporis rem quia eum saepe debitis
-            rerum quo quod ratione. A.</p>
-
+    
         <router-outlet></router-outlet>
 
 
@@ -163,7 +151,7 @@
         <div class="notification-header text-white">
             <div class="d-flex align-items-center justify-content-between h-100 ph-1">
 
-                <h5 class=" no-select">{{ t('notifications') }}</h5>
+                <h4 class=" no-select">{{ t('notifications') }}</h4>
 
             </div>
             <hr>

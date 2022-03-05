@@ -46,7 +46,7 @@
       animation: animateBall 2.3s;
     }
 
-    .notification-amount {
+    .notification-count {
       &::before {
         animation-name: bounce;
         animation-delay: 450ms;
@@ -57,7 +57,7 @@
 
 $size:1.1rem;
 
-.notification-amount {
+.notification-count {
   cursor: pointer;
   position: absolute;
   top: 20%;

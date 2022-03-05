@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
   selector: 'app-my-books',
   templateUrl: './my-books.component.html',
-  styleUrls: ['./my-books.component.scss']
+  styleUrls: ['./my-books.component.scss'],
 })
-export class MyBooksComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+export class MyBooksComponent {
+  constructor(cdRef: ChangeDetectorRef) {
+    cdRef.detach
   }
-
 }

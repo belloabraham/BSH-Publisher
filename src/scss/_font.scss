@@ -7,11 +7,18 @@
     font-style: normal;
 }
 
+@font-face {
+  font-family: 'Berlin';
+  src: url('../assets/fonts/Berlin-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 body{
-    font-family: Stickler,
+    font-family: Berlin,
     Helvetica,
     sans-serif;
-    font-size: 1rem;
 }
 html{
     scroll-behavior: smooth;
@@ -19,4 +26,9 @@ html{
     @include hiResDisp{
         font-size: 150%
     }
+}
+
+
+button{
+    font-family: Stickler;
 }
