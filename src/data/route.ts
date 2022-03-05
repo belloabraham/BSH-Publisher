@@ -10,4 +10,5 @@ export class Route {
   static readonly payment = 'payment';
   static readonly collaborators = 'collaborators';
   static readonly profile = "profile";
+  static readonly error ="error"
 }

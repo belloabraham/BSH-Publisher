@@ -35,6 +35,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
+      {
+        path: Route.error,
+        loadChildren: () =>
+          import('../../shared/error/error.module').then((m) => m.ErrorModule),
+      },
     ],
   },
 ];

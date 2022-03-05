@@ -27,6 +27,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: Route.error,
+    loadChildren: () =>
+      import('./shared/error/error.module').then((m) => m.ErrorModule),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./404/not-found.module').then((m) => m.NotFoundModule),
@@ -35,6 +40,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

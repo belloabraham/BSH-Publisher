@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
+      {
+        path: Route.error,
+        loadChildren: () =>
+          import('../shared/error/error.module').then((m) => m.ErrorModule),
+      },
     ],
   },
 ];
