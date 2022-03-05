@@ -1,7 +1,9 @@
-<div class="shield">
-<div *ngIf="isLoading$ | async"  class="indeterminate-progress bg-primary">
-    <div class="indeterminate"></div>
+
+<div *ngIf="isLoading$ | async" class="indeterminate-progress bg-primary fixed-top">
+  <div class="indeterminate"></div>
 </div>
+
+<div class="shield">
 
 <div *ngIf="isStarting$ | async"  class="preloader bg-light">
     <div class="mosaic-loader">

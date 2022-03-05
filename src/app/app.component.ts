@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import {  NavigationEnd, ResolveEnd, ResolveStart, Router } from '@angular/router';
+import {  NavigationEnd, NavigationStart, ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import { merge, Observable, of } from 'rxjs';
-import { delay, filter, map, mapTo } from 'rxjs/operators';
+import { delay, filter, map, mapTo, tap } from 'rxjs/operators';
 import { Config } from 'src/data/config';
 
 import { Languages } from 'src/data/languages';
@@ -37,15 +37,15 @@ export class AppComponent implements OnInit, OnDestroy {
         
     this.isNotConnected$ = this.connectionService
       .monitor()
-      .pipe(map((x) => !x));
+      .pipe(map((connected) => !connected));
 
     this.showLoaderEvent$ = this.router.events.pipe(
-      filter((e) => e instanceof ResolveStart),
+      filter((e) => e instanceof NavigationStart),
       mapTo(true)
     );
 
     this.hideLoaderEvent$ = this.router.events.pipe(
-      filter((e) => e instanceof ResolveEnd),
+      filter((e) => e instanceof NavigationEnd),
       mapTo(false)
     );
 

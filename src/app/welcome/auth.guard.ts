@@ -1,6 +1,6 @@
 import { Injectable, Optional } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 import { Providers } from 'src/data/providers';
 import { Route as Routes } from 'src/data/route';
 import { Auth } from '@angular/fire/auth';

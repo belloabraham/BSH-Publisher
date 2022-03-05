@@ -3,15 +3,11 @@
     animation-delay: 200ms;
     animation-name: fast-network-delay;
     animation-fill-mode: both;
-    position: absolute;
     z-index: 20;
-    top: 0;
-    right: 0;
     pointer-events: none;
     width: 100%;
     overflow: hidden;
-    left: 0;
-    height: .2rem;
+    height: 2px;
     box-shadow: none;
     .indeterminate {
     background-color: #ffe5d0;

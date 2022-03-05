@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ResolveEnd, ResolveStart, Router } from '@angular/router';
+import { filter, mapTo, merge, Observable } from 'rxjs';
 import { Config } from 'src/data/config';
 import { Route } from 'src/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
@@ -29,16 +31,20 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink)
-  helpLink= this.remoteConfig.getString(RemoteConfig.helpLink)
+  feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
+  helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
   openLeftNav = false;
   openRightNav = false;
 
-  collaborators = Route.collaborators
-  payment = Route.payment
-  myBooks = Route.myBooks
-  profile = Route.profile
+  collaborators = Route.collaborators;
+  payment = Route.payment;
+  myBooks = Route.myBooks;
+  profile = Route.profile;
+
+  private showLoaderEvent$!: Observable<boolean>;
+  private hideLoaderEvent$!: Observable<boolean>;
+
 
   constructor(
     private title: Title,
@@ -54,6 +60,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
+      });
+
+    this.showLoaderEvent$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveStart),
+      mapTo(true)
+    );
+
+    this.hideLoaderEvent$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveEnd),
+      mapTo(false)
+    );
+
+    this.subscriptions.sink = merge(this.hideLoaderEvent$, this.showLoaderEvent$)
+      .subscribe(isResolving => {
+        if (isResolving) {
+          Shield.standard('.dashboard-main', 'Loading please wait...');
+        } else {
+          Shield.remove('.dashboard-main');
+        }
       });
   }
 
