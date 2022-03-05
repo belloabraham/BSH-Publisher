@@ -1,5 +1,3 @@
-@forward '../../../scss/components/harmburger';
-@forward '../../../scss/components/bell-button';
 @forward '../../../scss/components/side-nav-links';
 @forward '../../../scss/components/arrow_toggle_button';
 @use '../../../scss/variables/colors'as *;
@@ -11,12 +9,13 @@ $nav-width: 14rem;
 $tool-bar-height:3rem;
 $right-nav-width: 19rem;
 
-.root{
+.root {
   font-family: Stickler;
 }
 
-.collapse {
+.collapse-icon {
   margin-bottom: 1rem;
+
   label {
     margin-left: .5rem;
     transition: transform 0.3s;
@@ -25,13 +24,28 @@ $right-nav-width: 19rem;
 
 .top-toolbar,
 .tool-bar-shadow {
-  left: $nav-width;
+  margin-left: $nav-width;
+  height: $tool-bar-height;
 }
 
+.tool-bar {
+  z-index: 40;
+}
 
+.tool-bar-shadow {
+  z-index: 35;
+}
+
+//*Changes when left nav collapse
 .minimize {
-  .app-name {
-    @include hideWithEase(0.3s)
+
+  .logo {
+    span {
+      display: none;
+    }
+    svg{
+      padding-bottom: .3rem;
+    }
   }
 
   .footer {
@@ -40,12 +54,15 @@ $right-nav-width: 19rem;
     }
   }
 
+  .left-nav {
+    width: 4.3rem;
+  }
+
   .main,
   .top-toolbar,
   .tool-bar-shadow {
     transition: transform 0.3s;
-    right: -10rem;
-    transform: translateX(-9.7rem);
+    margin-left: 4.3rem;
   }
 
 }
@@ -53,10 +70,10 @@ $right-nav-width: 19rem;
 .footer {
   padding: 1.5rem 0;
   gap: .5rem;
-  
+
   a {
     padding: 0 1.5rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   svg {
@@ -70,8 +87,9 @@ $right-nav-width: 19rem;
   padding-top: .3rem;
   font-size: 1.4rem;
   background-color: #160d27;
-  transition: transform 0.3s;
-
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: baseline;
   svg {
     width: auto;
     height: 2.2rem;
@@ -80,117 +98,35 @@ $right-nav-width: 19rem;
 
 .logout {
   font-size: 1.5rem;
+
   &:hover {
     color: $primary;
   }
-  svg{
+
+  svg {
     width: 1.7rem;
     height: 1.7rem;
   }
 }
 
-.notification-count{
-  font-family: Berlin;
-}
 
 .main {
-  min-height: 100vh;
-  top: $tool-bar-height;
-  right: 0;
-  left: $nav-width;
-  z-index: 30;//5
+  margin-top: $tool-bar-height;
+  margin-left: $nav-width;
+  position: relative;
+  font-family: Berlin;
   transition: transform 0.3s;
 }
 
-.notification-header {
-  height: 2.5rem;
-
-  h4 {
-    margin: 0;
-    padding: 0;
-  }
-
-  background-color: $primary-dark;
-
-  svg {
-    stroke: white;
-  }
-}
-
-
-.tool-bar {
-  height: $tool-bar-height;
-  z-index: 40; //15
-}
-
-.tool-bar-shadow {
-  height: $tool-bar-height;
-  z-index: 35; //10
-}
-
-
-//The sidenav itself
 .left-nav {
   background-color: $primary-dark;
-  display: inline-block;
   position: fixed;
-  z-index: 25;  //1
-  height: 100vh;
-  width: $nav-width;
-  transition: transform 0.3s;
-}
-
-.right-nav {
-  display: inline-block;
-  position: fixed;
-  height: 100vh;
-  z-index: 50; //30
-  top: $tool-bar-height;
-  width: $right-nav-width;
-  right: -$right-nav-width;
-  transition: transform 0.3s;
-}
-
-.sidenav-active,
-.overlay {
-  background-color: rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  transition: background-color .3s, transform 0.3s;
-}
-
-.overlay {
-  z-index: 45; //25
-}
-
-.right-nav,
-.overlay {
-  transition: transform 0.3s;
-
-  .sidenav-active & {
-    transform: translateX(-$right-nav-width);
-  }
-}
-
-//c. Prevent body scroll
-.noscroll {
-  position: relative; //for ios
+  z-index: 25;
   overflow: hidden;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  transition: .3s;
+  width: $nav-width;
 }
 
-
-
-:root {
-  --header-height: 3rem;
-  --nav-width: 68px;
-  --first-color: #4723D9;
-  --first-color-light: #AFA5D9;
-  --white-color: #F7F6FB;
-  --body-font: 'Nunito', sans-serif;
-  --normal-font-size: 1rem;
-  --z-fixed: 100
-}

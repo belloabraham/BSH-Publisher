@@ -28,7 +28,6 @@ $sm-nav-width: 68px;
   }
 }
 
-
 .nav_link {
   position: relative;
   color: $partial-white;
@@ -38,10 +37,6 @@ $sm-nav-width: 68px;
 
 .nav_link:hover {
   color: white
-}
-
-.show {
-  left: 0
 }
 
 .active {
@@ -57,12 +52,3 @@ $sm-nav-width: 68px;
   background-color: white
 }
 
-
-.l-navbar {
-  left: 0;
-  padding: 1rem 1rem 0 0
-}
-
-.show {
-  width: calc($sm-nav-width + 156px)
-}

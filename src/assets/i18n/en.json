@@ -67,11 +67,12 @@
     "notifications":"Notifications",
     "logout_all_dev":"Logout all devices",
     "profile":"Profile",
-    "give_feedback":"Give feedback",
+    "give_feedback":"Give Feedback",
     "need_help":"Need Help?",
     "contact_support":"Contact support Team",
     "my_books":"My Books",
     "payment":"Payment",
-    "collaborators":"Collaborators"
+    "collaborators":"Collaborators",
+    "add_your_book":"Add your book"
 
 }
