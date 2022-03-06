@@ -5,6 +5,7 @@ import { filter, mapTo, merge, Observable } from 'rxjs';
 import { Config } from 'src/data/config';
 import { Route } from 'src/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
@@ -31,8 +32,8 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
-  helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
+  feedbackLink = ''
+  helpLink = ''
 
   openLeftNav = false;
   openRightNav = false;
@@ -55,12 +56,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
       });
+    
+    this.fetchRemoteConfigs()
 
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
@@ -88,7 +91,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  logoutAllDevices() {}
+
+  private fetchRemoteConfigs() {
+    try {
+        this.feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
+        this.helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
+    } catch (error) {
+      Logger.error(this, 'fetchRemoteConfigs', error);
+    }
+  }
 
   private setTitle() {
     this.title.setTitle(
