@@ -2,12 +2,9 @@
 @forward '../../../scss/components/arrow_toggle_button';
 @use '../../../scss/variables/colors'as *;
 @use '../../../scss/visibility'as *;
+@use '../../../scss/variables/sidenav'as *;
+@use '../../../scss/variables/toolbar'as *;
 
-
-
-$nav-width: 14rem;
-$tool-bar-height:3rem;
-$right-nav-width: 19rem;
 
 .root {
   font-family: Stickler;
@@ -15,17 +12,16 @@ $right-nav-width: 19rem;
 
 .collapse-icon {
   margin-bottom: 1rem;
-
   label {
     margin-left: .5rem;
-    transition: transform 0.3s;
+    transition:  0.3s;
   }
 }
-
 .top-toolbar,
 .tool-bar-shadow {
   margin-left: $nav-width;
   height: $tool-bar-height;
+  transition: .3s;
 }
 
 .tool-bar {
@@ -36,8 +32,20 @@ $right-nav-width: 19rem;
   z-index: 35;
 }
 
+
 //*Changes when left nav collapse
 .minimize {
+
+.main,
+.top-toolbar,
+.tool-bar-shadow {
+  margin-left: 4.3rem;
+}
+
+
+  .left-nav {
+    width: 4.3rem;
+  }
 
   .logo {
     span {
@@ -54,17 +62,7 @@ $right-nav-width: 19rem;
     }
   }
 
-  .left-nav {
-    width: 4.3rem;
-  }
-
-  .main,
-  .top-toolbar,
-  .tool-bar-shadow {
-    transition: transform 0.3s;
-    margin-left: 4.3rem;
-  }
-
+  
 }
 
 .footer {
@@ -87,6 +85,7 @@ $right-nav-width: 19rem;
   padding-top: .3rem;
   font-size: 1.4rem;
   background-color: #160d27;
+  transition: .3s;
   display: grid;
   grid-template-columns: max-content max-content;
   align-items: baseline;
@@ -129,4 +128,3 @@ $right-nav-width: 19rem;
   transition: .3s;
   width: $nav-width;
 }
-
