@@ -36,6 +36,13 @@ const routes: Routes = [
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
       {
+        path: Route.notifications,
+        loadChildren: () =>
+          import('./notifications/notifications.module').then(
+            (m) => m.NotificationsModule
+          ),
+      },
+      {
         path: Route.error,
         loadChildren: () =>
           import('../../shared/error/error.module').then((m) => m.ErrorModule),

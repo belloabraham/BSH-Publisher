@@ -24,7 +24,7 @@
 
     <div class="text-white left-nav d-flex flex-column justify-content-between" id="nav-bar">
 
-        <a class="text-white logo" routerLink="/">
+        <a class="text-gray-100 logo" routerLink="/">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.68 177.63">
                 <path d="M25.34,13.51c1.88,0,103.63-23.77,104.55-24.32V-24C127.56-23.89,26.78,13.47,25.34,13.51Z"
                     transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
@@ -35,10 +35,10 @@
                     transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
                 <path
                     d="M33.13,51c15.9-16.75,35-28.81,60.92-32.45C113.29,17.14,134.17,33,128.4,64.74c0,7.84,6,4.17,11.47.92,1.65-.7,3.81-1.83,5.57-2.51A59.54,59.54,0,0,1,152.63,61c7.28-.72,23.33,7.27,18.49,23.83-4.23,22.17-15.35,41.77-28.74,60.53-2.1-.82-3.5,1.34-4.81,0-4.55-4.57-5.13-17.31-1.41-25.3,1.53.2,3.28,1,4.87-.77,5.31-5.79,11.64-19.65,9.76-30.92-10.91,3.64-34.09,22-36,33.13-1.33,7.76.7,12.84,6.23,15.47a20.3,20.3,0,0,1,4.89,16.28c-7.26-2-15.79-10.37-23.69-15.56-2.63-.2-5.9-1.81-11-7.5C75,111.66,66.2,92.68,49,75.9c-1.18-1.85-3.76,3.19-7,.72-4.47-3.43-8.71-5.76-13.42-10.29L27,57.62c-.12-.64,4.26-5,6.11-6.64Zm31.26,5.74c7.07-6.09,14.39-10.33,22.18-11.07,4,.1,6,1.43,6,4,0,5.72-1,13.32-1.43,19.28l-3,28.74C77.23,86.35,68.66,76.81,63.25,66.53c-3-5.75-3-6.21,1.14-9.81Z"
-                    transform="translate(-25.34 24.38)" fill="#fff" fill-rule="evenodd" />
+                    transform="translate(-25.34 24.38)" fill="currentColor" fill-rule="evenodd" />
             </svg>
 
-            <span >
+            <span>
                 {{ t('app_name') | slice:1}}
             </span>
         </a>
@@ -48,6 +48,7 @@
         <nav class="nav mt-2">
             <div>
                 <div class="nav_list">
+
                     <a [routerLink]="myBooks" [routerLinkActive]="'active'" class="nav_link">
                         <svg viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -55,6 +56,21 @@
                         </svg>
                         <span class="nav_name">{{ t('my_books') }}</span>
                     </a>
+
+
+                    <a [routerLink]="notifications" [routerLinkActive]="'active'" class="nav_link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 21">
+                            <path fill="currentColor" [ngClass]="{'fill-notification': true }"
+                                d="M21,6.5A3.5,3.5,0,1,1,17.5,3,3.5,3.5,0,0,1,21,6.5" transform="translate(-3 -2)" />
+                            <path fill="currentColor"
+                                d="M19,11.79a6,6,0,0,1-1.5.21,5.51,5.51,0,0,1-4-9.29A1.93,1.93,0,0,0,12,2a2,2,0,0,0-2,2v.29A7,7,0,0,0,5,11v6L3,19v1H21V19l-2-2V11.79"
+                                transform="translate(-3 -2)" />
+                            <path fill="currentColor" d="M12,23a2,2,0,0,0,2-2H10A2,2,0,0,0,12,23Z"
+                                transform="translate(-3 -2)" />
+                        </svg>
+                        <span class="nav_name">{{ t('notifications') }}</span>
+                    </a>
+
                     <a [routerLink]="payment" [routerLinkActive]="'active'" class="nav_link">
                         <svg viewBox="0 0 24 24">
                             <path fill="currentColor"

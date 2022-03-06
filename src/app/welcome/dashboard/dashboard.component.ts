@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { filter, mapTo, merge, Observable } from 'rxjs';
@@ -32,8 +38,6 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  feedbackLink = ''
-  helpLink = ''
 
   openLeftNav = false;
   openRightNav = false;
@@ -42,10 +46,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   payment = Route.payment;
   myBooks = Route.myBooks;
   profile = Route.profile;
+  notifications= Route.notifications
 
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;
 
+  feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
+  helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
   constructor(
     private title: Title,
@@ -56,14 +63,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
       });
-    
-    this.fetchRemoteConfigs()
 
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
@@ -75,30 +80,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
       mapTo(false)
     );
 
-    this.subscriptions.sink = merge(this.hideLoaderEvent$, this.showLoaderEvent$)
-      .subscribe(isResolving => {
-        if (isResolving) {
-          Shield.standard('.dashboard-main', 'Loading please wait...');
-        } else {
-          Shield.remove('.dashboard-main');
-        }
-      });
+    this.subscriptions.sink = merge(
+      this.hideLoaderEvent$,
+      this.showLoaderEvent$
+    ).subscribe((isResolving) => {
+      if (isResolving) {
+        Shield.standard('.dashboard-main', 'Loading please wait...');
+      } else {
+        Shield.remove('.dashboard-main');
+      }
+    });
   }
 
   logout() {
     this.userAuth.signOut().then(() => {
       this.router.navigateByUrl(Route.root);
     });
-  }
-
-
-  private fetchRemoteConfigs() {
-    try {
-        this.feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
-        this.helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
-    } catch (error) {
-      Logger.error(this, 'fetchRemoteConfigs', error);
-    }
   }
 
   private setTitle() {
