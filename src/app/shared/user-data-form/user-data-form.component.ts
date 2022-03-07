@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { countries } from 'src/data/countries';
@@ -21,9 +28,11 @@ import { IDatabase } from 'src/services/database/idatabase';
   styleUrls: ['./user-data-form.component.scss'],
 })
 export class UserDataFormComponent implements OnInit {
-  
   @Input()
   userDataForm!: FormGroup;
+
+  @Input()
+  action!: string;
 
   @Output()
   dataUpdatedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -52,8 +61,8 @@ export class UserDataFormComponent implements OnInit {
     this.phoneFC = this.userDataForm.get('phoneFC') as FormControl;
   }
 
-   onDataUpdate(isSuccessful:boolean) {
-    this.dataUpdatedEvent.emit(isSuccessful)
+  onDataUpdate(isSuccessful: boolean) {
+    this.dataUpdatedEvent.emit(isSuccessful);
   }
 
   static getUserDataForm() {
@@ -95,12 +104,12 @@ export class UserDataFormComponent implements OnInit {
 
         Shield.remove();
 
-        this.onDataUpdate(true)
+        this.onDataUpdate(true);
         //  this.router.navigate([Route.root, Route.welcome, Route.dashboard]);
       } catch (error: any) {
         Shield.remove();
         Logger.error(this, 'submitFormData', error);
-        this.onDataUpdate(false)
+        this.onDataUpdate(false);
         // AlertDialog.error(this.submitFormErrorMsg, this.error, this.ok);
       }
     } else {

@@ -15,8 +15,10 @@ import { NotificationBuilder } from '../../../../helpers/utils/notification/noti
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit, ICanDeactivate {
+
   profileForm!: FormGroup;
   userDataForm!: FormGroup;
+  action = '';
 
   canExitRoute = new Subject<boolean>();
 
@@ -55,6 +57,8 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     this.updatedSucessMsg = this.localeService.translate(
       StringResKeys.profileUpdatedSuccessMsg
     );
+
+     this.action = this.localeService.translate(StringResKeys.update);
   }
 
   onDataUpdate(isSuccessful: boolean) {

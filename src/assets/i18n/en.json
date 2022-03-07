@@ -75,7 +75,8 @@
     "collaborators":"Collaborators",
     "add_your_book":"Add your book",
 
-    "profile_updated_sucess_msg":"Profile information updated successfuly",
-    "profile_update_failed_msg":"Unable to update your profile information, check your internet connection and try again"
+    "profile_updated_sucess_msg":"Profile updated successfuly",
+    "profile_update_failed_msg":"Oops, unable to update your profile, check your internet connection and try again",
+    "update":"Update"
 
 }
