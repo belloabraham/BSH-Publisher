@@ -1,5 +1,15 @@
 @use './mixins' as *;
 
+$system-font: system-ui,
+-apple-system,
+"Segoe UI",
+Roboto,
+"Helvetica Neue",
+Arial,
+"Noto Sans",
+"Liberation Sans",
+sans-serif;
+
 @font-face {
     font-family: 'Stickler';
     src: url('../assets/fonts/Stickler-Pro.woff2') format('woff2');
@@ -7,19 +17,7 @@
     font-style: normal;
 }
 
-@font-face {
-  font-family: 'Berlin';
-  src: url('../assets/fonts/Berlin-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
 
-
-body{
-    font-family: Stickler,
-    Helvetica,
-    sans-serif;
-}
 html{
     scroll-behavior: smooth;
     font-size: 100%;
@@ -29,6 +27,6 @@ html{
 }
 
 
-input, select{
-    font-family: Berlin;
+body{
+    font-family: $system-font;
 }

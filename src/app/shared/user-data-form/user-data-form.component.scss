@@ -1,4 +1,5 @@
 @use '../../../scss/variables/input'as *;
+@use '../../../scss/font' as *;
 
 
 .input-group {
@@ -20,7 +21,8 @@ input {
 }
 
 .form {
-  border-radius: 0;
+  
+  font-family: $system-font;
 
   .form-label {
     margin-top: .2rem;
