@@ -1,6 +1,8 @@
 @use './mixins' as *;
 
-$system-font: system-ui,
+$system-font: Stickler;
+
+$system-font2: system-ui,
 -apple-system,
 "Segoe UI",
 Roboto,
@@ -28,5 +30,5 @@ html{
 
 
 body{
-    font-family: $system-font;
+    font-family: Stickler;
 }
