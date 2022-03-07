@@ -34,6 +34,12 @@ export class UserDataFormComponent implements OnInit {
   @Input()
   action!: string;
 
+  @Input()
+  lastUpdated: any;
+
+  @Input()
+  registeredDate: any;
+
   @Output()
   dataUpdatedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -78,7 +84,7 @@ export class UserDataFormComponent implements OnInit {
 
   async submitFormData() {
     if (this.isValidPhoneNumber(this.phoneFC.value)) {
-      Shield.standard();
+      Shield.standard('.form');
 
       this.isInvalidPhoneNum = false;
 
@@ -92,9 +98,9 @@ export class UserDataFormComponent implements OnInit {
         nationality: this.countryFC.value,
         phoneNumber: this.phoneFC.value,
         email: email,
-        registeredDate: serverTimestamp(),
+        registeredDate: this.registeredDate,
+        lastUpdated: this.lastUpdated,
       };
-
       try {
         await this.database.addDocData<IUser>(
           Collection.publishers,
@@ -102,15 +108,13 @@ export class UserDataFormComponent implements OnInit {
           user
         );
 
-        Shield.remove();
+        Shield.remove('.form');
 
         this.onDataUpdate(true);
-        //  this.router.navigate([Route.root, Route.welcome, Route.dashboard]);
       } catch (error: any) {
-        Shield.remove();
+        Shield.remove('.form');
         Logger.error(this, 'submitFormData', error);
         this.onDataUpdate(false);
-        // AlertDialog.error(this.submitFormErrorMsg, this.error, this.ok);
       }
     } else {
       this.isInvalidPhoneNum = true;

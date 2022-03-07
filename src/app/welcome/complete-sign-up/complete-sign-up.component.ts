@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { serverTimestamp } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -22,14 +23,14 @@ import { StringResKeys } from './locale/string-res-keys';
   styleUrls: ['./complete-sign-up.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompleteSignUpComponent
-  implements OnInit, OnDestroy
-{
+export class CompleteSignUpComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
   completeSignUpForm!: FormGroup;
   userDataForm!: FormGroup;
-  action=''
+  action = '';
+  registeredDate = serverTimestamp();
+  lastUpdated = null;
 
   canExitRoute = new Subject<boolean>();
 
@@ -37,17 +38,15 @@ export class CompleteSignUpComponent
   private submitFormErrorMsg = '';
   private error = '';
 
-
-
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router:Router
+    private router: Router
   ) {}
 
-  onDataUpdate(isSuccessful:boolean) {
+  onDataUpdate(isSuccessful: boolean) {
     if (isSuccessful) {
-        this.router.navigate([Route.root, Route.welcome, Route.dashboard]);
+      this.router.navigate([Route.root, Route.welcome, Route.dashboard]);
     } else {
       AlertDialog.error(this.submitFormErrorMsg, this.error, this.ok);
     }
@@ -60,12 +59,14 @@ export class CompleteSignUpComponent
         this.setTitle();
         this.translateStringRes();
       });
-    
-     this.completeSignUpForm = new FormGroup({
-       userDataForm: UserDataFormComponent.getUserDataForm(),
-     });
-    
-     this.userDataForm = this.completeSignUpForm.get('userDataForm') as FormGroup;
+
+    this.completeSignUpForm = new FormGroup({
+      userDataForm: UserDataFormComponent.getUserDataForm(),
+    });
+
+    this.userDataForm = this.completeSignUpForm.get(
+      'userDataForm'
+    ) as FormGroup;
   }
 
   private setTitle() {
@@ -82,7 +83,7 @@ export class CompleteSignUpComponent
     this.submitFormErrorMsg = this.localeService.translate(
       StringResKeys.submitFormErrorMsg
     );
-     this.action = this.localeService.translate(StringResKeys.continue);
+    this.action = this.localeService.translate(StringResKeys.continue);
   }
 
   ngOnDestroy(): void {

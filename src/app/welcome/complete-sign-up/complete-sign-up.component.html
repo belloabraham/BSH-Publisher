@@ -16,7 +16,7 @@
 
             <h4 class="mb-3">{{ t('complete_signup_sub_header') }}</h4>
 
-            <app-user-data-form (dataUpdatedEvent)="onDataUpdate( $event )" [action]="action"  [userDataForm]="userDataForm"></app-user-data-form>
+            <app-user-data-form (dataUpdatedEvent)="onDataUpdate( $event )" [registeredDate]="registeredDate" [lastUpdated]="lastUpdated"  [action]="action"  [userDataForm]="userDataForm"></app-user-data-form>
 
         </div>
 

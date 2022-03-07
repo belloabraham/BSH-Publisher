@@ -7,6 +7,8 @@ import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { StringResKeys } from './locale/string-res-keys';
 import { NotificationBuilder } from '../../../../helpers/utils/notification/notification-buider';
+import { serverTimestamp } from '@angular/fire/firestore';
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +17,11 @@ import { NotificationBuilder } from '../../../../helpers/utils/notification/noti
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit, ICanDeactivate {
-
   profileForm!: FormGroup;
   userDataForm!: FormGroup;
   action = '';
+  registeredDate = null;
+  lastUpdated = serverTimestamp();
 
   canExitRoute = new Subject<boolean>();
 
@@ -58,17 +61,16 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
       StringResKeys.profileUpdatedSuccessMsg
     );
 
-     this.action = this.localeService.translate(StringResKeys.update);
+    this.action = this.localeService.translate(StringResKeys.update);
   }
 
   onDataUpdate(isSuccessful: boolean) {
-    let notification = new NotificationBuilder().build()
+    let notification = new NotificationBuilder().build();
     if (isSuccessful) {
-      notification.success(this.updatedSucessMsg)
+      notification.success(this.updatedSucessMsg);
     } else {
-      notification.error(this.updatedFailedMsg)
+      notification.error(this.updatedFailedMsg);
     }
-
   }
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {

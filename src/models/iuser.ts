@@ -6,4 +6,5 @@ export interface IUser {
   phoneNumber: string;
   email: string;
   registeredDate?: any;
+  lastUpdated?: any;
 }

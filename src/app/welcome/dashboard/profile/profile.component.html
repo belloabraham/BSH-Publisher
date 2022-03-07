@@ -24,7 +24,7 @@
     <div class="p-2 d-flex flex-column align-items-start" style="gap: 1rem;">
 
         <form [formGroup]="profileForm">
-            <app-user-data-form (dataUpdatedEvent)="onDataUpdate( $event )" [action]="action"  [userDataForm]="userDataForm"></app-user-data-form>
+            <app-user-data-form  (dataUpdatedEvent)="onDataUpdate( $event )" [registeredDate]="registeredDate" [lastUpdated]="lastUpdated"  [action]="action"  [userDataForm]="userDataForm"></app-user-data-form>
         </form>
     </div>
 
