@@ -5,7 +5,7 @@ export class Shield {
 
   static standard(selector: string = Shield.shield, message?: string) {
     Block.standard(selector, message, {
-      fontFamily: 'Berlin',
+      fontFamily: 'Stickler',
       svgSize: '60px'
     });
   }
