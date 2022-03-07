@@ -1,9 +1,11 @@
 <div class="root" *transloco="let t">
 
     <div class="d-flex align-items-baseline justify-content-start mb-4">
+        <a routerLink="/">
         <div class="logo shadow-sm d-flex align-items-center justify-content-center">
             <img src="assets/images/logo.svg">
         </div>
+        </a>
         <h3 class="flex-fill text-center">{{ t('complete_signup_header') }}</h3>
     </div>
 
@@ -14,7 +16,7 @@
 
             <h4 class="mb-3">{{ t('complete_signup_sub_header') }}</h4>
 
-            <app-user-data-form [userDataForm]="userDataForm"></app-user-data-form>
+            <app-user-data-form (dataUpdatedEvent)="onDataUpdate( $event )"  [userDataForm]="userDataForm"></app-user-data-form>
 
         </div>
 

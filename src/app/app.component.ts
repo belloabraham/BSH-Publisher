@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import {  NavigationEnd, NavigationStart, ResolveEnd, ResolveStart, Router } from '@angular/router';
+import { ActivationEnd, ActivationStart, ChildActivationEnd, GuardsCheckEnd, NavigationEnd, NavigationStart, ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import { merge, Observable, of } from 'rxjs';
-import { delay, filter, map, mapTo, tap } from 'rxjs/operators';
+import {  filter, map, mapTo, tap } from 'rxjs/operators';
 import { Config } from 'src/data/config';
 
 import { Languages } from 'src/data/languages';
+import { CanDeactivateGuard } from 'src/guards/can-deactivate.guard';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 @Component({
@@ -46,6 +47,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.hideLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
+      mapTo(false)
+    );
+
+    this.hideLoaderEvent$ = this.router.events.pipe(
+      filter((e) => e instanceof GuardsCheckEnd),
       mapTo(false)
     );
 

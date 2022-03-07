@@ -1,33 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { serverTimestamp } from '@angular/fire/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
 import { Config } from 'src/data/config';
-import { countries } from 'src/data/countries';
-import { diallingCodes } from 'src/data/dialling-code';
 import { Route } from 'src/data/route';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
-import { Logger } from 'src/helpers/utils/logger';
-import { Shield } from 'src/helpers/utils/shield';
-import { isValidPhone } from 'src/helpers/utils/validators';
-import { ICountry } from 'src/models/icountry';
-import { IUser } from 'src/models/iuser';
-import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { Collection } from 'src/services/database/collection';
-import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
-import { IDatabase } from 'src/services/database/idatabase';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
@@ -48,10 +34,10 @@ export class CompleteSignUpComponent
 
   canExitRoute = new Subject<boolean>();
 
-  private unsavedFieldsMsgTitle = '';
-  private unsavedFieldsMsg = '';
-  private yes = '';
-  private no = '';
+  private unsavedFieldsMsgTitle = 'klhkjhkjh';
+  private unsavedFieldsMsg = 'ouiouoip';
+  private yes = 'Yes';
+  private no = 'No';
   private ok = '';
   private submitFormErrorMsg = '';
   private error = '';
@@ -59,6 +45,7 @@ export class CompleteSignUpComponent
   constructor(
     private title: Title,
     private localeService: LocaleService,
+    private router:Router
   ) {}
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
@@ -77,7 +64,13 @@ export class CompleteSignUpComponent
     }
   }
 
-
+  onDataUpdate(isSuccessful:boolean) {
+    if (isSuccessful) {
+        this.router.navigate([Route.root, Route.welcome, Route.dashboard]);
+    } else {
+      AlertDialog.error(this.submitFormErrorMsg, this.error, this.ok);
+    }
+  }
 
   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
@@ -103,18 +96,10 @@ export class CompleteSignUpComponent
   }
 
   private translateStringRes() {
-    this.no = this.localeService.translate(StringResKeys.no);
-    this.yes = this.localeService.translate(StringResKeys.yes);
     this.error = this.localeService.translate(StringResKeys.error);
     this.ok = this.localeService.translate(StringResKeys.ok);
     this.submitFormErrorMsg = this.localeService.translate(
       StringResKeys.submitFormErrorMsg
-    );
-    this.unsavedFieldsMsg = this.localeService.translate(
-      StringResKeys.unsavedFieldsMsg
-    );
-    this.unsavedFieldsMsgTitle = this.localeService.translate(
-      StringResKeys.unsavedFieldsMsgTitle
     );
   }
 

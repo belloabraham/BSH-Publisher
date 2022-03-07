@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { countries } from 'src/data/countries';
@@ -25,6 +25,9 @@ export class UserDataFormComponent implements OnInit {
   @Input()
   userDataForm!: FormGroup;
 
+  @Output()
+  dataUpdatedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   countries: ICountry[] = countries;
   diallingCodes: ICountry[] = diallingCodes;
   dialingCodeByCountry? = countries[0].callingCode;
@@ -37,7 +40,6 @@ export class UserDataFormComponent implements OnInit {
   countryFC!: FormControl;
 
   constructor(
-    private localeService: LocaleService,
     @Inject(DATABASE_IJTOKEN) private database: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
@@ -48,6 +50,10 @@ export class UserDataFormComponent implements OnInit {
     this.countryFC = this.userDataForm.get('countryFC') as FormControl;
     this.genderFC = this.userDataForm.get('genderFC') as FormControl;
     this.phoneFC = this.userDataForm.get('phoneFC') as FormControl;
+  }
+
+   onDataUpdate(isSuccessful:boolean) {
+    this.dataUpdatedEvent.emit(isSuccessful)
   }
 
   static getUserDataForm() {
@@ -89,10 +95,12 @@ export class UserDataFormComponent implements OnInit {
 
         Shield.remove();
 
+        this.onDataUpdate(true)
         //  this.router.navigate([Route.root, Route.welcome, Route.dashboard]);
       } catch (error: any) {
         Shield.remove();
         Logger.error(this, 'submitFormData', error);
+        this.onDataUpdate(false)
         // AlertDialog.error(this.submitFormErrorMsg, this.error, this.ok);
       }
     } else {

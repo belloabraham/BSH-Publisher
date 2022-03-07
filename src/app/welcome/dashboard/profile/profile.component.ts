@@ -3,7 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
+import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
+import { StringResKeys } from './locale/string-res-keys';
+import { NotificationBuilder } from '../../../../helpers/utils/notification/notification-buider';
 
 @Component({
   selector: 'app-profile',
@@ -12,16 +15,23 @@ import { AlertDialog } from 'src/helpers/utils/alert-dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit, ICanDeactivate {
-  
   profileForm!: FormGroup;
-
   userDataForm!: FormGroup;
 
   canExitRoute = new Subject<boolean>();
-  
-  constructor() { }
+
+  private unsavedFieldsMsgTitle = '';
+  private unsavedFieldsMsg = '';
+  private yes = '';
+  private no = '';
+  private updatedSucessMsg = '';
+  private updatedFailedMsg = '';
+
+  constructor(private localeService: LocaleService) {}
 
   ngOnInit(): void {
+    this.translateStringRes();
+
     this.profileForm = new FormGroup({
       userDataForm: UserDataFormComponent.getUserDataForm(),
     });
@@ -29,14 +39,41 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     this.userDataForm = this.profileForm.get('userDataForm') as FormGroup;
   }
 
+  private translateStringRes() {
+    this.no = this.localeService.translate(StringResKeys.no);
+    this.yes = this.localeService.translate(StringResKeys.yes);
+    this.unsavedFieldsMsg = this.localeService.translate(
+      StringResKeys.unsavedFieldsMsg
+    );
+    this.unsavedFieldsMsgTitle = this.localeService.translate(
+      StringResKeys.unsavedFieldsMsgTitle
+    );
+
+    this.updatedFailedMsg = this.localeService.translate(
+      StringResKeys.profileUpdatedFailedMsg
+    );
+    this.updatedSucessMsg = this.localeService.translate(
+      StringResKeys.profileUpdatedSuccessMsg
+    );
+  }
+
+  onDataUpdate(isSuccessful: boolean) {
+    let notification = new NotificationBuilder().build()
+    if (isSuccessful) {
+      notification.success(this.updatedSucessMsg)
+    } else {
+      notification.error(this.updatedFailedMsg)
+    }
+
+  }
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.profileForm.dirty) {
       AlertDialog.warn(
-        "ljk;l",
-        "l;jkl;",
-        "Yes",
-        "No",
+        this.unsavedFieldsMsg,
+        this.unsavedFieldsMsgTitle,
+        this.yes,
+        this.no,
         () => this.canExitRoute.next(true),
         () => this.canExitRoute.next(false)
       );
