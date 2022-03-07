@@ -118,6 +118,7 @@
   margin-left: $nav-width;
   position: relative;
   font-family: Berlin;
+  min-height: calc(100vh - $tool-bar-height);
   transition: transform 0.3s;
 }
 

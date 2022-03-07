@@ -1,0 +1,30 @@
+@use '../../../scss/variables/input'as *;
+
+
+.input-group {
+  input {
+    width: 50%
+  }
+}
+
+.input-group,
+button[type="submit"],
+input {
+  width: $input-width;
+}
+
+.fullname,
+.phone,
+.country {
+  gap: 2rem;
+}
+
+.form {
+  border-radius: 0;
+
+  .form-label {
+    margin-top: .2rem;
+    font-size: 1.2rem;
+    width: 6rem;
+  }
+}

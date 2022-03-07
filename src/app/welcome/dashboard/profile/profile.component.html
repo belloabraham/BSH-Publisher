@@ -1,1 +1,12 @@
-<p>profile works!</p>
+<div class="root d-flex align-items-center justify-content-center" *transloco="let t">
+
+    <div class="p-2 d-flex flex-column align-items-center">
+
+        <h3 class="mb-3 text-center">{{ t('profile') }}</h3>
+
+        <form [formGroup]="profileForm">
+            <app-user-data-form [userDataForm]="userDataForm"></app-user-data-form>
+        </form>
+    </div>
+
+</div>

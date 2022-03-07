@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
+import { CanDeactivateGuard } from 'src/guards/can-deactivate.guard';
 import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [

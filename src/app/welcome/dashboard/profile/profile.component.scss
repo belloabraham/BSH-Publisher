@@ -1,0 +1,5 @@
+@use '../../../../scss/variables/toolbar' as *;
+
+.root{
+    height: calc(100vh - $tool-bar-height);
+}

@@ -1,0 +1,85 @@
+<form class="form"  *transloco="let t" [formGroup]="userDataForm"  (ngSubmit)="submitFormData()">
+
+    <div class="d-flex mb-2 fullname">
+
+        <label class="form-label flex-shrink-0"> {{ t('full_name') }}
+        </label>
+
+        <div>
+            <input type="text" class="form-control"
+                [ngClass]="{'is-invalid':(firstNameFC.hasError('required') || firstNameFC.hasError('minlength')) && firstNameFC.touched}"
+                placeholder="{{ t('first_name') }}" formControlName="firstNameFC" id="firstNameFC">
+            <div *ngIf="(firstNameFC.hasError('required') || firstNameFC.hasError('minlength')) && firstNameFC.touched"
+                id="firstNameFC" class="invalid-feedback">
+                {{ t('name_field_required') }}
+            </div>
+        </div>
+
+        <div>
+            <input type="text" class="form-control"
+                [ngClass]="{'is-invalid':(lastNameFC.hasError('required') || firstNameFC.hasError('minlength'))&& lastNameFC.touched}"
+                placeholder="{{ t('last_name') }}" formControlName="lastNameFC" id="lastNameFC">
+            <div *ngIf="(lastNameFC.hasError('required') || firstNameFC.hasError('minlength'))&& lastNameFC.touched"
+                id="lastNameFC" class="invalid-feedback">
+                {{ t('name_field_required') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex mb-2 country">
+        <label class="form-label flex-shrink-0">{{ t('nationality') }}</label>
+        <select (change)="onCountrySelectChanged($event)" formControlName="countryFC"
+            [ngClass]="{'is-invalid':countryFC.hasError('required') && countryFC.touched}" formControlName="countryFC"
+            class="form-select" aria-label="Default select example">
+            <option *ngFor="let country of countries" value="{{ country.name }}">{{ country.name }}
+            </option>
+        </select>
+
+        <div *ngIf="countryFC.hasError('required') && countryFC.touched" id="countryFC" class="invalid-feedback">
+            {{ t('nationality_required') }}
+        </div>
+    </div>
+
+    <div class="d-flex mb-2 phone align-items-start">
+
+        <label class="form-label flex-shrink-0 ">{{ t('phone') }}</label>
+
+        <div class="input-group">
+            <select [value]="dialingCodeByCountry" (change)="onDiallinCodeSelectedChanged($event)" class="form-select"
+                id="phoneFC">
+                <option *ngFor="let diallingCode of diallingCodes" value="{{ diallingCode.callingCode }}">
+                    {{ diallingCode.callingCode }}
+                </option>
+            </select>
+            <input style="width: 50%;"
+                [ngClass]="{'is-invalid':(phoneFC.hasError('required')|| isInvalidPhoneNum) && phoneFC.touched}"
+                formControlName="phoneFC" type="number" class="form-control rounded-end phone-input"
+                aria-label="Text input with dropdown button">
+            <div *ngIf="phoneFC.hasError('required') && phoneFC.touched" id="phoneFC" class="invalid-feedback">
+                {{ t('phone_numer_required') }}
+            </div>
+            <div *ngIf="isInvalidPhoneNum" id="phoneFC" class="invalid-feedback">
+                {{ t('invalid_phone') }}
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="input-group-text" for="genderFC">{{ t('gender') }}</label>
+            <select [ngClass]="{'is-invalid':genderFC.hasError('required') && genderFC.touched}"
+                formControlName="genderFC" class="form-select rounded-end" id="genderFC">
+                <option value="male">{{ t('male') }}</option>
+                <option value="female">{{ t('female') }}</option>
+            </select>
+            <div *ngIf="genderFC.hasError('required') && genderFC.touched" id="genderFC" class="invalid-feedback">
+                {{ t('gender_required') }}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button disabled [disabled]="!userDataForm.valid" type="submit"
+            class="btn btn-primary">{{ t('continue') }}</button>
+    </div>
+
+</form>

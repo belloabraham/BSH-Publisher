@@ -7,7 +7,7 @@ import { PaymentComponent } from './payment.component';
 
 @NgModule({
   declarations: [
-    PaymentComponent
+   PaymentComponent
   ],
   imports: [
     CommonModule,
