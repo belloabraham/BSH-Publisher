@@ -5,17 +5,17 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
+import { LyButtonModule } from '@alyle/ui/button';
 
 
 @NgModule({
-  declarations: [
-    AuthComponent
-  ],
+  declarations: [AuthComponent],
   imports: [
     CommonModule,
-    AuthRoutingModule, 
+    AuthRoutingModule,
     ReactiveFormsModule,
-    TranslocoModule
-  ]
+    TranslocoModule,
+    LyButtonModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

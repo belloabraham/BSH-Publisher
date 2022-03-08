@@ -1,11 +1,10 @@
-
 <div *ngIf="isLoading$ | async" class="indeterminate-progress bg-primary fixed-top">
   <div class="indeterminate"></div>
 </div>
 
 <div class="shield">
 
-<div *ngIf="isStarting$ | async"  class="preloader bg-light">
+  <div *ngIf="isStarting$ | async" class="preloader bg-light">
     <div class="mosaic-loader">
       <div class="cell d-0"></div>
       <div class="cell d-1"></div>
@@ -20,13 +19,13 @@
       <div class="cell d-4"></div>
       <div class="cell d-5"></div>
     </div>
-</div>
+  </div>
 
-<div  *ngIf="isNotConnected$ | async"  class="warning-panel d-flex justify-content-center align-items-center fixed-top show" >
-<span  *transloco="let t"> {{ t('no_connection_error', {value: t('app_name')}) }}</span>
-</div>
+  <div *ngIf="isNotConnected$ | async"
+    class="warning-panel d-flex justify-content-center align-items-center fixed-top show">
+    <span *transloco="let t"> {{ t('no_connection_error', {value: t('app_name')}) }}</span>
+  </div>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
-
 

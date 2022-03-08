@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Route } from 'src/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
@@ -14,9 +16,15 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   constructor(
      cdRef: ChangeDetectorRef,
     private title: Title,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    private router:Router
   ) {
     cdRef.detach;
+  }
+
+
+  goHome() {
+    this.router.navigateByUrl(Route.root)
   }
 
   ngOnInit(): void {
@@ -32,5 +40,6 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
+
 
 }

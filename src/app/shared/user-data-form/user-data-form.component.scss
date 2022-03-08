@@ -1,5 +1,5 @@
 @use '../../../scss/variables/input'as *;
-@use '../../../scss/font' as *;
+@use '../../../scss/font'as *;
 
 
 .input-group {
@@ -21,7 +21,7 @@ input {
 }
 
 .form {
-  
+
   font-family: $system-font;
 
   .form-label {

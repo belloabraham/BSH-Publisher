@@ -5,17 +5,17 @@ import { VerifyEmailRoutingModule } from './verify-email-routing.module';
 import { VerifyEmailComponent } from './verify-email.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
+import { LyButtonModule } from '@alyle/ui/button';
 
 
 @NgModule({
-  declarations: [
-    VerifyEmailComponent
-  ],
+  declarations: [VerifyEmailComponent],
   imports: [
     CommonModule,
     VerifyEmailRoutingModule,
     ReactiveFormsModule,
-    TranslocoModule
-  ]
+    TranslocoModule,
+    LyButtonModule,
+  ],
 })
-export class VerifyEmailModule { }
+export class VerifyEmailModule {}

@@ -1,15 +1,26 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivationEnd, ActivationStart, ChildActivationEnd, GuardsCheckEnd, NavigationEnd, NavigationStart, ResolveEnd, ResolveStart, Router } from '@angular/router';
+import {
+  GuardsCheckEnd,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import { merge, Observable, of } from 'rxjs';
-import {  filter, map, mapTo, tap } from 'rxjs/operators';
+import { filter, map, mapTo } from 'rxjs/operators';
 import { Config } from 'src/data/config';
 
 import { Languages } from 'src/data/languages';
-import { CanDeactivateGuard } from 'src/guards/can-deactivate.guard';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
+import { ThemeVariables, ThemeRef, lyl } from '@alyle/ui';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,25 +28,25 @@ import { SubSink } from 'subsink';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
+
   private subscriptions = new SubSink();
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
-  isStarting$:Observable<boolean> = of(true);
+  isStarting$: Observable<boolean> = of(true);
   isNotConnected$: Observable<boolean> = of(true);
 
   constructor(
-    private localeService: LocaleService,
-    title: Title,
-    private connectionService: ConnectionService,
-    private router: Router
-  ) {
+              private localeService: LocaleService,
+              title: Title,
+              private connectionService: ConnectionService,
+              private router: Router) {
     title.setTitle(Config.appName);
   }
 
   ngOnInit(): void {
     this.loadLanguageRes();
-        
+
     this.isNotConnected$ = this.connectionService
       .monitor()
       .pipe(map((connected) => !connected));
@@ -60,11 +71,8 @@ export class AppComponent implements OnInit, OnDestroy {
       mapTo(false)
     );
 
-
     this.isLoading$ = merge(this.hideLoaderEvent$, this.showLoaderEvent$);
-   
   }
-
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

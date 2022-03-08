@@ -1,21 +1,4 @@
 
-<nav class="navbar navbar-light">
-  
-    <div class="container-fluid">
-        <ul class="navbar-nav d-flex flex-row" style="gap: 3rem;">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<hr style="background-color: black;">
 
 <div class="root d-flex flex-column no-select  align-items-center justify-content-start"
     *transloco="let t" >
@@ -24,7 +7,7 @@
     <div class="p-2 d-flex flex-column align-items-start" style="gap: 1rem;">
 
         <form [formGroup]="profileForm">
-            <app-user-data-form  (dataUpdatedEvent)="onDataUpdate( $event )" [registeredDate]="registeredDate" [lastUpdated]="lastUpdated"  [action]="action"  [userDataForm]="userDataForm"></app-user-data-form>
+            <app-user-data-form  (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate" [lastUpdated]="lastUpdated"  [action]="action"  [userDataForm]="userDataForm"></app-user-data-form>
         </form>
     </div>
 

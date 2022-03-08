@@ -8,6 +8,7 @@ import {
   getRemoteConfig,
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
+import { LyButtonModule } from '@alyle/ui/button';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -15,6 +16,7 @@ import {
     CommonModule,
     DashboardRoutingModule,
     TranslocoModule,
+    LyButtonModule,
     provideRemoteConfig(() => getRemoteConfig()),
   ],
 })

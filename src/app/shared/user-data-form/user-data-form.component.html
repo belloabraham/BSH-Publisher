@@ -1,7 +1,6 @@
 <form class="form"  *transloco="let t" [formGroup]="userDataForm"  (ngSubmit)="submitFormData()">
 
     <div class="d-flex mb-2 fullname">
-
         <label class="form-label flex-shrink-0"> {{ t('full_name') }}
         </label>
 
@@ -79,7 +78,7 @@
 
     <div class="d-flex justify-content-end">
         <button disabled [disabled]="!userDataForm.valid" type="submit"
-            class="btn btn-primary">{{ action }}</button>
+            ly-button raised bg="primary" >{{ action }}</button>
     </div>
 
 </form>
