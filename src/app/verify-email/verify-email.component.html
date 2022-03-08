@@ -9,13 +9,13 @@
 
   <form [formGroup]="verifyEmailForm" (ngSubmit)="verifyEmail()" class="mt-4">
     <div class="mb-1">
-      <label for="emailFC" class="form-label"> {{ t('enter_your_email_add') }}
-      </label>
-      <input type="email" class="form-control" [ngClass]="{'is-invalid':hasError}" formControlName="emailFC"
-        id="emailFC">
-      <div *ngIf="hasError" id="emailFC" class="invalid-feedback">
-        {{ t('enter_signin_link_email') }}
-      </div>
+
+<div class="form-group mb-1" [ngClass]="{'has-error':hasError}">
+  <label class="form-label" for="emailFC">{{ t('enter_your_email_add') }}</label>
+  <input class="form-input input-lg" type="email" id="emialFC" formControlName="emailFC">
+  <p *ngIf="hasError" class="form-input-hint">{{ t('enter_signin_link_email') }}</p>
+</div>
+
     </div>
     <button type="submit" ly-button raised bg="primary">{{ t('verify_email')}}</button>
   </form>

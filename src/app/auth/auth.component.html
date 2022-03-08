@@ -7,21 +7,19 @@
 
   <div class="form d-flex flex-column align-items-center justify-content-center">
 
-    <h4 class="heading text-center">{{ t('auth_welcome_msg', {value: t('app_name')}) }} </h4>
+    <h3 class="heading text-center">{{ t('auth_welcome_msg', {value: t('app_name')}) }} </h3>
+
 
     <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
 
-      <div class="mb-1">
-        <label for="emailFC" class="form-label"> {{ t('email_address') }}
-        </label>
-        <input type="email" class="form-control" [ngClass]="{'is-invalid':hasError}" formControlName="emailFC"
-          id="emailFC" placeholder="name@example.com">
-        <div *ngIf="hasError" id="emailFC" class="invalid-feedback">
-          {{ t('invalid_email_msg') }}
-        </div>
+      <div class="form-group mb-1" [ngClass]="{'has-error':hasError}"  >
+        <label class="form-label" for="emailFC">{{ t('email_address') }}</label>
+        <input class="form-input input-lg" type="email" id="emailFC" placeholder="name@example.com" formControlName="emailFC" >
+        <p *ngIf="hasError"  class="form-input-hint">{{ t('invalid_email_msg') }}</p>
       </div>
 
       <button type="submit" ly-button raised bg="primary">{{ t('sign_in') }}</button>
+
     </form>
     <span>{{ t('or') | uppercase}}</span>
 

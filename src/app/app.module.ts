@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +16,6 @@ import {
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  LyThemeModule,
   LY_THEME,
   LY_THEME_NAME,
   StyleRenderer,
@@ -26,7 +25,6 @@ import {
 import { MinimaLight } from '@alyle/ui/themes/minima';
 
 import { LyButtonModule } from '@alyle/ui/button';
-import { LyIconModule } from '@alyle/ui/icon';
 import { AlyleGlobalThemeVariables } from 'src/theme/alyle-global-theme-variables';
 import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables';
 
@@ -42,9 +40,7 @@ import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables'
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
-    HammerModule,
     LyButtonModule,
-    LyIconModule,
   ],
   providers: [
     ScreenTrackingService,

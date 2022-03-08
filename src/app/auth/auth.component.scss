@@ -1,4 +1,6 @@
 
+@use '../../scss/variables/input' as *;
+
 label{
     font-size: 1.2rem;
 }
@@ -9,31 +11,37 @@ label{
     gap: 2rem;
 
     button, .heading, .notice, h5, input{
-        width: 18.75rem;
+        width: $input-width;
     }
     h5{
         text-align: center
     }
-    .form{
-       gap: .5rem;
-    }
-    .notice{
-        font-size: 1rem;
-    }
-    .google{
-        gap:.5rem;
-         img{
-           width: 1.5rem;
-       }
-    }
-    .logo{
-        width: 6rem;
-        height: 6rem;
-        background-color: white;
-        border-radius: 2rem;
-         img{
-        width: 3.5rem;
-    }
-    }
    
 }
+
+ .form {
+   gap: .5rem;
+ }
+
+ .notice {
+   font-size: 1rem;
+ }
+
+ .google {
+   gap: .5rem;
+
+   img {
+     width: 1.2rem;
+   }
+ }
+
+ .logo {
+   width: 6rem;
+   height: 6rem;
+   background-color: white;
+   border-radius: 2rem;
+
+   img {
+     width: 3.5rem;
+   }
+ }

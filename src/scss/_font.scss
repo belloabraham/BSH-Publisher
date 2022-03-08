@@ -1,6 +1,6 @@
 @use './mixins' as *;
 
-$system-font: Stickler;
+$app-font: Stickler;
 
 $system-font2: system-ui,
 -apple-system,
@@ -28,8 +28,9 @@ html{
 }
 
 body{
-    font-family: Stickler;
+    font-family: $app-font;
 }
+
 select, option, .invalid-feedback{
-font-size: 1.1rem;
+//font-size: 1.1rem;
 }

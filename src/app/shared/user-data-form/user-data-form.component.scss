@@ -2,6 +2,10 @@
 @use '../../../scss/font'as *;
 
 
+.form-group{
+  //margin: 0;
+}
+
 .input-group {
   input {
     width: 50%
@@ -11,21 +15,17 @@
 .input-group,
 button[type="submit"],
 input {
-  width: $input-width;
+  width: 15rem;
 }
 
 .fullname,
 .phone,
 .country {
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .form {
-
-  font-family: $system-font;
-
   .form-label {
-    margin-top: .2rem;
     font-size: 1.2rem;
     width: 6rem;
   }
