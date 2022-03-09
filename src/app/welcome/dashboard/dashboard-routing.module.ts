@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
-import { CanDeactivateGuard } from 'src/guards/can-deactivate.guard';
 import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
@@ -35,13 +34,6 @@ const routes: Routes = [
         path: Route.profile,
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
-      },
-      {
-        path: Route.notifications,
-        loadChildren: () =>
-          import('./notifications/notifications.module').then(
-            (m) => m.NotificationsModule
-          ),
       },
       {
         path: Route.error,

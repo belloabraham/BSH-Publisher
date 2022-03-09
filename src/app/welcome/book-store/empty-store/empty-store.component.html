@@ -5,30 +5,41 @@
             <img src="assets/images/logo.svg">
         </div>
 
-        <button ly-button class="logout" (click)="logout()">
-            <i>
-                <svg viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
-                </svg>
-            </i>
-            <span [lyPe]="1">{{t('logout')}}</span>
-        </button>
+
+<button ly-button class="logout" (click)="logout()">
+    <i>
+        <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
+        </svg>
+    </i>
+    <span [lyPe]="1" >{{t('logout')}}</span>
+</button>
+    
 
     </div>
 
     <div class="d-flex justify-content-center">
 
         <div class="d-flex flex-column parent">
-            <h3>{{t('empty_book_store_heading')}}</h3>
+            <h1>{{t('empty_book_store_heading')}}</h1>
 
             <div class="d-flex children align-items-center">
 
                 <img src="assets/images/empty-book-store.svg" class="illustration">
 
-                <button ly-button raised bg="primary" (click)="publishBook()">
-                    {{t('add_your_book') }}
-                </button>
+
+                <div class="d-flex flex-column align-items-center gap-6" >
+                    <div class="typewriter">
+                        <div class="slide"><i></i></div>
+                        <div class="paper"></div>
+                        <div class="keyboard"></div>
+                    </div>
+                    <button ly-button raised bg="primary" (click)="publishBook()">
+                        {{t('add_your_book') }}
+                    </button>
+                </div>
+                
             </div>
         </div>
 

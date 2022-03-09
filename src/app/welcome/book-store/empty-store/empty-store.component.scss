@@ -1,6 +1,8 @@
 @use '../../../../scss/components/logo'as *;
 @use '../../../../scss/variables/input'as *;
 @use '../../../../scss/variables/colors'as *;
+@use '../../../../scss/components/logout-btn' as *;
+@forward '../../../../scss/components/type-writter';
 
 
 .logo {
@@ -8,12 +10,7 @@
 }
 
 .logout {
-  margin: 2rem;
- font-size: 1.3rem;
- svg {
-   width: 1.5rem;
-   height: 1.5rem;
- }
+  @include logout-btn;
 }
 
 .illustration {

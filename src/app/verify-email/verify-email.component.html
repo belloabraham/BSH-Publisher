@@ -4,8 +4,8 @@
 
 
 <div *transloco="let t" class="container d-flex flex-column align-items-center justify-content-start pb-1 pt-5">
-  <h4>{{ t('email_verif_title') }}</h4>
-  <h5>{{ t('email_verif_sub_title') }}</h5>
+  <h2>{{ t('email_verif_title') }}</h2>
+  <h3>{{ t('email_verif_sub_title') }}</h3>
 
   <form [formGroup]="verifyEmailForm" (ngSubmit)="verifyEmail()" class="mt-4">
     <div class="mb-1">

@@ -7,13 +7,13 @@
 
   <div class="form d-flex flex-column align-items-center justify-content-center">
 
-    <h3 class="heading text-center">{{ t('auth_welcome_msg', {value: t('app_name')}) }} </h3>
+    <h1 class="heading text-center">{{ t('auth_welcome_msg', {value: t('app_name')}) }} </h1>
 
 
     <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
 
       <div class="form-group mb-1" [ngClass]="{'has-error':hasError}"  >
-        <label class="form-label" for="emailFC">{{ t('email_address') }}</label>
+        <label class="form-label label-lg" for="emailFC">{{ t('email_address') }}</label>
         <input class="form-input input-lg"  id="emailFC" placeholder="name@example.com" formControlName="emailFC" >
         <p *ngIf="hasError"  class="form-input-hint">{{ t('invalid_email_msg') }}</p>
       </div>

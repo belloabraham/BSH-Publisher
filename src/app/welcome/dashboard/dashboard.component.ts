@@ -10,8 +10,8 @@ import { ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { filter, mapTo, merge, Observable } from 'rxjs';
 import { Config } from 'src/data/config';
 import { Route } from 'src/data/route';
+import { Settings } from 'src/data/settings';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
-import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
@@ -23,6 +23,7 @@ import { RemoteConfig } from 'src/services/remote-config/remote-config';
 import { REMOTE_CONFIG_IJTOKEN } from 'src/services/remote-config/remote.config.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -46,7 +47,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   payment = Route.payment;
   myBooks = Route.myBooks;
   profile = Route.profile;
-  notifications= Route.notifications
 
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;
@@ -60,8 +60,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     @Inject(DATABASE_IJTOKEN) private database: IDatabase,
     @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) {
+    this.isOpenLeftNav();
+  }
 
   ngOnInit(): void {
     this.subscriptions.sink = this.localeService
@@ -104,6 +106,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
         value: Config.appName,
       })
     );
+  }
+
+  isOpenLeftNav() {
+    let value = localStorage.getItem(Settings.isDashBoardCollapsed);
+    if (value === 'true') {
+      this.openLeftNav = true;
+    } else {
+      this.openLeftNav = false;
+    }
+  }
+
+  toggleLeftNav() {
+    this.openLeftNav = !this.openLeftNav;
+    let value = 'false';
+    if (this.openLeftNav === true) {
+      value = 'true';
+    }
+    localStorage.setItem(Settings.isDashBoardCollapsed, value);
   }
 
   ngOnDestroy(): void {

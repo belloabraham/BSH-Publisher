@@ -2,6 +2,16 @@
 
 $app-font: Stickler;
 
+$app-secondary-font: Procyon;
+
+@font-face {
+  font-family: 'Procyon';
+  src: url('../assets/fonts/ProcyonPro-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 @font-face {
     font-family: 'Stickler';
     src: url('../assets/fonts/Stickler-Pro.woff2') format('woff2');
@@ -19,4 +29,8 @@ html{
 
 body{
     font-family: $app-font;
+}
+
+h1, h2, h3, h4, h5, h6,.logo{
+    font-family: $app-secondary-font;
 }

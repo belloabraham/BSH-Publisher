@@ -1,15 +1,16 @@
+
+
 <div class="profile d-flex flex-column no-select align-items-center justify-content-start" *transloco="let t">
 
-
-
     <div class="p-2">
-        <div class="card" >
+        <div class="card shadow-sm">
             <div class="card-header">
-               <h4 class="m-0 p-0" >Profile</h4>
+                <h4 class="m-0 p-0">Profile</h4>
             </div>
             <form class="m-2" [formGroup]="profileForm">
                 <app-user-data-form (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate"
-                    [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm"></app-user-data-form>
+                    [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm">
+                </app-user-data-form>
             </form>
         </div>
     </div>

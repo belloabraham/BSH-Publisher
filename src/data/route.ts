@@ -11,5 +11,4 @@ export class Route {
   static readonly collaborators = 'collaborators';
   static readonly profile = "profile";
   static readonly error = "error"
-  static readonly notifications = "notifications"
 }

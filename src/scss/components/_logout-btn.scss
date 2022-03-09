@@ -1,0 +1,12 @@
+@mixin logout-btn {
+  margin: 2rem;
+
+  span {
+    font-size: 1.5rem;
+  }
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

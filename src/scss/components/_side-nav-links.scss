@@ -6,12 +6,14 @@ $partial-white:#AFA5D9;
   box-sizing: border-box
 }
 
+
 .nav {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .nav_link {

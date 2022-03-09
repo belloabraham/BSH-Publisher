@@ -1,9 +1,5 @@
 @use '../../../../scss/variables/toolbar' as *;
 
 .profile{
-    height: calc(100vh - $tool-bar-height);
-}
-
-button {
-  font-family: Berlin;
+    min-height: calc(100vh - $tool-bar-height);
 }

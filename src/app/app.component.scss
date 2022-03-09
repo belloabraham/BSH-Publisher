@@ -3,8 +3,32 @@
 @use '../scss/visibility'as *;
 @import '../scss/components/preloader';
 
+$overshoot: 10%;
+
+.sshow {
+  @include showWithEase(.4s)
+}
 
 .show {
-  @include showWithEase(.4s)
+  animation-name: banner-in;
+  animation-direction: forwards;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes banner-in {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  50% {
+    transform: translateY($overshoot);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 

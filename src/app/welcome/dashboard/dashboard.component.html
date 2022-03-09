@@ -1,30 +1,46 @@
-<div *transloco="let t" [ngClass]="{'sidenav-active noscroll':openRightNav, 'minimize':openLeftNav}" class="root">
+<div *transloco="let t" [ngClass]="{'minimize':openLeftNav}" class="root">
 
-    <div class="tool-bar fixed-top  d-flex top-toolbar">
 
-        <div class="w-50 d-flex align-items-center">
+    <div class="tool-bar fixed-top top-toolbar bg-light">
 
-        </div>
+        <div class="w-100 d-flex h-100">
+            <div class="w-50 d-flex align-items-center">
 
-        <div class="w-50 d-flex justify-content-end align-items-center pr-1">
+            </div>
 
-            <button ly-button class="logout m-1" (click)="logout()">
-                <i>
-                    <svg viewBox="0 0 24 24">
+            <div class="w-50 d-flex justify-content-end align-items-center pr-1">
+
+                <button ly-button appearance="miniFab" (click)="openRightNav = !openRightNav" class="notication-toggle-button" >
+                    
+                    <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 21">
+                        <path fill="currentColor" [ngClass]="{'fill-notification': true }"
+                            d="M21,6.5A3.5,3.5,0,1,1,17.5,3,3.5,3.5,0,0,1,21,6.5" transform="translate(-3 -2)" />
                         <path fill="currentColor"
-                            d="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
+                            d="M19,11.79a6,6,0,0,1-1.5.21,5.51,5.51,0,0,1-4-9.29A1.93,1.93,0,0,0,12,2a2,2,0,0,0-2,2v.29A7,7,0,0,0,5,11v6L3,19v1H21V19l-2-2V11.79"
+                            transform="translate(-3 -2)" />
+                        <path fill="currentColor" d="M12,23a2,2,0,0,0,2-2H10A2,2,0,0,0,12,23Z" transform="translate(-3 -2)" />
                     </svg>
-                </i>
-                <span [lyPe]="1">{{t('logout')}}</span>
-            </button>
+                    
+                </button>
 
+
+                <button ly-button class="logout" (click)="logout()">
+                    <i>
+                        <svg viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
+                        </svg>
+                    </i>
+                    <span [lyPe]="1">{{t('logout')}}</span>
+                </button>
+
+
+
+
+            </div>
         </div>
 
     </div>
-    
-
-    <div class="fixed-top tool-bar-shadow d-none" > </div>
-
 
     <div class="text-white left-nav d-flex flex-column justify-content-between" id="nav-bar">
 
@@ -62,19 +78,6 @@
                     </a>
 
 
-                    <a [routerLink]="notifications" [routerLinkActive]="'active'" class="nav_link">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 21">
-                            <path fill="currentColor" [ngClass]="{'fill-notification': true }"
-                                d="M21,6.5A3.5,3.5,0,1,1,17.5,3,3.5,3.5,0,0,1,21,6.5" transform="translate(-3 -2)" />
-                            <path fill="currentColor"
-                                d="M19,11.79a6,6,0,0,1-1.5.21,5.51,5.51,0,0,1-4-9.29A1.93,1.93,0,0,0,12,2a2,2,0,0,0-2,2v.29A7,7,0,0,0,5,11v6L3,19v1H21V19l-2-2V11.79"
-                                transform="translate(-3 -2)" />
-                            <path fill="currentColor" d="M12,23a2,2,0,0,0,2-2H10A2,2,0,0,0,12,23Z"
-                                transform="translate(-3 -2)" />
-                        </svg>
-                        <span class="nav_name">{{ t('notifications') }}</span>
-                    </a>
-
                     <a [routerLink]="payment" [routerLinkActive]="'active'" class="nav_link">
                         <svg viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -107,22 +110,25 @@
             <footer class="d-flex flex-column footer">
                 <hr>
 
-                <a [href]="helpLink" class="text-muted" target="_blank"><span> {{ t('need_help') }} </span> <svg
-                        viewBox="0 0 24 24">
+                <a [href]="helpLink" class="text-muted" target="_blank">
+
+                    <span> {{ t('need_help') }} </span>
+
+                    <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
-                            d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
-                    </svg></a>
+                            d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
+                    </svg> </a>
 
                 <a [href]="feedbackLink" class="text-muted" target="_blank"> <span> {{ t('give_feedback') }} </span>
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
-                            d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+                            d="M18,8H6V6H18V8M18,11H6V9H18V11M18,14H6V12H18V14M22,4A2,2 0 0,0 20,2H4A2,2 0 0,0 2,4V16A2,2 0 0,0 4,18H18L22,22V4Z" />
                     </svg> </a>
             </footer>
         </nav>
         <div class="collapse-icon">
             <label [ngClass]="{'float-end':!openLeftNav}" class="arrow-label no-select" for="arrow-checkbox">
-                <input (change)="openLeftNav = !openLeftNav" type="checkbox" id="arrow-checkbox" />
+                <input (change)="toggleLeftNav()" type="checkbox" id="arrow-checkbox" />
                 <span [ngClass]="{'left':!openLeftNav, 'right':openLeftNav}" class="arrow--l-r">
                     <span></span><span></span><span></span><span></span><span></span></span>
             </label>
@@ -134,6 +140,25 @@
 
         <router-outlet></router-outlet>
 
+    </div>
+
+    <div class="notification-panel bg-white" [ngClass]="{'notf-panel-show':openRightNav}" >
+
+        <div class="panel w-100 h-100">
+            <div class="panel-header">
+                <h4 class="panel-title">{{ t('notifications') }}</h4>
+                <hr class="bg-dark">
+            </div>
+            <div class="panel-nav">
+                <!-- navigation components: tabs, breadcrumbs or pagination -->
+            </div>
+            <div class="panel-body">
+
+            </div>
+            <div class="panel-footer">
+                <!-- buttons or inputs -->
+            </div>
+        </div>
     </div>
 
 </div>
