@@ -1,6 +1,6 @@
 <div *transloco="let t" [ngClass]="{'sidenav-active noscroll':openRightNav, 'minimize':openLeftNav}" class="root">
 
-    <div class="tool-bar fixed-top  d-flex top-toolbar bg-light">
+    <div class="tool-bar fixed-top  d-flex top-toolbar">
 
         <div class="w-50 d-flex align-items-center">
 
@@ -21,8 +21,9 @@
         </div>
 
     </div>
+    
 
-    <div class="fixed-top tool-bar-shadow shadow-sm" > </div>
+    <div class="fixed-top tool-bar-shadow d-none" > </div>
 
 
     <div class="text-white left-nav d-flex flex-column justify-content-between" id="nav-bar">

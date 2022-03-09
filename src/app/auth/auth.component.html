@@ -18,13 +18,13 @@
         <p *ngIf="hasError"  class="form-input-hint">{{ t('invalid_email_msg') }}</p>
       </div>
 
-      <button type="submit" ly-button  bg="primary">{{ t('sign_in') }}</button>
+      <button type="submit" ly-button elevation="1"  bg="primary">{{ t('sign_in') }}</button>
 
     </form>
     <span>{{ t('or') | uppercase}}</span>
 
     <button (click)="signInWithGoogleRedirect()"
-    ly-button raised
+    ly-button raised elevation="1"
       class="google"> 
       <img src="assets/images/google.png">
       
