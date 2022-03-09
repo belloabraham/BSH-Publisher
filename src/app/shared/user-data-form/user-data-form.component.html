@@ -1,7 +1,7 @@
 <form class="form" *transloco="let t" [formGroup]="userDataForm" (ngSubmit)="submitFormData()">
 
-    <div class="d-flex mb-1 fullname" style="padding: 0;">
-        <label class="form-label flex-shrink-0"> {{ t('full_name') }}
+    <div class="d-flex mb-1 fullname p-0" >
+        <label class="form-label label-lg flex-shrink-0"> {{ t('full_name') }}
         </label>
 
         <div class="form-group" 
@@ -23,7 +23,7 @@
     </div>
 
     <div class="d-flex mb-1 country">
-        <label class="form-label flex-shrink-0">{{ t('nationality') }}</label>
+        <label class="form-label label-lg flex-shrink-0">{{ t('nationality') }}</label>
 
         <div class="form-group w-100" [ngClass]="{'has-error':countryFC.hasError('required') && countryFC.touched}">
             <select (change)="onCountrySelectChanged($event)" formControlName="countryFC" class="form-select select-lg">
@@ -39,7 +39,7 @@
 
     <div class="d-flex mb-1 phone align-items-start">
 
-        <label class="form-label flex-shrink-0 ">{{ t('phone') }}</label>
+        <label class="form-label label-lg flex-shrink-0 ">{{ t('phone') }}</label>
 
         <div class="form-group"
             [ngClass]="{'has-error':(phoneFC.hasError('required')|| isInvalidPhoneNum) && phoneFC.touched}">
@@ -50,7 +50,7 @@
                         {{ diallingCode.callingCode }}
                     </option>
                 </select>
-                <input style="width: 70%;" formControlName="phoneFC" class="form-input input-lg" type="number">
+                <input formControlName="phoneFC" class="form-input input-lg w-70" type="number">
             </div>
             <p *ngIf="phoneFC.hasError('required') && phoneFC.touched" class="form-input-hint">
                 {{ t('phone_numer_required') }}

@@ -14,11 +14,11 @@
 
       <div class="form-group mb-1" [ngClass]="{'has-error':hasError}"  >
         <label class="form-label" for="emailFC">{{ t('email_address') }}</label>
-        <input class="form-input input-lg" type="email" id="emailFC" placeholder="name@example.com" formControlName="emailFC" >
+        <input class="form-input input-lg"  id="emailFC" placeholder="name@example.com" formControlName="emailFC" >
         <p *ngIf="hasError"  class="form-input-hint">{{ t('invalid_email_msg') }}</p>
       </div>
 
-      <button type="submit" ly-button raised bg="primary">{{ t('sign_in') }}</button>
+      <button type="submit" ly-button  bg="primary">{{ t('sign_in') }}</button>
 
     </form>
     <span>{{ t('or') | uppercase}}</span>
@@ -27,8 +27,8 @@
     ly-button raised
       class="google"> 
       <img src="assets/images/google.png">
-
-      <span style="padding-left: 1rem;">{{ t('sign_in_with_google') }}</span>
+      
+      <span [lyPe]="2" >{{ t('sign_in_with_google') }}</span>
     </button>
 
     <p class="notice"> <small class="text-muted">By proceeding, you agree to our <a class="link-secondary"

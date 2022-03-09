@@ -1,20 +1,20 @@
-  <div class="logo shadow-sm d-flex align-items-center justify-content-center">
-    <img src="assets/images/logo.svg">
-  </div>
+<div class="logo shadow-sm d-flex align-items-center justify-content-center">
+  <img src="assets/images/logo.svg">
+</div>
 
 
-<div *transloco="let t"  class="container d-flex flex-column align-items-center justify-content-start pb-1 pt-5">
+<div *transloco="let t" class="container d-flex flex-column align-items-center justify-content-start pb-1 pt-5">
   <h4>{{ t('email_verif_title') }}</h4>
   <h5>{{ t('email_verif_sub_title') }}</h5>
 
   <form [formGroup]="verifyEmailForm" (ngSubmit)="verifyEmail()" class="mt-4">
     <div class="mb-1">
 
-<div class="form-group mb-1" [ngClass]="{'has-error':hasError}">
-  <label class="form-label" for="emailFC">{{ t('enter_your_email_add') }}</label>
-  <input class="form-input input-lg" type="email" id="emialFC" formControlName="emailFC">
-  <p *ngIf="hasError" class="form-input-hint">{{ t('enter_signin_link_email') }}</p>
-</div>
+      <div class="form-group mb-1" [ngClass]="{'has-error':hasError}">
+        <label class="form-label label-lg" for="emailFC">{{ t('enter_your_email_add') }}</label>
+        <input class="form-input input-lg" id="emialFC" formControlName="emailFC">
+        <p *ngIf="hasError" class="form-input-hint">{{ t('enter_signin_link_email') }}</p>
+      </div>
 
     </div>
     <button type="submit" ly-button raised bg="primary">{{ t('verify_email')}}</button>

@@ -2,16 +2,6 @@
 
 $app-font: Stickler;
 
-$system-font2: system-ui,
--apple-system,
-"Segoe UI",
-Roboto,
-"Helvetica Neue",
-Arial,
-"Noto Sans",
-"Liberation Sans",
-sans-serif;
-
 @font-face {
     font-family: 'Stickler';
     src: url('../assets/fonts/Stickler-Pro.woff2') format('woff2');
@@ -29,8 +19,4 @@ html{
 
 body{
     font-family: $app-font;
-}
-
-select, option, .invalid-feedback{
-//font-size: 1.1rem;
 }

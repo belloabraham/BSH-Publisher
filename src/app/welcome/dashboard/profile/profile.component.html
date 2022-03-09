@@ -1,13 +1,11 @@
+<div class="root d-flex flex-column no-select align-items-center justify-content-start" *transloco="let t">
 
 
-<div class="root d-flex flex-column no-select  align-items-center justify-content-start"
-    *transloco="let t" >
-
-
-    <div class="p-2 d-flex flex-column align-items-start" style="gap: 1rem;">
+    <div class="p-2 d-flex flex-column align-items-start">
 
         <form [formGroup]="profileForm">
-            <app-user-data-form  (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate" [lastUpdated]="lastUpdated"  [action]="action"  [userDataForm]="userDataForm"></app-user-data-form>
+            <app-user-data-form (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate"
+                [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm"></app-user-data-form>
         </form>
     </div>
 
