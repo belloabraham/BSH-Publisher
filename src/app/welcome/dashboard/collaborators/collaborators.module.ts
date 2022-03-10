@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { CollaboratorsRoutingModule } from './collaborators-routing.module';
 import { CollaboratorsComponent } from './collaborators.component';
-
+import { TranslocoModule } from '@ngneat/transloco';
+import { LyButtonModule } from '@alyle/ui/button';
 
 @NgModule({
-  declarations: [
-    CollaboratorsComponent
-  ],
+  declarations: [CollaboratorsComponent],
   imports: [
     CommonModule,
-    CollaboratorsRoutingModule
-  ]
+    CollaboratorsRoutingModule,
+    TranslocoModule,
+    LyButtonModule,
+  ],
 })
-export class CollaboratorsModule { }
+export class CollaboratorsModule {}
