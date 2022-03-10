@@ -24,7 +24,6 @@ import {
 } from '@alyle/ui';
 import { MinimaLight } from '@alyle/ui/themes/minima';
 
-import { LyButtonModule } from '@alyle/ui/button';
 import { AlyleGlobalThemeVariables } from 'src/theme/alyle-global-theme-variables';
 import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables';
 
@@ -40,7 +39,6 @@ import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables'
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
-    LyButtonModule,
   ],
   providers: [
     ScreenTrackingService,

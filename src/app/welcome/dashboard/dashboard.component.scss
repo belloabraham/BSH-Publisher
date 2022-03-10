@@ -8,6 +8,8 @@
 
 
 $notification-panel-width: calc($nav-width + 5rem);
+$notification-panel-width-offset: calc($notification-panel-width + 2rem);
+
 
 .fill-notification {
   fill: red;
@@ -137,7 +139,7 @@ $notification-panel-width: calc($nav-width + 5rem);
     rgba(0, 0, 0, 0.07) 0px 32px 64px;
 
   transition: .3s;
-  right: -$notification-panel-width;
+  right:  -$notification-panel-width-offset;
   height: 100%;
   overflow: hidden;
   width: $notification-panel-width;
@@ -147,10 +149,10 @@ $notification-panel-width: calc($nav-width + 5rem);
   }
 }
 
-.notication-toggle-button {
+.notification-toggle-button {
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.4rem;
+    height: 1.4rem;
   }
 }
 

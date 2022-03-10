@@ -13,7 +13,6 @@ import { LyButtonModule } from '@alyle/ui/button';
     CommonModule,
     ReactiveFormsModule,
     TranslocoModule,
-    LyButtonModule
   ],
 })
 export class UserDataFormModule {}
