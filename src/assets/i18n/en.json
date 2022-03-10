@@ -73,6 +73,8 @@
     "my_books":"My Books",
     "payment":"Payment",
     "collaborators":"Collaborators",
+    "delete_all":"Delete all",
+    "no_notification_msg":"You currently have no new notification, check back later.",
 
     
     "add_your_book":"Add your book",

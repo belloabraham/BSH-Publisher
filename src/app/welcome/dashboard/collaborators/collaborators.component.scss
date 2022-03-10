@@ -1,3 +1,9 @@
 .collaborators{
     min-height: 90vh;
+    .empty-state{
+        img{
+            width: 30rem;
+            height: auto;
+        }
+    }
 }

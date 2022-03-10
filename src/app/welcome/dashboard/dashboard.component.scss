@@ -7,7 +7,8 @@
 @use '../../../scss/components/logout-btn'as *;
 
 
-$notification-panel-width: calc($nav-width + 5rem);
+
+$notification-panel-width: 24rem;
 $notification-panel-width-offset: calc($notification-panel-width + 2rem);
 
 
@@ -101,7 +102,7 @@ $notification-panel-width-offset: calc($notification-panel-width + 2rem);
 }
 
 .logout {
- @include logout-btn;
+  @include logout-btn;
 }
 
 
@@ -138,15 +139,44 @@ $notification-panel-width-offset: calc($notification-panel-width + 2rem);
     rgba(0, 0, 0, 0.07) 0px 16px 32px,
     rgba(0, 0, 0, 0.07) 0px 32px 64px;
 
-  transition: .3s;
-  right:  -$notification-panel-width-offset;
-  height: 100%;
+  transition: .2s;
+  right: -$notification-panel-width-offset;
+  height: calc(100vh - $tool-bar-height);
   overflow: hidden;
   width: $notification-panel-width;
+
+  .empty-state {
+    img {
+      width: 12.5rem;
+      height: auto;
+    }
+  }
+
 
   .panel {
     overflow: auto;
   }
+
+  .list-group {
+    font-size: 1.2rem;
+
+    .text-muted {
+      font-size: 1.1rem;
+    }
+
+    p {
+      margin-bottom: .5rem;
+    }
+  }
+
+}
+
+.header {
+  padding-top: .5rem;
+}
+
+.panel-nav {
+  padding: .5rem;
 }
 
 .notification-toggle-button {
@@ -161,7 +191,5 @@ $notification-panel-width-offset: calc($notification-panel-width + 2rem);
 }
 
 .panel-header {
-  hr {
-    margin: 0 -1rem;
-  }
+  height: $tool-bar-height;
 }
