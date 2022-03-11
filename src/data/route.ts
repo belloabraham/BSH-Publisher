@@ -17,4 +17,7 @@ export class Route {
 
   static readonly errorRouteParams = 'error-route';
   static readonly error = 'error';
+
+  static readonly details = "details";
+  static readonly earnings = "earnings";
 }

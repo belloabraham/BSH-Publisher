@@ -1,5 +1,16 @@
+<div *transloco="let t" class="payment">
 
-<div class="payment">
-    <p>payment works!</p>
+    <div class="navigation">
+        <ul class="tab">
+            <li class="tab-item">
+                <a [routerLink]="details" [routerLinkActive]="'active'">{{t('paym_details')}}</a>
+            </li>
+            <li class="tab-item">
+                <a [routerLink]="earnings" [routerLinkActive]="'active'">{{t('earnings')}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <router-outlet></router-outlet>
+
 </div>
-

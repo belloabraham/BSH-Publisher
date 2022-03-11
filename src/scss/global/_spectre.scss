@@ -17,7 +17,6 @@
 
   .tab-item {
     a {
-      transition: .4s;
 
       &:hover {
         color: colors.$accent !important;
@@ -27,11 +26,6 @@
     a.active {
       color: colors.$accent !important;
       border-bottom-color: colors.$accent !important;
-
-      &:hover {
-        color: $primary-color !important;
-        border-bottom-color: $primary-color !important;
-      }
     }
   }
 

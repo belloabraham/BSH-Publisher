@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Route } from 'src/data/route';
 
 @Component({
   selector: 'app-payment',
@@ -7,5 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentComponent {
+  earnings = Route.earnings;
+  details = Route.details;
+
   constructor() {}
 }

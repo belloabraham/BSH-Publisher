@@ -33,9 +33,6 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
   private updatedSucessMsg = '';
   private updatedFailedMsg = '';
 
-  dashboard = DashboardComponent.dashboard;
-  profile = this.dashboard.concat(Route.profile);
-
   constructor(
     private localeService: LocaleService,
   ) {}

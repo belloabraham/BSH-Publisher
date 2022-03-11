@@ -53,8 +53,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
   helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
-  static readonly dashboard = [Route.root, Route.welcome, Route.dashboard];
-
   constructor(
     private title: Title,
     private localeService: LocaleService,
