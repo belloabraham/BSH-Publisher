@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MyBooksRoutingModule } from './my-books-routing.module';
 import { MyBooksComponent } from './my-books.component';
+import { TranslocoModule } from '@ngneat/transloco';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { MyBooksComponent } from './my-books.component';
   ],
   imports: [
     CommonModule,
-    MyBooksRoutingModule
+    MyBooksRoutingModule,
+    TranslocoModule
   ]
 })
 export class MyBooksModule { }

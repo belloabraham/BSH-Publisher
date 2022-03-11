@@ -10,12 +10,10 @@ import { DashboardComponent } from '../dashboard.component';
 })
 export class CollaboratorsComponent {
 
-  dashboard = DashboardComponent.dashboard
-  collaborators = this.dashboard.concat(Route.collaborators);
-
   constructor() { }
   
   addACollaborator() {
    
   }
+  
 }
