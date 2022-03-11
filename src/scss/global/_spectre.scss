@@ -1,4 +1,4 @@
-
+@use '../variables/colors';
 @import '~spectre.css/src/variables';
 @import '~spectre.css/src/mixins';
 
@@ -10,4 +10,30 @@
 
 @import '~spectre.css/src/panels';
 
+.tab {
+  font-size: 1.5rem;
+  gap: 2rem;
+  font-family: Procyon;
 
+  .tab-item {
+    a {
+      transition: .4s;
+
+      &:hover {
+        color: colors.$accent !important;
+      }
+    }
+
+    a.active {
+      color: colors.$accent !important;
+      border-bottom-color: colors.$accent !important;
+
+      &:hover {
+        color: $primary-color !important;
+        border-bottom-color: $primary-color !important;
+      }
+    }
+  }
+
+
+}

@@ -1,40 +1,41 @@
-<div *transloco="let t" class="collaborators p-2">
+<div *transloco="let t" class="collaborators ph-2">
+
+    <div class="navigation">
+        <ul class="tab">
+            <li class="tab-item">
+                <a [routerLink]="collaborators" [routerLinkActive]="'active'">{{t('collaborators')}}</a>
+            </li>
+        </ul>
+    </div>
 
 
-    <div class="empty-state d-flex flex-column justify-content-center align-items-center gap-1">
+    <div class="empty-state d-flex flex-column justify-content-center align-items-center gap-2">
+        <div>
+            <p class="d-inline">{{t('no_collaborators_heading', {value: t('app_name')})}}</p>
 
-
-        <div >
-             <h3 class="d-inline" >{{t('no_collaborators_heading', {value: t('app_name')})}}</h3>
-
-<a class="learn-more underline ml-1"  href="https://www.bookshelfhub.com/help#collaborators" target="_blank"
-    rel="noopener noreferrer">Learn more <svg viewBox="0 0 24 24">
-        <path fill="currentColor"
-            d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
-    </svg>  </a>
-
+            <a class="learn-more underline ml-1" href="https://www.bookshelfhub.com/help#collaborators" target="_blank"
+                rel="noopener noreferrer">Learn more <svg viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+                </svg> </a>
         </div>
-     
 
+        <div class="d-flex align-items-center ">
+            <img src="assets/images/collaborators.svg">
 
-            <div class="d-flex gap-2 align-items-center ">
-                <img src="assets/images/collaborators.svg">
-            
-                <button ly-button raised bg="primary">
-                    <i>
-                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
-                        </svg>
-                    </i>
-                    <span lyPe="1">
-                        {{t('add_collaborator')}}
-                    </span>
-                    
-                </button>
-            </div>
-    
+            <button ly-button raised bg="primary" (click)="addACollaborator()">
+                <i>
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                    </svg>
+                </i>
+                <span lyPe="1">
+                    {{t('add_collaborator')}}
+                </span>
 
+            </button>
+        </div>
     </div>
 
 

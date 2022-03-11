@@ -8,7 +8,8 @@ import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { StringResKeys } from './locale/string-res-keys';
 import { NotificationBuilder } from '../../../../helpers/utils/notification/notification-buider';
 import { serverTimestamp } from '@angular/fire/firestore';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { DashboardComponent } from '../dashboard.component';
+import { Route } from 'src/data/route';
 
 @Component({
   selector: 'app-profile',
@@ -32,7 +33,12 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
   private updatedSucessMsg = '';
   private updatedFailedMsg = '';
 
-  constructor(private localeService: LocaleService) {}
+  dashboard = DashboardComponent.dashboard;
+  profile = this.dashboard.concat(Route.profile);
+
+  constructor(
+    private localeService: LocaleService,
+  ) {}
 
   ngOnInit(): void {
     this.translateStringRes();

@@ -20,7 +20,7 @@ export class ErrorComponent  {
 
 
   tryAgain() {
-    this.router.navigateByUrl(this.incomingRoute!!)
+    this.router.navigateByUrl(this.incomingRoute!!);
   }
  
 }

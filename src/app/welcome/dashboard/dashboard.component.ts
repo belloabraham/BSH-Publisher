@@ -24,7 +24,6 @@ import { REMOTE_CONFIG_IJTOKEN } from 'src/services/remote-config/remote.config.
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -54,13 +53,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
   helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
+  static readonly dashboard = [Route.root, Route.welcome, Route.dashboard];
+
   constructor(
     private title: Title,
     private localeService: LocaleService,
     @Inject(DATABASE_IJTOKEN) private database: IDatabase,
     @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    private router: Router,
+    private router: Router
   ) {
     this.isOpenLeftNav();
   }

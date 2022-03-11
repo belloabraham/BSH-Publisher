@@ -19,22 +19,6 @@ import { Config } from 'src/data/config';
 import { Languages } from 'src/data/languages';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
-import { lyl, ThemeVariables, StyleRenderer, ThemeRef } from '@alyle/ui';
-import { STYLES as STYLES_BUTTON } from '@alyle/ui/button';
-
-const STYLES = (theme: ThemeVariables, ref: ThemeRef) => {
-  // Make sure button styles have been rendered
-  ref.renderStyleSheet(STYLES_BUTTON);
-  // Get selectors
-  const button = ref.selectorsOf(STYLES_BUTTON);
-  return {
-    root: lyl`{
-      ${button.root} {
-        font-size: 1.2rem
-      }
-    }`,
-  };
-};
 
 
 @Component({
@@ -42,7 +26,6 @@ const STYLES = (theme: ThemeVariables, ref: ThemeRef) => {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [StyleRenderer],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
@@ -52,14 +35,12 @@ export class AppComponent implements OnInit, OnDestroy {
   isStarting$: Observable<boolean> = of(true);
   isNotConnected$: Observable<boolean> = of(true);
 
-  readonly classes = this.sRenderer.renderSheet(STYLES, true);
 
   constructor(
     private localeService: LocaleService,
     title: Title,
     private connectionService: ConnectionService,
     private router: Router,
-    readonly sRenderer: StyleRenderer
   ) {
     title.setTitle(Config.appName);
   }

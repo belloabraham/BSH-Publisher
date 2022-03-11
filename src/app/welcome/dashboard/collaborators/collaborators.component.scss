@@ -1,6 +1,8 @@
+
 .collaborators{
     min-height: 90vh;
     .empty-state{
+        font-size: 1.4rem;
         img{
             width: 30rem;
             height: auto;
@@ -9,10 +11,14 @@
 }
 
 .learn-more{
-    font-size: 1.3rem;
     svg{
         width: 1.4rem;
         height: 1.4rem;
     }
     
+}
+
+.navigation{
+    margin: 1.5rem -2rem;
+    padding-top: 1rem;
 }
