@@ -76,7 +76,7 @@
     "learn_more":"Learn more",
     "no_notification_msg":"You currently have no new notification, check back later.",
     "welcome_username":"Welcome {{value}}",
-    "hi_username":"Hi, {{value}}",
+    "hi_username":"Hi {{value}}",
 
 
     "no_payment_details_heading":"{{name}} add your payment details so we know how to send you payment for your books that are sold on {{value}}.",

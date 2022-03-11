@@ -10,14 +10,26 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () =>
-          import('./book-list/book-list.module').then((m) => m.BookListModule),
+        pathMatch: 'full',
+        redirectTo: Route.published
       },
       {
-        path: Route.publishYourBook,
+        path: Route.published,
         loadChildren: () =>
-          import('../../../shared/publish-book/publish-book.module').then(
-            (m) => m.PublishBookModule
+          import('./published/published.module').then((m) => m.PublishedModule),
+      },
+      {
+        path: Route.unpublished,
+        loadChildren: () =>
+          import('./unpublished/unpublished.module').then(
+            (m) => m.UnpublishedModule
+          ),
+      },
+      {
+        path: Route.pendingApproval,
+        loadChildren: () =>
+          import('./pending-published/pending-published.module').then(
+            (m) => m.PendingPublishedModule
           ),
       },
     ],

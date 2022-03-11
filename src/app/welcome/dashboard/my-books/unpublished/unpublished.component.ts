@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.scss'],
+  selector: 'app-unpublished',
+  templateUrl: './unpublished.component.html',
+  styleUrls: ['./unpublished.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookListComponent {
+export class UnpublishedComponent{
   constructor() {}
+
 }

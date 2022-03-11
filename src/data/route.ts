@@ -11,6 +11,10 @@ export class Route {
   static readonly collaborators = 'collaborators';
   static readonly profile = 'profile';
 
+  static readonly published = "published";
+  static readonly unpublished = "unpublished";
+  static readonly pendingApproval ="pending-approval"
+
   static readonly errorRouteParams = 'error-route';
   static readonly error = 'error';
 }
