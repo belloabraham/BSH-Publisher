@@ -1,16 +1,13 @@
-@use '../../../../scss/variables/toolbar' as *;
 
 .profile{
-    min-height: calc(100vh - $tool-bar-height);
+    min-height: 90vh;
 }
-
 .navigation{
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
 }
 .account-panel{
     padding: 0 1px;
-    
 }
 .pub-id{
     font-size: 1.5rem;
