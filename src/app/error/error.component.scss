@@ -1,0 +1,13 @@
+@use '../../scss/variables/input' as *;
+
+img{
+width: 25rem;    
+}
+
+.error-msg{
+    font-size: 1.5rem;
+    text-align: center;
+}
+button{
+    width: $input-width;
+}

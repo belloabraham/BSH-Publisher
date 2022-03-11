@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ErrorRoutingModule } from './error-routing.module';
 import { ErrorComponent } from './error.component';
+import { TranslocoModule } from '@ngneat/transloco';
+import { LyButtonModule } from '@alyle/ui/button';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { ErrorComponent } from './error.component';
   ],
   imports: [
     CommonModule,
-    ErrorRoutingModule
+    ErrorRoutingModule,
+    TranslocoModule,
+    LyButtonModule
   ]
 })
 export class ErrorModule { }

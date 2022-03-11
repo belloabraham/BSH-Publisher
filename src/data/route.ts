@@ -9,6 +9,9 @@ export class Route {
   static readonly myBooks = 'my-books';
   static readonly payment = 'payment';
   static readonly collaborators = 'collaborators';
-  static readonly profile = "profile";
-  static readonly error = "error"
+  static readonly profile = 'profile';
+
+  
+  static readonly errorRouteParams = 'error-route';
+  static readonly error = 'error';
 }

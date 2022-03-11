@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: Route.error,
     loadChildren: () =>
-      import('./shared/error/error.module').then((m) => m.ErrorModule),
+      import('./error/error.module').then((m) => m.ErrorModule),
   },
   {
     path: '**',

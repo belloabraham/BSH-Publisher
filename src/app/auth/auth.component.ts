@@ -41,8 +41,9 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor(
     private title: Title,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    private localeService: LocaleService
-  ) {}
+    private localeService: LocaleService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.getStringRes();

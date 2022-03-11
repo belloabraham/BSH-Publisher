@@ -1,0 +1,16 @@
+<div *transloco="let t"
+    class="error h-100 w-100 d-flex justify-content-center align-items-center">
+
+
+    <div class="error h-100 w-50 d-flex flex-column gap-1 p-2 justify-content-center align-items-center">
+        <h1>{{ t('internal_server_error') }}</h1>
+
+        <img class="img" src="/assets/images/error-500.svg">
+
+        <p class="error-msg">{{ t('server_error_msg') }}
+        </p>
+
+        <button ly-button raised bg="primary" (click)="tryAgain()">{{ t('try_again') }}</button>
+    </div>
+
+</div>
