@@ -3,8 +3,9 @@
 
     <div class="tool-bar fixed-top top-toolbar align-items-end d-flex justify-content-between ph-2">
 
-            <div>
-                <h2 class="m-0 p-0"> {{t('welcom_username')}} </h2>
+            <div class="welcome d-flex align-items-center gap-1">
+                <h2 class="m-0 p-0"> {{t('hi_username')}} Bello  </h2>
+               <span class="wave">👋🏽</span>
             </div>
 
             <div class="d-flex align-items-center gap-1">
@@ -143,62 +144,8 @@
 
     <div class="notification-panel bg-white" [ngClass]="{'notf-panel-show':openRightNav}">
 
-        <div class="panel w-100 h-100">
-            <div class="panel-header text-white bg-primary d-flex justify-content-between align-items-center">
-                <h3 class="panel-title m-0 p-0">{{ t('notifications') }}</h3>
-            </div>
-
-            <div class="h-100 d-none">
-                <div class="panel-nav text-end">
-
-                    <button ly-button color="warn">
-                        <svg viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M15,16H19V18H15V16M15,8H22V10H15V8M15,12H21V14H15V12M3,18A2,2 0 0,0 5,20H11A2,2 0 0,0 13,18V8H3V18M14,5H11L10,4H6L5,5H2V7H14V5Z" />
-                        </svg>
-                        <span [lyPe]="1">{{ t('delete_all')}}</span>
-                    </button>
-
-                    <!-- navigation components: tabs, breadcrumbs or pagination -->
-                </div>
-                <div class="panel-body bg-white p-0">
-
-                    <div class="list-group list-group-flush">
-                        <div class="list-group-item">
-                            <div class="d-flex w-100 header justify-content-between">
-                                <h4>Message Header</h4>
-                                <small class="text-muted">3 days ago</small>
-                            </div>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt sapiente minima quo
-                                praesentium quas nihil quod ratione possimus delectus accusamus repudiandae, culpa
-                                quibusdam
-                                hic dolore cum in dicta quaerat deserunt?</p>
-                            <div class="d-flex w-100 justify-content-between align-items-center">
-                                <small class="text-muted">And some muted small print.</small>
-                                <button ly-button appearance="miniFab" color="warn">
-                                    <svg viewBox="0 0 24 24">
-                                        <path fill="currentColor"
-                                            d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <!-- buttons or inputs -->
-                </div>
-            </div>
-
-          <div class="d-flex h-100 p-1 flex-column justify-content-start align-items-center empty-state mt-4 gap-1">
-
-                <img src="assets/images/empty-notification.svg">
-
-                <h3 class="text-center">{{ t('no_notification_msg') }}</h3>
-
-          </div>
-
-        </div>
+        <app-notification></app-notification>
+      
     </div>
 
 </div>

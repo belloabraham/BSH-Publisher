@@ -9,10 +9,11 @@ import {
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
 import { LyButtonModule } from '@alyle/ui/button';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, NotificationComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

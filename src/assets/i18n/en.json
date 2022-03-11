@@ -58,7 +58,7 @@
     "error":"Error",
 
     "empty_book_store_title":"Empty Book Store - {{value}}",
-    "empty_book_store_heading":"You currently have no book in the book store",
+    "empty_book_store_heading":"You currently have no book in your store shelf",
     "publish_a_book":"Publish a book",
     "logout":"Log out",
 
@@ -73,8 +73,10 @@
     "payment":"Payment",
     "collaborators":"Collaborators",
     "delete_all":"Delete all",
+    "learn_more":"Learn more",
     "no_notification_msg":"You currently have no new notification, check back later.",
-    "welcom_username":"Welcome {{value}}",
+    "welcome_username":"Welcome {{value}}",
+    "hi_username":"Hi, {{value}}",
 
 
     "no_payment_details_heading":"{{name}} add your payment details so we know how to send you payment for your books that are sold on {{value}}.",
@@ -94,7 +96,7 @@
     "publishers_id":"Publisher's ID : {{value}}",
     "logout_all_dev":"Logout all devices",
     "id_confid_msg":"Do not share your publisher's ID with anyone",
-    "toggle_panel_msg":"Click to toggle panel",
+    "click_to_expand":"Click to expand",
 
 
     "internal_server_error":"Internal server error",

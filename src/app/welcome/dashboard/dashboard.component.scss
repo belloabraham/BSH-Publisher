@@ -16,6 +16,9 @@ $notification-panel-width-offset: calc($notification-panel-width + 2rem);
   fill: red;
 }
 
+.wave{
+  font-size: 1.5rem;
+}
 
 .collapse-icon {
   margin-bottom: 1rem;
@@ -144,39 +147,6 @@ $notification-panel-width-offset: calc($notification-panel-width + 2rem);
   height: calc(100vh - $tool-bar-height);
   overflow: hidden;
   width: $notification-panel-width;
-
-  .empty-state {
-    img {
-      width: 12.5rem;
-      height: auto;
-    }
-  }
-
-
-  .panel {
-    overflow: auto;
-  }
-
-  .list-group {
-    font-size: 1.2rem;
-
-    .text-muted {
-      font-size: 1.1rem;
-    }
-
-    p {
-      margin-bottom: .5rem;
-    }
-  }
-
-}
-
-.header {
-  padding-top: .5rem;
-}
-
-.panel-nav {
-  padding: .5rem;
 }
 
 .notification-toggle-button {
@@ -190,6 +160,4 @@ $notification-panel-width-offset: calc($notification-panel-width + 2rem);
   right: 0;
 }
 
-.panel-header {
-  height: $tool-bar-height;
-}
+
