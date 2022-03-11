@@ -26,13 +26,15 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.sink = this.localeService
-      .getIsLangLoadSuccessfullyObs()
-      .subscribe(_ => {
-        this.title.setTitle(
-          this.localeService.translate(StringResKeys.title)
-        );
-      })
+    this.getStrinRes()
+  }
+
+  private getStrinRes() {
+     this.subscriptions.sink = this.localeService
+       .getIsLangLoadSuccessfullyObs()
+       .subscribe((_) => {
+         this.title.setTitle(this.localeService.translate(StringResKeys.title));
+       });
   }
 
   ngOnDestroy(): void {

@@ -99,6 +99,6 @@
 
     "internal_server_error":"Internal server error",
     "try_again":"Try again",
-    "server_error_msg":"Unable to load the requested page as a result of an internal server error. Wait a few minutes and try again."
+    "server_error_msg":"Unable to load the requested resource as a result of an internal server error. Wait a few minute and try again."
 
 }
