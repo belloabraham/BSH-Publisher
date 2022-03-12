@@ -35,8 +35,8 @@ $colors: (
 
 .preloader{
     background-color: white;
-    position: absolute;
-    z-index: 300;
+    position: fixed;
+    z-index: 1000;
     top: 0;
     bottom: 0;
     right: 0;

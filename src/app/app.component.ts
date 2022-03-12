@@ -12,8 +12,8 @@ import {
   Router,
 } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
-import { merge, Observable, of } from 'rxjs';
-import { filter, map, mapTo } from 'rxjs/operators';
+import {  merge, Observable, of } from 'rxjs';
+import { filter, map, mapTo, tap } from 'rxjs/operators';
 import { Config } from 'src/data/config';
 
 import { Languages } from 'src/data/languages';
@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoading$!: Observable<boolean>;
   isStarting$: Observable<boolean> = of(true);
   isNotConnected$: Observable<boolean> = of(true);
+  showPreloader$!:Observable<boolean>;
 
 
   constructor(
@@ -67,12 +68,9 @@ export class AppComponent implements OnInit, OnDestroy {
       mapTo(false)
     );
 
-    this.isStarting$ = this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      mapTo(false)
-    );
-
+    this.showPreloader$ = merge(this.hideLoaderEvent$, this.isStarting$);
     this.isLoading$ = merge(this.hideLoaderEvent$, this.showLoaderEvent$);
+    
   }
 
   ngOnDestroy(): void {

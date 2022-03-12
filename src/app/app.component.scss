@@ -3,11 +3,9 @@
 @use '../scss/visibility'as *;
 @import '../scss/components/preloader';
 
-$overshoot: 10%;
 
-.sshow {
-  @include showWithEase(.4s)
-}
+
+$overshoot: 10%;
 
 .show {
   animation-name: banner-in;
