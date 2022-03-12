@@ -77,6 +77,7 @@
     "no_notification_msg":"You currently have no new notification, check back later.",
     "welcome_username":"Welcome {{value}}",
     "hi_username":"Hi {{value}}",
+    "delete":"Delete",
 
 
     "no_collaborators_heading":"Collaborators are {{value}}'s mobile app users that sell your book on your behalf for a commission you assign to them. This is particularly useful in the case of academic institutions selling your book to it's student on your behalf.", 
@@ -107,7 +108,7 @@
 
     "paym_details":"Payment details",
     "earnings":"Earnings",
-      "no_payment_details_heading":"{{username}} Michael add your payment details so that we can send you payment for your books that are sold on {{value}}.",
+    "no_payment_details_heading":"{{username}} Michael add your payment details so that we can send you payment for your books that are sold on {{value}}.",
     "add_paym_details":"Add payment details"
 
 }

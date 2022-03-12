@@ -2,13 +2,15 @@
 @import '~spectre.css/src/variables';
 @import '~spectre.css/src/mixins';
 
+
+//My custom variables
 @import '../variables/spectre';
 
 
 @import '~spectre.css/src/tabs';
 @import '~spectre.css/src/forms';
-
 @import '~spectre.css/src/panels';
+
 
 .tab {
   font-size: 1.3rem;

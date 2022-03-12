@@ -10,6 +10,7 @@ import {
 } from '@angular/fire/remote-config';
 import { LyButtonModule } from '@alyle/ui/button';
 import { NotificationComponent } from './notification/notification.component';
+import { LyTooltipModule } from '@alyle/ui/tooltip';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { NotificationComponent } from './notification/notification.component';
     DashboardRoutingModule,
     TranslocoModule,
     LyButtonModule,
+    LyTooltipModule,
     provideRemoteConfig(() => getRemoteConfig()),
   ],
 })
