@@ -127,7 +127,7 @@
             </footer>
         </nav>
         <div class="collapse-icon">
-            <label [ngClass]="{'float-end':!openLeftNav}" class="arrow-label no-select" for="arrow-checkbox">
+            <label [lyTooltip]="openLeftNav ? t('expand'): t('collapse')"  [lyTooltipPlacement]="right"  [ngClass]="{'float-end':!openLeftNav}" class="arrow-label no-select" for="arrow-checkbox">
                 <input (change)="toggleLeftNav()" type="checkbox" id="arrow-checkbox" />
                 <span [ngClass]="{'left':!openLeftNav, 'right':openLeftNav}" class="arrow--l-r">
                     <span></span><span></span><span></span><span></span><span></span></span>

@@ -78,6 +78,8 @@
     "welcome_username":"Welcome {{value}}",
     "hi_username":"Hi {{value}}",
     "delete":"Delete",
+    "collapse":"Collapse",
+    "expand":"Expand",
 
 
     "no_collaborators_heading":"Collaborators are {{value}}'s mobile app users that sell your book on your behalf for a commission you assign to them. This is particularly useful in the case of academic institutions selling your book to it's student on your behalf.", 
