@@ -1,32 +1,11 @@
 @forward '../scss/components/indeterminate-progress';
 @forward '../scss/components/warning-panel';
-@use '../scss/visibility'as *;
+@use '../scss/animations/bounce_in' as *;
 @import '../scss/components/preloader';
 
 
-
-$overshoot: 10%;
-
 .show {
-  animation-name: banner-in;
-  animation-direction: forwards;
-  animation-duration: 0.6s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
+ @include bounce-in();
 }
 
-@keyframes banner-in {
-  0% {
-    transform: translateY(-100%);
-  }
-
-  50% {
-    transform: translateY($overshoot);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
 

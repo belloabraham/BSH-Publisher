@@ -15,10 +15,13 @@ $secondary-dark:#052c65;
 $primary-dark: $purple-800;
 $accent: #fd7e14;
 $danger:#dc3545;
+$light: rgba(248, 249, 250, 1);
+$dark:#212529;
 
 
 .text-gray-100{
  color: $gray-100;
+ 
 }
 .bg-purple-900{
     background-color: $purple-800 !important;

@@ -21,7 +21,8 @@
       <button type="submit" ly-button elevation="1"  bg="primary">{{ t('sign_in') }}</button>
 
     </form>
-    <span>{{ t('or') | uppercase}}</span>
+
+    <span class="text-muted or">{{ t('or')}}</span>
 
     <button (click)="signInWithGoogleRedirect()"
     ly-button raised elevation="1"
