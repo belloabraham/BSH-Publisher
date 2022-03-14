@@ -31,9 +31,7 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
   private updatedSucessMsg = '';
   private updatedFailedMsg = '';
 
-  constructor(
-    private localeService: LocaleService,
-  ) {}
+  constructor(private localeService: LocaleService) {}
 
   ngOnInit(): void {
     this.translateStringRes();

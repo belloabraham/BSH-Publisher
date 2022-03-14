@@ -8,16 +8,21 @@ import { Regex } from 'src/data/regex';
   styleUrls: ['./paypal-form.component.scss'],
 })
 export class PaypalFormComponent {
-
   @Input()
-  payPalForm: FormGroup | undefined;
+  payPalForm!: FormGroup;
 
   emailFC!: FormControl;
+  hasError = false;
 
   constructor() {}
 
-  submitForm() {
-    this.emailFC = this.payPalForm?.get('emailFC') as FormControl;
+  submitFormData() {
+    this.emailFC = this.payPalForm.get('emailFC') as FormControl;
+    if (this.emailFC.valid) {
+      this.hasError=false
+    } else {
+      this.hasError=true
+    }
   }
 
   static getPayPalForm() {

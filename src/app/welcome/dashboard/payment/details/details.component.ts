@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
+import { AccountType } from 'src/data/account-type';
 import { PaymentType } from 'src/data/payment-type';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
@@ -20,11 +21,15 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   private subscriptions = new SubSink();
 
   paymentDetailsForm!: FormGroup;
-  accountTypeFC = new FormControl('', [Validators.required]);
+  paymentTypeFC = new FormControl(undefined);
 
   skrillFormName = 'skrillForm';
   payPalFormName = 'payPalForm';
   bankTransferFormName = 'bankTransferForm';
+
+  skrillPaymT = PaymentType.skrill;
+  payPalPaymT = PaymentType.payPal;
+  bankTransferPaymT = PaymentType.bankTransfer;
 
   private unsavedFieldsMsgTitle = '';
   private unsavedFieldsMsg = '';
@@ -61,22 +66,21 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
     this.paymentDetailsForm = this.generatePaymentDetailsForm();
 
-    this.onPaymentTypeSelected()
-   
+    this.onPaymentTypeSelected();
   }
 
   onPaymentTypeSelected() {
-     this.subscriptions.sink = this.accountTypeFC.valueChanges
-       .pipe()
-       .subscribe((paymentType) => {
-         if (paymentType === PaymentType.bankTransfer) {
-           this.addBankTransferForm();
-         } else if (paymentType === PaymentType.payPal) {
-           this.addPayPalForm();
-         } else if (paymentType === PaymentType.skrill) {
-           this.addSkrillForm();
-         }
-       });
+    this.subscriptions.sink = this.paymentTypeFC.valueChanges
+      .pipe()
+      .subscribe((paymentType) => {
+        if (paymentType === PaymentType.bankTransfer) {
+          this.addBankTransferForm();
+        } else if (paymentType === PaymentType.payPal) {
+          this.addPayPalForm();
+        } else if (paymentType === PaymentType.skrill) {
+          this.addSkrillForm();
+        }
+      });
   }
 
   addPayPalForm() {
@@ -108,7 +112,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   generatePaymentDetailsForm() {
     return (this.paymentDetailsForm = new FormGroup({
-      accountTypeFC: this.accountTypeFC,
+      paymentTypeFC: this.paymentTypeFC,
     }));
   }
 

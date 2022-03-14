@@ -34,7 +34,6 @@
                 {{ t('name_field_required') }}
             </p>
         </div>
-
     </div>
 
     <div class="d-flex mb-1 phone align-items-start">
@@ -68,7 +67,6 @@
                     <option value="male">{{ t('male') }}</option>
                     <option value="female">{{ t('female') }}</option>
                 </select>
-
             </div>
             <p *ngIf="genderFC.hasError('required') && genderFC.touched" class="form-input-hint">
                 {{ t('gender_required') }}

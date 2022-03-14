@@ -13,6 +13,8 @@ export class SkrillFormComponent  {
 
   emailFC!: FormControl;
 
+  hasError =false
+
   constructor() {}
 
   static getSkrillForm() {
@@ -24,7 +26,12 @@ export class SkrillFormComponent  {
     });
   }
 
-  submitForm() {
-    this.emailFC = this.skrillForm?.get('emailFC') as FormControl;
+  submitFormData() {
+    this.emailFC = this.skrillForm.get('emailFC') as FormControl;
+     if (this.emailFC.valid) {
+       this.hasError = false;
+     } else {
+       this.hasError = true;
+     }
   }
 }

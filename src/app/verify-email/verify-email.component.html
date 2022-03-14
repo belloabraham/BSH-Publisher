@@ -8,15 +8,15 @@
   <h3>{{ t('email_verif_sub_title') }}</h3>
 
   <form [formGroup]="verifyEmailForm" (ngSubmit)="verifyEmail()" class="mt-4">
-    <div class="mb-1">
 
+    <div class="mb-1">
       <div class="form-group mb-1" [ngClass]="{'has-error':hasError}">
         <label class="form-label label-lg" for="emailFC">{{ t('enter_your_email_add') }}</label>
         <input class="form-input input-lg" id="emialFC" formControlName="emailFC">
         <p *ngIf="hasError" class="form-input-hint">{{ t('enter_signin_link_email') }}</p>
       </div>
-
     </div>
     <button type="submit" ly-button raised bg="primary">{{ t('verify_email')}}</button>
+    
   </form>
 </div>

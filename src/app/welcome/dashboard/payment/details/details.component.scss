@@ -1,6 +1,7 @@
-@use '../../../../../scss/animations/bounce_in' as *;
-.details{
-   font-size: 1.4rem;
+@use '../../../../../scss/animations/bounce_in'as *;
+
+.details {
+  font-size: 1.4rem;
 }
 
 .empty-state {
@@ -8,6 +9,15 @@
     width: 25rem;
   }
 }
-.bounce-in{
- @include bounce-in();
+
+.bounce-in {
+  @include bounce-in(.3s);
+}
+
+.form-label {
+  width: 6rem;
+}
+
+.form-group {
+  width: 15rem;
 }
