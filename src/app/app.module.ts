@@ -27,7 +27,6 @@ import { MinimaLight } from '@alyle/ui/themes/minima';
 import { AlyleGlobalThemeVariables } from 'src/theme/alyle-global-theme-variables';
 import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [

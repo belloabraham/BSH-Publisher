@@ -61,7 +61,10 @@
     </div>
 
 
-        <button type="submit" ly-button raised bg="primary" class="float-end">{{ t('update')}}</button>
+    <app-bank-tranfer-foreign-form *ngIf="bankForeignForm" [bankForeignForm]="bankForeignForm" ></app-bank-tranfer-foreign-form>
+
+
+   <button disabled [disabled]="!bankTransferForm.valid" type="submit" ly-button raised bg="primary" class="float-end">{{ t('update')}}</button>
 
 
 </form>

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { AccountType } from 'src/data/account-type';
 import { PaymentType } from 'src/data/payment-type';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
 import { BankTransferFormComponent } from './bank-transfer-form/bank-transfer-form.component';
 import { StringResKeys } from './locale/string-res-keys';
@@ -40,6 +40,16 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   canExitRoute = new Subject<boolean>();
 
+  constructor(
+    private localeService: LocaleService,
+  ) { }
+
+
+  goToPayment() {
+    this.paymentDetailsForm.markAsPristine()
+    this.addPaymentDetailsClick = !this.addPaymentDetailsClick
+  }
+
   public get getSkrillForm(): FormGroup | null {
     let value = this.paymentDetailsForm.get(this.skrillFormName);
     return value ? (value as FormGroup) : null;
@@ -55,17 +65,25 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     return value ? (value as FormGroup) : null;
   }
 
-  constructor(private localeService: LocaleService) {}
-
-  canExit(): boolean | Observable<boolean> | Promise<boolean> {
-    return true;
+  canExit(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.paymentDetailsForm.dirty) {
+      AlertDialog.warn(
+        this.unsavedFieldsMsg,
+        this.unsavedFieldsMsgTitle,
+        this.yes,
+        this.no,
+        () => this.canExitRoute.next(true),
+        () => this.canExitRoute.next(false)
+      );
+      return this.canExitRoute;
+    } else {
+      return true;
+    }
   }
 
   ngOnInit(): void {
     this.translateStringRes();
-
     this.paymentDetailsForm = this.generatePaymentDetailsForm();
-
     this.onPaymentTypeSelected();
   }
 
@@ -111,9 +129,9 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   }
 
   generatePaymentDetailsForm() {
-    return (this.paymentDetailsForm = new FormGroup({
+    return new FormGroup({
       paymentTypeFC: this.paymentTypeFC,
-    }));
+    });
   }
 
   private translateStringRes() {
