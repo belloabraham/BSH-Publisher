@@ -1,7 +1,14 @@
 <div *transloco="let t" class="details">
 
 
-    <div *ngIf="addPaymentDetailsClick"   class="payment-details-form bounce-in">
+    <div *ngIf="addPaymentDetailsClick" class="payment-details-form bounce-in">
+
+        <form [formGroup]="paymentDetailsForm" >
+            <app-bank-transfer-form *ngIf="getBankTransferForm" [bankTransferForm]="getBankTransferForm" ></app-bank-transfer-form>
+            <app-paypal-form  *ngIf="getPayPalForm" [payPalForm]="getPayPalForm" ></app-paypal-form>
+            <app-skrill-form  *ngIf="getSkrillForm" [skrillForm]="getSkrillForm"  ></app-skrill-form>
+        </form>
+
 
     </div>
 

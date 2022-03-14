@@ -1,5 +1,5 @@
 export enum PaymentType {
-  wireBankTransfer = 'Wire/Bank Transfer',
+  bankTransfer = 'BankTransfer',
   payPal = 'PayPal',
   skrill = 'Skrill',
 }

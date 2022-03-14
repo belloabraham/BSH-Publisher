@@ -6,11 +6,9 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { countries } from 'src/data/countries';
 import { diallingCodes } from 'src/data/dialling-code';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { isValidPhone } from 'src/helpers/utils/validators';

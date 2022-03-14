@@ -8,8 +8,6 @@ import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { StringResKeys } from './locale/string-res-keys';
 import { NotificationBuilder } from '../../../../helpers/utils/notification/notification-buider';
 import { serverTimestamp } from '@angular/fire/firestore';
-import { DashboardComponent } from '../dashboard.component';
-import { Route } from 'src/data/route';
 
 @Component({
   selector: 'app-profile',

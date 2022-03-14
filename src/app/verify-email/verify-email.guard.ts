@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { Providers } from 'src/data/providers';
 import { Route as Routes} from 'src/data/route';
 import { Settings } from 'src/data/settings';
@@ -24,13 +24,13 @@ export class VerifyEmailGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    
+
      //Check if user is autheneticated on the device already
     if (this.userAuth.getPubId()) {
       this.router.navigateByUrl(Routes.welcome);
       return false
     } else if (this.userEmail) {//check if the user sign in with mail on this device
-      return this.verifyEmailWithLink(this.userEmail);
+      return this.verifyEmailWithLink(this.userEmail!);
     } else {
       //Allow navigation to verify email component for email verification
       return true;
