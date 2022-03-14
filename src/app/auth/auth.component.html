@@ -22,7 +22,7 @@
 
     </form>
 
-    <span class="text-muted or">{{ t('or')}}</span>
+    <span class="text-muted or">{{t('or')}}</span>
 
     <button (click)="signInWithGoogleRedirect()"
     ly-button raised elevation="1"
@@ -32,10 +32,10 @@
       <span [lyPe]="2" >{{ t('sign_in_with_google') }}</span>
     </button>
 
-    <p class="notice"> <small class="text-muted">By proceeding, you agree to our <a class="link-secondary"
-          href="https://www.bookshelfhub.com/terms" target="_blank" rel="noopener noreferrer">terms</a> and <a
+    <p class="notice"> <small class="text-muted">{{t('by_proceeding_you_agree')}} <a class="link-secondary"
+          href="https://www.bookshelfhub.com/terms" target="_blank" rel="noopener noreferrer">{{t('terms')}}</a> {{t('and')}} <a
           class="link-secondary" href="https://www.bookshelfhub.com/privacy" target="_blank"
-          rel="noopener noreferrer">privacy policy</a>.</small></p>
+          rel="noopener noreferrer">{{t('privacy_policy')}}</a>.</small></p>
   </div>
 
 

@@ -18,6 +18,10 @@
     "link_sent_title":"Login Link Sent",
     "link_sent_msg":"A login link has beeen sent to <b>{{value}}</b>, open your mail box and click on it to login",
     "sign_in_error_title":"Error - Unable to sign in",
+    "by_proceeding_you_agree":"By proceeding, you agree to our ",
+    "terms":"terms",
+    "privacy_policy":"privacy policy",
+    "and":"and",
 
 
     "invalid_email_error":"Enter the  email address this link was sent to. <br><i>Error Code: {{value}}</i>",

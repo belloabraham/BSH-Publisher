@@ -21,37 +21,33 @@
         </div>
 
         <div class="account-panel">
-              <ly-accordion >
-            <ly-expansion-panel>
-                <ly-expansion-panel-header>
-                    <ly-panel-title>
-                    {{ t('account')}}
-                    </ly-panel-title>
-                    <ly-panel-description>{{ t('click_to_expand')}}</ly-panel-description>
-                </ly-expansion-panel-header>
+            <ly-accordion>
+                <ly-expansion-panel>
+                    <ly-expansion-panel-header>
+                        <ly-panel-title>
+                            {{ t('account')}}
+                        </ly-panel-title>
+                        <ly-panel-description>{{ t('click_to_expand')}}</ly-panel-description>
+                    </ly-expansion-panel-header>
 
-                <div >
-                    <p class="pub-id" >{{ t('publishers_id')}} 896987678567856785698</p>
+                    <div>
+                        <p class="pub-id">{{ t('publishers_id')}} 896987678567856785698</p>
+                        <p class="text-danger"> {{ t('id_confid_msg')}}</p>
+                    </div>
 
-                   <p class="text-danger"> {{ t('id_confid_msg')}}</p>
-
-                </div>
-
-                <ly-action-row>
-                    <button ly-button color="primary">
-                        <i>
-                            <svg viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
-                            </svg>
-                        </i>
-
-                        <span [lyPe]="1">{{ t('logout_all_dev')}}</span>
-                       
-                    </button>
-                </ly-action-row>
-            </ly-expansion-panel>
-        </ly-accordion>
+                    <ly-action-row>
+                        <button ly-button color="primary">
+                            <i>
+                                <svg viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
+                                </svg>
+                            </i>
+                            <span [lyPe]="1">{{ t('logout_all_dev')}}</span>
+                        </button>
+                    </ly-action-row>
+                </ly-expansion-panel>
+            </ly-accordion>
         </div>
 
     </div>
