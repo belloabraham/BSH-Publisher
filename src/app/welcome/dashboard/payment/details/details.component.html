@@ -3,14 +3,13 @@
 
     <div *ngIf="!addPaymentDetailsClick" class=" bounce-in no-select d-flex justify-content-center align-items-center p-2">
 
-
         <div class="card shadow-sm">
             <div class="card-header">
                 <h4 class="m-0 p-0">{{t('paym_details')}}</h4>
             </div>
             <form [formGroup]="paymentDetailsForm" class="m-2">
 
-                <div class="d-flex mb-1 gap-2">
+                <div class="d-flex mb-1 gap-1">
                     <label class="form-label label-lg flex-shrink-0">{{ t('payment_type') }}</label>
                     <div class="form-group">
                         <select formControlName="paymentTypeFC" class="form-select select-lg">

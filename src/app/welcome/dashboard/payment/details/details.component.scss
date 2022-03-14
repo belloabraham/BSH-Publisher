@@ -1,5 +1,5 @@
 @use '../../../../../scss/animations/bounce_in'as *;
-
+@use '../../../../../scss/variables/payment'as *;
 .details {
   font-size: 1.4rem;
 }
@@ -10,12 +10,16 @@
   }
 }
 
+.card{
+  width: 43rem
+}
+
 .bounce-in {
   @include bounce-in(.3s);
 }
 
 .form-label {
-  width: 6rem;
+  width: $label-width
 }
 
 .form-group {

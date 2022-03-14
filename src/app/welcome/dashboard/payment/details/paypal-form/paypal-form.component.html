@@ -1,6 +1,6 @@
 <form *transloco="let t" [formGroup]="payPalForm" (ngSubmit)="submitFormData()">
 
-    <div class="form-group mb-2 d-flex gap-2" [ngClass]="{'has-error':hasError}">
+    <div class="form-group mb-2 d-flex gap-1" [ngClass]="{'has-error':hasError}">
 
         <label class="form-label label-lg flex-shrink-0" for="emailFC">{{ t('email_address') }}</label>
 

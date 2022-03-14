@@ -1,1 +1,67 @@
-<p>bank-transfer-form works!</p>
+<form *transloco="let t" [formGroup]="bankTransferForm" (ngSubmit)="submitFormData()">
+
+    <div class="d-flex mb-1 ">
+        <div class="d-flex gap-1">
+            <label class="form-label label-lg flex-shrink-0" for="accountNameFC">{{ t('acct_name') }}</label>
+
+            <div class="form-group account-name"
+                [ngClass]="{'has-error':accountNameFC.hasError('required') && accountNameFC.touched}">
+
+                <input type="text" class="form-input input-lg account-name" id="accountNameFC" formControlName="accountNameFC">
+
+                <p *ngIf="accountNameFC.hasError('required') && accountNameFC.touched" class="form-input-hint">
+                    {{ t('acct_name_req') }}
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-1 mb-1">
+        <label class="form-label label-lg flex-shrink-0" for="bankNameFC">{{ t('bank_name') }}</label>
+
+        <div class="form-group" [ngClass]="{'has-error':bankNameFC.hasError('required') && bankNameFC.touched}">
+
+            <input type="text" class="form-input input-lg" id="bankNameFC" formControlName="bankNameFC">
+
+            <p *ngIf="bankNameFC.hasError('required') && bankNameFC.touched" class="form-input-hint">
+                {{ t('bank_name_req') }}
+            </p>
+
+        </div>
+    </div>
+
+    <div class="d-flex gap-1 mb-1">
+        <label class="form-label label-lg flex-shrink-0" for="accountNumberFC">{{ t('acct_number') }}</label>
+
+        <div class="form-group"
+            [ngClass]="{'has-error':accountNumberFC.hasError('required') && accountNumberFC.touched}">
+
+            <input type="number" class="form-input input-lg" id="accountNumberFC" formControlName="accountNumberFC">
+
+            <p *ngIf="accountNumberFC.hasError('required') && accountNumberFC.touched" class="form-input-hint">
+                {{ t('acct_numb_req') }}
+            </p>
+
+        </div>
+    </div>
+
+    <div class="d-flex mb-1 gap-1">
+        <label class="form-label label-lg flex-shrink-0">{{ t('country') }}</label>
+
+        <div class="form-group country" [ngClass]="{'has-error':countryFC.hasError('required') && countryFC.touched}">
+            <select formControlName="countryFC" class="form-select select-lg country">
+                <option *ngFor="let country of countries" value="{{ country.name }}">{{ country.name }}</option>
+            </select>
+
+            <p *ngIf="countryFC.hasError('required') && countryFC.touched" class="form-input-hint">
+                {{ t('bank_country_req') }}
+            </p>
+        </div>
+    </div>
+
+
+        <button type="submit" ly-button raised bg="primary" class="float-end">{{ t('update')}}</button>
+
+
+</form>

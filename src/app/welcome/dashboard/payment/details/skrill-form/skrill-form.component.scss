@@ -1,9 +1,11 @@
-button,
+
+@use '../../../../../../scss/variables/payment' as *;
+button[type="submit"],
 .input,
 .input-group {
   width: 15rem;
 }
 
 .form-label {
-  width: 6rem;
+  width: $label-width;
 }

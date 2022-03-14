@@ -44,7 +44,7 @@
     "phone":"Phone",
     "gender":"Gender",
     "nationality":"Nationality",
-    "nationality_required":"Your country of residence is required",
+    "nationality_required":"Your nationality is required",
     "invalid_phone":"Enter a valid phone number",
     "male":"Male",
     "female":"Female",
@@ -112,5 +112,13 @@
     "earnings":"Earnings",
     "no_payment_details_heading":"{{username}} Michael add your payment details so that we can send you payment for your books that are sold on {{value}}.",
     "add_paym_details":"Add payment details",
-    "payment_type":"Payment Type"
+    "payment_type":"Payment type",
+    "bank_name":"Bank name",
+    "acct_name":"Account name",
+    "acct_number":"Account number",
+    "bank_name_req":"Your bank name is required",
+    "acct_numb_req":"Your account number is required",
+    "country":"Country",
+    "acct_name_req":"Your account name is required",
+    "bank_country_req":"Your bank location country is required"
 }

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { countries } from 'src/data/countries';
+import { ICountry } from 'src/models/icountry';
 
 @Component({
   selector: 'app-bank-transfer-form',
@@ -10,16 +12,29 @@ export class BankTransferFormComponent {
   @Input()
   bankTransferForm!: FormGroup;
 
-  /*countryFC!: FormControl;
+  countries: ICountry[] = countries;
+
+  public get bankNameFC(): FormControl {
+    return this.bankTransferForm.get('bankNameFC') as FormControl;
+  }
+  public get accountNumberFC(): FormControl {
+    return this.bankTransferForm.get('accountNumberFC') as FormControl;
+  }
+
+  public get accountNameFC(): FormControl {
+    return this.bankTransferForm.get('accountNameFC') as FormControl;
+  }
+
+  public get countryFC(): FormControl {
+    return this.bankTransferForm.get('countryFC') as FormControl;
+  }
+
+  /*
   bankAddressFC!: FormControl;
-  bankNameFC!: FormControl;
   bankSwiftCodeFC!: FormControl;
   bankRoutingNumberFC!: FormControl;
   accountTypeFC!: FormControl;
-  accountNameFC!: FormControl;
-  accountNumberFC!: FormControl;
   addressFC!: FormControl;*/
-
 
   constructor() {}
 
@@ -37,6 +52,5 @@ export class BankTransferFormComponent {
     });
   }
 
-  submitForm() { }
-  
+  submitFormData() {}
 }

@@ -1,6 +1,6 @@
 <form class="form" *transloco="let t" [formGroup]="userDataForm" (ngSubmit)="submitFormData()">
 
-    <div class="d-flex mb-1 fullname p-0" >
+    <div class="d-flex mb-2 fullname p-0" >
         <label class="form-label label-lg flex-shrink-0"> {{ t('full_name') }}
         </label>
 
@@ -22,7 +22,7 @@
 
     </div>
 
-    <div class="d-flex mb-1 country">
+    <div class="d-flex mb-2 country">
         <label class="form-label label-lg flex-shrink-0">{{ t('nationality') }}</label>
 
         <div class="form-group w-100" [ngClass]="{'has-error':countryFC.hasError('required') && countryFC.touched}">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="d-flex mb-1 phone align-items-start">
+    <div class="d-flex mb-2 phone align-items-start">
 
         <label class="form-label label-lg flex-shrink-0 ">{{ t('phone') }}</label>
 
