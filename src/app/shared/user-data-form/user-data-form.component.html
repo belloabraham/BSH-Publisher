@@ -1,10 +1,10 @@
 <form class="form" *transloco="let t" [formGroup]="userDataForm" (ngSubmit)="submitFormData()">
 
-    <div class="d-flex mb-2 fullname p-0" >
+    <div class="d-flex mb-2 fullname" >
         <label class="form-label label-lg flex-shrink-0"> {{ t('full_name') }}
         </label>
 
-        <div class="form-group" 
+        <div class="form-group m-0"  
             [ngClass]="{'has-error':(firstNameFC.hasError('required') || firstNameFC.hasError('minlength')) && firstNameFC.touched}">
             <input class="form-input input-lg" type="text" placeholder="{{ t('first_name') }}"
                 formControlName="firstNameFC">
@@ -12,7 +12,7 @@
                 class="form-input-hint">{{ t('name_field_required') }}</p>
         </div>
 
-        <div class="form-group" 
+        <div class="form-group m-0" 
             [ngClass]="{'has-error':(lastNameFC.hasError('required') || lastNameFC.hasError('minlength')) && lastNameFC.touched}">
             <input class="form-input input-lg" type="text" placeholder="{{ t('last_name') }}"
                 formControlName="lastNameFC">

@@ -68,13 +68,13 @@ export class UserAuthService implements IUserAuth {
     switch (errorCode) {
       case ErrorCodes.networkReqFailed:
         return this.localeService.paramTranslate(StringResKeys.networkError, {
-          value: errorCode,
+          value: '',
         });
       case ErrorCodes.argumentError:
         return this.localeService.paramTranslate(
           StringResKeys.invalidEmailError,
           {
-            value: errorCode,
+            value: '',
           }
         );
       default:

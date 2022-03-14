@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Title, ɵSharedStylesHost } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { filter, mapTo, merge, Observable, reduce } from 'rxjs';
 import { Config } from 'src/data/config';

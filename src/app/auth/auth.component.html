@@ -18,7 +18,7 @@
         <p *ngIf="hasError"  class="form-input-hint">{{ t('invalid_email_msg') }}</p>
       </div>
 
-      <button type="submit" ly-button elevation="1"  bg="primary">{{ t('sign_in') }}</button>
+      <button type="submit" ly-button elevation="1"  bg="primary">{{ t('continue_with_email') }}</button>
 
     </form>
 
@@ -29,7 +29,7 @@
       class="google"> 
       <img src="assets/images/google.png">
       
-      <span [lyPe]="2" >{{ t('sign_in_with_google') }}</span>
+      <span [lyPe]="2" >{{ t('continue_with_google') }}</span>
     </button>
 
     <p class="notice"> <small class="text-muted">{{t('by_proceeding_you_agree')}} <a class="link-secondary"
