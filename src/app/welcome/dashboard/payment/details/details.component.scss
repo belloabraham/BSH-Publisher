@@ -1,7 +1,18 @@
 @use '../../../../../scss/animations/bounce_in'as *;
 @use '../../../../../scss/variables/payment'as *;
+
 .details {
   font-size: 1.4rem;
+}
+
+.example-tile-icon{
+  img{
+    width: 50px;
+  }
+}
+
+.tile {
+  width: 23rem;
 }
 
 .empty-state {
@@ -10,8 +21,8 @@
   }
 }
 
-.card{
-  width: 43rem
+.card {
+  width: 50rem
 }
 
 .bounce-in {

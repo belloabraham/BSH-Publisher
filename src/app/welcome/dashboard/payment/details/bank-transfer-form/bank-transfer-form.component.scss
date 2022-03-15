@@ -1,3 +1,5 @@
+@use '../../../../../../scss/variables/payment' as *;
+
 button[type="submit"],.input-group{
   width: 15rem;
 }
@@ -7,7 +9,7 @@ button[type="submit"],.input-group{
 }
 
 .form-label {
-  width: 8rem;
+  width: $label-width;
 }
 
 .country, .account-name{

@@ -124,5 +124,17 @@
     "acct_numb_req":"Your account number is required",
     "country":"Country",
     "acct_name_req":"Your account name is required",
-    "bank_country_req":"Your bank location country is required"
+    "bank_country_req":"Your bank location country is required",
+    "bank_swift_code":"Bank swift code",
+    "bank_routing_numb":"Bank routing number",
+    "bank_address":"Bank address",
+    "account_type":"Account type",
+    "your_address":"Your address",
+    "bank_swift_code_req_msg":"Your bank swift code is required",
+    "bank_addr_req":"Your bank address is required",
+    "bank_swift__code_req":"Your bank swift code is required",
+    "account_type_req":"Your account type is required",
+    "bank_routing_numb_req":"Your bank routing number is required",
+    "your_addr_req":"Your address is required"
+
 }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PaymentRoutingModule } from './payment-routing.module';
 import { PaymentComponent } from './payment.component';
 import { TranslocoModule } from '@ngneat/transloco';
+import { LyButtonModule } from '@alyle/ui/button';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { TranslocoModule } from '@ngneat/transloco';
     CommonModule,
     PaymentRoutingModule,
     TranslocoModule,
+    LyButtonModule
   ]
 })
 export class PaymentModule { }

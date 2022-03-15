@@ -1,0 +1,19 @@
+@use '../../../../../../../scss/variables/payment'as *;
+
+
+button[type="submit"],
+.input-group {
+  width: 15rem;
+}
+
+select, .form-input {
+  width: 15rem;
+}
+
+.form-label {
+  width: $label-width;
+}
+
+.your-address, .bank-address{
+    width: 30rem;
+}

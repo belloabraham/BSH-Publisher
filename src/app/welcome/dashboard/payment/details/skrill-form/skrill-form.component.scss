@@ -1,8 +1,7 @@
 
 @use '../../../../../../scss/variables/payment' as *;
 button[type="submit"],
-.input,
-.input-group {
+input {
   width: 15rem;
 }
 

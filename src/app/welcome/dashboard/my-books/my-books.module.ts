@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MyBooksRoutingModule } from './my-books-routing.module';
 import { MyBooksComponent } from './my-books.component';
 import { TranslocoModule } from '@ngneat/transloco';
+import { LyButtonModule } from '@alyle/ui/button';
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import { TranslocoModule } from '@ngneat/transloco';
   imports: [
     CommonModule,
     MyBooksRoutingModule,
-    TranslocoModule
+    TranslocoModule,
   ]
 })
 export class MyBooksModule { }

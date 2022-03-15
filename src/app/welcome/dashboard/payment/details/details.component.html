@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div *ngIf="!addPaymentDetailsClick" class="d-flex empty-state d-flex flex-column ph-2 align-items-center gap-1 ">
+    <div *ngIf="addPaymentDetailsClick" class="d-flex empty-state d-flex flex-column ph-2 align-items-center gap-1 ">
 
         <p>{{t('no_payment_details_heading', {value: t('app_name')})}} </p>
         <div class="d-flex gap-2 justify-content-start align-items-center">
@@ -55,6 +55,30 @@
                 </span>
 
             </button>
+        </div>
+
+    </div>
+
+    <div class="p-2">
+
+        <div class="tile  tile-centered" >
+            <div class="tile-icon">
+                <div class="example-tile-icon">
+                     <img  src="assets/images/bank-transfer.svg"alt="">
+                </div>
+            </div>
+            <div class="tile-content ml-1">
+                <div class="tile-title">Bank Transfer</div>
+                <small class="tile-subtitle text-muted">Last updated: 1 Jan, 2017</small>
+            </div>
+            <div class="tile-action">
+                <button   ly-button  appearance="icon"  >
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
     </div>
