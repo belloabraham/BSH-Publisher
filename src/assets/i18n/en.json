@@ -9,7 +9,7 @@
 
 
     "auth_title":"Sign in - {{value}}",
-    "auth_welcome_msg":"Sign in to start selling on {{value}}",
+    "auth_welcome_msg":"Start selling on {{value}} in three steps",
     "email_address":"Email address",
     "continue_with_google":"Continue with Google",
     "or":"OR",
@@ -37,7 +37,7 @@
     
    "complete_sign_up_title":"Complete Sign Up - {{value}}",
     "complete_signup_header":"You are one step close to becoming a publisher",
-    "complete_signup_sub_header":"Tell us about you",
+    "complete_signup_sub_header":"You are new here, tell us about you.",
     "first_name":"First name",
     "full_name":"Full name",
     "last_name":"Last name",
@@ -45,6 +45,7 @@
     "gender_required":"Gender field is required",
     "phone_numer_required":"Your phone number is required",
     "continue":"Continue",
+    "sign_up":"Sign up",
     "phone":"Phone",
     "gender":"Gender",
     "nationality":"Nationality",
@@ -136,5 +137,4 @@
     "account_type_req":"Your account type is required",
     "bank_routing_numb_req":"Your bank routing number is required",
     "your_addr_req":"Your address is required"
-
 }

@@ -3,5 +3,5 @@ export enum StringResKeys {
   submitFormErrorMsg = 'submit_form_error_msg',
   error = 'error',
   ok = "ok",
-  continue='continue'
+  signUp='sign_up'
 }

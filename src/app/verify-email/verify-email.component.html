@@ -12,7 +12,7 @@
     <div class="mb-1">
       <div class="form-group mb-1" [ngClass]="{'has-error':hasError}">
         <label class="form-label label-lg" for="emailFC">{{ t('enter_your_email_add') }}</label>
-        <input class="form-input input-lg" id="emialFC" formControlName="emailFC">
+        <input class="form-input input-lg" id="emailFC" type="email" formControlName="emailFC">
         <p *ngIf="hasError" class="form-input-hint">{{ t('enter_signin_link_email') }}</p>
       </div>
     </div>

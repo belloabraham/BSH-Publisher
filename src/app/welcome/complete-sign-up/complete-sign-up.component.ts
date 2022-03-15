@@ -83,7 +83,7 @@ export class CompleteSignUpComponent implements OnInit, OnDestroy {
     this.submitFormErrorMsg = this.localeService.translate(
       StringResKeys.submitFormErrorMsg
     );
-    this.action = this.localeService.translate(StringResKeys.continue);
+    this.action = this.localeService.translate(StringResKeys.signUp);
   }
 
   ngOnDestroy(): void {
