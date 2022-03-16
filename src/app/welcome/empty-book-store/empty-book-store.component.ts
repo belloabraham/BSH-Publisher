@@ -34,6 +34,10 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getStringRes();
+  }
+
+  private getStringRes() {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {

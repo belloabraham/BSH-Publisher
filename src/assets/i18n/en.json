@@ -35,9 +35,8 @@
     "verify_email_title":"Verify Email - {{value}}",
     
     
-   "complete_sign_up_title":"Complete Sign Up - {{value}}",
-    "complete_signup_header":"You are one step close to becoming a publisher",
-    "complete_signup_sub_header":"You are new here, tell us about you.",
+    "sign_up_title":"Sign Up - {{value}}",
+    "signup_sub_header":"You are new here, tell us about you.",
     "first_name":"First name",
     "full_name":"Full name",
     "last_name":"Last name",
@@ -135,5 +134,8 @@
     "bank_swift__code_req":"Your bank swift code is required",
     "account_type_req":"Your account type is required",
     "bank_routing_numb_req":"Your bank routing number is required",
-    "your_addr_req":"Your address is required"
+    "your_addr_req":"Your address is required",
+
+
+    "publish_your_book_title":"Publish Your Book - {{value}}"
 }

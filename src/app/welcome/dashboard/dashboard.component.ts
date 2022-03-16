@@ -98,11 +98,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.sink = this.localeService
-      .getIsLangLoadSuccessfullyObs()
-      .subscribe((_) => {
-        this.setTitle();
-      });
+
+    this.getStrinRes()
 
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
@@ -124,6 +121,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         Shield.remove('.dashboard-main');
       }
     });
+  }
+
+
+  private getStrinRes() {
+     this.subscriptions.sink = this.localeService
+       .getIsLangLoadSuccessfullyObs()
+       .subscribe((_) => {
+         this.setTitle();
+       });
   }
 
   logout() {

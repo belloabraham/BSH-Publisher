@@ -40,8 +40,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
   registeredDate = serverTimestamp();
   lastUpdated = null;
 
-  canExitRoute = new Subject<boolean>();
-
   private ok = '';
   private submitFormErrorMsg = '';
   private error = '';
@@ -61,12 +59,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.sink = this.localeService
-      .getIsLangLoadSuccessfullyObs()
-      .subscribe((_) => {
-        this.setTitle();
-        this.translateStringRes();
-      });
+    this.getStringRes()
 
     this.completeSignUpForm = new FormGroup({
       userDataForm: UserDataFormComponent.getUserDataForm(),
@@ -75,6 +68,15 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.userDataForm = this.completeSignUpForm.get(
       'userDataForm'
     ) as FormGroup;
+  }
+
+  private getStringRes() {
+     this.subscriptions.sink = this.localeService
+      .getIsLangLoadSuccessfullyObs()
+      .subscribe((_) => {
+        this.setTitle();
+        this.translateStringRes();
+      });
   }
 
   private setTitle() {
