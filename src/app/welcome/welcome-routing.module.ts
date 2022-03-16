@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
-import { NoPublishedBooksGuard } from './book-store/no-published-books.guard';
 import { PublishedBooksGuard } from './dashboard/published-books.guard';
+import { NoPublishedBooksGuard } from './empty-book-store/no-published-books.guard';
 import { WelcomeComponent } from './welcome.component';
 
 const routes: Routes = [
@@ -15,8 +15,8 @@ const routes: Routes = [
         pathMatch: 'full',
         canLoad: [NoPublishedBooksGuard],
         loadChildren: () =>
-          import('./book-store/book-store.module').then(
-            (m) => m.BookStoreModule
+          import('./empty-book-store/empty-book-store.module').then(
+            (m) => m.EmptyBookStoreModule
           ),
       },
       {
@@ -34,6 +34,7 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'welcome/empty-book-store', loadChildren: () => import('./empty-book-store/empty-book-store.module').then(m => m.EmptyBookStoreModule) },
 ];
 
 @NgModule({

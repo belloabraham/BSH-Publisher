@@ -16,11 +16,11 @@ import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
-  selector: 'app-empty-store',
-  templateUrl: './empty-store.component.html',
-  styleUrls: ['./empty-store.component.scss'],
+  selector: 'app-empty-book-store',
+  templateUrl: './empty-book-store.component.html',
+  styleUrls: ['./empty-book-store.component.scss'],
 })
-export class EmptyStoreComponent implements OnInit, OnDestroy {
+export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
   constructor(
@@ -46,7 +46,7 @@ export class EmptyStoreComponent implements OnInit, OnDestroy {
   }
 
   addABook() {
-    this.router.navigate([Route.root, Route.welcome, Route.publishYourBook])
+    this.router.navigate([Route.root, Route.welcome, Route.publishYourBook]);
   }
 
   logout() {
