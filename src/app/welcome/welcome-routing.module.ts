@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        canLoad:[NoPublishedBooksGuard],
+        canLoad: [NoPublishedBooksGuard],
         loadChildren: () =>
           import('./book-store/book-store.module').then(
             (m) => m.BookStoreModule
@@ -21,9 +21,16 @@ const routes: Routes = [
       },
       {
         path: Route.dashboard,
-        canLoad:[PublishedBooksGuard],
+        canLoad: [PublishedBooksGuard],
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
+        path: Route.publishYourBook,
+        loadChildren: () =>
+          import('./publish-your-book/publish-your-book.module').then(
+            (m) => m.PublishYourBookModule
+          ),
       },
     ],
   },

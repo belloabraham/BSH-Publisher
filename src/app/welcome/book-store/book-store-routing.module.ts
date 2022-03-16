@@ -19,8 +19,8 @@ const routes: Routes = [
       {
         path: Route.publishYourBook,
         loadChildren: () =>
-          import('../../shared/publish-book/publish-book.module').then(
-            (m) => m.PublishBookModule
+          import('../publish-your-book/publish-your-book.module').then(
+            (m) => m.PublishYourBookModule
           ),
       },
     ],
