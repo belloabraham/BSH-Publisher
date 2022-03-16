@@ -7,11 +7,13 @@ import { LyExpansionModule } from '@alyle/ui/expansion';
 import { LyButtonModule } from '@alyle/ui/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
+import { BookDeatilsFormComponent } from './book-deatils-form/book-deatils-form.component';
 
 
 @NgModule({
   declarations: [
-    PublishYourBookComponent
+    PublishYourBookComponent,
+    BookDeatilsFormComponent
   ],
   imports: [
     CommonModule,

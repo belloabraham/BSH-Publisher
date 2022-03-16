@@ -6,14 +6,14 @@ import { DetailsComponent } from './details.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LyButtonModule } from '@alyle/ui/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PaypalFormModule } from './paypal-form/paypal-form.module';
 import { BankTransferFormModule } from './bank-transfer-form/bank-transfer-form.module';
-import { SkrillFormModule } from './skrill-form/skrill-form.module';
+import { SkrillFormComponent } from './skrill-form/skrill-form.component';
+import { PaypalFormComponent } from './paypal-form/paypal-form.component';
 
 
 @NgModule({
   declarations: [
-    DetailsComponent
+    DetailsComponent, SkrillFormComponent, PaypalFormComponent
   ],
   imports: [
     CommonModule,
@@ -21,9 +21,7 @@ import { SkrillFormModule } from './skrill-form/skrill-form.module';
     TranslocoModule,
     LyButtonModule,
     ReactiveFormsModule,
-    PaypalFormModule,
     BankTransferFormModule,
-    SkrillFormModule
   ]
 })
 export class DetailsModule { }

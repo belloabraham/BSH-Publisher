@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BankTransferFormComponent } from './bank-transfer-form.component';
-import { PaymentDetailsFormModule } from '../payment-details-form/payment-details-form.module';
-import { BankTranferForeignFormModule } from './bank-tranfer-foreign-form/bank-tranfer-foreign-form.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LyButtonModule } from '@alyle/ui/button';
+import { TranslocoModule } from '@ngneat/transloco';
+import { BankTranferForeignFormComponent } from './bank-tranfer-foreign-form/bank-tranfer-foreign-form.component';
 
 @NgModule({
-  declarations: [BankTransferFormComponent],
+  declarations: [BankTransferFormComponent, BankTranferForeignFormComponent],
   imports: [
     CommonModule,
-    BankTranferForeignFormModule
+    ReactiveFormsModule,
+    LyButtonModule,
+    TranslocoModule
   ],
   exports: [
     BankTransferFormComponent
