@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslocoRootModule } from './transloco-root.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
 import {
   provideAnalytics,
   getAnalytics,
@@ -14,6 +13,13 @@ import {
   UserTrackingService,
 } from '@angular/fire/analytics';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import {
+  initializeAppCheck,
+  provideAppCheck,
+  ReCaptchaV3Provider,
+} from '@angular/fire/app-check';
+import { environment } from 'src/environments/environment';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   LY_THEME,
@@ -37,6 +43,12 @@ import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables'
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
+    provideAppCheck(() =>
+      initializeAppCheck(undefined, {
+        provider: new ReCaptchaV3Provider(environment.reCAPTCHA3SiteKey),
+        isTokenAutoRefreshEnabled: true,
+      })
+    ),
     BrowserAnimationsModule,
   ],
   providers: [

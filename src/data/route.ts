@@ -20,4 +20,5 @@ export class Route {
 
   static readonly details = "details";
   static readonly earnings = "earnings";
+  static readonly signUp="sign-up"
 }

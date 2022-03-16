@@ -51,12 +51,9 @@
                 </select>
                 <input formControlName="phoneFC" class="form-input input-lg w-70" type="number">
             </div>
-            <p *ngIf="phoneFC.hasError('required') && phoneFC.touched" class="form-input-hint">
-                {{ t('phone_numer_required') }}
+            <p *ngIf="(phoneFC.hasError('required') && phoneFC.touched) || isInvalidPhoneNum" class="form-input-hint">
+                {{ t('invalid_phone') }}
             </p>
-            <p *ngIf="isInvalidPhoneNum" class="form-input-hint">{{ t('invalid_phone') }}
-            </p>
-
         </div>
 
 

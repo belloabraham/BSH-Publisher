@@ -43,7 +43,6 @@
     "last_name":"Last name",
     "name_field_required":"Name field is required",
     "gender_required":"Gender field is required",
-    "phone_numer_required":"Your phone number is required",
     "continue":"Continue",
     "sign_up":"Sign up",
     "phone":"Phone",

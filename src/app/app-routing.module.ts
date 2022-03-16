@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
 import { NotAuthGuard } from './auth/not-auth.guard';
+import { AuthGuard } from './shared/auth.guard';
+import { NoPubDataGuard } from './sign-up/no-pub-data.guard';
 import { VerifyEmailGuard } from './verify-email/verify-email.guard';
-import { AuthGuard } from './welcome/auth.guard';
+import { PubDataGuard } from './welcome/pub-data.guard';
 
 const routes: Routes = [
   {
@@ -14,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: Route.welcome,
-    canLoad: [AuthGuard],
+    canLoad: [AuthGuard, PubDataGuard],
     loadChildren: () =>
       import('./welcome/welcome.module').then((m) => m.WelcomeModule),
   },
@@ -24,6 +26,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./verify-email/verify-email.module').then(
         (m) => m.VerifyEmailModule
+      ),
+  },
+  {
+    path: Route.signUp,
+    canLoad: [AuthGuard, NoPubDataGuard],
+    loadChildren: () =>
+      import('./sign-up/sign-up.module').then(
+        (m) => m.SignUpModule
       ),
   },
   {

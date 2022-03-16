@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PubDataGuard } from './pub-data.guard';
+import { PublishedBooksGuard } from './published-books.guard';
 
-describe('PubDataGuard', () => {
-  let guard: PubDataGuard;
+describe('PublishedBooksGuard', () => {
+  let guard: PublishedBooksGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(PubDataGuard);
+    guard = TestBed.inject(PublishedBooksGuard);
   });
 
   it('should be created', () => {

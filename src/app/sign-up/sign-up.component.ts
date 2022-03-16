@@ -14,16 +14,24 @@ import { Config } from 'src/data/config';
 import { Route } from 'src/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
+import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
+import { FirestoreService } from 'src/services/database/firebase/firestore.service';
 import { SubSink } from 'subsink';
-import { StringResKeys } from './locale/string-res-keys';
+import { StringResKeys } from '../sign-up/locale/string-res-keys';
 
 @Component({
-  selector: 'app-complete-sign-up',
-  templateUrl: './complete-sign-up.component.html',
-  styleUrls: ['./complete-sign-up.component.scss'],
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss'],
+  providers: [
+    {
+      provide: DATABASE_IJTOKEN,
+      useClass: FirestoreService,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompleteSignUpComponent implements OnInit, OnDestroy {
+export class SignUpComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
   completeSignUpForm!: FormGroup;
