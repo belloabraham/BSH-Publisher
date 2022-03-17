@@ -13,10 +13,9 @@ import {
 } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import {  merge, Observable, of } from 'rxjs';
-import { filter, map, mapTo, tap } from 'rxjs/operators';
-import { Config } from 'src/data/config';
-
-import { Languages } from 'src/data/languages';
+import { filter, map, mapTo } from 'rxjs/operators';
+import { Config } from 'src/domain/data/config';
+import { Languages } from 'src/domain/data/languages';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 

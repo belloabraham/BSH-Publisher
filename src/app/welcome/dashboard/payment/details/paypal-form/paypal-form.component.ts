@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Regex } from 'src/data/regex';
+import { Regex } from 'src/domain/data/regex';
 
 @Component({
   selector: 'app-paypal-form',
   templateUrl: './paypal-form.component.html',
   styleUrls: ['./paypal-form.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class PaypalFormComponent {
   @Input()

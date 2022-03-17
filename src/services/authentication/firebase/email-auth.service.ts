@@ -6,8 +6,8 @@ import {
   Auth,
   UserCredential,
 } from '@angular/fire/auth';
-import { Config } from 'src/data/config';
-import { Providers } from 'src/data/providers';
+import { Config } from 'src/domain/data/config';
+import { Providers } from 'src/domain/data/providers';
 
 
 @Injectable({

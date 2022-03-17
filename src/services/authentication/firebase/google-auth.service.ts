@@ -4,7 +4,7 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
 } from '@angular/fire/auth';
-import { Providers } from 'src/data/providers';
+import { Providers } from 'src/domain/data/providers';
 
 @Injectable({
   providedIn: Providers.root,

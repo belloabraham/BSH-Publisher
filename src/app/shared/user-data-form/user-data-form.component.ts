@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Inject,
@@ -7,23 +8,24 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { countries } from 'src/data/countries';
-import { diallingCodes } from 'src/data/dialling-code';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { isValidPhone } from 'src/helpers/utils/validators';
-import { ICountry } from 'src/models/icountry';
-import { IUser } from 'src/models/iuser';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { Collection } from 'src/services/database/collection';
-import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
-import { IDatabase } from 'src/services/database/idatabase';
+import { countries } from 'src/domain/data/countries';
+import { diallingCodes } from 'src/domain/data/dialling-code';
+import { IDatabase } from 'src/domain/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
+import { IUser } from 'src/domain/models/iuser';
+import { Collection } from 'src/domain/remote-data-source/collection';
+import { ICountry } from 'src/domain/models/icountry';
 
 @Component({
   selector: 'app-user-data-form',
   templateUrl: './user-data-form.component.html',
   styleUrls: ['./user-data-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDataFormComponent implements OnInit {
   @Input()

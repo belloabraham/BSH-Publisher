@@ -9,7 +9,7 @@ import {
 } from '@ngneat/transloco';
 import { Injectable, NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Providers } from 'src/data/providers';
+import { Providers } from 'src/domain/data/providers';
 
 @Injectable({ providedIn: Providers.root })
 export class TranslocoHttpLoader implements TranslocoLoader {

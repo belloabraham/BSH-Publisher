@@ -1,9 +1,9 @@
 import { Injectable, Optional } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
-import { delay, Observable, of } from 'rxjs';
-import { Providers } from 'src/data/providers';
-import { Route as Routes } from 'src/data/route';
+import { Observable } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
+import { Providers } from 'src/domain/data/providers';
+import { Route as Routes } from 'src/domain/data/route';
 
 @Injectable({
   providedIn: Providers.any,

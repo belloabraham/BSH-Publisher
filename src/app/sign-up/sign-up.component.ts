@@ -8,14 +8,13 @@ import { serverTimestamp } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
-import { Config } from 'src/data/config';
-import { Route } from 'src/data/route';
+import { Config } from 'src/domain/data/config';
+import { Route } from 'src/domain/data/route';
+import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
+import { FirestoreService } from 'src/domain/remote-data-source/firebase/firestore.service';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
-import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
-import { FirestoreService } from 'src/services/database/firebase/firestore.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from '../sign-up/locale/string-res-keys';
 

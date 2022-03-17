@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Route } from 'src/data/route';
+import { Route } from 'src/domain/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
@@ -10,36 +10,33 @@ import { StringResKeys } from './locale/string-res-keys';
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router:Router
-  ) {
-  }
-
+    private router: Router
+  ) {}
 
   goHome() {
-    this.router.navigateByUrl(Route.root)
+    this.router.navigateByUrl(Route.root);
   }
 
   ngOnInit(): void {
-    this.getStrinRes()
+    this.getStrinRes();
   }
 
   private getStrinRes() {
-     this.subscriptions.sink = this.localeService
-       .getIsLangLoadSuccessfullyObs()
-       .subscribe((_) => {
-         this.title.setTitle(this.localeService.translate(StringResKeys.title));
-       });
+    this.subscriptions.sink = this.localeService
+      .getIsLangLoadSuccessfullyObs()
+      .subscribe((_) => {
+        this.title.setTitle(this.localeService.translate(StringResKeys.title));
+      });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
-
 }

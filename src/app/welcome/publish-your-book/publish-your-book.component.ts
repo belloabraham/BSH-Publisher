@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { Config } from 'src/data/config';
+import { Config } from 'src/domain/data/config';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';

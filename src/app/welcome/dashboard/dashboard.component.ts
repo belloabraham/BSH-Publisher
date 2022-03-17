@@ -7,16 +7,11 @@ import {
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ResolveEnd, ResolveStart, Router } from '@angular/router';
-import { filter, mapTo, merge, Observable, reduce } from 'rxjs';
-import { Config } from 'src/data/config';
-import { Route } from 'src/data/route';
-import { Settings } from 'src/data/settings';
+import { filter, mapTo, merge, Observable } from 'rxjs';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
-import { IDatabase } from 'src/services/database/idatabase';
 import { FirebaseRemoteConfigService } from 'src/services/remote-config/firebase/firebase-remote-config.service';
 import { IRemoteConfig } from 'src/services/remote-config/i-remote-config';
 import { RemoteConfig } from 'src/services/remote-config/remote-config';
@@ -31,6 +26,11 @@ import {
   YPosition,
   } from '@alyle/ui';
 import { Display } from 'src/helpers/utils/display';
+import { Settings } from 'src/domain/data/settings';
+import { Route } from 'src/domain/data/route';
+import { Config } from 'src/domain/data/config';
+import { IDatabase } from 'src/domain/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
 
 @Component({
   selector: 'app-dashboard',

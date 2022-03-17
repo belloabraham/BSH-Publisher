@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Regex } from 'src/data/regex';
+import { Regex } from 'src/domain/data/regex';
 
 @Component({
   selector: 'app-skrill-form',
   templateUrl: './skrill-form.component.html',
   styleUrls: ['./skrill-form.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SkrillFormComponent  {
   @Input()

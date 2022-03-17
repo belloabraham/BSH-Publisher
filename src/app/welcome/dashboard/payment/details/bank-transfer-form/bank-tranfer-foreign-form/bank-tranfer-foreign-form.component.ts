@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountType } from 'src/data/account-type';
+import { AccountType } from 'src/domain/data/account-type';
 
 @Component({
   selector: 'app-bank-tranfer-foreign-form',
   templateUrl: './bank-tranfer-foreign-form.component.html',
   styleUrls: ['./bank-tranfer-foreign-form.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class BankTranferForeignFormComponent {
   @Input()

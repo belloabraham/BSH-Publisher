@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { PaymentType } from 'src/data/payment-type';
+import { PaymentType } from 'src/domain/data/payment-type';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
@@ -15,6 +15,7 @@ import { SkrillFormComponent } from './skrill-form/skrill-form.component';
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   addPaymentDetailsClick = false;
@@ -40,14 +41,11 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   canExitRoute = new Subject<boolean>();
 
-  constructor(
-    private localeService: LocaleService,
-  ) { }
-
+  constructor(private localeService: LocaleService) {}
 
   goToPayment() {
-    this.paymentDetailsForm.markAsPristine()
-    this.addPaymentDetailsClick = !this.addPaymentDetailsClick
+    this.paymentDetailsForm.markAsPristine();
+    this.addPaymentDetailsClick = !this.addPaymentDetailsClick;
   }
 
   public get getSkrillForm(): FormGroup | null {

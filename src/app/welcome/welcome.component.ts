@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { DATABASE_IJTOKEN } from 'src/services/database/database.token';
-import { FirestoreService } from 'src/services/database/firebase/firestore.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
+import { FirestoreService } from 'src/domain/remote-data-source/firebase/firestore.service';
 
 @Component({
   selector: 'app-welcome',
@@ -12,8 +12,8 @@ import { FirestoreService } from 'src/services/database/firebase/firestore.servi
       useClass: FirestoreService,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WelcomeComponent {
-  constructor() {
-  }
+  constructor() {}
 }

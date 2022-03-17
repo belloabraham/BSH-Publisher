@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-book-details-form',
   templateUrl: './book-details-form.component.html',
-  styleUrls: ['./book-details-form.component.scss']
+  styleUrls: ['./book-details-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookDetailsFormComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class BookDetailsFormComponent {
+  constructor() {}
 }

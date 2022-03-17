@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Route } from 'src/data/route';
+import { Route } from 'src/domain/data/route';
 
 @Component({
   selector: 'app-payment',

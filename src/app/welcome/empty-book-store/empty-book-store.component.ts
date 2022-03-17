@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Inject,
@@ -7,8 +8,8 @@ import {
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Config } from 'src/data/config';
-import { Route } from 'src/data/route';
+import { Config } from 'src/domain/data/config';
+import { Route } from 'src/domain/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
@@ -19,6 +20,7 @@ import { StringResKeys } from './locale/string-res-keys';
   selector: 'app-empty-book-store',
   templateUrl: './empty-book-store.component.html',
   styleUrls: ['./empty-book-store.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();

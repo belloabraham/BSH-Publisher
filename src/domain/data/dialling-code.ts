@@ -1,4 +1,4 @@
-import { ICountry } from 'src/models/icountry';
+import { ICountry } from "../models/icountry";
 
 export var diallingCodes: ICountry[] = [
   {

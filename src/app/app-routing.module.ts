@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Route } from 'src/data/route';
+import { Route } from 'src/domain/data/route';
 import { NotAuthGuard } from './auth/not-auth.guard';
 import { AuthGuard } from './shared/auth.guard';
 import { NoPubDataGuard } from './sign-up/no-pub-data.guard';

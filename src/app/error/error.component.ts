@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Route } from 'src/data/route';
+import { Route } from 'src/domain/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
@@ -10,6 +10,7 @@ import { StringResKeys } from './locale/string-res-keys';
   selector: 'app-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ErrorComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();

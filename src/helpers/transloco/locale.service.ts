@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {  TranslocoService } from '@ngneat/transloco';
 import { ReplaySubject } from 'rxjs';
-import { MaxCachedItem } from 'src/data/max-cached-item';
-import { Providers } from 'src/data/providers';
+import { MaxCachedItem } from 'src/domain/data/max-cached-item';
+import { Providers } from 'src/domain/data/providers';
 
 @Injectable({
   providedIn: Providers.root,

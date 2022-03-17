@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { countries } from 'src/data/countries';
-import { ICountry } from 'src/models/icountry';
+import { countries } from 'src/domain/data/countries';
+import { ICountry } from 'src/domain/models/icountry';
 import { SubSink } from 'subsink';
 import { BankTranferForeignFormComponent } from './bank-tranfer-foreign-form/bank-tranfer-foreign-form.component';
 
@@ -9,6 +9,7 @@ import { BankTranferForeignFormComponent } from './bank-tranfer-foreign-form/ban
   selector: 'app-bank-transfer-form',
   templateUrl: './bank-transfer-form.component.html',
   styleUrls: ['./bank-transfer-form.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class BankTransferFormComponent implements OnDestroy, OnInit {
   @Input()

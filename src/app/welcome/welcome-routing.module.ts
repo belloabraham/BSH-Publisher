@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Route } from 'src/data/route';
+import { Route } from 'src/domain/data/route';
 import { PublishedBooksGuard } from './dashboard/published-books.guard';
 import { NoPublishedBooksGuard } from './empty-book-store/no-published-books.guard';
 import { WelcomeComponent } from './welcome.component';

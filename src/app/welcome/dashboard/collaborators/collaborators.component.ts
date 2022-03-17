@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Route } from 'src/data/route';
-import { DashboardComponent } from '../dashboard.component';
 
 @Component({
   selector: 'app-collaborators',
