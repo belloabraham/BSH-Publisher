@@ -4,26 +4,20 @@ import { CommonModule } from '@angular/common';
 import { PublishYourBookRoutingModule } from './publish-your-book-routing.module';
 import { PublishYourBookComponent } from './publish-your-book.component';
 import { LyExpansionModule } from '@alyle/ui/expansion';
-import { LyButtonModule } from '@alyle/ui/button';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TranslocoModule } from '@ngneat/transloco';
-import { BookDetailsFormComponent } from './book-details-form/book-details-form.component';
-import { BookAssetFormComponent } from './book-asset-form/book-asset-form.component';
+import { BookAssetFormModule } from './book-asset-form/book-asset-form.module';
+import { BookDetailsFormModule } from './book-details-form/book-details-form.module';
 
 
 @NgModule({
   declarations: [
-    PublishYourBookComponent,
-    BookDetailsFormComponent,
-    BookAssetFormComponent
+    PublishYourBookComponent
   ],
   imports: [
     CommonModule,
     PublishYourBookRoutingModule,
     LyExpansionModule,
-    LyButtonModule,
-    ReactiveFormsModule,
-    TranslocoModule
+    BookAssetFormModule,
+    BookDetailsFormModule,
   ]
 })
 export class PublishYourBookModule { }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -10,15 +10,19 @@ import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
+
 @Component({
   selector: 'app-publish-your-book',
   templateUrl: './publish-your-book.component.html',
   styleUrls: ['./publish-your-book.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublishYourBookComponent implements OnInit, OnDestroy, ICanDeactivate {
+export class PublishYourBookComponent
+  implements OnInit, OnDestroy, ICanDeactivate
+{
   private subscriptions = new SubSink();
 
-  bookPublishForm!:FormGroup
+  bookPublishForm!: FormGroup;
 
   private unsavedFieldsMsgTitle = '';
   private unsavedFieldsMsg = '';
@@ -26,11 +30,12 @@ export class PublishYourBookComponent implements OnInit, OnDestroy, ICanDeactiva
   private no = '';
 
   private canExitRoute = new Subject<boolean>();
+;
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -54,8 +59,6 @@ export class PublishYourBookComponent implements OnInit, OnDestroy, ICanDeactiva
     );
   }
 
-
-  
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.bookPublishForm.dirty) {
       AlertDialog.warn(

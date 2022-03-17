@@ -1,5 +1,11 @@
-$thumb-bg-color: #d6dee1;
-$thumb-bg-color-hover: #a8bbbf;
+@use '../variables/colors' as *;
+
+$thumb-bg-color: $gray-700;  
+$thumb-bg-color-hover: $gray-600;
+
+$thumb-bg-color-dark: $gray-300;
+$thumb-bg-color-dark-hover: $gray-400;
+
 $thumb-size: 1.25rem;
 
 //For Safari and Chrome
@@ -23,10 +29,18 @@ $thumb-size: 1.25rem;
   background-color: $thumb-bg-color-hover;
 }
 
+.scrollbar-light::-webkit-scrollbar-thumb {
+  background-color: $thumb-bg-color-dark;
+}
+
+.scrollbar-light::-webkit-scrollbar-thumb:hover {
+  background-color: $thumb-bg-color-dark-hover;
+}
+
+
 //For Firefox
-@supports (scrollbar-color: $thumb-bg-color transparent) {
+@supports (scrollbar-width: thin) {
     *{
-        scrollbar-color: $thumb-bg-color transparent;
         scrollbar-width: thin;
     }
 }
