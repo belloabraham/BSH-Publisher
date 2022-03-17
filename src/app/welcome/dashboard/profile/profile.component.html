@@ -13,7 +13,7 @@
             <div class="card-header">
                 <h4 class="m-0 p-0">{{t('profile')}}</h4>
             </div>
-            <form class="m-2" [formGroup]="profileForm">
+            <form class="m-2" [formGroup]="profileForm" >
                 <app-user-data-form (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate"
                     [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm">
                 </app-user-data-form>

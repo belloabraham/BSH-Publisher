@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
@@ -9,7 +9,6 @@ import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
-
 
 @Component({
   selector: 'app-publish-your-book',
@@ -24,22 +23,38 @@ export class PublishYourBookComponent
 
   bookPublishForm!: FormGroup;
 
+  bookNameFC = new FormControl(undefined, [Validators.required]);
+  bookDescFC = new FormControl(undefined, [Validators.required]);
+  bookCurrencyFC = new FormControl(undefined, [Validators.required]);
+  bookAuthorFC = new FormControl(undefined, [Validators.required]);
+
+  bookISBNFC = new FormControl(undefined, [Validators.required]);
+  bookCatgoryFC = new FormControl(undefined, [Validators.required]);
+  bookPriceFC = new FormControl(undefined, [Validators.required]);
+
+  bookTagFC = new FormControl(undefined, [Validators.required]);
+  bookCoverFC = new FormControl(undefined, [Validators.required]);
+  bookDocumentFC = new FormControl(undefined, [Validators.required]);
+
   private unsavedFieldsMsgTitle = '';
   private unsavedFieldsMsg = '';
   private yes = '';
   private no = '';
 
   private canExitRoute = new Subject<boolean>();
-;
+
+  isContentFormValid = false
+  isContentFormExpand = true
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getStrinRes();
+    this.bookPublishForm = this.generateBookPublishForm()
   }
 
   private getStrinRes() {
@@ -73,6 +88,25 @@ export class PublishYourBookComponent
     } else {
       return true;
     }
+  }
+
+  private generateBookPublishForm() {
+    return new FormGroup({
+      bookDetailsForm: new FormGroup({
+        bookPriceFC: this.bookPriceFC,
+        bookISBNFC: this.bookISBNFC,
+        bookDescFC: this.bookDescFC,
+        bookCurrencyFC: this.bookCurrencyFC,
+        bookTagFC: this.bookTagFC,
+        bookAuthorFC: this.bookAuthorFC,
+        bookCatgoryFC: this.bookCatgoryFC,
+        bookNameFC: this.bookNameFC,
+      }),
+      bookAssetsForm: new FormGroup({
+        bookCoverFC: this.bookCoverFC,
+        bookDocumentFC: this.bookDocumentFC,
+      }),
+    });
   }
 
   private translateStringRes() {

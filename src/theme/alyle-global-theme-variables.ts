@@ -1,4 +1,4 @@
-import { lyl, PartialThemeVariables, ThemeVariables } from "@alyle/ui";
+import { lyl, PartialThemeVariables } from "@alyle/ui";
 import { Display } from "src/helpers/utils/display";
 
 export class AlyleGlobalThemeVariables implements PartialThemeVariables {

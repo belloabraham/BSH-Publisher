@@ -137,5 +137,20 @@
     "your_addr_req":"Your address is required",
 
 
-    "publish_your_book_title":"Publish Your Book - {{value}}"
+    "publish_your_book_title":"Publish Your Book - {{value}}",
+    "step_1":"Step 1",
+    "step_2":"Step 2",
+    "book_details":"Book details",
+    "book_assets":"Book assets",
+    "next":"Next",
+    "book_name":"Book name",
+    "author":"Author",
+    "tag":"Tag",
+    "price":"Price",
+    "isbn":"ISBN",
+    "currency":"Currency",
+    "description":"Description",
+    "category":"Category",
+    "book_cover":"Book cover",
+    "book_pdf":"Book (PDF only)"
 }

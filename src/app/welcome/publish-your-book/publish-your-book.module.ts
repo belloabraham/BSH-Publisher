@@ -7,6 +7,7 @@ import { LyExpansionModule } from '@alyle/ui/expansion';
 import { BookAssetFormModule } from './book-asset-form/book-asset-form.module';
 import { BookDetailsFormModule } from './book-details-form/book-details-form.module';
 
+import { LyExpansionIconModule } from '@alyle/ui';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { BookDetailsFormModule } from './book-details-form/book-details-form.mod
     LyExpansionModule,
     BookAssetFormModule,
     BookDetailsFormModule,
+    LyExpansionIconModule
   ]
 })
 export class PublishYourBookModule { }

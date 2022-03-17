@@ -1,38 +1,36 @@
-<form  [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()">
+<div *transloco="let t" class="publish-your-book d-flex justify-content-center align-items-center">
 
-    <ly-accordion>
-        <ly-expansion-panel>
-            <ly-expansion-panel-header>
-                <ly-panel-title>
-                    Header
-                </ly-panel-title>
-                <ly-panel-description>Description</ly-panel-description>
-            </ly-expansion-panel-header>
-            <ng-template lyExpansionPanelContent>
-                Lazy Content
-            </ng-template>
-            <ly-action-row>
-                <button ly-button color="primary">Ok</button>
-            </ly-action-row>
-        </ly-expansion-panel>
+    <form [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()" class="form">
+
+        <ly-accordion>
+            <ly-expansion-panel [expanded]="isContentFormExpand">
+                <ly-expansion-panel-header>
+                    <ly-panel-title>
+                        {{t('step_1')}}
+                    </ly-panel-title>
+                    <ly-panel-description>{{t('book_details')}}</ly-panel-description>
+                </ly-expansion-panel-header>
+
+                <app-book-details-form  formGroupName="bookDetailsForm"> </app-book-details-form>
+
+                <ly-action-row>
+                    <button ly-button bg="primary">{{t('next')}}</button>
+                </ly-action-row>
+            </ly-expansion-panel>
+
+            <ly-expansion-panel [disabled]="!isContentFormValid">
+                <ly-expansion-panel-header>
+                    <ly-panel-title>
+                        {{t('step_2')}}
+                    </ly-panel-title>
+                    <ly-panel-description>{{t('book_assets')}}</ly-panel-description>
+                </ly-expansion-panel-header>
+
+                <app-book-asset-form  formGroupName="bookAssetsForm"> </app-book-asset-form>
+
+            </ly-expansion-panel>
+        </ly-accordion>
+
+    </form>
     
-        <ly-expansion-panel>
-            <ly-expansion-panel-header>
-                <ly-panel-title>
-                    Expansion Panel 1
-                </ly-panel-title>
-            </ly-expansion-panel-header>
-            Content
-        </ly-expansion-panel>
-    
-        <ly-expansion-panel>
-            <ly-expansion-panel-header>
-                <ly-panel-title>
-                    Expansion Panel disabled
-                </ly-panel-title>
-            </ly-expansion-panel-header>
-            Content
-        </ly-expansion-panel>
-    </ly-accordion>
-    
-</form>
+</div>
