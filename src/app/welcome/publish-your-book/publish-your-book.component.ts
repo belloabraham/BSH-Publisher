@@ -23,16 +23,7 @@ export class PublishYourBookComponent
 
   bookPublishForm!: FormGroup;
 
-  bookNameFC = new FormControl(undefined, [Validators.required]);
-  bookDescFC = new FormControl(undefined, [Validators.required]);
-  bookCurrencyFC = new FormControl(undefined, [Validators.required]);
-  bookAuthorFC = new FormControl(undefined, [Validators.required]);
 
-  bookISBNFC = new FormControl(undefined, [Validators.required]);
-  bookCatgoryFC = new FormControl(undefined, [Validators.required]);
-  bookPriceFC = new FormControl(undefined, [Validators.required]);
-
-  bookTagFC = new FormControl(undefined, [Validators.required]);
   bookCoverFC = new FormControl(undefined, [Validators.required]);
   bookDocumentFC = new FormControl(undefined, [Validators.required]);
 
@@ -93,18 +84,18 @@ export class PublishYourBookComponent
   private generateBookPublishForm() {
     return new FormGroup({
       bookDetailsForm: new FormGroup({
-        bookPriceFC: this.bookPriceFC,
-        bookISBNFC: this.bookISBNFC,
-        bookDescFC: this.bookDescFC,
-        bookCurrencyFC: this.bookCurrencyFC,
-        bookTagFC: this.bookTagFC,
-        bookAuthorFC: this.bookAuthorFC,
-        bookCatgoryFC: this.bookCatgoryFC,
-        bookNameFC: this.bookNameFC,
+        bookPriceFC: new FormControl(undefined, [Validators.required]),
+        bookISBNFC: new FormControl(undefined),
+        bookDescFC: new FormControl(undefined, [Validators.required]),
+        bookCurrencyFC: new FormControl(undefined, [Validators.required]),
+        bookTagFC: new FormControl(undefined, [Validators.required]),
+        bookAuthorFC: new FormControl(undefined, [Validators.required]),
+        bookCatgoryFC: new FormControl(undefined, [Validators.required]),
+        bookNameFC: new FormControl(undefined, [Validators.required]),
       }),
       bookAssetsForm: new FormGroup({
-        bookCoverFC: this.bookCoverFC,
-        bookDocumentFC: this.bookDocumentFC,
+        bookCoverFC: new FormControl(undefined, [Validators.required]),
+        bookDocumentFC: new FormControl(undefined, [Validators.required]),
       }),
     });
   }

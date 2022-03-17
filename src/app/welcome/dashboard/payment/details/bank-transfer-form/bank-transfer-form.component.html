@@ -1,7 +1,6 @@
 <form *transloco="let t" [formGroup]="bankTransferForm" (ngSubmit)="submitFormData()">
 
-    <div class="d-flex mb-1 ">
-        <div class="d-flex gap-1">
+        <div class="d-flex gap-1 mb-1">
             <label class="form-label label-lg flex-shrink-0" for="accountNameFC">{{ t('acct_name') }}</label>
 
             <div class="form-group account-name"
@@ -15,7 +14,6 @@
 
             </div>
         </div>
-    </div>
 
     <div class="d-flex gap-1 mb-1">
         <label class="form-label label-lg flex-shrink-0" for="bankNameFC">{{ t('bank_name') }}</label>

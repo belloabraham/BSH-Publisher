@@ -149,8 +149,15 @@
     "price":"Price",
     "isbn":"ISBN",
     "currency":"Currency",
-    "description":"Description",
+    "desc":"Description",
     "category":"Category",
     "book_cover":"Book cover",
-    "book_pdf":"Book (PDF only)"
+    "book_pdf":"Book (PDF only)",
+    "book_name_req":"Your book name is required",
+    "author_name_req":"Author name is required",
+    "price_currency_req":"Your book sales price and currency is required",
+    "book_desc_req":"Your book description is required",
+    "req_fields":"All fields marked with * are required",
+    "book_cat_req":"Your book category is required"
+    
 }

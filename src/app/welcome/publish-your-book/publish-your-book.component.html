@@ -1,4 +1,4 @@
-<div *transloco="let t" class="publish-your-book d-flex justify-content-center align-items-center">
+<div *transloco="let t" class="publish-your-book d-flex justify-content-center align-items-center p-2">
 
     <form [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()" class="form">
 
@@ -10,6 +10,8 @@
                     </ly-panel-title>
                     <ly-panel-description>{{t('book_details')}}</ly-panel-description>
                 </ly-expansion-panel-header>
+
+                <p class="text-muted mt-1">{{t('req_fields')}}</p>
 
                 <app-book-details-form  formGroupName="bookDetailsForm"> </app-book-details-form>
 

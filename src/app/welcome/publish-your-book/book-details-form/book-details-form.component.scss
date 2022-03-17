@@ -1,0 +1,17 @@
+button[type="submit"],
+.input-group,
+.form-input {
+  width: 20rem;
+}
+
+.form-label {
+  width: 6rem;
+}
+
+.price,.tag, .category{
+  width: 25rem;
+}
+textarea.form-input{
+  width: 30rem;
+  min-height: 10rem;
+}
