@@ -162,6 +162,7 @@
     "book_cat_req":"Your book category is required",
     "pub_ur_book":"Publish your book",
     "choose_cover":"Choose cover",
+    "publish":"Publish",
 
     "fit_screen":"Fit to screen",
     "zoom_in":"Zoom in",

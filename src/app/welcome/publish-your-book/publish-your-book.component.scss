@@ -17,7 +17,16 @@ button[type="submit"],
     width: 15rem;
 }
 
+.cover-fram{
+  width: 210px;
+  border-radius: 10px;
+  padding: 5px;
+  img{
+    width: 200px;
+    height: auto;
+  }
+}
 
 .book-cover-label{
- width: 18rem;
+ width: 13rem;
 }

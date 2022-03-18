@@ -33,7 +33,7 @@ export class PublishYourBookComponent
 
   bookPublishForm!: FormGroup;
   bookCoverFC = new FormControl(undefined, [Validators.required]);
-  bookDocumentFC = new FormControl(undefined, [Validators.required]);
+  bookDocumentFC = new FormControl(undefined, [Validators.required, Validators.max(51200)]);
 
   bookDetailsForm = new FormGroup({
     bookPriceFC: new FormControl(undefined, [Validators.required]),

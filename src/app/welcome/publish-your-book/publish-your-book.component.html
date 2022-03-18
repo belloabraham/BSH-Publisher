@@ -1,4 +1,4 @@
-<div *transloco="let t" class="publish-your-book d-flex justify-content-center w-100 h-100" >
+<div *transloco="let t" class="publish-your-book d-flex justify-content-center w-100 h-100">
 
     <div class="p-4">
 
@@ -16,7 +16,7 @@
         <form [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()" class="form">
 
             <ly-accordion>
-                <ly-expansion-panel [expanded]="isDetailsFormExpanded">
+                <ly-expansion-panel >
                     <ly-expansion-panel-header>
                         <ly-panel-title>
                             <h3>
@@ -32,12 +32,12 @@
                     <app-book-details-form> </app-book-details-form>
 
                     <ly-action-row>
-                        <button (click)="expandAssetForm()" class="mr-1 next-btn" disabled
-                            [disabled]="!bookDetailsForm.valid" ly-button bg="primary">{{t('next')}}</button>
+                        <button (click)="_bookAssetsPanel.open()" class="mr-1 next-btn" disabled
+                            [disabled]="bookDetailsForm.valid" ly-button bg="primary">{{t('next')}}</button>
                     </ly-action-row>
                 </ly-expansion-panel>
 
-                <ly-expansion-panel [disabled]="bookDetailsForm.valid" [expanded]="isDetailsFormExpanded">
+                <ly-expansion-panel [disabled]="bookDetailsForm.valid" #_bookAssetsPanel >
                     <ly-expansion-panel-header>
                         <ly-panel-title>
                             <h3>
@@ -52,9 +52,9 @@
                                 class="text-muted">*</span></label>
 
                         <div class="form-group"
-                            [ngClass]="{'has-error':bookDocumentFC.hasError('required') && bookDocumentFC.touched}">
+                            [ngClass]="{'has-error':bookDocumentFC.hasError('required')  && bookDocumentFC.touched}">
 
-                            <input type="file" class="form-input input-lg account-name" id="bookDocumentFC"
+                            <input type="file" max="1" accept=".pdf" class="form-input input-lg" id="bookDocumentFC"
                                 formControlName="bookDocumentFC">
 
                             <p *ngIf="bookDocumentFC.hasError('required') && bookDocumentFC.touched"
@@ -67,26 +67,28 @@
 
 
                     <div>
-                        <div class="d-flex gap-1 mb-2">
+                        <div class="d-flex gap-1">
 
                             <label class="form-label label-lg flex-shrink-0 book-cover-label"
-                                for="bookCoverFC">{{ t('book_cover') }}
-                                (h-500 x w-400 png only) <span class="text-muted">*</span></label>
+                                for="bookCoverFC">{{ t('book_cover') }} (PNG only) <span class="text-muted">*</span>
+                                <br>
+                                <span class="text-muted">(h-500 x w-400)</span>
+                            </label>
 
                             <div class="form-group"
                                 [ngClass]="{'has-error':bookCoverFC.hasError('required') && bookCoverFC.touched}">
-                                <input #_fileInput type="file" class="form-input input-lg" id="bookCoverFC"
+                                <input #_fileInput type="file" max="1" class="form-input input-lg" id="bookCoverFC"
                                     formControlName="bookCoverFC" (change)="openCropperDialog($event)"
                                     accept="image/png" hidden>
 
-                                <button ly-button  class="ml-1" (click)="_fileInput.click()">
-                                    <i style="margin-right: .4rem;">
-                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                        <path fill="currentColor"
-                                            d="M5,3A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H14.09C14.03,20.67 14,20.34 14,20C14,19.32 14.12,18.64 14.35,18H5L8.5,13.5L11,16.5L14.5,12L16.73,14.97C17.7,14.34 18.84,14 20,14C20.34,14 20.67,14.03 21,14.09V5C21,3.89 20.1,3 19,3H5M19,16V19H16V21H19V24H21V21H24V19H21V16H19Z" />
-                                    </svg>
+                                <button ly-button class="ml" (click)="_fileInput.click()">
+                                    <i>
+                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M5,3A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H14.09C14.03,20.67 14,20.34 14,20C14,19.32 14.12,18.64 14.35,18H5L8.5,13.5L11,16.5L14.5,12L16.73,14.97C17.7,14.34 18.84,14 20,14C20.34,14 20.67,14.03 21,14.09V5C21,3.89 20.1,3 19,3H5M19,16V19H16V21H19V24H21V21H24V19H21V16H19Z" />
+                                        </svg>
                                     </i>
-                                    <span>{{ t('choose_cover') }}</span>
+                                    <span [lyPe]="1"  >{{ t('choose_cover') }}</span>
                                 </button>
 
                                 <p *ngIf="bookCoverFC.hasError('required') && bookCoverFC.touched"
@@ -94,11 +96,25 @@
                                     {{ t('book_file_req') }}
                                 </p>
                             </div>
-
                         </div>
-                        <div *ngIf="cropped" class="border" style="width: 400px; height: 500px;"><img [src]="cropped"></div>
+                        <div *ngIf="cropped" class="border text-center shadow-sm mt-2 cover-frame">
+                            <img [src]="cropped">
+                        </div>
                     </div>
 
+                    <button type="submit" class="mt-2"  ly-button bg="primary">
+                        <i>
+                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
+                            </svg>
+                        </i>
+
+                        <span [lyPe]="1">
+                            {{t('publish')}}
+                        </span>
+
+                    </button>
 
                 </ly-expansion-panel>
             </ly-accordion>
