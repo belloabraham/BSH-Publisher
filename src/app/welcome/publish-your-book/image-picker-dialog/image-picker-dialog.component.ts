@@ -76,7 +76,7 @@ export class ImagePickerDialogComponent implements WithStyles, AfterViewInit {
       width: 400,
       height: 500,
     },
-    // resizableArea: true,
+     resizableArea: true,
   };
 
   constructor(
