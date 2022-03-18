@@ -136,7 +136,7 @@
     "your_addr_req":"Your address is required",
 
 
-    "publish_your_book_title":"Add Your Book - {{value}}",
+    "publish_your_book_title":"Publish Your Book - {{value}}",
     "step_1":"Step 1",
     "step_2":"Step 2",
     "ur_book_details":"Your book details",
@@ -150,8 +150,9 @@
     "currency":"Currency",
     "desc":"Description",
     "category":"Category",
-    "book_cover":"Book cover",
-    "book_pdf":"Book (PDF only)",
+    "book_cover":"Your book cover",
+    "book_pdf":"Your book (PDF only)",
+    "book_file_req":"Your book file is required",
     "book_name_req":"Your book name is required",
     "author_name_req":"Author name is required",
     "price_currency_req":"Your book sales price and currency is required",

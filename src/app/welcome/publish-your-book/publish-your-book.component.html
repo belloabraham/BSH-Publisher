@@ -1,9 +1,18 @@
-<div *transloco="let t" class="publish-your-book d-flex justify-content-center align-items-center">
+<div *transloco="let t" class="publish-your-book d-flex justify-content-center">
 
 
     <div class="p-4">
 
-        <h1 class="mb-2">{{t('pub_ur_book')}}</h1>
+        <div class="mb-2 d-flex align-items-center gap-2">
+            <button (click)="goBack()"  ly-button appearance="icon">
+                <svg style="width:28px;height:28px" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+                </svg>
+            </button>
+            <h1>{{t('pub_ur_book')}}</h1>
+        </div>
+
 
         <form [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()" class="form">
 
@@ -23,12 +32,13 @@
 
                     <app-book-details-form> </app-book-details-form>
 
-                    <ly-action-row > 
-                        <button (click)="expandAssetForm()"  class="mr-1 next-btn" disabled [disabled]="!bookDetailsForm.valid"  ly-button bg="primary">{{t('next')}}</button>
+                    <ly-action-row>
+                        <button (click)="expandAssetForm()" class="mr-1 next-btn" disabled
+                            [disabled]="!bookDetailsForm.valid" ly-button bg="primary">{{t('next')}}</button>
                     </ly-action-row>
                 </ly-expansion-panel>
 
-                <ly-expansion-panel [disabled]="!bookDetailsForm.valid" [expanded]="!isDetailsFormExpanded"  >
+                <ly-expansion-panel [disabled]="bookDetailsForm.valid" [expanded]="isDetailsFormExpanded">
                     <ly-expansion-panel-header>
                         <ly-panel-title>
                             <h2>
@@ -45,7 +55,5 @@
 
         </form>
     </div>
-
-
 
 </div>

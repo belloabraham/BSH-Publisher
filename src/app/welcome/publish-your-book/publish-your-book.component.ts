@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Config } from 'src/domain/data/config';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';
@@ -39,6 +40,12 @@ export class PublishYourBookComponent
     bookNameFC: new FormControl(undefined, [Validators.required]),
   });
 
+
+  bookAssetsForm = new FormGroup({
+    bookCoverFC: new FormControl(undefined, [Validators.required]),
+    bookDocumentFC: new FormControl(undefined, [Validators.required]),
+  });
+
   private unsavedFieldsMsgTitle = '';
   private unsavedFieldsMsg = '';
   private yes = '';
@@ -47,16 +54,23 @@ export class PublishYourBookComponent
   private canExitRoute = new Subject<boolean>();
 
   isDetailsFormExpanded = true;
-  isAssetFormExpanded = true;
+  //isAssetFormExpanded = true;
+
+  inComingRoute: string | undefined;
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router: Router
-  ) { }
-  
+    private router: Router,
+    private location: Location
+  ) {}
+
+  goBack() {
+    this.location.back();
+  }
+
   expandAssetForm() {
-    this.isDetailsFormExpanded = !this.isDetailsFormExpanded
+    this.isDetailsFormExpanded = !this.isDetailsFormExpanded;
   }
 
   ngOnInit(): void {
@@ -100,10 +114,7 @@ export class PublishYourBookComponent
   private generateBookPublishForm() {
     return new FormGroup({
       bookDetailsForm: this.bookDetailsForm,
-      bookAssetsForm: new FormGroup({
-        bookCoverFC: new FormControl(undefined, [Validators.required]),
-        bookDocumentFC: new FormControl(undefined, [Validators.required]),
-      }),
+      bookAssetsForm: this.bookAssetsForm,
     });
   }
 

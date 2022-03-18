@@ -6,20 +6,14 @@ import { LyButtonModule } from '@alyle/ui/button';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
-
 @NgModule({
   declarations: [BookAssetFormComponent],
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    LyButtonModule,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, TranslocoModule, LyButtonModule, ReactiveFormsModule],
   exports: [
     BookAssetFormComponent,
     TranslocoModule,
     LyButtonModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class BookAssetFormModule { }
+export class BookAssetFormModule {}
