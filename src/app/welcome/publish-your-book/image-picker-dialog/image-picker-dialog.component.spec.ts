@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookAssetFormComponent } from './book-asset-form.component';
+import { ImagePickerDialogComponent } from './image-picker-dialog.component';
 
-describe('BookAssetFormComponent', () => {
-  let component: BookAssetFormComponent;
-  let fixture: ComponentFixture<BookAssetFormComponent>;
+describe('ImagePickerDialogComponent', () => {
+  let component: ImagePickerDialogComponent;
+  let fixture: ComponentFixture<ImagePickerDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookAssetFormComponent ]
+      declarations: [ ImagePickerDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BookAssetFormComponent);
+    fixture = TestBed.createComponent(ImagePickerDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

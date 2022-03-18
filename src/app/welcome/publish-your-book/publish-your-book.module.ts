@@ -4,18 +4,22 @@ import { CommonModule } from '@angular/common';
 import { PublishYourBookRoutingModule } from './publish-your-book-routing.module';
 import { PublishYourBookComponent } from './publish-your-book.component';
 import { LyExpansionModule } from '@alyle/ui/expansion';
-import { BookAssetFormModule } from './book-asset-form/book-asset-form.module';
-import { BookDetailsFormModule } from './book-details-form/book-details-form.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { LyButtonModule } from '@alyle/ui/button';
+import { TranslocoModule } from '@ngneat/transloco';
+import { BookDetailsFormComponent } from './book-details-form/book-details-form.component';
+import { ImagePickerDialogModule } from './image-picker-dialog/image-picker-dialog.module';
 
 @NgModule({
-  declarations: [PublishYourBookComponent],
+  declarations: [PublishYourBookComponent, BookDetailsFormComponent],
   imports: [
     CommonModule,
     PublishYourBookRoutingModule,
     LyExpansionModule,
-    BookAssetFormModule,
-    BookDetailsFormModule,
+    ReactiveFormsModule,
+    LyButtonModule,
+    TranslocoModule,
+    ImagePickerDialogModule,
   ],
 })
 export class PublishYourBookModule {}

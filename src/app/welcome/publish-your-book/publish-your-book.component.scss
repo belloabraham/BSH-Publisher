@@ -1,11 +1,23 @@
-.publish-your-book{
-    min-height: 100vh;
-}
 
 .form{
     width: 45rem;
 }
 
+button[type="submit"],
+.input-group,
+.form-input {
+  width: 20rem;
+}
+
+.form-label {
+  width: 11rem;
+}
+
 .next-btn{
     width: 15rem;
+}
+
+
+.book-cover-label{
+ width: 18rem;
 }

@@ -160,6 +160,12 @@
     "req_fields":"All fields marked with * are required",
     "pub_your_book":"Add your book to the book store",
     "book_cat_req":"Your book category is required",
-    "pub_ur_book":"Publish your book"
+    "pub_ur_book":"Publish your book",
+    "choose_cover":"Choose cover",
+
+    "fit_screen":"Fit to screen",
+    "zoom_in":"Zoom in",
+    "zoom_out":"Zoom out",
+    "rotate_90":"Rotate 90 deg cw"
     
 }

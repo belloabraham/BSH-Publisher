@@ -18,14 +18,12 @@ import { RemoteConfig } from 'src/services/remote-config/remote-config';
 import { REMOTE_CONFIG_IJTOKEN } from 'src/services/remote-config/remote.config.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
-import { ThemeVariables, LyTheme2 } from '@alyle/ui';
 
 
 import {
   XPosition,
   YPosition,
   } from '@alyle/ui';
-import { Display } from 'src/helpers/utils/display';
 import { Settings } from 'src/domain/data/settings';
 import { Route } from 'src/domain/data/route';
 import { Config } from 'src/domain/data/config';
@@ -67,24 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
   helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
-  toolTipFontSize = Display.remToPixel(1.2).toString();
-
-  //Customized theme for Alyle Tooltip
-  readonly classes = this._theme.addStyle(
-    'LyTooltip',
-    (theme: ThemeVariables) => ({
-      borderRadius: '4px',
-      fontSize: this.toolTipFontSize,
-      padding: '0 8px 4px',
-      opacity: 1,
-      transition: `opacity ${theme.animations.curves.standard} 200ms`,
-      left: 0,
-    }),
-    undefined,
-    undefined,
-    -2
-  );
-
+  
   constructor(
     private title: Title,
     private localeService: LocaleService,
@@ -92,7 +73,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
-    private _theme: LyTheme2
   ) {
     this.isOpenLeftNav();
   }
