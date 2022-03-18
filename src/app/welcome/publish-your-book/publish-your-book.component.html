@@ -1,38 +1,51 @@
-<div *transloco="let t" class="publish-your-book d-flex justify-content-center align-items-center p-2">
+<div *transloco="let t" class="publish-your-book d-flex justify-content-center align-items-center">
 
-    <form [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()" class="form">
 
-        <ly-accordion>
-            <ly-expansion-panel [expanded]="isContentFormExpand">
-                <ly-expansion-panel-header>
-                    <ly-panel-title>
-                        {{t('step_1')}}
-                    </ly-panel-title>
-                    <ly-panel-description>{{t('book_details')}}</ly-panel-description>
-                </ly-expansion-panel-header>
+    <div class="p-4">
 
-                <p class="text-muted mt-1">{{t('req_fields')}}</p>
+        <h1 class="mb-2">{{t('pub_ur_book')}}</h1>
 
-                <app-book-details-form  formGroupName="bookDetailsForm"> </app-book-details-form>
+        <form [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()" class="form">
 
-                <ly-action-row>
-                    <button ly-button bg="primary">{{t('next')}}</button>
-                </ly-action-row>
-            </ly-expansion-panel>
+            <ly-accordion>
+                <ly-expansion-panel [expanded]="isDetailsFormExpanded">
+                    <ly-expansion-panel-header>
+                        <ly-panel-title>
+                            <h2>
+                                {{t('step_1')}}
+                            </h2>
 
-            <ly-expansion-panel [disabled]="!isContentFormValid">
-                <ly-expansion-panel-header>
-                    <ly-panel-title>
-                        {{t('step_2')}}
-                    </ly-panel-title>
-                    <ly-panel-description>{{t('book_assets')}}</ly-panel-description>
-                </ly-expansion-panel-header>
+                        </ly-panel-title>
+                        <ly-panel-description>{{t('ur_book_details')}}</ly-panel-description>
+                    </ly-expansion-panel-header>
 
-                <app-book-asset-form  formGroupName="bookAssetsForm"> </app-book-asset-form>
+                    <p class="text-muted my-1">{{t('req_fields')}}</p>
 
-            </ly-expansion-panel>
-        </ly-accordion>
+                    <app-book-details-form> </app-book-details-form>
 
-    </form>
-    
+                    <ly-action-row > 
+                        <button (click)="expandAssetForm()"  class="mr-1 next-btn" disabled [disabled]="!bookDetailsForm.valid"  ly-button bg="primary">{{t('next')}}</button>
+                    </ly-action-row>
+                </ly-expansion-panel>
+
+                <ly-expansion-panel [disabled]="!bookDetailsForm.valid" [expanded]="!isDetailsFormExpanded"  >
+                    <ly-expansion-panel-header>
+                        <ly-panel-title>
+                            <h2>
+                                {{t('step_2')}}
+                            </h2>
+                        </ly-panel-title>
+                        <ly-panel-description>{{t('ur_book_assets')}}</ly-panel-description>
+                    </ly-expansion-panel-header>
+
+                    <app-book-asset-form> </app-book-asset-form>
+
+                </ly-expansion-panel>
+            </ly-accordion>
+
+        </form>
+    </div>
+
+
+
 </div>

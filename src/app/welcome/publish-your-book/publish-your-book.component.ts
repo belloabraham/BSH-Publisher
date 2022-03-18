@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -23,9 +28,16 @@ export class PublishYourBookComponent
 
   bookPublishForm!: FormGroup;
 
-
-  bookCoverFC = new FormControl(undefined, [Validators.required]);
-  bookDocumentFC = new FormControl(undefined, [Validators.required]);
+  bookDetailsForm = new FormGroup({
+    bookPriceFC: new FormControl(undefined, [Validators.required]),
+    bookISBNFC: new FormControl(undefined),
+    bookDescFC: new FormControl(undefined, [Validators.required]),
+    bookCurrencyFC: new FormControl(undefined, [Validators.required]),
+    bookTagFC: new FormControl(undefined, [Validators.required]),
+    bookAuthorFC: new FormControl(undefined, [Validators.required]),
+    bookCatgoryFC: new FormControl(undefined, [Validators.required]),
+    bookNameFC: new FormControl(undefined, [Validators.required]),
+  });
 
   private unsavedFieldsMsgTitle = '';
   private unsavedFieldsMsg = '';
@@ -34,18 +46,22 @@ export class PublishYourBookComponent
 
   private canExitRoute = new Subject<boolean>();
 
-  isContentFormValid = false
-  isContentFormExpand = true
+  isDetailsFormExpanded = true;
+  isAssetFormExpanded = true;
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
     private router: Router
-  ) {}
+  ) { }
+  
+  expandAssetForm() {
+    this.isDetailsFormExpanded = !this.isDetailsFormExpanded
+  }
 
   ngOnInit(): void {
     this.getStrinRes();
-    this.bookPublishForm = this.generateBookPublishForm()
+    this.bookPublishForm = this.generateBookPublishForm();
   }
 
   private getStrinRes() {
@@ -83,16 +99,7 @@ export class PublishYourBookComponent
 
   private generateBookPublishForm() {
     return new FormGroup({
-      bookDetailsForm: new FormGroup({
-        bookPriceFC: new FormControl(undefined, [Validators.required]),
-        bookISBNFC: new FormControl(undefined),
-        bookDescFC: new FormControl(undefined, [Validators.required]),
-        bookCurrencyFC: new FormControl(undefined, [Validators.required]),
-        bookTagFC: new FormControl(undefined, [Validators.required]),
-        bookAuthorFC: new FormControl(undefined, [Validators.required]),
-        bookCatgoryFC: new FormControl(undefined, [Validators.required]),
-        bookNameFC: new FormControl(undefined, [Validators.required]),
-      }),
+      bookDetailsForm: this.bookDetailsForm,
       bookAssetsForm: new FormGroup({
         bookCoverFC: new FormControl(undefined, [Validators.required]),
         bookDocumentFC: new FormControl(undefined, [Validators.required]),

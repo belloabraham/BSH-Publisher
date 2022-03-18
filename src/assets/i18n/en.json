@@ -62,7 +62,6 @@
 
     "empty_book_store_title":"Empty Book Store - {{value}}",
     "empty_book_store_heading":"You currently have no book in your store shelf",
-    "publish_a_book":"Publish a book",
     "logout":"Log out",
 
 
@@ -137,11 +136,11 @@
     "your_addr_req":"Your address is required",
 
 
-    "publish_your_book_title":"Publish Your Book - {{value}}",
+    "publish_your_book_title":"Add Your Book - {{value}}",
     "step_1":"Step 1",
     "step_2":"Step 2",
-    "book_details":"Book details",
-    "book_assets":"Book assets",
+    "ur_book_details":"Your book details",
+    "ur_book_assets":"Your book assets",
     "next":"Next",
     "book_name":"Book name",
     "author":"Author",
@@ -158,6 +157,8 @@
     "price_currency_req":"Your book sales price and currency is required",
     "book_desc_req":"Your book description is required",
     "req_fields":"All fields marked with * are required",
-    "book_cat_req":"Your book category is required"
+    "pub_your_book":"Add your book to the book store",
+    "book_cat_req":"Your book category is required",
+    "pub_ur_book":"Publish your book"
     
 }
