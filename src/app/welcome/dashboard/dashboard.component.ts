@@ -4,6 +4,7 @@ import {
   Inject,
   OnDestroy,
   OnInit,
+  ɵclearResolutionOfComponentResourcesQueue,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ResolveEnd, ResolveStart, Router } from '@angular/router';
@@ -58,6 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   payment = Route.payment;
   myBooks = Route.myBooks;
   profile = Route.profile;
+  publishYourBook = Route.publishYourBook;
 
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;
