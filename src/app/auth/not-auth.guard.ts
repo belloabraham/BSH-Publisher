@@ -1,7 +1,7 @@
 import { Injectable, Optional } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
-import { Observable, } from 'rxjs';
-import { Auth } from '@angular/fire/auth';
+import { catchError, map, Observable, of } from 'rxjs';
+import { Auth, authState } from '@angular/fire/auth';
 import { Providers } from 'src/domain/data/providers';
 import { Route as Routes } from 'src/domain/data/route';
 
@@ -9,7 +9,10 @@ import { Route as Routes } from 'src/domain/data/route';
   providedIn: Providers.any,
 })
 export class NotAuthGuard implements CanLoad {
+  private allowAccessToRoute = true;
+
   constructor(@Optional() private auth: Auth, private router: Router) {}
+
   canLoad(
     route: Route,
     segments: UrlSegment[]
@@ -18,13 +21,23 @@ export class NotAuthGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    
-    //*If user is authenticated
-    if (this.auth.currentUser) {
-      this.router.navigateByUrl(Routes.welcome);
-      return false;
-    }
+    return authState(this.auth).pipe(
+      map((isAuthenticatedUser) => {
+        if (isAuthenticatedUser) {
+          return this.goToWelcomePage();
+        } else {
+          return this.allowAccessToRoute;
+        }
+      }),
+      catchError((err) => {
+        //*Can't tell if the user is authenticated or not
+        return of(this.allowAccessToRoute);
+      })
+    );
+  }
 
-    return true;
+  goToWelcomePage() {
+    this.router.navigateByUrl(Routes.welcome);
+    return false;
   }
 }

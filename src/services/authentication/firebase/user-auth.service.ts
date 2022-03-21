@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserAuthService implements IUserAuth {
+  
   constructor(
     private googleAuth: GoogleAuthService,
     private emailAuth: EmailAuthService,
@@ -29,7 +30,7 @@ export class UserAuthService implements IUserAuth {
     return this.emailAuth.sendSignInLinkToEmail(email);
   }
 
-  signInWithGoogleRedirect(): Promise<never> {
+  signInWithGoogleRedirect():Promise<never> {
     return this.googleAuth.signInWithGoogleRedirect();
   }
 

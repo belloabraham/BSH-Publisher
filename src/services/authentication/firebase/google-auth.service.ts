@@ -10,10 +10,11 @@ import { Providers } from 'src/domain/data/providers';
   providedIn: Providers.root,
 })
 export class GoogleAuthService {
+  
   constructor(@Optional() private auth: Auth) {}
 
-  signInWithGoogleRedirect(): Promise<never> {
-    return signInWithRedirect(this.auth, new GoogleAuthProvider());
+  signInWithGoogleRedirect():Promise<never> {
+    return signInWithRedirect(this.auth, new GoogleAuthProvider())
   }
   
 }

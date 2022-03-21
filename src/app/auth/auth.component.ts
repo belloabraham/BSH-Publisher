@@ -42,8 +42,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     private title: Title,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private localeService: LocaleService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getStringRes();
@@ -97,12 +96,12 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   async sendSignInLinkToEmail(email: string) {
-    Shield.standard()
+    Shield.standard();
     try {
       await this.userAuth.sendSignInLinkToEmail(email);
       localStorage.setItem(Settings.userEmail, email);
       Shield.remove();
-      this.showMailSentSuccessMessage(email)
+      this.showMailSentSuccessMessage(email);
     } catch (error: any) {
       Shield.remove();
       Logger.error(this, 'sendSignInLinkToEmail', error.message);
@@ -113,20 +112,20 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
   }
 
-  private showMailSentSuccessMessage(email:string) {
-     const title = this.localeService.paramTranslate(
-       StringResKeys.linkSentTitle,
-       {
-         value: email,
-       }
-     );
-     const msg = this.localeService.paramTranslate(StringResKeys.linkSentMsg, {
-       value: email,
-     });
+  private showMailSentSuccessMessage(email: string) {
+    const title = this.localeService.paramTranslate(
+      StringResKeys.linkSentTitle,
+      {
+        value: email,
+      }
+    );
+    const msg = this.localeService.paramTranslate(StringResKeys.linkSentMsg, {
+      value: email,
+    });
 
-     AlertDialog.success(msg, title, this.ok, {
-       plainText: false,
-     });
+    AlertDialog.success(msg, title, this.ok, {
+      plainText: false,
+    });
   }
 
   private generateForm() {

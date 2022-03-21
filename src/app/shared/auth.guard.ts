@@ -1,7 +1,7 @@
 import { Injectable, Optional } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Auth } from '@angular/fire/auth';
+import { catchError, map, Observable, of } from 'rxjs';
+import { Auth, authState } from '@angular/fire/auth';
 import { Providers } from 'src/domain/data/providers';
 import { Route as Routes } from 'src/domain/data/route';
 
@@ -9,6 +9,9 @@ import { Route as Routes } from 'src/domain/data/route';
   providedIn: Providers.any,
 })
 export class AuthGuard implements CanLoad {
+
+  private allowAccessToRoute = true
+
   constructor(private router: Router, @Optional() private auth: Auth) {}
 
   canLoad(
@@ -19,12 +22,24 @@ export class AuthGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return true
-    if (this.auth.currentUser) {
-      return true;
-    } else {
-      this.router.navigateByUrl(Routes.root);
-      return false;
-    }
+    
+    return authState(this.auth).pipe(
+      map((isAuthenticatedUser) => {
+        if (isAuthenticatedUser) {
+          return this.allowAccessToRoute;
+        } else {
+          return this.navigateHome();
+        }
+      }),
+      catchError((err) => {
+        //*Can't tell if the user is authenticated or not
+        return of(this.navigateHome())
+      })
+    );
+  }
+
+  private navigateHome() {
+     this.router.navigateByUrl(Routes.root);
+     return false;
   }
 }
