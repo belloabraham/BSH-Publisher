@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -12,7 +13,7 @@ import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-f
 import { Config } from 'src/domain/data/config';
 import { Route } from 'src/domain/data/route';
 import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { FirestoreService } from 'src/domain/remote-data-source/firebase/firestore.service';
+import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
@@ -22,12 +23,6 @@ import { StringResKeys } from '../sign-up/locale/string-res-keys';
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-  providers: [
-    {
-      provide: DATABASE_IJTOKEN,
-      useClass: FirestoreService,
-    },
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent implements OnInit, OnDestroy {
@@ -46,7 +41,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router: Router
+    private router: Router,
+     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
   ) {}
 
   onDataUpdate(isSuccessful: boolean) {

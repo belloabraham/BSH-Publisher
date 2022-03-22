@@ -15,7 +15,6 @@ export class Route {
   static readonly unpublished = "unpublished";
   static readonly pendingApproval ="pending-approval"
 
-  static readonly errorRouteParams = 'error-route';
   static readonly error = 'error';
 
   static readonly details = "details";

@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IPublisher {
   firstName: string;
   lastName: string;
   gender: string;

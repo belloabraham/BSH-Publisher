@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Config } from 'src/domain/data/config';
 import { ICanDeactivate } from 'src/guards/i-can-deactivate';

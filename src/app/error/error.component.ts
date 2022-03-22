@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Route } from 'src/domain/data/route';
+import { Router } from '@angular/router';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-error',
@@ -14,21 +14,17 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class ErrorComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  incomingRoute?;
 
   constructor(
-    activatedRoute: ActivatedRoute,
     private title: Title,
     private localeService: LocaleService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
-    this.incomingRoute = activatedRoute.snapshot.paramMap.get(
-      Route.errorRouteParams
-    );
   }
 
   tryAgain() {
-    this.router.navigateByUrl(this.incomingRoute!!);
+    this.location.back()
   }
 
   ngOnInit(): void {

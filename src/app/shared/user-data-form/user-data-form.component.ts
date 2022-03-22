@@ -17,7 +17,7 @@ import { countries } from 'src/domain/data/countries';
 import { diallingCodes } from 'src/domain/data/dialling-code';
 import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { IUser } from 'src/domain/models/iuser';
+import { IPublisher } from 'src/domain/models/ipublisher';
 import { Collection } from 'src/domain/remote-data-source/collection';
 import { ICountry } from 'src/domain/models/icountry';
 
@@ -91,7 +91,7 @@ export class UserDataFormComponent implements OnInit {
       let userId = this.userAuth.getPubId()!;
       let email = this.userAuth.getEmail()!;
 
-      let user: IUser = {
+      let user: IPublisher = {
         firstName: this.firstNameFC.value,
         lastName: this.lastNameFC.value,
         gender: this.genderFC.value,
@@ -102,7 +102,7 @@ export class UserDataFormComponent implements OnInit {
         lastUpdated: this.lastUpdated,
       };
       try {
-        await this.database.addDocData<IUser>(
+        await this.database.addDocData<IPublisher>(
           Collection.publishers,
           [userId],
           user

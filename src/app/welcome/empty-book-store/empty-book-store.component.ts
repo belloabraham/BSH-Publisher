@@ -30,9 +30,7 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
     private localeService: LocaleService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
-    cdRef: ChangeDetectorRef
   ) {
-    cdRef.detach;
   }
 
   ngOnInit(): void {

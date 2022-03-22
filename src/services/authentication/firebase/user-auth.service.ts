@@ -16,8 +16,9 @@ export class UserAuthService implements IUserAuth {
     private googleAuth: GoogleAuthService,
     private emailAuth: EmailAuthService,
     @Optional() private auth: Auth,
-    private localeService: LocaleService
-  ) {}
+    private localeService: LocaleService,
+  ) {
+  }
 
   signInWithEmailLink(
     email: string,
@@ -44,12 +45,12 @@ export class UserAuthService implements IUserAuth {
 
   getPubId(): string | null {
     const user = this.auth.currentUser;
-    return user === null ? null : user.uid;
+    return user ? user.uid : null;
   }
 
   getEmail(): string | null {
     const user = this.auth.currentUser;
-    return user === null ? null : user.email;
+    return user ? user.email : null;
   }
 
   authState():Observable<boolean> {

@@ -32,6 +32,7 @@ import { MinimaLight } from '@alyle/ui/themes/minima';
 
 import { AlyleGlobalThemeVariables } from 'src/theme/alyle-global-theme-variables';
 import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,7 @@ import { AlyleLightThemeVariables } from 'src/theme/alyle-light-theme-variables'
     TranslocoRootModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
+    provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideAppCheck(() =>
       initializeAppCheck(undefined, {
