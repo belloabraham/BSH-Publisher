@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import {
-  Router, Resolve,
+  Router,
+  Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Providers } from 'src/domain/data/providers';
 import { Route } from 'src/domain/data/route';
@@ -17,7 +18,6 @@ import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
   providedIn: Providers.any,
 })
 export class NoPubDataResolver implements Resolve<IPublisher | null> {
-  
   constructor(
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
@@ -28,7 +28,6 @@ export class NoPubDataResolver implements Resolve<IPublisher | null> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<IPublisher | null> {
-    
     let pubId = this.userAuth.getPubId()!;
 
     try {
@@ -41,9 +40,11 @@ export class NoPubDataResolver implements Resolve<IPublisher | null> {
       }
       return null;
     } catch (error) {
-      this.router.navigateByUrl(Route.error);
+      this.router.navigate([
+        Route.error,
+        { incomingRoute: location.href },
+      ]);
       return null;
     }
-
   }
 }

@@ -23,6 +23,7 @@ import { StringResKeys } from '../auth/locale/string-res-keys';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerifyEmailComponent implements OnInit, OnDestroy {
+  
   private subscriptions = new SubSink();
   verifyEmailForm!: FormGroup;
   emailFC = new FormControl('', [

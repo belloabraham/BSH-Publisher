@@ -11,13 +11,15 @@ export class Route {
   static readonly collaborators = 'collaborators';
   static readonly profile = 'profile';
 
-  static readonly published = "published";
-  static readonly unpublished = "unpublished";
-  static readonly pendingApproval ="pending-approval"
+  static readonly published = 'published';
+  static readonly unpublished = 'unpublished';
+  static readonly pendingApproval = 'pending-approval';
 
   static readonly error = 'error';
 
-  static readonly details = "details";
-  static readonly earnings = "earnings";
-  static readonly signUp="sign-up"
+  static readonly details = 'details';
+  static readonly earnings = 'earnings';
+  static readonly signUp = 'sign-up';
+  
+  static readonly incomingRoute = 'incomingRoute';
 }
