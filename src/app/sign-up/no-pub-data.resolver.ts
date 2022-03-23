@@ -28,9 +28,9 @@ export class NoPubDataResolver implements Resolve<IPublisher | null> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<IPublisher | null> {
-    let pubId = this.userAuth.getPubId()!;
-
+   
     try {
+      const pubId = this.userAuth.getPubId()!;
       const pubData = await this.remoteData.getDocData<IPublisher>(
         Collection.publishers,
         [pubId]
@@ -42,7 +42,7 @@ export class NoPubDataResolver implements Resolve<IPublisher | null> {
     } catch (error) {
       this.router.navigate([
         Route.error,
-        { incomingRoute: location.href },
+        { incomingRoute: route.url },
       ]);
       return null;
     }

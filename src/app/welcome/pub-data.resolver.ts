@@ -5,7 +5,6 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
-import { of } from 'rxjs';
 import { Providers } from 'src/domain/data/providers';
 import { Route } from 'src/domain/data/route';
 import { IPublisher } from 'src/domain/models/entities/ipublisher';
@@ -41,10 +40,7 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
       }
       return pubData;
     } catch (error) {
-      this.router.navigate([
-        Route.error,
-        { incomingRoute: location.href },
-      ]);
+      this.router.navigate([Route.error, { incomingRoute: route.url}]);
       return null;
     }
   }
