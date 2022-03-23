@@ -1,8 +1,12 @@
 import { LyTheme2, ThemeVariables } from '@alyle/ui';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { IPublisher } from 'src/domain/models/entities/ipublisher';
 import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
 import { FirestoreService } from 'src/domain/remote-data-source/firebase/firestore.service';
 import { Display } from 'src/helpers/utils/display';
+import { SubSink } from 'subsink';
 import { PubDataViewModel } from './pub-data.viewmodels';
 
 @Component({
@@ -14,12 +18,13 @@ import { PubDataViewModel } from './pub-data.viewmodels';
       provide: DATABASE_IJTOKEN,
       useClass: FirestoreService,
     },
-    PubDataViewModel
+    PubDataViewModel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WelcomeComponent {
-  
+export class WelcomeComponent implements OnInit, OnDestroy {
+  private subscriptions = new SubSink();
+
   toolTipFontSize = Display.remToPixel(1.2).toString();
 
   //*Customized theme for Alyle Tooltip
@@ -37,8 +42,21 @@ export class WelcomeComponent {
     undefined,
     -2
   );
-  constructor(private _theme: LyTheme2, private pubDataViewModel: PubDataViewModel) {
-    
+  constructor(
+    private _theme: LyTheme2,
+    private pubDataViewModel: PubDataViewModel,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.subscriptions.sink = this.activatedRoute.data
+      .pipe(map((data) => data['pubData']))
+      .subscribe((pubData) => {
+        this.pubDataViewModel.setPublisher(pubData);
+      });
   }
-  
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

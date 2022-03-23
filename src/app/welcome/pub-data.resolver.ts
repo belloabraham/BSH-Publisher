@@ -5,6 +5,7 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import { of } from 'rxjs';
 import { Providers } from 'src/domain/data/providers';
 import { Route } from 'src/domain/data/route';
 import { IPublisher } from 'src/domain/models/entities/ipublisher';
