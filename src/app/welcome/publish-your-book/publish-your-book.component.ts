@@ -13,12 +13,12 @@ import { Title } from '@angular/platform-browser';
 import {  Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Config } from 'src/domain/data/config';
-import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 import { ImagePickerDialogComponent } from './image-picker-dialog/image-picker-dialog.component';
+import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 
 @Component({
   selector: 'app-publish-your-book',

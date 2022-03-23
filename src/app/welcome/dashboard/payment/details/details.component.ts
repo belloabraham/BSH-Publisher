@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
+import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { PaymentType } from 'src/domain/data/payment-type';
-import { ICanDeactivate } from 'src/guards/i-can-deactivate';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
