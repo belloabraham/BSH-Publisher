@@ -35,6 +35,8 @@ export class WelcomeComponent {
     undefined,
     -2
   );
+  constructor(private _theme: LyTheme2) { }
+  
 
-  constructor(private _theme: LyTheme2) {}
+  
 }

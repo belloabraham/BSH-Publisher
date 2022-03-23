@@ -1,4 +1,4 @@
-import { ICurrency } from '../models/icurrency';
+import { ICurrency } from "../models/icurrency";
 
 export var currencies: ICurrency[] = [
   { name: 'Nigeria Naira', abbrev: 'NGN' },

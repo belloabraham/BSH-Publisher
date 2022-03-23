@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/domain/data/route';
 import { NotAuthGuard } from './auth/not-auth.guard';
 import { AuthGuard } from './shared/auth.guard';
-import { NoPubDataGuard } from './sign-up/no-pub-data.guard';
+import { NoPubDataResolver } from './sign-up/no-pub-data.resolver';
 import { VerifyEmailGuard } from './verify-email/verify-email.guard';
-import { PubDataGuard } from './welcome/pub-data.guard';
+import { PubDataResolver } from './welcome/pub-data.resolver';
 
 const routes: Routes = [
   {
@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: Route.welcome,
-    canLoad: [AuthGuard, PubDataGuard],
+    canLoad: [AuthGuard],
+    resolve: { pubData: PubDataResolver },
     loadChildren: () =>
       import('./welcome/welcome.module').then((m) => m.WelcomeModule),
   },
@@ -30,11 +31,10 @@ const routes: Routes = [
   },
   {
     path: Route.signUp,
-    canLoad: [AuthGuard, NoPubDataGuard],
+    canLoad: [AuthGuard],
+    resolve: { pubData: NoPubDataResolver },
     loadChildren: () =>
-      import('./sign-up/sign-up.module').then(
-        (m) => m.SignUpModule
-      ),
+      import('./sign-up/sign-up.module').then((m) => m.SignUpModule),
   },
   {
     path: Route.error,

@@ -17,8 +17,8 @@ import { countries } from 'src/domain/data/countries';
 import { diallingCodes } from 'src/domain/data/dialling-code';
 import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { IPublisher } from 'src/domain/models/ipublisher';
 import { Collection } from 'src/domain/remote-data-source/collection';
+import { IPublisher } from 'src/domain/models/entities/ipublisher';
 import { ICountry } from 'src/domain/models/icountry';
 
 @Component({
