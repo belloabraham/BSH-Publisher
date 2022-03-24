@@ -28,9 +28,9 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<IPublisher | null> {
-    let pubId = this.userAuth.getPubId()!;
 
     try {
+     let pubId = this.userAuth.getPubId()!;
       const pubData = await this.remoteData.getDocData<IPublisher>(
         Collection.publishers,
         [pubId]

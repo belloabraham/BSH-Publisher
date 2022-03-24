@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/domain/data/route';
-import { PublishedBooksGuard } from './dashboard/published-books.guard';
+import { PublishedBooksResolver } from './dashboard/published-books.resolver';
 import { NoPublishedBooksGuard } from './empty-book-store/no-published-books.guard';
 import { WelcomeComponent } from './welcome.component';
 
@@ -13,17 +13,21 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
+        redirectTo: Route.dashboard,
+      },
+      {
+        path: Route.dashboard,
+        resolve: { publishedBooks: PublishedBooksResolver},
+        loadChildren: () =>
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
+        path: Route.emptyBookStore,
         canLoad: [NoPublishedBooksGuard],
         loadChildren: () =>
           import('./empty-book-store/empty-book-store.module').then(
             (m) => m.EmptyBookStoreModule
           ),
-      },
-      {
-        path: Route.dashboard,
-        canLoad: [PublishedBooksGuard],
-        loadChildren: () =>
-          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: Route.publishYourBook,
@@ -34,7 +38,6 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'welcome/empty-book-store', loadChildren: () => import('./empty-book-store/empty-book-store.module').then(m => m.EmptyBookStoreModule) },
 ];
 
 @NgModule({

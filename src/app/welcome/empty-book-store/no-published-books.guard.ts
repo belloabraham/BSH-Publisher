@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Providers } from 'src/domain/data/providers';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: Providers.any
 })
 export class NoPublishedBooksGuard implements CanLoad {
   canLoad(
