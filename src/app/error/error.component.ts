@@ -5,6 +5,7 @@ import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 import { Route } from 'src/domain/data/route';
+import { ErrorService } from '../shared/error.service';
 
 @Component({
   selector: 'app-error',
@@ -14,21 +15,16 @@ import { Route } from 'src/domain/data/route';
 })
 export class ErrorComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  incomingRoute?;
   constructor(
     activatedRoute: ActivatedRoute,
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
-  ) {
-    this.incomingRoute = activatedRoute.snapshot.paramMap.get(
-      Route.incomingRoute
-    );
-  }
+    private errorService: ErrorService
+  ) {}
 
   tryAgain() {
-    const route = this.incomingRoute ? this.incomingRoute : ''
-    this.router.navigateByUrl(route)
+    this.router.navigate(this.errorService.errorRoute);
   }
 
   ngOnInit(): void {

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Providers } from 'src/domain/data/providers';
 import { Route as Routes } from 'src/domain/data/route';
 import { Settings } from 'src/domain/data/settings';
-import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
@@ -50,8 +49,8 @@ export class VerifyEmailGuard implements CanLoad {
       localStorage.removeItem(Settings.userEmail);
       this.router.navigateByUrl(Routes.welcome);
       return false;
-    } catch (error) {
-      Logger.error('VerifyEmailGuard', 'verifyEmailWithLink', error);
+    } catch (error:any) {
+      Logger.error(this, 'verifyEmailWithLink', error.message);
       return true;
     }
   }

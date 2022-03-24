@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/domain/data/route';
 import { PublishedBooksResolver } from './dashboard/published-books.resolver';
-import { NoPublishedBooksGuard } from './empty-book-store/no-published-books.guard';
 import { WelcomeComponent } from './welcome.component';
 
 const routes: Routes = [
@@ -17,13 +16,12 @@ const routes: Routes = [
       },
       {
         path: Route.dashboard,
-        resolve: { publishedBooks: PublishedBooksResolver},
+        resolve: { allBooks: PublishedBooksResolver },
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: Route.emptyBookStore,
-        canLoad: [NoPublishedBooksGuard],
         loadChildren: () =>
           import('./empty-book-store/empty-book-store.module').then(
             (m) => m.EmptyBookStoreModule

@@ -39,6 +39,9 @@ export class FirestoreService implements IDatabase {
     let q = query(collection(this.firestore, path), ...queryConstraint);
     return  getDocs(q).then((querySnapshot) => {
       let dataArray: T[] = [];
+
+      
+
       querySnapshot.forEach((queryDoc) => {
         if (queryDoc.exists()) {
           let data = queryDoc.data();

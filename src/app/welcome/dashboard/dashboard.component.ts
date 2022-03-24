@@ -4,11 +4,15 @@ import {
   Inject,
   OnDestroy,
   OnInit,
-  ɵclearResolutionOfComponentResourcesQueue,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ResolveEnd, ResolveStart, Router } from '@angular/router';
-import { filter, mapTo, merge, Observable } from 'rxjs';
+import {
+  ActivatedRoute,
+  ResolveEnd,
+  ResolveStart,
+  Router,
+} from '@angular/router';
+import { filter, map, mapTo, merge, Observable } from 'rxjs';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
@@ -20,16 +24,12 @@ import { REMOTE_CONFIG_IJTOKEN } from 'src/services/remote-config/remote.config.
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
-
-import {
-  XPosition,
-  YPosition,
-  } from '@alyle/ui';
+import { XPosition, YPosition } from '@alyle/ui';
 import { Settings } from 'src/domain/data/settings';
 import { Route } from 'src/domain/data/route';
 import { Config } from 'src/domain/data/config';
-import { IDatabase } from 'src/domain/remote-data-source/idatabase';
-import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
+import { AllBooksViewModel } from './all-books.viewmodel';
+import { IPublishedBook } from 'src/domain/data/ipublished-books';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,6 +40,7 @@ import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
       provide: REMOTE_CONFIG_IJTOKEN,
       useClass: FirebaseRemoteConfigService,
     },
+    AllBooksViewModel
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -67,21 +68,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
   feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
   helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
-  
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    @Inject(DATABASE_IJTOKEN) private database: IDatabase,
     @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private allBooksVM: AllBooksViewModel
   ) {
     this.isOpenLeftNav();
   }
 
   ngOnInit(): void {
 
-    this.getStrinRes()
+    this.subscriptions.sink = this.activatedRoute.data
+      .pipe(map((data) => data['allBooks']))
+      .subscribe((allBooks: IPublishedBook[]) => {
+      this.allBooksVM.setAllBooks(allBooks)
+      });
+
+    this.getStrinRes();
 
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
@@ -105,13 +112,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-
   private getStrinRes() {
-     this.subscriptions.sink = this.localeService
-       .getIsLangLoadSuccessfullyObs()
-       .subscribe((_) => {
-         this.setTitle();
-       });
+    this.subscriptions.sink = this.localeService
+      .getIsLangLoadSuccessfullyObs()
+      .subscribe((_) => {
+        this.setTitle();
+      });
   }
 
   logout() {

@@ -3,6 +3,10 @@
   <div class="indeterminate"></div>
 </div>
 
+<div *ngIf="isResolving$ | async" class="indeterminate-progress bg-primary fixed-top" style="z-index: 19;">
+  <div class="indeterminate"></div>
+</div>
+
 <div class="shield">
   <div *ngIf="isNotConnected$ | async"
     class="warning-panel d-flex justify-content-center align-items-center fixed-top show">

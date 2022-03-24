@@ -1,12 +1,8 @@
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Inject, Injectable } from '@angular/core';
-import {
-  Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-  Router,
-} from '@angular/router';
+import { Observable } from 'rxjs';
 import { Providers } from 'src/domain/data/providers';
-import { Route } from 'src/domain/data/route';
+import { Route as Routes } from 'src/domain/data/route';
 import { IPublisher } from 'src/domain/models/entities/ipublisher';
 import { Collection } from 'src/domain/remote-data-source/collection';
 import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
@@ -19,7 +15,8 @@ import { ErrorService } from '../shared/error.service';
 @Injectable({
   providedIn: Providers.any,
 })
-export class PubDataResolver implements Resolve<IPublisher | null> {
+export class NoPublisherDataGuard implements CanActivate {
+  
   constructor(
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
@@ -27,25 +24,30 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
     private errorService: ErrorService
   ) {}
 
-  async resolve(
+  canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<IPublisher | null> {
-    try {
-      let pubId = this.userAuth.getPubId()!;
-      const pubData = await this.remoteData.getDocData<IPublisher>(
-        Collection.publishers,
-        [pubId]
-      );
-      if (pubData === null) {
-        this.router.navigateByUrl(Route.signUp);
-      }
-      return pubData;
-    } catch (error: any) {
-      Logger.error(this, 'resolve', error.message);
-      this.errorService.errorRoute = [Route.welcome];
-      this.router.navigateByUrl(Route.error);
-      return null;
-    }
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    const pubId = this.userAuth.getPubId()!;
+
+    return this.remoteData
+      .getDocData<IPublisher>(Collection.publishers, [pubId])
+      .then((pubDataExist) => {
+        if (pubDataExist) {
+          this.router.navigateByUrl(Routes.welcome);
+          return false;
+        }
+        return true;
+      })
+      .catch((error) => {
+        Logger.error(this, 'resolve', error.message);
+        this.errorService.errorRoute = [Routes.signUp];
+        this.router.navigateByUrl(Routes.error);
+        return false;
+      });
   }
 }

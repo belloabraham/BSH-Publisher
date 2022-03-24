@@ -4,6 +4,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { Auth, authState } from '@angular/fire/auth';
 import { Providers } from 'src/domain/data/providers';
 import { Route as Routes } from 'src/domain/data/route';
+import { Logger } from 'src/helpers/utils/logger';
 
 @Injectable({
   providedIn: Providers.any,
@@ -29,8 +30,9 @@ export class NotAuthGuard implements CanLoad {
           return this.allowAccessToRoute;
         }
       }),
-      catchError((err) => {
+      catchError((error) => {
         //*Can't tell if the user is authenticated or not
+        Logger.error(this, 'canLoad', error.message);
         return of(this.allowAccessToRoute);
       })
     );
