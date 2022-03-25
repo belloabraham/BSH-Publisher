@@ -31,7 +31,12 @@ import { Config } from 'src/domain/data/config';
 import { AllBooksViewModel } from './my-books/all-books.viewmodel';
 import { IPublishedBook } from 'src/domain/data/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
-import { CollaboratorsViewModel } from './collaborators/collaborators.viewmodel';
+import { IDatabase } from 'src/domain/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
+import { Collection } from 'src/domain/remote-data-source/collection';
+import { INotification } from 'src/domain/models/entities/inotifications';
+import { where } from '@angular/fire/firestore';
+import { Fields } from 'src/domain/remote-data-source/fields';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,7 +47,8 @@ import { CollaboratorsViewModel } from './collaborators/collaborators.viewmodel'
       provide: REMOTE_CONFIG_IJTOKEN,
       useClass: FirebaseRemoteConfigService,
     },
-    AllBooksViewModel, NotificationsViewModel
+    AllBooksViewModel,
+    NotificationsViewModel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -75,19 +81,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private localeService: LocaleService,
     @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
+    @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private allBooksVM: AllBooksViewModel
+    private allBooksVM: AllBooksViewModel,
+    private notificationVM:NotificationsViewModel
   ) {
     this.isOpenLeftNav();
   }
 
   ngOnInit(): void {
-
     this.subscriptions.sink = this.activatedRoute.data
       .pipe(map((data) => data['allBooks']))
       .subscribe((allBooks: IPublishedBook[]) => {
-      this.allBooksVM.setAllBooks(allBooks)
+        this.allBooksVM.setAllBooks(allBooks);
       });
 
     this.getStrinRes();
@@ -112,6 +119,30 @@ export class DashboardComponent implements OnInit, OnDestroy {
         Shield.remove('.dashboard-main');
       }
     });
+
+    this.getLiveNotifications()
+
+  }
+
+  private getLiveNotifications() {
+    let onNext = (notifications: INotification[], arrayOfDocIds: string[]) => {
+      for (let index = 0; index < arrayOfDocIds.length; index++) {
+        notifications[index].docId = arrayOfDocIds[index];
+      }
+      this.notificationVM.addNotifications(notifications);
+    };
+
+    let onError = (errorCode: string) => { };
+    
+    let pubId = this.userAuth.getPubId()!;
+    const queryConstraints = [where(Fields.message, '!=', '')];
+    this.remoteData.getLiveArrayOfDocData<INotification>(
+      Collection.publishers,
+      [pubId, Collection.notifications],
+      queryConstraints,
+      onNext,
+      onError
+    );
   }
 
   private getStrinRes() {

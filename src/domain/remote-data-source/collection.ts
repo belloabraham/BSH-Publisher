@@ -1,5 +1,4 @@
 export class Collection {
-
   //*publishers/pubId/{pubData}
   //*Allow all permission except delete if owner and is authenticated.Allow read if admin
   static readonly publishers = 'publishers';
@@ -8,7 +7,7 @@ export class Collection {
   //*Allow all permission except delete if owner and authenticated, allow read if admin
   static readonly paymentDetails = 'payment_details';
 
-  //*notifications/PubId(Publishers only as message will be be sent by cloud funtion)/{notification data}
+  //*publishers/pubId/{pubData}/notifications/docId/{notification data}
   //*Allow read if owner, allow delete if owner, allow for others if false.
   static readonly notifications = 'notifications';
 

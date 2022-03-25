@@ -20,28 +20,28 @@ import { ErrorCodes } from './ErrorCodes';
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
 
-   addDocData<T>(
+  addDocData<T>(
     path: string,
     pathSegment: string[],
     type: T,
     merge = { merge: true }
-  ):Promise<void> {
+  ): Promise<void> {
     let docRef = doc(this.firestore, path, ...pathSegment);
-    return  setDoc(docRef, type, merge);
+    return setDoc(docRef, type, merge);
   }
 
-  deleteDoc(path: string, pathSegment: string[]):Promise<void> {
+  deleteDoc(path: string, pathSegment: string[]): Promise<void> {
     let docRef = doc(this.firestore, path, ...pathSegment);
     return deleteDoc(docRef);
   }
 
-  getArrayOfDocData<T>(path: string, queryConstraint: QueryConstraint[]): Promise <T[]> {
+  getArrayOfDocData<T>(
+    path: string,
+    queryConstraint: QueryConstraint[]
+  ): Promise<T[]> {
     let q = query(collection(this.firestore, path), ...queryConstraint);
-    return  getDocs(q).then((querySnapshot) => {
+    return getDocs(q).then((querySnapshot) => {
       let dataArray: T[] = [];
-
-      
-
       querySnapshot.forEach((queryDoc) => {
         if (queryDoc.exists()) {
           let data = queryDoc.data();
@@ -56,12 +56,17 @@ export class FirestoreService implements IDatabase {
 
   getLiveArrayOfDocData<T>(
     path: string,
+    pathSegment: string[],
     queryConstraint: QueryConstraint[],
-    onNext: (type: T[]) => void,
+    onNext: (type: T[], arrayOfDocIds: string[]) => void,
     onError: (errorCode: string) => void
   ) {
-    let q = query(collection(this.firestore, path), ...queryConstraint);
+    let q = query(
+      collection(this.firestore, path, ...pathSegment),
+      ...queryConstraint
+    );
     let dataArray: T[] = [];
+    let arrayOfIds: string[] = [];
     onSnapshot(q, {
       next: (querySnapShot) => {
         querySnapShot.forEach((queryDoc) => {
@@ -70,9 +75,10 @@ export class FirestoreService implements IDatabase {
             let json = JSON.stringify(data);
             let type: T = JSON.parse(json);
             dataArray.push(type);
+            arrayOfIds.push(queryDoc.id);
           }
         });
-        onNext(dataArray);
+        onNext(dataArray, arrayOfIds);
       },
       error: (error: FirestoreError) => {
         Logger.error('FirestoreService', 'getLiveArrayOfData', error);
@@ -80,7 +86,13 @@ export class FirestoreService implements IDatabase {
         onError(code);
         if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
           setTimeout(() => {
-            this.getLiveArrayOfDocData(path, queryConstraint, onNext, onError);
+            this.getLiveArrayOfDocData(
+              path,
+              pathSegment,
+              queryConstraint,
+              onNext,
+              onError
+            );
           }, 2000);
         }
       },

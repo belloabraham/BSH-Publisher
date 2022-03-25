@@ -2,7 +2,6 @@
 import { QueryConstraint } from '@angular/fire/firestore';
 
 export interface IDatabase {
-  
   getArrayOfDocData: <T>(
     path: string,
     queryConstraint: QueryConstraint[]
@@ -10,8 +9,9 @@ export interface IDatabase {
 
   getLiveArrayOfDocData: <T>(
     path: string,
+    pathSegment: string[],
     queryConstraint: QueryConstraint[],
-    onNext: (type: T[]) => void,
+    onNext: (type: T[], arrayOfDocIds: string[]) => void,
     onError: (errorCode: string) => void
   ) => void;
 

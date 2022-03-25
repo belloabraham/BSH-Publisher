@@ -16,6 +16,11 @@ export class NotificationsViewModel {
     return this.notifications$;
   }
 
+
+  addNotifications(notifications:INotification[]) {
+    this.notifications$.next(notifications)
+  }
+
   deleteANotification(docId: string) {
   
   }
