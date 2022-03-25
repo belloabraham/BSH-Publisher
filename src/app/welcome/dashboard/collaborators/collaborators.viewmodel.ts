@@ -6,7 +6,7 @@ import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
 import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 
 @Injectable()
-export class PaymentInfoViewModel {
+export class CollaboratorsViewModel {
 
   private paymentInfo$ = new ReplaySubject<IPaymentDetails>(MaxCachedItem.one);
 

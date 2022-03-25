@@ -30,6 +30,8 @@ import { Route } from 'src/domain/data/route';
 import { Config } from 'src/domain/data/config';
 import { AllBooksViewModel } from './my-books/all-books.viewmodel';
 import { IPublishedBook } from 'src/domain/data/ipublished-books';
+import { NotificationsViewModel } from './notification/notifications.viewmodel';
+import { CollaboratorsViewModel } from './collaborators/collaborators.viewmodel';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,7 +42,7 @@ import { IPublishedBook } from 'src/domain/data/ipublished-books';
       provide: REMOTE_CONFIG_IJTOKEN,
       useClass: FirebaseRemoteConfigService,
     },
-    AllBooksViewModel
+    AllBooksViewModel, NotificationsViewModel
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
