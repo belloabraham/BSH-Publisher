@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pending-approval',
@@ -6,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pending-approval.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PendingApprovalComponent implements OnInit {
+export class PendingApprovalComponent {
   constructor() {}
 
-  ngOnInit(): void {}
 }

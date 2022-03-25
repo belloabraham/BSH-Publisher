@@ -28,7 +28,7 @@ import { XPosition, YPosition } from '@alyle/ui';
 import { Settings } from 'src/domain/data/settings';
 import { Route } from 'src/domain/data/route';
 import { Config } from 'src/domain/data/config';
-import { AllBooksViewModel } from './all-books.viewmodel';
+import { AllBooksViewModel } from './my-books/all-books.viewmodel';
 import { IPublishedBook } from 'src/domain/data/ipublished-books';
 
 @Component({

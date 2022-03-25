@@ -6,7 +6,7 @@ import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
 import { FirestoreService } from 'src/domain/remote-data-source/firebase/firestore.service';
 import { Display } from 'src/helpers/utils/display';
 import { SubSink } from 'subsink';
-import { AllBooksViewModel } from './dashboard/all-books.viewmodel';
+import { AllBooksViewModel } from './dashboard/my-books/all-books.viewmodel';
 import { PubDataViewModel } from './pub-data.viewmodels';
 
 @Component({
