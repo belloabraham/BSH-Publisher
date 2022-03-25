@@ -7,8 +7,9 @@ import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 
 @Injectable()
 export class NotificationsViewModel {
-  
-  private notifications$ = new ReplaySubject<INotification[]>(MaxCachedItem.one);
+  private notifications$ = new ReplaySubject<INotification[] | null>(
+    MaxCachedItem.one
+  );
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
@@ -16,21 +17,13 @@ export class NotificationsViewModel {
     return this.notifications$;
   }
 
-
-  addNotifications(notifications:INotification[]) {
-    this.notifications$.next(notifications)
+  addNotifications(notifications: INotification[] | null) {
+    this.notifications$.next(notifications);
   }
 
-  deleteANotification(docId: string) {
-  
-  }
+  deleteANotification(docId: string) {}
 
-  deleteAllNotifications() {
-    
-  }
+  deleteAllNotifications() {}
 
-  markNotificationsAsRead() {
-    
-  }
-
+  markNotificationsAsRead() {}
 }

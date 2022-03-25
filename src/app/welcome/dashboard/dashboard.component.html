@@ -9,11 +9,16 @@
             </div>
 
             <div class="d-flex align-items-center gap-1">
-                <button ly-button appearance="icon" (click)="openRightNav = !openRightNav"
+                <button ly-button appearance="icon" (click)="openNotificationPanel()"
                     class="notification-toggle-button">
 
-                    <svg [ngClass]="{'d-none':openRightNav}"  viewBox="0 0 18 21">
-                        <path fill="currentColor" [ngClass]="{'fill-notification': true }"
+                    <svg *ngIf="!isNewNotification" [ngClass]="{'d-none':openRightNav}"  viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21" />
+                    </svg>
+
+                    <svg *ngIf="isNewNotification"  [ngClass]="{'d-none':openRightNav}"  viewBox="0 0 18 21">
+                        <path fill="red" 
                             d="M21,6.5A3.5,3.5,0,1,1,17.5,3,3.5,3.5,0,0,1,21,6.5" transform="translate(-3 -2)" />
                         <path fill="currentColor"
                             d="M19,11.79a6,6,0,0,1-1.5.21,5.51,5.51,0,0,1-4-9.29A1.93,1.93,0,0,0,12,2a2,2,0,0,0-2,2v.29A7,7,0,0,0,5,11v6L3,19v1H21V19l-2-2V11.79"

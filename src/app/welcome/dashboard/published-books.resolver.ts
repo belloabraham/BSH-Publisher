@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import {  Inject, Injectable } from '@angular/core';
 import { where } from '@angular/fire/firestore';
 import {
   Resolve,
@@ -28,7 +28,7 @@ export class PublishedBooksResolver
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
-    private errorService: ErrorService
+    private errorService: ErrorService,
   ) {}
 
   async resolve(
@@ -45,7 +45,7 @@ export class PublishedBooksResolver
 
       const isBookExist = allBooks.length > 0;
       if (!isBookExist) {
-        this.router.navigate([Route.welcome, Route.emptyBookStore]);
+       this.router.navigate([Route.welcome, Route.emptyBookStore]);
         return null;
       }
       return allBooks;

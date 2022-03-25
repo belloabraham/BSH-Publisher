@@ -1,8 +1,8 @@
 <div *transloco="let t" class="panel w-100 h-100">
-    <div class="panel-header text-white d-flex justify-content-between align-items-center" lyBg="primary" >
-        <h3 class="panel-title m-0 p-0">{{ t('notifications') }}</h3> 
-        
-        <button ly-button bg="primary" >
+    <div class="panel-header text-white d-flex justify-content-between align-items-center" lyBg="primary">
+        <h3 class="panel-title m-0 p-0">{{ t('notifications') }}</h3>
+
+        <button ly-button bg="primary">
             <svg viewBox="0 0 24 24">
                 <path fill="currentColor"
                     d="M15,16H19V18H15V16M15,8H22V10H15V8M15,12H21V14H15V12M3,18A2,2 0 0,0 5,20H11A2,2 0 0,0 13,18V8H3V18M14,5H11L10,4H6L5,5H2V7H14V5Z" />
@@ -12,12 +12,12 @@
 
     </div>
 
-    <div class="h-100">
-     
+    <div *ngIf="(notifications$ | async) else noNotifications" class="h-100">
+
         <div class="panel-body bg-white p-0">
 
             <div class="list-group list-group-flush">
-                <div class="list-group-item">
+                <div   class="list-group-item">
                     <div class="d-flex w-100 header justify-content-between">
                         <h4>Message Header</h4>
                         <small class="text-muted">3 days ago</small>
@@ -44,12 +44,14 @@
         </div>
     </div>
 
-    <div class="d-flex d-none h-100 p-1 flex-column justify-content-start align-items-center empty-state mt-4 gap-1">
+    <ng-template #noNotifications>
+        <div class="d-flex h-100 p-1 flex-column justify-content-start align-items-center empty-state mt-4 gap-1">
 
-        <img src="assets/images/empty-notification.svg">
+            <img src="assets/images/empty-notification.svg">
+            <h3 class="text-center">{{ t('no_notification_msg') }}</h3>
+        </div>
+    </ng-template>
 
-        <h3 class="text-center">{{ t('no_notification_msg') }}</h3>
 
-    </div>
 
 </div>

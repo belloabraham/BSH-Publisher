@@ -78,6 +78,7 @@ export class FirestoreService implements IDatabase {
             arrayOfIds.push(queryDoc.id);
           }
         });
+
         onNext(dataArray, arrayOfIds);
       },
       error: (error: FirestoreError) => {

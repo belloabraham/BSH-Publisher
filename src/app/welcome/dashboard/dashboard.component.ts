@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   OnDestroy,
@@ -64,6 +65,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   openLeftNav = false;
   openRightNav = false;
 
+  isNewNotification = false;
+
   collaborators = Route.collaborators;
   payment = Route.payment;
   myBooks = Route.myBooks;
@@ -76,6 +79,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
   helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
+  newNotifications: INotification[] = [];
+
   constructor(
     private title: Title,
     private localeService: LocaleService,
@@ -85,7 +90,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private allBooksVM: AllBooksViewModel,
-    private notificationVM:NotificationsViewModel
+    private notificationVM: NotificationsViewModel,
+    private cdRef: ChangeDetectorRef
   ) {
     this.isOpenLeftNav();
   }
@@ -120,21 +126,41 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.getLiveNotifications()
+    this.getLiveNotifications();
+  }
 
+  openNotificationPanel() {
+    this.isNewNotification = false;
+    this.openRightNav = !this.openRightNav;
   }
 
   private getLiveNotifications() {
-    let onNext = (notifications: INotification[], arrayOfDocIds: string[]) => {
+    const onNext = (
+      notifications: INotification[],
+      arrayOfDocIds: string[]
+    ) => {
       for (let index = 0; index < arrayOfDocIds.length; index++) {
         notifications[index].docId = arrayOfDocIds[index];
       }
-      this.notificationVM.addNotifications(notifications);
+
+      this.newNotifications = notifications.filter(
+        (notification) => notification.isRead === false
+      );
+
+      this.isNewNotification =
+        this.newNotifications.length > 0 && !this.openRightNav;
+      if (this.isNewNotification) {
+        this.cdRef.detectChanges();
+      }
+
+      const notificationsToAdd =
+        notifications.length > 0 ? notifications : null;
+      this.notificationVM.addNotifications(notificationsToAdd);
     };
 
-    let onError = (errorCode: string) => { };
-    
-    let pubId = this.userAuth.getPubId()!;
+    const onError = (errorCode: string) => {};
+
+    const pubId = this.userAuth.getPubId()!;
     const queryConstraints = [where(Fields.message, '!=', '')];
     this.remoteData.getLiveArrayOfDocData<INotification>(
       Collection.publishers,
