@@ -1,9 +1,5 @@
 
-<div *ngIf="isLoading$ | async" class="indeterminate-progress bg-primary fixed-top">
-  <div class="indeterminate"></div>
-</div>
-
-<div *ngIf="isResolving$ | async" class="indeterminate-progress bg-primary fixed-top" style="z-index: 19;">
+<div *ngIf="(isLoading$ | async) || (isResolving$ | async)" class="indeterminate-progress bg-primary fixed-top">
   <div class="indeterminate"></div>
 </div>
 

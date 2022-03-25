@@ -11,7 +11,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: Route.published
+        redirectTo: Route.published,
       },
       {
         path: Route.published,
@@ -28,8 +28,8 @@ const routes: Routes = [
       {
         path: Route.pendingApproval,
         loadChildren: () =>
-          import('./pending-published/pending-published.module').then(
-            (m) => m.PendingPublishedModule
+          import('./pending-approval/pending-approval.module').then(
+            (m) => m.PendingApprovalModule
           ),
       },
     ],
