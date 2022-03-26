@@ -82,6 +82,8 @@
     "delete":"Delete",
     "collapse":"Collapse",
     "expand":"Expand",
+    "yesterday":"Yesterday",
+    "xdays_ago":"{{value}} days ago",
 
 
     "no_collaborators_heading":"Collaborators are {{value}}'s mobile app users that sell your book on your behalf for a commission you assign to them. This is particularly useful in the case of academic institutions selling your book to it's student on your behalf.", 
@@ -167,6 +169,6 @@
     "fit_screen":"Fit to screen",
     "zoom_in":"Zoom in",
     "zoom_out":"Zoom out",
-    "rotate_90":"Rotate 90 deg cw"
+    "rotate_90":"Rotate 90 deg CW"
     
 }

@@ -32,9 +32,6 @@ import { Config } from 'src/domain/data/config';
 import { AllBooksViewModel } from './my-books/all-books.viewmodel';
 import { IPublishedBook } from 'src/domain/data/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
-import { IDatabase } from 'src/domain/remote-data-source/idatabase';
-import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { Collection } from 'src/domain/remote-data-source/collection';
 import { INotification } from 'src/domain/models/entities/inotifications';
 import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/domain/remote-data-source/fields';
@@ -80,13 +77,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
   newNotifications: INotification[] = [];
+  pubId = this.userAuth.getPubId()!;
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
     @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private allBooksVM: AllBooksViewModel,
@@ -129,9 +126,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getLiveNotifications();
   }
 
-  openNotificationPanel() {
+  toggleNotificationPanel() {
     this.isNewNotification = false;
     this.openRightNav = !this.openRightNav;
+    this.notificationVM.markUnreadNotificationsAsRead(
+      this.pubId,
+      this.newNotifications
+    );
   }
 
   private getLiveNotifications() {
@@ -149,6 +150,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
       this.isNewNotification =
         this.newNotifications.length > 0 && !this.openRightNav;
+      
       if (this.isNewNotification) {
         this.cdRef.detectChanges();
       }
@@ -156,19 +158,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const notificationsToAdd =
         notifications.length > 0 ? notifications : null;
       this.notificationVM.addNotifications(notificationsToAdd);
-    };
+    }
 
     const onError = (errorCode: string) => {};
 
-    const pubId = this.userAuth.getPubId()!;
     const queryConstraints = [where(Fields.message, '!=', '')];
-    this.remoteData.getLiveArrayOfDocData<INotification>(
-      Collection.publishers,
-      [pubId, Collection.notifications],
-      queryConstraints,
-      onNext,
-      onError
-    );
+
+    this.notificationVM.getLiveNotifications(this.pubId, queryConstraints, onNext, onError)
+   
   }
 
   private getStrinRes() {

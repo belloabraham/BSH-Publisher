@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {  TranslocoService } from '@ngneat/transloco';
+import {  HashMap, TranslocoService } from '@ngneat/transloco';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/domain/data/max-cached-item';
 import { Providers } from 'src/domain/data/providers';
@@ -40,7 +40,7 @@ export class LocaleService {
     return this.translocoService.selectTranslate(key, params, scope);
   }
 
-  paramTranslate(key: string, params: { value: string } | {}): string {
+  paramTranslate(key: string, params: HashMap<any> | {}): string {
     return this.translocoService.translate(key, params);
   }
 

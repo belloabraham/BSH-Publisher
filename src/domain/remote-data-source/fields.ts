@@ -3,4 +3,5 @@ export class Fields {
   static readonly pubId = 'pubId';
   static readonly published = 'published';
   static readonly message = 'message';
+  static readonly isRead = 'isRead';
 }

@@ -11,7 +11,10 @@ import {
   QueryConstraint,
   query,
   getDocs,
+  writeBatch,
+  FieldPath,
 } from '@angular/fire/firestore';
+import { IDocId } from 'src/domain/models/idoc-id';
 import { Logger } from 'src/helpers/utils/logger';
 import { IDatabase } from '../idatabase';
 import { ErrorCodes } from './ErrorCodes';
@@ -30,28 +33,53 @@ export class FirestoreService implements IDatabase {
     return setDoc(docRef, type, merge);
   }
 
+  deleteAllDocs(path: string, pathSegment: string[], docIds: IDocId[]) {
+    let batch = writeBatch(this.firestore);
+    for (let index = 0; index < docIds.length; index++) {
+      const pathSegmentWithId = pathSegment.concat(docIds[index].docId!);
+      const docRef = doc(this.firestore, path, ...pathSegmentWithId);
+      batch.delete(docRef);
+    }
+    return batch.commit();
+  }
+
+  updateAllDocData<T>(
+    path: string,
+    pathSegment: string[],
+    field: string | FieldPath,
+    fieldValue:unknown,
+    docIds: IDocId[]
+  ) {
+    let batch = writeBatch(this.firestore);
+     for (let index = 0; index < docIds.length; index++) {
+       const pathSegmentWithId = pathSegment.concat(docIds[index].docId!);
+      let docRef = doc(this.firestore, path, ...pathSegmentWithId);
+      batch.update(docRef, field, fieldValue);
+     }
+    return batch.commit();
+  }
+
   deleteDoc(path: string, pathSegment: string[]): Promise<void> {
     let docRef = doc(this.firestore, path, ...pathSegment);
     return deleteDoc(docRef);
   }
 
-  getArrayOfDocData<T>(
+  async getArrayOfDocData<T>(
     path: string,
     queryConstraint: QueryConstraint[]
   ): Promise<T[]> {
     let q = query(collection(this.firestore, path), ...queryConstraint);
-    return getDocs(q).then((querySnapshot) => {
-      let dataArray: T[] = [];
-      querySnapshot.forEach((queryDoc) => {
-        if (queryDoc.exists()) {
-          let data = queryDoc.data();
-          let json = JSON.stringify(data);
-          let type: T = JSON.parse(json);
-          dataArray.push(type);
-        }
-      });
-      return dataArray;
+    const querySnapshot = await getDocs(q);
+    let dataArray: T[] = [];
+    querySnapshot.forEach((queryDoc) => {
+      if (queryDoc.exists()) {
+        let data = queryDoc.data();
+        let json = JSON.stringify(data);
+        let type: T = JSON.parse(json);
+        dataArray.concat(type);
+      }
     });
+    return dataArray;
   }
 
   getLiveArrayOfDocData<T>(
@@ -100,18 +128,17 @@ export class FirestoreService implements IDatabase {
     });
   }
 
-  getDocData<T>(path: string, pathSegment: string[]): Promise<T | null> {
+  async getDocData<T>(path: string, pathSegment: string[]): Promise<T | null> {
     let docRef = doc(this.firestore, path, ...pathSegment);
-    return getDoc(docRef).then((docSnapShot) => {
-      if (docSnapShot.exists()) {
-        let data = docSnapShot.data();
-        let json = JSON.stringify(data);
-        let type: T = JSON.parse(json);
-        return type;
-      } else {
-        return null;
-      }
-    });
+    const docSnapShot = await getDoc(docRef);
+    if (docSnapShot.exists()) {
+      let data = docSnapShot.data();
+      let json = JSON.stringify(data);
+      let type: T = JSON.parse(json);
+      return type;
+    } else {
+      return null;
+    }
   }
 
   getLiveDocData<T>(
