@@ -7,6 +7,7 @@ import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 
 @Injectable()
 export class NotificationsViewModel {
+  
   private notifications$ = new ReplaySubject<INotification[] | null>(
     MaxCachedItem.one
   );
