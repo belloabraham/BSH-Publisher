@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
@@ -8,6 +8,7 @@ import { StringResKeys } from './locale/string-res-keys';
 import { NotificationBuilder } from '../../../../helpers/utils/notification/notification-buider';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,8 @@ import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit, ICanDeactivate {
+ private subscriptions = new SubSink();
+
   profileForm!: FormGroup;
   userDataForm!: FormGroup;
   action = '';
@@ -35,7 +38,6 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
 
   ngOnInit(): void {
     this.translateStringRes();
-
     this.profileForm = new FormGroup({
       userDataForm: UserDataFormComponent.getUserDataForm(),
     });
@@ -87,4 +89,5 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
       return true;
     }
   }
+
 }

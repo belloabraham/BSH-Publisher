@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -20,6 +21,8 @@ import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
 import { Collection } from 'src/domain/remote-data-source/collection';
 import { IPublisher } from 'src/domain/models/entities/ipublisher';
 import { ICountry } from 'src/domain/models/icountry';
+import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-user-data-form',
@@ -27,7 +30,9 @@ import { ICountry } from 'src/domain/models/icountry';
   styleUrls: ['./user-data-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDataFormComponent implements OnInit {
+export class UserDataFormComponent implements OnInit, OnDestroy {
+  private subscriptions = new SubSink();
+
   @Input()
   userDataForm!: FormGroup;
 
@@ -56,7 +61,8 @@ export class UserDataFormComponent implements OnInit {
 
   constructor(
     @Inject(DATABASE_IJTOKEN) private database: IDatabase,
-    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
+    private pubDataViewModel: PubDataViewModel
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +71,16 @@ export class UserDataFormComponent implements OnInit {
     this.countryFC = this.userDataForm.get('countryFC') as FormControl;
     this.genderFC = this.userDataForm.get('genderFC') as FormControl;
     this.phoneFC = this.userDataForm.get('phoneFC') as FormControl;
+
+    this.subscriptions.sink = this.pubDataViewModel
+      .getPublisher()
+      .subscribe((pubData) => {
+        this.firstNameFC.patchValue(pubData.firstName);
+        this.lastNameFC.patchValue(pubData.lastName);
+        this.countryFC.patchValue(pubData.nationality);
+        this.genderFC.patchValue(pubData.gender);
+        this.phoneFC.patchValue(pubData.phoneNumber);
+      });
   }
 
   onDataUpdate(isSuccessful: boolean) {
@@ -137,5 +153,9 @@ export class UserDataFormComponent implements OnInit {
       return country.callingCode === this.dialingCodeByCountry;
     })?.code;
     return isValidPhone(phoneNumber, countryCode!, this.dialingCodeByCountry!);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
