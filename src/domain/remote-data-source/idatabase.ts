@@ -37,10 +37,10 @@ export interface IDatabase {
     onNext: (type: T) => void
   ) => void;
   getDocData: <T>(path: string, pathSegment: string[]) => Promise<T | null>;
-  addDocData: <T>(
+  addDocData: (
     path: string,
     pathSegment: string[],
-    type: T,
+    type: any,
     merge?: { merge: boolean }
   ) => Promise<void>;
 }

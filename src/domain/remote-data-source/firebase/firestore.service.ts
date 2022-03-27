@@ -23,10 +23,10 @@ import { ErrorCodes } from './ErrorCodes';
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
 
-  addDocData<T>(
+  addDocData(
     path: string,
     pathSegment: string[],
-    type: T,
+    type: any,
     merge = { merge: true }
   ): Promise<void> {
     let docRef = doc(this.firestore, path, ...pathSegment);

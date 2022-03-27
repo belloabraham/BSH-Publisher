@@ -143,6 +143,8 @@
     "bank_routing_numb_req":"Your bank routing number is required",
     "your_addr_req":"Your address is required",
     "last_updated":"Last updated: {{value}}",
+    "updated_successfly":"Updated successfully",
+    "payment_updated_failed_msg":"Network error, failed to update payment details",
 
 
     "publish_your_book_title":"Publish Your Book - {{value}}",

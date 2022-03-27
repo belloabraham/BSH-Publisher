@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
   }
 
   onDataUpdate(isSuccessful: boolean) {
-    let notification = new NotificationBuilder().build();
+    const notification = new NotificationBuilder().build();
     if (isSuccessful) {
       notification.success(this.updatedSucessMsg);
     } else {
