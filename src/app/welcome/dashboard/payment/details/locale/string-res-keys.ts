@@ -5,4 +5,5 @@ export enum StringResKeys {
   unsavedFieldsMsg = 'unsaved_field_msg',
   paymDetailsUpdateFailedMsg = 'profile_update_failed_msg',
   paymDetailsUpdateSuccess = 'profile_updated_sucess_msg',
+  lastUpdated = 'last_updated'
 }

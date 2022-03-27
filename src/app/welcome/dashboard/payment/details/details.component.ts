@@ -1,11 +1,20 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { PaymentType } from 'src/domain/data/payment-type';
+import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
+import { DateUtil } from 'src/helpers/utils/date-util';
 import { SubSink } from 'subsink';
+import { PaymentInfoViewModel } from '../payment-info.viewmodel';
 import { BankTransferFormComponent } from './bank-transfer-form/bank-transfer-form.component';
 import { StringResKeys } from './locale/string-res-keys';
 import { PaypalFormComponent } from './paypal-form/paypal-form.component';
@@ -18,8 +27,9 @@ import { SkrillFormComponent } from './skrill-form/skrill-form.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
-  addPaymentDetailsClick = false;
   private subscriptions = new SubSink();
+
+  updatePaymentDetails = false;
 
   paymentDetailsForm!: FormGroup;
   paymentTypeFC = new FormControl(undefined);
@@ -39,13 +49,20 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   private updatedSucessMsg = '';
   private updatedFailedMsg = '';
 
+  paymentDetailsLastUpdated = '';
+
+  paymentDetails: IPaymentDetails | null = null;
+
   canExitRoute = new Subject<boolean>();
 
-  constructor(private localeService: LocaleService) {}
+  constructor(
+    private localeService: LocaleService,
+    private paymentDetailsVM: PaymentInfoViewModel
+  ) {}
 
   goToPayment() {
     this.paymentDetailsForm.markAsPristine();
-    this.addPaymentDetailsClick = !this.addPaymentDetailsClick;
+    this.updatePaymentDetails = !this.updatePaymentDetails;
   }
 
   public get getSkrillForm(): FormGroup | null {
@@ -82,10 +99,37 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   ngOnInit(): void {
     this.translateStringRes();
     this.paymentDetailsForm = this.generatePaymentDetailsForm();
-    this.onPaymentTypeSelected();
+    this.onPaymentTypeSelectedChanges();
+
+    this.subscriptions.sink = this.paymentDetailsVM
+      .getPaymentDetails()
+      .subscribe((paymentDetails) => {
+        this.paymentDetails = paymentDetails;
+        this.setPaymentDetailsLastUpdated(this.paymentDetails);
+      });
   }
 
-  onPaymentTypeSelected() {
+  setPaymentDetailsLastUpdated(paymentDetails: IPaymentDetails) {
+    const lastUpdatedTimestamp = paymentDetails.lastUpdated! as Timestamp;
+    const lastUpdated =
+      DateUtil.getLocalDateTime(lastUpdatedTimestamp).toLocaleString();
+    this.paymentDetailsLastUpdated = this.localeService.paramTranslate(
+      StringResKeys.lastUpdated,
+      { value: lastUpdated }
+    );
+  }
+
+  getPaymentTypeLogo(paymentType: string) {
+    if (paymentType === PaymentType.bankTransfer) {
+      return 'assets/images/bank-transfer.svg';
+    } else if (paymentType === PaymentType.payPal) {
+      return 'assets/images/paypal.svg';
+    } else {
+      return 'assets/images/skrill.svg';
+    }
+  }
+
+  onPaymentTypeSelectedChanges() {
     this.subscriptions.sink = this.paymentTypeFC.valueChanges
       .pipe()
       .subscribe((paymentType) => {
@@ -150,8 +194,10 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     );*/
   }
 
+  editPaymentDetails() {}
+
   addPaymentDetails() {
-    this.addPaymentDetailsClick = true;
+    this.updatePaymentDetails = true;
   }
 
   ngOnDestroy(): void {

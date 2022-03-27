@@ -1,87 +1,101 @@
 <div *transloco="let t" class="details">
 
 
-    <div *ngIf="!addPaymentDetailsClick"
-        class=" bounce-in no-select d-flex justify-content-center align-items-center p-2">
+    <ng-template *ngIf="!updatePaymentDetails" [ngIfElse]="updatePaymentDetailsForm">
 
-        <div class="card shadow-sm">
-            <div class="card-header">
-                <div class="d-flex w-100 gap-1 align-items-center">
-                    <button ly-button appearance="icon" (click)="goToPayment()">
-                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
-                        </svg>
-                    </button>
-                    <h4 class="m-0 p-0">{{t('paym_details')}}</h4>
-                </div>
-            </div>
-            <form [formGroup]="paymentDetailsForm" class="m-2">
+        <div *ngIf="paymentDetails else addPaymentDetailsMessage" class="p-2">
 
-                <div class="d-flex mb-1 gap-1">
-                    <label class="form-label label-lg flex-shrink-0">{{ t('payment_type') }}</label>
-                    <div class="form-group">
-                        <select formControlName="paymentTypeFC" class="form-select select-lg">
-                            <option value="{{ bankTransferPaymT }}">{{ bankTransferPaymT }}</option>
-                            <option value="{{ payPalPaymT }}">{{ payPalPaymT }}</option>
-                            <option value="{{ skrillPaymT }}">{{ skrillPaymT }}</option>
-                        </select>
+            <div class="tile  tile-centered">
+                <div class="tile-icon">
+                    <div class="example-tile-icon">
+                        <img  [src]="getPaymentTypeLogo(paymentDetails.paymentType)"  alt="">
                     </div>
                 </div>
-
-                <app-bank-transfer-form *ngIf="getBankTransferForm" [bankTransferForm]="getBankTransferForm">
-                </app-bank-transfer-form>
-                <app-paypal-form *ngIf="getPayPalForm" [payPalForm]="getPayPalForm"></app-paypal-form>
-                <app-skrill-form *ngIf="getSkrillForm" [skrillForm]="getSkrillForm"></app-skrill-form>
-            </form>
-        </div>
-    </div>
-
-    <div *ngIf="addPaymentDetailsClick" class="d-flex empty-state d-flex flex-column ph-2 align-items-center gap-1 ">
-
-        <p>{{t('no_payment_details_heading', {value: t('app_name')})}} </p>
-        <div class="d-flex gap-2 justify-content-start align-items-center">
-            <img src="assets/images/payment-details.svg">
-
-            <button ly-button raised bg="primary" (click)="addPaymentDetails()">
-                <i>
-                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M3 0V3H0V5H3V8H5V5H8V3H5V0H3M9 3V6H6V9H3V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.11 21 19V18H12C10.9 18 10 17.11 10 16V8C10 6.9 10.89 6 12 6H21V5C21 3.9 20.11 3 19 3H9M12 8V16H22V8H12M16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5Z" />
-                    </svg>
-                </i>
-                <span lyPe="1">
-                    {{t('add_paym_details')}}
-                </span>
-
-            </button>
-        </div>
-
-    </div>
-
-    <div class="p-2">
-
-        <div class="tile  tile-centered" >
-            <div class="tile-icon">
-                <div class="example-tile-icon">
-                     <img  src="assets/images/skrill.svg"alt="">
+                <div class="tile-content ml-1">
+                    <div class="tile-title">{{paymentDetails.paymentType}}</div>
+                    <small class="tile-subtitle text-muted">{{paymentDetailsLastUpdated}}</small>
+                </div>
+                <div class="tile-action">
+                    <button (click)="editPaymentDetails()" ly-button appearance="icon">
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <div class="tile-content ml-1">
-                <div class="tile-title">Bank Transfer</div>
-                <small class="tile-subtitle text-muted">Last updated: 1 Jan, 2017</small>
-            </div>
-            <div class="tile-action">
-                <button   ly-button  appearance="icon"  >
-                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                    </svg>
-                </button>
-            </div>
+
         </div>
 
-    </div>
+
+        <ng-template #addPaymentDetailsMessage>
+
+            <div *ngIf="" class="d-flex empty-state d-flex flex-column ph-2 align-items-center gap-1 ">
+
+                <p>{{t('no_payment_details_heading', {value: t('app_name')})}} </p>
+                <div class="d-flex gap-2 justify-content-start align-items-center">
+                    <img src="assets/images/payment-details.svg">
+
+                    <button ly-button raised bg="primary" (click)="addPaymentDetails()">
+                        <i>
+                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M3 0V3H0V5H3V8H5V5H8V3H5V0H3M9 3V6H6V9H3V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.11 21 19V18H12C10.9 18 10 17.11 10 16V8C10 6.9 10.89 6 12 6H21V5C21 3.9 20.11 3 19 3H9M12 8V16H22V8H12M16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5Z" />
+                            </svg>
+                        </i>
+                        <span lyPe="1">
+                            {{t('add_paym_details')}}
+                        </span>
+
+                    </button>
+                </div>
+
+            </div>
+        </ng-template>
+
+    </ng-template>
+
+
+    <ng-template #updatePaymentDetailsForm>
+        <div class=" bounce-in no-select d-flex justify-content-center align-items-center p-2">
+
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <div class="d-flex w-100 gap-1 align-items-center">
+                        <button ly-button appearance="icon" (click)="goToPayment()">
+                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+                            </svg>
+                        </button>
+                        <h4 class="m-0 p-0">{{t('paym_details')}}</h4>
+                    </div>
+                </div>
+                <form [formGroup]="paymentDetailsForm" class="m-2">
+
+                    <div class="d-flex mb-1 gap-1">
+                        <label class="form-label label-lg flex-shrink-0">{{ t('payment_type') }}</label>
+                        <div class="form-group">
+                            <select formControlName="paymentTypeFC" class="form-select select-lg">
+                                <option value="{{ bankTransferPaymT }}">{{ bankTransferPaymT }}</option>
+                                <option value="{{ payPalPaymT }}">{{ payPalPaymT }}</option>
+                                <option value="{{ skrillPaymT }}">{{ skrillPaymT }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <app-bank-transfer-form *ngIf="getBankTransferForm" [bankTransferForm]="getBankTransferForm">
+                    </app-bank-transfer-form>
+                    <app-paypal-form *ngIf="getPayPalForm" [payPalForm]="getPayPalForm"></app-paypal-form>
+                    <app-skrill-form *ngIf="getSkrillForm" [skrillForm]="getSkrillForm"></app-skrill-form>
+                </form>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
 
 
 </div>

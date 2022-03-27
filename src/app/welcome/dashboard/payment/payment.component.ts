@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 import { Route } from 'src/domain/data/route';
+import { SubSink } from 'subsink';
 import { PaymentInfoViewModel } from './payment-info.viewmodel';
 
 @Component({
@@ -7,11 +10,29 @@ import { PaymentInfoViewModel } from './payment-info.viewmodel';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers:[PaymentInfoViewModel]
+  providers: [PaymentInfoViewModel],
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit, OnDestroy {
+  private subscriptions = new SubSink();
+
   earnings = Route.earnings;
   details = Route.details;
 
-  constructor() {}
+  constructor(
+    private paymentDetailsVM: PaymentInfoViewModel,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.subscriptions.sink = this.activatedRoute.data
+      .pipe(map((data) => data['paymentDetails']))
+      .subscribe((paymentDetails) => {
+        this.paymentDetailsVM.setPaymentDetails(paymentDetails);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+  
 }

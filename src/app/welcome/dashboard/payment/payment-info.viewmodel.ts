@@ -12,11 +12,11 @@ export class PaymentInfoViewModel {
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
-  getPaymentInfo() {
+  getPaymentDetails() {
     return this.paymentInfo$;
   }
 
-  addPaymentInfo(paymentInfo: IPaymentDetails) {
+  setPaymentDetails(paymentInfo: IPaymentDetails) {
     this.paymentInfo$.next(paymentInfo);
   }
 

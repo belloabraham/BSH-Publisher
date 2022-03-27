@@ -142,6 +142,7 @@
     "account_type_req":"Your account type is required",
     "bank_routing_numb_req":"Your bank routing number is required",
     "your_addr_req":"Your address is required",
+    "last_updated":"Last updated: {{value}}",
 
 
     "publish_your_book_title":"Publish Your Book - {{value}}",

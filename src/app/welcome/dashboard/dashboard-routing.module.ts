@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/domain/data/route';
 import { DashboardComponent } from './dashboard.component';
+import { PaymentInfoResolver } from './payment/payment-info.resolver';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       },
       {
         path: Route.payment,
+        resolve: {paymentDetails:PaymentInfoResolver},
         loadChildren: () =>
           import('./payment/payment.module').then((m) => m.PaymentModule),
       },

@@ -59,7 +59,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.completeSignUpForm = new FormGroup({
       userDataForm: UserDataFormComponent.getUserDataForm(),
     });
-
     this.userDataForm = this.completeSignUpForm.get(
       'userDataForm'
     ) as FormGroup;
