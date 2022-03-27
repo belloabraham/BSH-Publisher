@@ -26,23 +26,19 @@
                     <ly-expansion-panel-header>
                         <ly-panel-title>
                             <h4>  {{ t('account')}} </h4>
-                           
                         </ly-panel-title>
                         <ly-panel-description>
-                            
-                        
                             <small>  {{ t('click_to_expand')}}</small>
-
                         </ly-panel-description>
                     </ly-expansion-panel-header>
 
                     <div>
-                        <p class="pub-id">{{ t('publishers_id')}} 896987678567856785698</p>
+                        <p class="pub-id">{{ t('publishers_id')}} <span>{{pubId}}</span></p>
                         <p class="text-danger"> {{ t('id_confid_msg')}}</p>
                     </div>
 
                     <ly-action-row>
-                        <button ly-button color="primary">
+                        <button  (click)="logoutAllDevices()"  ly-button color="primary">
                             <i>
                                 <svg viewBox="0 0 24 24">
                                     <path fill="currentColor"

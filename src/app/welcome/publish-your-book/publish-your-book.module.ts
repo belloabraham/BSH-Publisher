@@ -9,6 +9,7 @@ import { LyButtonModule } from '@alyle/ui/button';
 import { TranslocoModule } from '@ngneat/transloco';
 import { BookDetailsFormComponent } from './book-details-form/book-details-form.component';
 import { ImagePickerDialogModule } from './image-picker-dialog/image-picker-dialog.module';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [PublishYourBookComponent, BookDetailsFormComponent],
@@ -20,6 +21,7 @@ import { ImagePickerDialogModule } from './image-picker-dialog/image-picker-dial
     LyButtonModule,
     TranslocoModule,
     ImagePickerDialogModule,
+    provideStorage(() => getStorage()),
   ],
 })
 export class PublishYourBookModule {}
