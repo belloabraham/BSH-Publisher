@@ -122,7 +122,7 @@
 
     "paym_details":"Payment details",
     "earnings":"Earnings",
-    "no_payment_details_heading":"{{username}} Michael add your payment details so that we can send you payment for your books that are sold on {{value}}.",
+    "no_payment_details_heading":"{{username}} add your payment details so that we can send you payment for your books that are sold on {{value}}.",
     "add_paym_details":"Add payment details",
     "payment_type":"Payment type",
     "bank_name":"Bank name",

@@ -8,6 +8,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
+import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
 import { PaymentType } from 'src/domain/data/payment-type';
 import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
@@ -50,6 +51,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   private updatedFailedMsg = '';
 
   paymentDetailsLastUpdated = '';
+  
+   pubFirstName = '';
 
   paymentDetails: IPaymentDetails | null = null;
 
@@ -57,7 +60,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   constructor(
     private localeService: LocaleService,
-    private paymentDetailsVM: PaymentInfoViewModel
+    private paymentDetailsVM: PaymentInfoViewModel,
+    private pubDataVM: PubDataViewModel
   ) {}
 
   goToPayment() {
@@ -101,11 +105,26 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     this.paymentDetailsForm = this.generatePaymentDetailsForm();
     this.onPaymentTypeSelectedChanges();
 
+    this.listenForPaymentDetailChanges();
+    this.listenForPubDataChanges();
+  }
+
+  private listenForPubDataChanges() {
+    this.subscriptions.sink = this.pubDataVM
+      .getPublisher()
+      .subscribe((pubData) => {
+        this.pubFirstName = pubData.firstName;
+      });
+  }
+
+  private listenForPaymentDetailChanges() {
     this.subscriptions.sink = this.paymentDetailsVM
       .getPaymentDetails$()
       .subscribe((paymentDetails) => {
         this.paymentDetails = paymentDetails;
-        this.setPaymentDetailsLastUpdated(this.paymentDetails);
+        if (this.paymentDetails) {
+          this.setPaymentDetailsLastUpdated(this.paymentDetails);
+        }
       });
   }
 

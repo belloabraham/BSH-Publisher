@@ -23,6 +23,7 @@ import { Route } from 'src/domain/data/route';
 import { Logger } from 'src/helpers/utils/logger';
 import { CloudFunctionService } from 'src/services/function/firebase/cloud-function.service';
 import { ClipboardService } from 'ngx-clipboard';
+import { Notification } from 'src/helpers/utils/notification/notification';
 
 @Component({
   selector: 'app-profile',
@@ -92,16 +93,17 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
   }
 
   copyToClipboard(value: string) {
+
     this.clipboardService.copy(value);
     const copyMsg = this.localeService.translate(StringResKeys.copiedMsg)
     const notification = new NotificationBuilder()
-      .setTimeOut(1000).build();
+      .setTimeOut(Notification.shortLenght).build();
     notification.success(copyMsg);
   }
 
   onDataUpdate(isSuccessful: boolean) {
     this.profileForm.markAsPristine();
-    const notification = new NotificationBuilder().build();
+    const notification = new NotificationBuilder().setTimeOut(Notification.shortLenght).build();
     if (isSuccessful) {
       notification.success(this.updatedSucessMsg);
     } else {

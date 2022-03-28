@@ -14,6 +14,7 @@ import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
+import { PubDataViewModel } from '../pub-data.viewmodels';
 import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
@@ -24,17 +25,27 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
+  pubFirstName = ''
 
   constructor(
     private title: Title,
     private localeService: LocaleService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
+    private pubDataVM:PubDataViewModel
   ) {
   }
 
   ngOnInit(): void {
     this.getStringRes();
+    this.listenForChangesInPubData()
+  }
+
+  private listenForChangesInPubData() {
+   this.subscriptions.sink =  this.pubDataVM.getPublisher()
+      .subscribe(pubData => {
+      this.pubFirstName = pubData.firstName
+    })
   }
 
   private getStringRes() {

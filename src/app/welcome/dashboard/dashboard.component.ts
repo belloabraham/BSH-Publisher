@@ -36,6 +36,7 @@ import { INotification } from 'src/domain/models/entities/inotifications';
 import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/domain/remote-data-source/fields';
 import { Logger } from 'src/helpers/utils/logger';
+import { PubDataViewModel } from '../pub-data.viewmodels';
 
 @Component({
   selector: 'app-dashboard',
@@ -80,6 +81,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   newNotifications: INotification[] = [];
   pubId = this.userAuth.getPubId()!;
 
+  pubFirstName = '';
+
   constructor(
     private title: Title,
     private localeService: LocaleService,
@@ -89,17 +92,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private allBooksVM: AllBooksViewModel,
     private notificationVM: NotificationsViewModel,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private pubDataVM: PubDataViewModel
   ) {
     this.isOpenLeftNav();
   }
 
   ngOnInit(): void {
-    this.subscriptions.sink = this.activatedRoute.data
-      .pipe(map((data) => data['allBooks']))
-      .subscribe((allBooks: IPublishedBook[]) => {
-        this.allBooksVM.setAllBooks(allBooks);
-      });
+    this.listenForBookChanges();
+
+    this.listenForPubDataChanges();
 
     this.getStrinRes();
 
@@ -127,6 +129,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getLiveNotifications();
   }
 
+  private listenForBookChanges() {
+    this.subscriptions.sink = this.activatedRoute.data
+      .pipe(map((data) => data['allBooks']))
+      .subscribe((allBooks: IPublishedBook[]) => {
+        this.allBooksVM.setAllBooks(allBooks);
+      });
+  }
+
+  private listenForPubDataChanges() {
+      this.subscriptions.sink = this.pubDataVM.getPublisher()
+      .subscribe(pubData => {
+        this.pubFirstName = pubData.firstName
+      })
+  }
+
   toggleNotificationPanel() {
     this.isNewNotification = false;
     this.openRightNav = !this.openRightNav;
@@ -151,7 +168,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
       this.isNewNotification =
         this.newNotifications.length > 0 && !this.openRightNav;
-      
+
       if (this.isNewNotification) {
         this.cdRef.detectChanges();
       }
@@ -159,20 +176,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const notificationsToAdd =
         notifications.length > 0 ? notifications : null;
       this.notificationVM.addNotifications(notificationsToAdd);
-    }
+    };
 
     const onError = (errorCode: string) => {
-       Logger.error(
-         'DashboardComponent',
-         this.getLiveNotifications.name,
-         errorCode
-       );
+      Logger.error(
+        'DashboardComponent',
+        this.getLiveNotifications.name,
+        errorCode
+      );
     };
 
     const queryConstraints = [where(Fields.message, '!=', '')];
 
-    this.notificationVM.getLiveNotifications(this.pubId, queryConstraints, onNext, onError)
-   
+    this.notificationVM.getLiveNotifications(
+      this.pubId,
+      queryConstraints,
+      onNext,
+      onError
+    );
   }
 
   private getStrinRes() {

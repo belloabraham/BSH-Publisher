@@ -60,7 +60,6 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   countryFC!: FormControl;
 
   constructor(
-    @Inject(DATABASE_IJTOKEN) private database: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private pubDataViewModel: PubDataViewModel
   ) {}
@@ -100,7 +99,6 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
 
   async submitFormData() {
     if (this.isValidPhoneNumber(this.phoneFC.value)) {
-      
       Shield.standard('.form');
 
       this.isInvalidPhoneNum = false;
@@ -108,7 +106,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       let pubId = this.userAuth.getPubId()!;
       let email = this.userAuth.getEmail()!;
 
-      let user: IPublisher = {
+      let publisher: IPublisher = {
         firstName: this.firstNameFC.value,
         lastName: this.lastNameFC.value,
         gender: this.genderFC.value,
@@ -119,11 +117,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         lastUpdated: this.lastUpdated,
       };
       try {
-        await this.database.addDocData(
-          Collection.publishers,
-          [pubId],
-          user
-        );
+        await this.pubDataViewModel.updatePublisher(publisher, pubId);
 
         Shield.remove('.form');
 

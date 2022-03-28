@@ -1,8 +1,9 @@
 <div *transloco="let t" class="details">
 
 
-    <ng-template *ngIf="!updatePaymentDetails" [ngIfElse]="updatePaymentDetailsForm">
+    <div *ngIf="(!updatePaymentDetails) else updatePaymentDetailsForm" >
 
+        
         <div *ngIf="paymentDetails else addPaymentDetailsMessage" class="p-2">
 
             <div class="tile  tile-centered">
@@ -27,12 +28,10 @@
 
         </div>
 
-
         <ng-template #addPaymentDetailsMessage>
+            <div  class="d-flex empty-state d-flex flex-column ph-2 align-items-center gap-1 ">
 
-            <div *ngIf="" class="d-flex empty-state d-flex flex-column ph-2 align-items-center gap-1 ">
-
-                <p>{{t('no_payment_details_heading', {value: t('app_name')})}} </p>
+                <p>{{t('no_payment_details_heading', {value: t('app_name'), username: pubFirstName})}} </p>
                 <div class="d-flex gap-2 justify-content-start align-items-center">
                     <img src="assets/images/payment-details.svg">
 
@@ -53,7 +52,7 @@
             </div>
         </ng-template>
 
-    </ng-template>
+    </div>
 
 
     <ng-template #updatePaymentDetailsForm>
