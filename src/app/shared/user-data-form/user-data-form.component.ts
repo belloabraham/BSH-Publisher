@@ -100,11 +100,12 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
 
   async submitFormData() {
     if (this.isValidPhoneNumber(this.phoneFC.value)) {
+      
       Shield.standard('.form');
 
       this.isInvalidPhoneNum = false;
 
-      let userId = this.userAuth.getPubId()!;
+      let pubId = this.userAuth.getPubId()!;
       let email = this.userAuth.getEmail()!;
 
       let user: IPublisher = {
@@ -118,9 +119,9 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         lastUpdated: this.lastUpdated,
       };
       try {
-        await this.database.addDocData<IPublisher>(
+        await this.database.addDocData(
           Collection.publishers,
-          [userId],
+          [pubId],
           user
         );
 
@@ -129,7 +130,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         this.onDataUpdate(true);
       } catch (error: any) {
         Shield.remove('.form');
-        Logger.error(this, 'submitFormData', error);
+        Logger.error(this, this.submitFormData.name, error);
         this.onDataUpdate(false);
       }
     } else {

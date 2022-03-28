@@ -44,7 +44,7 @@ export class NoPublisherDataGuard implements CanActivate {
         return true;
       })
       .catch((error) => {
-        Logger.error(this, 'resolve', error.message);
+        Logger.error(this, this.canActivate.name, error.message);
         this.errorService.errorRoute = [Routes.signUp];
         this.router.navigateByUrl(Routes.error);
         return false;

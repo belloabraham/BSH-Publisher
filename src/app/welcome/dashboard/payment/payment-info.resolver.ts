@@ -39,7 +39,7 @@ export class PaymentInfoResolver implements Resolve<IPaymentDetails | null> {
       );
       return paymentDetails;
     } catch (error: any) {
-      Logger.error(this, 'resolve', error.message);
+      Logger.error(this, this.resolve.name, error.message);
       this.errorService.errorRoute = [
         Route.welcome,
         Route.dashboard,

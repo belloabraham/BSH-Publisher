@@ -42,7 +42,7 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
       }
       return pubData;
     } catch (error: any) {
-      Logger.error(this, 'resolve', error.message);
+      Logger.error(this, this.resolve.name, error.message);
       this.errorService.errorRoute = [Route.welcome];
       this.router.navigateByUrl(Route.error);
       return null;

@@ -32,7 +32,7 @@ export class NotAuthGuard implements CanLoad {
       }),
       catchError((error) => {
         //*Can't tell if the user is authenticated or not
-        Logger.error(this, 'canLoad', error.message);
+        Logger.error(this, this.canLoad.name, error.message);
         return of(this.allowAccessToRoute);
       })
     );

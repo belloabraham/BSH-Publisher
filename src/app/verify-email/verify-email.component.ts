@@ -97,7 +97,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
     if (error.code === ErrorCodes.argumentError) {
       this.hasError = true;
     } else {
-      Logger.error(this, 'verifyEmailWithLink', error);
+      Logger.error(this, this.verifyEmailWithLink.name, error);
       const message = this.userAuth.getErrorMessage(error);
       AlertDialog.error(message, this.signInErrorTitle, this.ok, {
         plainText: false,

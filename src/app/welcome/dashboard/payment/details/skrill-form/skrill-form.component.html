@@ -1,4 +1,4 @@
-<form *transloco="let t" [formGroup]="skrillForm" (ngSubmit)="submitFormData()">
+<form *transloco="let t" [formGroup]="skrillForm" (ngSubmit)="submitFormData()" class="skrill-form">
 
 
     <div class="mb-2 d-flex gap-1">
@@ -11,6 +11,6 @@
     </div>
 
 
-
     <button type="submit" ly-button raised bg="primary" class="float-end">{{ t('update')}}</button>
+
 </form>

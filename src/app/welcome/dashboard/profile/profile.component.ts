@@ -114,7 +114,7 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
       const failedMsg = this.localeService.translate(
         StringResKeys.allDevLogoutFailedMsg
       );
-      Logger.error(this, 'revokeAllUserAuth', error);
+      Logger.error(this, this.revokeAllUserAuth.name, error);
       const notification = new NotificationBuilder().build();
       notification.error(failedMsg);
     }

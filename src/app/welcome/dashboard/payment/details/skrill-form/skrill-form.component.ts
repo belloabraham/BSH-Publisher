@@ -11,7 +11,9 @@ import { Regex } from 'src/domain/data/regex';
 import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { CryptoUtil } from 'src/helpers/utils/crypto';
+import { Logger } from 'src/helpers/utils/logger';
 import { NotificationBuilder } from 'src/helpers/utils/notification/notification-buider';
+import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { PaymentInfoViewModel } from '../../payment-info.viewmodel';
@@ -62,6 +64,7 @@ export class SkrillFormComponent {
   }
 
   private async updatedPaymentDetails(email: string) {
+     Shield.standard('.skrill-form');
     const pubId = this.userAuth.getPubId()!;
     let paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.skrill,
@@ -70,10 +73,13 @@ export class SkrillFormComponent {
     const notification = new NotificationBuilder().build();
     try {
       await this.paymentDetailsVM.updatePaymentDetails(paymentDetails, pubId);
+       Shield.remove('.skrill-form');
       this.paymentDetailsVM.setPaymentDetails(paymentDetails);
       notification.success(this.updatedSucessMsg);
     } catch (error) {
+      Shield.remove('.skrill-form');
       notification.error(this.updatedFailedMsg);
+      Logger.error(this.emailFC, this.updatedPaymentDetails.name, error)
     }
   }
 

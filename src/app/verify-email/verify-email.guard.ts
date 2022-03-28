@@ -50,7 +50,7 @@ export class VerifyEmailGuard implements CanLoad {
       this.router.navigateByUrl(Routes.welcome);
       return false;
     } catch (error:any) {
-      Logger.error(this, 'verifyEmailWithLink', error.message);
+      Logger.error(this, this.verifyEmailWithLink.name, error.message);
       return true;
     }
   }
