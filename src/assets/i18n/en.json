@@ -106,6 +106,8 @@
     "logout_all_devs_q":"Logout all devices?",
     "proceed":"Proceed",
     "cancel":"Cancel",
+    "copy":"Copy",
+    "copied_msg":"Copied to clipboard",
 
 
 

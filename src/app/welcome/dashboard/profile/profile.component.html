@@ -13,7 +13,7 @@
             <div class="card-header">
                 <h4 class="m-0 p-0">{{t('profile')}}</h4>
             </div>
-            <form class="m-2" [formGroup]="profileForm" >
+            <form class="m-2" [formGroup]="profileForm">
                 <app-user-data-form (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate"
                     [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm">
                 </app-user-data-form>
@@ -25,20 +25,27 @@
                 <ly-expansion-panel>
                     <ly-expansion-panel-header>
                         <ly-panel-title>
-                            <h4>  {{ t('account')}} </h4>
+                            <h4> {{ t('account')}} </h4>
                         </ly-panel-title>
                         <ly-panel-description>
-                            <small>  {{ t('click_to_expand')}}</small>
+                            <small> {{ t('click_to_expand')}}</small>
                         </ly-panel-description>
                     </ly-expansion-panel-header>
 
                     <div>
-                        <p class="pub-id">{{ t('publishers_id')}} <span>{{pubId}}</span></p>
+                        <p (click)="copyToClipboard(pubId)"  class="pub-id">{{ t('publishers_id')}} <span class="text-muted underline">{{pubId}}</span>
+                            <button lyTooltip="{{ t('copy') }}"  class="ml-1" ly-button appearance="icon"> <svg style="width:22px;height:22px"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
+                                </svg>
+                            </button>
+                        </p>
                         <p class="text-danger"> {{ t('id_confid_msg')}}</p>
                     </div>
 
                     <ly-action-row>
-                        <button  (click)="logoutAllDevices()"  ly-button color="primary">
+                        <button (click)="logoutAllDevices()" ly-button color="primary">
                             <i>
                                 <svg viewBox="0 0 24 24">
                                     <path fill="currentColor"

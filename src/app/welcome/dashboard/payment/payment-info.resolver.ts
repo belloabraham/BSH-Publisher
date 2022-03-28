@@ -20,6 +20,7 @@ import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
   providedIn: Providers.any,
 })
 export class PaymentInfoResolver implements Resolve<IPaymentDetails | null> {
+  
   constructor(
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,

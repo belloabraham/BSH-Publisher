@@ -21,12 +21,20 @@ import { CloudFunctions } from 'src/services/function/cloud-functions';
 import { Router } from '@angular/router';
 import { Route } from 'src/domain/data/route';
 import { Logger } from 'src/helpers/utils/logger';
+import { CloudFunctionService } from 'src/services/function/firebase/cloud-function.service';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: CLOUD_FUNCTIONS,
+      useClass: CloudFunctionService,
+    },
+  ],
 })
 export class ProfileComponent implements OnInit, ICanDeactivate {
   profileForm!: FormGroup;
@@ -50,7 +58,8 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     private localeService: LocaleService,
     @Inject(CLOUD_FUNCTIONS) private cloudFunctions: ICloudFunctions,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    private router: Router
+    private router: Router,
+    private clipboardService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +91,16 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     this.action = this.localeService.translate(StringResKeys.update);
   }
 
+  copyToClipboard(value: string) {
+    this.clipboardService.copy(value);
+    const copyMsg = this.localeService.translate(StringResKeys.copiedMsg)
+    const notification = new NotificationBuilder()
+      .setTimeOut(1000).build();
+    notification.success(copyMsg);
+  }
+
   onDataUpdate(isSuccessful: boolean) {
+    this.profileForm.markAsPristine();
     const notification = new NotificationBuilder().build();
     if (isSuccessful) {
       notification.success(this.updatedSucessMsg);

@@ -8,6 +8,8 @@ import { LyButtonModule } from '@alyle/ui/button';
 import { provideFunctions } from '@angular/fire/functions';
 import { getFunctions } from 'firebase/functions';
 import { CloudFunctions } from 'src/services/function/cloud-functions';
+import { LyTooltipModule } from '@alyle/ui/tooltip';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -16,6 +18,8 @@ import { CloudFunctions } from 'src/services/function/cloud-functions';
     UserDataFormModule,
     LyExpansionModule,
     LyButtonModule,
+    LyTooltipModule,
+    ClipboardModule,
     provideFunctions(() => getFunctions(undefined, CloudFunctions.location)),
   ],
 })

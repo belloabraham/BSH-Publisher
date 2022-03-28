@@ -35,6 +35,7 @@ import { NotificationsViewModel } from './notification/notifications.viewmodel';
 import { INotification } from 'src/domain/models/entities/inotifications';
 import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/domain/remote-data-source/fields';
+import { Logger } from 'src/helpers/utils/logger';
 
 @Component({
   selector: 'app-dashboard',
@@ -160,7 +161,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.notificationVM.addNotifications(notificationsToAdd);
     }
 
-    const onError = (errorCode: string) => {};
+    const onError = (errorCode: string) => {
+       Logger.error(
+         'DashboardComponent',
+         this.getLiveNotifications.name,
+         errorCode
+       );
+    };
 
     const queryConstraints = [where(Fields.message, '!=', '')];
 

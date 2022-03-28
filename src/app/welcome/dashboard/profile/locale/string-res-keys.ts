@@ -10,5 +10,6 @@ export enum StringResKeys {
   logoutAllDevRecomMsg = 'logout_all_dev_recom_msg',
   logoutAllDevicesTitle = 'logout_all_devs_q',
   proceed = 'proceed',
-  cancel='cancel'
+  cancel = 'cancel',
+  copiedMsg = "copied_msg"
 }

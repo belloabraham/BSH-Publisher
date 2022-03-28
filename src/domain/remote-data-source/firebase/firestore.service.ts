@@ -110,7 +110,6 @@ export class FirestoreService implements IDatabase {
         onNext(dataArray, arrayOfIds);
       },
       error: (error: FirestoreError) => {
-        Logger.error('FirestoreService', 'getLiveArrayOfData', error);
         let code = error.code.toString();
         onError(code);
         if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
