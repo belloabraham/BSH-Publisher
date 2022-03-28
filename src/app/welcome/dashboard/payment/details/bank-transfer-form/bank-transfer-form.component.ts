@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { countries } from 'src/domain/data/countries';
 import { PaymentType } from 'src/domain/data/payment-type';
@@ -85,7 +86,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private localeService: LocaleService
   ) {
-    this.translateStringRes()
+    this.translateStringRes();
   }
 
   ngOnInit(): void {
@@ -124,6 +125,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       accountName: this.getEncrypted(this.accountNameFC.value),
       accountNumber: this.getEncrypted(this.accountNumberFC.value),
       bankName: this.getEncrypted(this.bankNameFC.value),
+      lastUpdated: serverTimestamp(),
     };
     this.addForiegnBankFormData(paymentDetails);
     const notification = new NotificationBuilder().build();

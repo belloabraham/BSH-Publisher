@@ -59,7 +59,7 @@
     </div>
 
 
-    <app-bank-tranfer-foreign-form *ngIf="bankForeignForm" [bankAddressFC]="bankAddressFC"  [bankForeignForm]="bankForeignForm" ></app-bank-tranfer-foreign-form>
+    <app-bank-tranfer-foreign-form *ngIf="bankForeignForm" [accountTypeFC]="accountTypeFC"  [countryFC]="countryFC" [addressFC]="addressFC"   [bankSwiftCodeFC]="bankSwiftCodeFC"  [bankRoutingNumberFC]="bankRoutingNumberFC" [bankAddressFC]="bankAddressFC"  [bankForeignForm]="bankForeignForm" ></app-bank-tranfer-foreign-form>
 
 
    <button disabled [disabled]="!bankTransferForm.valid" type="submit" ly-button raised bg="primary" class="float-end">{{ t('update')}}</button>

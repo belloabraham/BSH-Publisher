@@ -4,6 +4,7 @@ import {
   Inject,
   Input,
 } from '@angular/core';
+import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaymentType } from 'src/domain/data/payment-type';
 import { Regex } from 'src/domain/data/regex';
@@ -52,10 +53,10 @@ export class PaypalFormComponent {
 
   private translateStringRes() {
     this.updatedFailedMsg = this.localeService.translate(
-      StringResKeys.updatedSuccfly
+      StringResKeys.updatedFailed
     );
     this.updatedSucessMsg = this.localeService.translate(
-      StringResKeys.updatedFailed
+      StringResKeys.updatedSuccfly
     );
   }
 
@@ -64,6 +65,7 @@ export class PaypalFormComponent {
     let paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.payPal,
       paypalEmail: CryptoUtil.getEncrypted(email, pubId),
+      lastUpdated: serverTimestamp()
     };
     const notification = new NotificationBuilder().build();
     try {

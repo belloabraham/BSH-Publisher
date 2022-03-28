@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DateTime } from 'luxon';
 import { Observable, Subject } from 'rxjs';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
@@ -51,7 +52,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   private updatedFailedMsg = '';
 
   paymentDetailsLastUpdated = '';
-  
+
    pubFirstName = '';
 
   paymentDetails: IPaymentDetails | null = null;
@@ -103,7 +104,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   ngOnInit(): void {
     this.translateStringRes();
     this.paymentDetailsForm = this.generatePaymentDetailsForm();
-    this.onPaymentTypeSelectedChanges();
+    this.onPaymentTypeSelectedChangesListener();
 
     this.listenForPaymentDetailChanges();
     this.listenForPubDataChanges();
@@ -130,11 +131,12 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   setPaymentDetailsLastUpdated(paymentDetails: IPaymentDetails) {
     const lastUpdatedTimestamp = paymentDetails.lastUpdated! as Timestamp;
-    const lastUpdated =
-      DateUtil.getLocalDateTime(lastUpdatedTimestamp).toLocaleString();
+    const lastUpdated = DateUtil.getLocalDateTime(
+      lastUpdatedTimestamp
+    )
     this.paymentDetailsLastUpdated = this.localeService.paramTranslate(
       StringResKeys.lastUpdated,
-      { value: lastUpdated }
+      { value: DateUtil.getHumanReadbleDateTime(lastUpdated) }
     );
   }
 
@@ -148,7 +150,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     }
   }
 
-  onPaymentTypeSelectedChanges() {
+  onPaymentTypeSelectedChangesListener() {
     this.subscriptions.sink = this.paymentTypeFC.valueChanges
       .pipe()
       .subscribe((paymentType) => {
@@ -204,16 +206,11 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     this.unsavedFieldsMsgTitle = this.localeService.translate(
       StringResKeys.unsavedFieldsMsgTitle
     );
-
-    /*this.updatedFailedMsg = this.localeService.translate(
-      StringResKeys.profileUpdatedFailedMsg
-    );
-    this.updatedSucessMsg = this.localeService.translate(
-      StringResKeys.profileUpdatedSuccessMsg
-    );*/
   }
 
-  editPaymentDetails() {}
+  editPaymentDetails() {
+    this.updatePaymentDetails = true;
+  }
 
   addPaymentDetails() {
     this.updatePaymentDetails = true;

@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaymentType } from 'src/domain/data/payment-type';
 import { Regex } from 'src/domain/data/regex';
@@ -69,6 +70,7 @@ export class SkrillFormComponent {
     let paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.skrill,
       paypalEmail: CryptoUtil.getEncrypted(email, pubId),
+      lastUpdated: serverTimestamp(),
     };
     const notification = new NotificationBuilder().build();
     try {

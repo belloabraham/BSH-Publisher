@@ -7,13 +7,13 @@ export class DateUtil {
     const timeInMillis = DateUtil.getMilliseconds(timestamp);
     return DateTime.fromMillis(timeInMillis);
   }
+
+  static getHumanReadbleDateTime(dateTime:DateTime) {
+    return dateTime.toLocaleString(DateTime.DATETIME_MED);
+  }
     
   static diffFromNow(dateTime: DateTime, durationUnit:'days'|'day') {
     return dateTime.diffNow(durationUnit);
-  }
-
-  static getLocalDateTimeNow() {
-    return DateTime.now();
   }
 
   private static getMilliseconds(timestamp: Timestamp) {
