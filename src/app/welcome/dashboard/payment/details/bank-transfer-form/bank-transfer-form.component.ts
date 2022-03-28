@@ -91,6 +91,28 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.onCountrySelectedChanges();
+     this.listenForPaymentDetailsChange();
+  }
+
+  private listenForPaymentDetailsChange() {
+    this.subscriptions.sink = this.paymentDetailsVM
+      .getPaymentDetails$()
+      .subscribe((paymentDetail) => {
+        //this.updateFormData(paymentDetail);
+      });
+  }
+
+  private decrypt(value:string) {
+    CryptoUtil.getDecrypted(value, this.pubId)
+  }
+
+  private updateFormData(paymentDetail: IPaymentDetails) {
+    if (paymentDetail.paymentType === PaymentType.bankTransfer) {
+      this.bankNameFC.patchValue( this.decrypt(paymentDetail.bankName!))
+      this.accountNameFC.patchValue(this.decrypt(paymentDetail.accountName!));
+    //  this.accountNumberFC.patchValue(this.decrypt(paymentDetail.accountNumber!))
+      //this.countryFC.patchValue(this.decrypt(paymentDetail.country!))
+    }
   }
 
   onCountrySelectedChanges() {
@@ -125,6 +147,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       accountName: this.getEncrypted(this.accountNameFC.value),
       accountNumber: this.getEncrypted(this.accountNumberFC.value),
       bankName: this.getEncrypted(this.bankNameFC.value),
+      country: this.getEncrypted(this.countryFC.value),
       lastUpdated: serverTimestamp(),
     };
     this.addForiegnBankFormData(paymentDetails);
@@ -143,10 +166,10 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   private translateStringRes() {
     this.updatedFailedMsg = this.localeService.translate(
-      StringResKeys.updatedSuccfly
+      StringResKeys.updatedFailed
     );
     this.updatedSucessMsg = this.localeService.translate(
-      StringResKeys.updatedFailed
+      StringResKeys.updatedSuccfly
     );
   }
 

@@ -52,7 +52,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     const isNotUptoADayOrGreaterThan3Days =
       timeDiffFromNowInDays < 1 || timeDiffFromNowInDays > 3;
     if (isNotUptoADayOrGreaterThan3Days) {
-      return notificationDate.toLocaleString();
+      return DateUtil.getHumanReadbleDateTime(notificationDate) 
     } else if (timeDiffFromNowInDays === 1) {
       return this.localeService.translate(StringResKeys.yesterday);
     } else {

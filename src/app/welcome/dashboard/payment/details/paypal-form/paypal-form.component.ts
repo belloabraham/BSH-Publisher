@@ -3,6 +3,8 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,6 +16,7 @@ import { CryptoUtil } from 'src/helpers/utils/crypto';
 import { NotificationBuilder } from 'src/helpers/utils/notification/notification-buider';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
+import { SubSink } from 'subsink';
 import { PaymentInfoViewModel } from '../../payment-info.viewmodel';
 import { StringResKeys } from '../locale/string-res-keys';
 
@@ -23,7 +26,10 @@ import { StringResKeys } from '../locale/string-res-keys';
   styleUrls: ['./paypal-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaypalFormComponent {
+export class PaypalFormComponent implements OnInit, OnDestroy {
+  private subscriptions = new SubSink();
+  private pubId = this.userAuth.getPubId()!;
+
   @Input()
   payPalForm!: FormGroup;
 
@@ -39,6 +45,26 @@ export class PaypalFormComponent {
     private localeService: LocaleService
   ) {
     this.translateStringRes();
+  }
+
+  ngOnInit(): void {
+    this.listenForPaymentDetailsChange();
+  }
+
+  private listenForPaymentDetailsChange() {
+    this.subscriptions.sink = this.paymentDetailsVM
+      .getPaymentDetails$()
+      .subscribe((paymentDetail) => {
+        this.updateFormData(paymentDetail);
+      });
+  }
+
+  private updateFormData(paymentDetail: IPaymentDetails) {
+    if (paymentDetail.paymentType === PaymentType.payPal) {
+      this.emailFC.patchValue(
+        CryptoUtil.getDecrypted(paymentDetail.paypalEmail!, this.pubId)
+      );
+    }
   }
 
   async submitFormData() {
@@ -61,15 +87,14 @@ export class PaypalFormComponent {
   }
 
   private async updatedPaymentDetails(email: string) {
-    const pubId = this.userAuth.getPubId()!;
     let paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.payPal,
-      paypalEmail: CryptoUtil.getEncrypted(email, pubId),
-      lastUpdated: serverTimestamp()
+      paypalEmail: CryptoUtil.getEncrypted(email, this.pubId),
+      lastUpdated: serverTimestamp(),
     };
     const notification = new NotificationBuilder().build();
     try {
-      await this.paymentDetailsVM.updatePaymentDetails(paymentDetails, pubId);
+      await this.paymentDetailsVM.updatePaymentDetails(paymentDetails, this.pubId);
       this.paymentDetailsVM.setPaymentDetails(paymentDetails);
       notification.success(this.updatedSucessMsg);
     } catch (error) {
@@ -84,5 +109,9 @@ export class PaypalFormComponent {
         Validators.pattern(Regex.email),
       ]),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
