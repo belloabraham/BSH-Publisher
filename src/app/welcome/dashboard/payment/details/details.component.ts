@@ -218,9 +218,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     const notification = new NotificationBuilder()
       .setTimeOut(Notification.SHORT_LENGHT).build();
     if (isSuccessful) {
-      notification.success(this.updatedSucessMsg, () => {
-        this.goToPayment()
-      });
+      notification.success(this.updatedSucessMsg);
+       this.goToPayment()
     } else {
       notification.error(this.updatedFailedMsg);
     }
