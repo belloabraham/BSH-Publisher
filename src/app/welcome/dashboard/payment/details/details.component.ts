@@ -121,7 +121,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   private listenForPaymentDetailChanges() {
     this.subscriptions.sink = this.paymentDetailsVM
-      .getPaymentDetails$()
+      .getPaymentDetails()
       .subscribe((paymentDetails) => {
         this.paymentDetails = paymentDetails;
         if (this.paymentDetails) {

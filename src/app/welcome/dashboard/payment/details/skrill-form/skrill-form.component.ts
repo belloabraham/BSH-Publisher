@@ -44,17 +44,17 @@ export class SkrillFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private paymentDetailsVM: PaymentInfoViewModel,
-    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-  ) {
-  }
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
+  ) {}
 
   ngOnInit(): void {
+    this.emailFC = this.skrillForm.get('emailFC') as FormControl;
     this.listenForPaymentDetailsChange();
   }
 
   private listenForPaymentDetailsChange() {
     this.subscriptions.sink = this.paymentDetailsVM
-      .getPaymentDetails$()
+      .getPaymentDetails()
       .subscribe((paymentDetail) => {
         this.updateFormData(paymentDetail);
       });
@@ -69,7 +69,6 @@ export class SkrillFormComponent implements OnInit, OnDestroy {
   }
 
   async submitFormData() {
-    this.emailFC = this.skrillForm.get('emailFC') as FormControl;
     if (this.emailFC.valid) {
       this.hasError = false;
       await this.updatedPaymentDetails(this.emailFC.value);
@@ -82,7 +81,7 @@ export class SkrillFormComponent implements OnInit, OnDestroy {
     Shield.standard('.skrill-form');
     let paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.skrill,
-      paypalEmail: CryptoUtil.getEncrypted(email, this.pubId),
+      skrillEmail: CryptoUtil.getEncrypted(email, this.pubId),
       lastUpdated: serverTimestamp(),
     };
     try {
@@ -92,7 +91,7 @@ export class SkrillFormComponent implements OnInit, OnDestroy {
       );
       Shield.remove('.skrill-form');
       this.paymentDetailsVM.setPaymentDetails(paymentDetails);
-       this.dataUpdatedEvent.emit(true);
+      this.dataUpdatedEvent.emit(true);
     } catch (error) {
       Shield.remove('.skrill-form');
       this.dataUpdatedEvent.emit(false);

@@ -94,22 +94,22 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   private listenForPaymentDetailsChange() {
     this.subscriptions.sink = this.paymentDetailsVM
-      .getPaymentDetails$()
+      .getPaymentDetails()
       .subscribe((paymentDetail) => {
-        //this.updateFormData(paymentDetail);
+        this.updateFormData(paymentDetail);
       });
   }
 
   private decrypt(value: string) {
-    CryptoUtil.getDecrypted(value, this.pubId);
+    return CryptoUtil.getDecrypted(value, this.pubId);
   }
 
   private updateFormData(paymentDetail: IPaymentDetails) {
     if (paymentDetail.paymentType === PaymentType.bankTransfer) {
-      this.bankNameFC.patchValue(this.decrypt(paymentDetail.bankName!));
+     this.bankNameFC.patchValue(this.decrypt(paymentDetail.bankName!));
       this.accountNameFC.patchValue(this.decrypt(paymentDetail.accountName!));
-      //  this.accountNumberFC.patchValue(this.decrypt(paymentDetail.accountNumber!))
-      //this.countryFC.patchValue(this.decrypt(paymentDetail.country!))
+      this.accountNumberFC.patchValue(this.decrypt(paymentDetail.accountNumber!))
+      this.countryFC.patchValue(this.decrypt(paymentDetail.country!))
     }
   }
 

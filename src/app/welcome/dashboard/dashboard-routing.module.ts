@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: Route.payment,
-        resolve: {paymentDetails:PaymentInfoResolver},
+        resolve: { paymentDetails: PaymentInfoResolver },
         loadChildren: () =>
           import('./payment/payment.module').then((m) => m.PaymentModule),
       },

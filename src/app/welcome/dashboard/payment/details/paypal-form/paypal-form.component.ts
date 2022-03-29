@@ -46,12 +46,13 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.emailFC = this.payPalForm.get('emailFC') as FormControl;
     this.listenForPaymentDetailsChange();
   }
 
   private listenForPaymentDetailsChange() {
     this.subscriptions.sink = this.paymentDetailsVM
-      .getPaymentDetails$()
+      .getPaymentDetails()
       .subscribe((paymentDetail) => {
         this.updateFormData(paymentDetail);
       });
@@ -59,6 +60,7 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
 
   private updateFormData(paymentDetail: IPaymentDetails) {
     if (paymentDetail.paymentType === PaymentType.payPal) {
+      alert("Paypal")
       this.emailFC.patchValue(
         CryptoUtil.getDecrypted(paymentDetail.paypalEmail!, this.pubId)
       );
@@ -66,7 +68,6 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   }
 
   async submitFormData() {
-    this.emailFC = this.payPalForm.get('emailFC') as FormControl;
     if (this.emailFC.valid) {
       this.hasError = false;
       await this.updatedPaymentDetails(this.emailFC.value);
