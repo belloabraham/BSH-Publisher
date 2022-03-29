@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 export interface IUserAuth {
   sendSignInLinkToEmail: (email: string) => Promise<void>;
   signOut: () => Promise<void>;
-  authState: () => Observable<boolean>;
   signInWithGoogleRedirect: () => Promise<never>;
   getErrorMessage: (authError: any) => string;
   getPubId: () => string | null;

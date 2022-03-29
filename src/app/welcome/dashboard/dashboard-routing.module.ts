@@ -12,28 +12,28 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: Route.myBooks,
+        redirectTo: Route.MY_BOOKS,
       },
       {
-        path: Route.myBooks,
+        path: Route.MY_BOOKS,
         loadChildren: () =>
           import('./my-books/my-books.module').then((m) => m.MyBooksModule),
       },
       {
-        path: Route.payment,
+        path: Route.PAYMENT,
         resolve: { paymentDetails: PaymentInfoResolver },
         loadChildren: () =>
           import('./payment/payment.module').then((m) => m.PaymentModule),
       },
       {
-        path: Route.collaborators,
+        path: Route.COLLABORATORS,
         loadChildren: () =>
           import('./collaborators/collaborators.module').then(
             (m) => m.CollaboratorsModule
           ),
       },
       {
-        path: Route.profile,
+        path: Route.PROFILE,
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },

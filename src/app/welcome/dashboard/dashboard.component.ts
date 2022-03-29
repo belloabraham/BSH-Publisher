@@ -67,11 +67,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   isNewNotification = false;
 
-  collaborators = Route.collaborators;
-  payment = Route.payment;
-  myBooks = Route.myBooks;
-  profile = Route.profile;
-  publishYourBook = Route.publishYourBook;
+  collaborators = Route.COLLABORATORS;
+  payment = Route.PAYMENT;
+  myBooks = Route.MY_BOOKS;
+  profile = Route.PROFILE;
+  publishYourBook = Route.PUBLISH_YOUR_BOOK;
 
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;
@@ -212,7 +212,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   logout() {
     this.userAuth.signOut().then(() => {
-      this.router.navigateByUrl(Route.root);
+      this.router.navigateByUrl(Route.ROOT);
     });
   }
 

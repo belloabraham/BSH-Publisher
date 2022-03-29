@@ -43,10 +43,10 @@ export class PaymentInfoResolver implements Resolve<IPaymentDetails | null> {
       Logger.error(this, this.resolve.name, error.message);
       this.errorService.errorRoute = [
         Route.welcome,
-        Route.dashboard,
-        Route.payment
+        Route.DASHBOARD,
+        Route.PAYMENT
       ];
-      this.router.navigateByUrl(Route.error);
+      this.router.navigateByUrl(Route.ERROR);
       return null;
     }
   }

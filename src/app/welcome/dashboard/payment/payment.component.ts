@@ -15,8 +15,8 @@ import { PaymentInfoViewModel } from './payment-info.viewmodel';
 export class PaymentComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
-  earnings = Route.earnings;
-  details = Route.details;
+  earnings = Route.EARNINGS;
+  details = Route.DETAILS;
 
   constructor(
     private paymentDetailsVM: PaymentInfoViewModel,

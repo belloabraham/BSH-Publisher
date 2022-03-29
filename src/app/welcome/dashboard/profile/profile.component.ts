@@ -129,7 +129,7 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
   private async revokeAllUserAuth() {
     try {
       await this.cloudFunctions.call(CloudFunctions.revokeUserAuthToken);
-      this.router.navigateByUrl(Route.root);
+      this.router.navigateByUrl(Route.ROOT);
     } catch (error) {
       const failedMsg = this.localeService.translate(
         StringResKeys.allDevLogoutFailedMsg

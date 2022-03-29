@@ -11,15 +11,15 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo:Route.details
+        redirectTo:Route.DETAILS
       },
       {
-        path: Route.details,
+        path: Route.DETAILS,
         loadChildren: () =>
           import('./details/details.module').then((m) => m.DetailsModule),
       },
       {
-        path: Route.earnings,
+        path: Route.EARNINGS,
         loadChildren: () =>
           import('./earnings/earnings.module').then((m) => m.EarningsModule),
       },

@@ -21,7 +21,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   ) {}
 
   goHome() {
-    this.router.navigateByUrl(Route.root);
+    this.router.navigateByUrl(Route.ROOT);
   }
 
   ngOnInit(): void {

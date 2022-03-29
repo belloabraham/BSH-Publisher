@@ -11,22 +11,22 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: Route.published,
+        redirectTo: Route.PUBLISHED,
       },
       {
-        path: Route.published,
+        path: Route.PUBLISHED,
         loadChildren: () =>
           import('./published/published.module').then((m) => m.PublishedModule),
       },
       {
-        path: Route.unpublished,
+        path: Route.UNPUBLISHED,
         loadChildren: () =>
           import('./unpublished/unpublished.module').then(
             (m) => m.UnpublishedModule
           ),
       },
       {
-        path: Route.pendingApproval,
+        path: Route.PENDING_APPROVAL,
         loadChildren: () =>
           import('./pending-approval/pending-approval.module').then(
             (m) => m.PendingApprovalModule

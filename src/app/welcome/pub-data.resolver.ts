@@ -38,13 +38,13 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
         [pubId]
       );
       if (pubData === null) {
-        this.router.navigateByUrl(Route.signUp);
+        this.router.navigateByUrl(Route.SIGN_UP);
       }
       return pubData;
     } catch (error: any) {
       Logger.error(this, this.resolve.name, error.message);
       this.errorService.errorRoute = [Route.welcome];
-      this.router.navigateByUrl(Route.error);
+      this.router.navigateByUrl(Route.ERROR);
       return null;
     }
   }

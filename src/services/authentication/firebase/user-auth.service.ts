@@ -53,18 +53,6 @@ export class UserAuthService implements IUserAuth {
     return user ? user.email : null;
   }
 
-  authState():Observable<boolean> {
-    return authState(this.auth).pipe(
-      map((user) => {
-        if (user) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-    );
-  }
-
   getErrorMessage(authError: any): string {
     const errorCode = authError.code;
     switch (errorCode) {

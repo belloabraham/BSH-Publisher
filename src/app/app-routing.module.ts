@@ -22,7 +22,7 @@ const routes: Routes = [
       import('./welcome/welcome.module').then((m) => m.WelcomeModule),
   },
   {
-    path: Route.verifyEmail,
+    path: Route.VERIFY_EMAIL,
     canLoad: [VerifyEmailGuard],
     loadChildren: () =>
       import('./verify-email/verify-email.module').then(
@@ -30,14 +30,14 @@ const routes: Routes = [
       ),
   },
   {
-    path: Route.signUp,
+    path: Route.SIGN_UP,
     canLoad: [AuthGuard],
     canActivate:[NoPublisherDataGuard],
     loadChildren: () =>
       import('./sign-up/sign-up.module').then((m) => m.SignUpModule),
   },
   {
-    path: Route.error,
+    path: Route.ERROR,
     loadChildren: () =>
       import('./error/error.module').then((m) => m.ErrorModule),
   },

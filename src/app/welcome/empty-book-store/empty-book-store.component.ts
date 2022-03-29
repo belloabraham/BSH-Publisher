@@ -64,11 +64,11 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
 
   addABook() {
     this.incomingRouteS.route = this.router.url
-    this.router.navigate([Route.welcome, Route.publishYourBook]);
+    this.router.navigate([Route.welcome, Route.PUBLISH_YOUR_BOOK]);
   }
 
   logout() {
-    this.userAuth.signOut().then(() => this.router.navigateByUrl(Route.root));
+    this.userAuth.signOut().then(() => this.router.navigateByUrl(Route.ROOT));
   }
 
   ngOnDestroy(): void {

@@ -1,25 +1,23 @@
 export class Route {
-  static readonly dashboard = 'dashboard';
-  static readonly notfound = '404';
-  static readonly verifyEmail = 'verify-email';
+  static readonly DASHBOARD = 'dashboard';
+  static readonly NOTFOUND = '404';
+  static readonly VERIFY_EMAIL = 'verify-email';
   static readonly welcome = 'welcome';
   static readonly emptyBookStore = 'empty-book-store';
-  static readonly publishYourBook = 'publish-your-book';
-  static readonly root = '';
-  static readonly myBooks = 'my-books';
-  static readonly payment = 'payment';
-  static readonly collaborators = 'collaborators';
-  static readonly profile = 'profile';
+  static readonly PUBLISH_YOUR_BOOK = 'publish-your-book';
+  static readonly ROOT = '';
+  static readonly MY_BOOKS = 'my-books';
+  static readonly PAYMENT = 'payment';
+  static readonly COLLABORATORS = 'collaborators';
+  static readonly PROFILE = 'profile';
 
-  static readonly published = 'published';
-  static readonly unpublished = 'unpublished';
-  static readonly pendingApproval = 'pending-approval';
+  static readonly PUBLISHED = 'published';
+  static readonly UNPUBLISHED = 'unpublished';
+  static readonly PENDING_APPROVAL = 'pending-approval';
 
-  static readonly error = 'error';
+  static readonly ERROR = 'error';
 
-  static readonly details = 'details';
-  static readonly earnings = 'earnings';
-  static readonly signUp = 'sign-up';
-  
-  static readonly incomingRoute = 'incomingRoute';
+  static readonly DETAILS = 'details';
+  static readonly EARNINGS = 'earnings';
+  static readonly SIGN_UP = 'sign-up';
 }

@@ -41,7 +41,7 @@ export class AuthGuard implements CanLoad {
   }
 
   private navigateHome() {
-     this.router.navigateByUrl(Routes.root);
+     this.router.navigateByUrl(Routes.ROOT);
      return false;
   }
 }

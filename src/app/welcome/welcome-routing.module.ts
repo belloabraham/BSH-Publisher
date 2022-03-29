@@ -12,10 +12,10 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: Route.dashboard,
+        redirectTo: Route.DASHBOARD,
       },
       {
-        path: Route.dashboard,
+        path: Route.DASHBOARD,
         resolve: { allBooks: PublishedBooksResolver },
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
@@ -28,7 +28,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: Route.publishYourBook,
+        path: Route.PUBLISH_YOUR_BOOK,
         loadChildren: () =>
           import('./publish-your-book/publish-your-book.module').then(
             (m) => m.PublishYourBookModule
