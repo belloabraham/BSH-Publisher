@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private connectionService: ConnectionService,
     private router: Router
   ) {
-    title.setTitle(Config.appName);
+    title.setTitle(Config.APP_NAME);
   }
 
   ngOnInit(): void {
@@ -88,7 +88,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private loadLanguageRes() {
     this.subscriptions.sink = this.localeService
-      .loadLanguage(Languages.english)
+      .loadLanguage(Languages.ENGLISH)
       .subscribe(() => {
         this.localeService.setIsLangLoadSuccessfully(true);
       });

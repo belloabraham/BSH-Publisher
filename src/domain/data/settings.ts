@@ -1,4 +1,4 @@
 export class Settings {
-  static readonly userEmail = 'bsh-user-email';
-  static readonly isDashBoardCollapsed ="is-dashboard-collapsed"
+  static readonly USER_EMAIL = 'bsh-user-email';
+  static readonly IS_DASHBOARD_COLLAPSED ="is-dashboard-collapsed"
 }

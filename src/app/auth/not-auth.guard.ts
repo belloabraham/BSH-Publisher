@@ -7,7 +7,7 @@ import { Route as Routes } from 'src/domain/data/route';
 import { Logger } from 'src/helpers/utils/logger';
 
 @Injectable({
-  providedIn: Providers.any,
+  providedIn: Providers.ANY,
 })
 export class NotAuthGuard implements CanLoad {
   private allowAccessToRoute = true;

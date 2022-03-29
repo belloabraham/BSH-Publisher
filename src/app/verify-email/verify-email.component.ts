@@ -28,7 +28,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   verifyEmailForm!: FormGroup;
   emailFC = new FormControl('', [
     Validators.required,
-    Validators.pattern(Regex.email),
+    Validators.pattern(Regex.EMAIL),
   ]);
   hasError = false;
   signInErrorTitle = '';
@@ -49,7 +49,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   private setTitle() {
     this.title.setTitle(
       this.localeService.paramTranslate(StringResKeys.verifyEmailTitle, {
-        value: Config.appName,
+        value: Config.APP_NAME,
       })
     );
   }
@@ -84,7 +84,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
     Shield.standard()
     try {
       await this.userAuth.signInWithEmailLink(email, location.href);
-      localStorage.removeItem(Settings.userEmail);
+      localStorage.removeItem(Settings.USER_EMAIL);
       Shield.remove()
       this.router.navigateByUrl(Route.welcome);
     } catch (error: any) {

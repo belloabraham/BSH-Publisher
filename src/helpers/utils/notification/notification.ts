@@ -15,7 +15,7 @@ export class Notification {
   timeOut = 3000;
   messageMaxLenght = 110;
 
-  static readonly shortLenght=1000
+  static readonly SHORT_LENGHT=1000
 
   constructor() {}
 

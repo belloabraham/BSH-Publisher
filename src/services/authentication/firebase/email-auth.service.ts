@@ -11,7 +11,7 @@ import { Providers } from 'src/domain/data/providers';
 
 
 @Injectable({
-  providedIn: Providers.root,
+  providedIn: Providers.ROOT,
 })
 export class EmailAuthService {
   constructor(@Optional() private auth: Auth) {}
@@ -27,7 +27,7 @@ export class EmailAuthService {
 
   sendSignInLinkToEmail(email: string):Promise<void> {
     const actionCodeSettings = {
-      url: Config.emailSignInRedirectURI,
+      url: Config.EMAIL_SIGNIN_REDIRECT_URI,
       handleCodeInApp: true,
     };
     return sendSignInLinkToEmail(this.auth, email, actionCodeSettings);

@@ -5,7 +5,7 @@ import { Providers } from 'src/domain/data/providers';
 import { ICanDeactivate } from './i-can-deactivate';
 
 @Injectable({
-  providedIn: Providers.any
+  providedIn: Providers.ANY
 })
 export class CanDeactivateGuard implements CanDeactivate<ICanDeactivate> {
   canDeactivate(

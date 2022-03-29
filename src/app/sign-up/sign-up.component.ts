@@ -76,7 +76,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   private setTitle() {
     this.title.setTitle(
       this.localeService.paramTranslate(StringResKeys.title, {
-        value: Config.appName,
+        value: Config.APP_NAME,
       })
     );
   }

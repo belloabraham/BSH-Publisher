@@ -14,6 +14,7 @@ import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { DateUtil } from 'src/helpers/utils/date-util';
+import { Notification } from 'src/helpers/utils/notification/notification';
 import { NotificationBuilder } from 'src/helpers/utils/notification/notification-buider';
 import { SubSink } from 'subsink';
 import { PaymentInfoViewModel } from '../payment-info.viewmodel';
@@ -214,9 +215,12 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   }
 
   onDataUpdate(isSuccessful: boolean) {
-    const notification = new NotificationBuilder().build();
+    const notification = new NotificationBuilder()
+      .setTimeOut(Notification.SHORT_LENGHT).build();
     if (isSuccessful) {
-      notification.success(this.updatedSucessMsg);
+      notification.success(this.updatedSucessMsg, () => {
+        this.goToPayment()
+      });
     } else {
       notification.error(this.updatedFailedMsg);
     }

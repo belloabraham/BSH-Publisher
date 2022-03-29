@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   emailSignInForm!: FormGroup;
   emailFC = new FormControl('', [
     Validators.required,
-    Validators.pattern(Regex.email),
+    Validators.pattern(Regex.EMAIL),
   ]);
 
   constructor(
@@ -52,7 +52,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   private setTitle() {
     this.title.setTitle(
       this.localeService.paramTranslate(StringResKeys.title, {
-        value: Config.appName,
+        value: Config.APP_NAME,
       })
     );
   }
@@ -99,7 +99,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     Shield.standard();
     try {
       await this.userAuth.sendSignInLinkToEmail(email);
-      localStorage.setItem(Settings.userEmail, email);
+      localStorage.setItem(Settings.USER_EMAIL, email);
       Shield.remove();
       this.showMailSentSuccessMessage(email);
     } catch (error: any) {

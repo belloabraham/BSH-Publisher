@@ -54,7 +54,7 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
       .subscribe((_) => {
         this.title.setTitle(
           this.localeService.paramTranslate(StringResKeys.title, {
-            value: Config.appName,
+            value: Config.APP_NAME,
           })
         );
       });

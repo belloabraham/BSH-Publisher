@@ -1,4 +1,4 @@
 export class Providers {
-  static readonly root = 'root';
-  static readonly any = 'any';
+  static readonly ROOT = 'root';
+  static readonly ANY = 'any';
 }

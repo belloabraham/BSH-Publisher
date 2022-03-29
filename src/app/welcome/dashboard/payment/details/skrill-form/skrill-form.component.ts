@@ -104,7 +104,7 @@ export class SkrillFormComponent implements OnInit, OnDestroy {
     return new FormGroup({
       emailFC: new FormControl(undefined, [
         Validators.required,
-        Validators.pattern(Regex.email),
+        Validators.pattern(Regex.EMAIL),
       ]),
     });
   }

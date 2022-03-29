@@ -8,7 +8,7 @@ import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 @Injectable()
 export class CollaboratorsViewModel {
 
-  private paymentInfo$ = new ReplaySubject<IPaymentDetails>(MaxCachedItem.one);
+  private paymentInfo$ = new ReplaySubject<IPaymentDetails>(MaxCachedItem.ONE);
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 

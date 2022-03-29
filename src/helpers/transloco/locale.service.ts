@@ -5,10 +5,10 @@ import { MaxCachedItem } from 'src/domain/data/max-cached-item';
 import { Providers } from 'src/domain/data/providers';
 
 @Injectable({
-  providedIn: Providers.root,
+  providedIn: Providers.ROOT,
 })
 export class LocaleService {
-  private isLangLoadSuccessfully = new ReplaySubject<boolean>(MaxCachedItem.one);
+  private isLangLoadSuccessfully = new ReplaySubject<boolean>(MaxCachedItem.ONE);
 
   constructor(private translocoService: TranslocoService) {}
 

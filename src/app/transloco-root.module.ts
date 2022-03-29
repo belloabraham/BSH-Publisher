@@ -11,7 +11,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Providers } from 'src/domain/data/providers';
 
-@Injectable({ providedIn: Providers.root })
+@Injectable({ providedIn: Providers.ROOT })
 export class TranslocoHttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) {}
 

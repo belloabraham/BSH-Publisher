@@ -9,10 +9,10 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 
 @Injectable({
-  providedIn: Providers.any,
+  providedIn: Providers.ANY,
 })
 export class VerifyEmailGuard implements CanLoad {
-  private userEmail = localStorage.getItem(Settings.userEmail);
+  private userEmail = localStorage.getItem(Settings.USER_EMAIL);
 
   constructor(
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
@@ -46,7 +46,7 @@ export class VerifyEmailGuard implements CanLoad {
   ): Promise<boolean> {
     try {
       await this.userAuth.signInWithEmailLink(email, location.href);
-      localStorage.removeItem(Settings.userEmail);
+      localStorage.removeItem(Settings.USER_EMAIL);
       this.router.navigateByUrl(Routes.welcome);
       return false;
     } catch (error:any) {

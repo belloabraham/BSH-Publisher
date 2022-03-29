@@ -213,13 +213,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private setTitle() {
     this.title.setTitle(
       this.localeService.paramTranslate(StringResKeys.title, {
-        value: Config.appName,
+        value: Config.APP_NAME,
       })
     );
   }
 
   isOpenLeftNav() {
-    let value = localStorage.getItem(Settings.isDashBoardCollapsed);
+    let value = localStorage.getItem(Settings.IS_DASHBOARD_COLLAPSED);
     if (value === 'true') {
       this.openLeftNav = true;
     } else {
@@ -233,7 +233,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.openLeftNav === true) {
       value = 'true';
     }
-    localStorage.setItem(Settings.isDashBoardCollapsed, value);
+    localStorage.setItem(Settings.IS_DASHBOARD_COLLAPSED, value);
   }
 
   ngOnDestroy(): void {

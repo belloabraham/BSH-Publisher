@@ -10,7 +10,7 @@ import { IUserAuth } from "./iuser-auth";
 
 
 export const USER_AUTH_IJTOKEN = new InjectionToken<IUserAuth>('user-auths', {
-  providedIn: Providers.root,
+  providedIn: Providers.ROOT,
   factory: () =>
     new UserAuthService(
       inject(GoogleAuthService),

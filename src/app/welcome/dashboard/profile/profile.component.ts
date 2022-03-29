@@ -97,13 +97,13 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     this.clipboardService.copy(value);
     const copyMsg = this.localeService.translate(StringResKeys.copiedMsg)
     const notification = new NotificationBuilder()
-      .setTimeOut(Notification.shortLenght).build();
+      .setTimeOut(Notification.SHORT_LENGHT).build();
     notification.success(copyMsg);
   }
 
   onDataUpdate(isSuccessful: boolean) {
     this.profileForm.markAsPristine();
-    const notification = new NotificationBuilder().setTimeOut(Notification.shortLenght).build();
+    const notification = new NotificationBuilder().setTimeOut(Notification.SHORT_LENGHT).build();
     if (isSuccessful) {
       notification.success(this.updatedSucessMsg);
     } else {

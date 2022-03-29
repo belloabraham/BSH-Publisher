@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Providers } from 'src/domain/data/providers';
 
 @Injectable({
-  providedIn: Providers.root,
+  providedIn: Providers.ROOT,
 })
 export class ErrorService {
 

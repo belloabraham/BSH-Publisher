@@ -19,7 +19,7 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 
 @Injectable({
-  providedIn: Providers.any,
+  providedIn: Providers.ANY,
 })
 export class PublishedBooksResolver
   implements Resolve<IPublishedBook[] | null>

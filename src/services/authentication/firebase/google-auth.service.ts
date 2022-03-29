@@ -7,7 +7,7 @@ import {
 import { Providers } from 'src/domain/data/providers';
 
 @Injectable({
-  providedIn: Providers.root,
+  providedIn: Providers.ROOT,
 })
 export class GoogleAuthService {
   

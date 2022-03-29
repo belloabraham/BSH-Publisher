@@ -9,7 +9,7 @@ import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 @Injectable()
 export class PaymentInfoViewModel {
   private paymentDetails$ = new ReplaySubject<IPaymentDetails>(
-    MaxCachedItem.one
+    MaxCachedItem.ONE
   );
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}

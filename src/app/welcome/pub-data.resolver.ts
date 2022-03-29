@@ -17,7 +17,7 @@ import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { ErrorService } from '../shared/error.service';
 
 @Injectable({
-  providedIn: Providers.any,
+  providedIn: Providers.ANY,
 })
 export class PubDataResolver implements Resolve<IPublisher | null> {
   constructor(

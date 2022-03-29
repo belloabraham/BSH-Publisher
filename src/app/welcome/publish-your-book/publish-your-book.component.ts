@@ -144,7 +144,7 @@ export class PublishYourBookComponent
   private setTitle() {
     this.title.setTitle(
       this.localeService.paramTranslate(StringResKeys.title, {
-        value: Config.appName,
+        value: Config.APP_NAME,
       })
     );
   }

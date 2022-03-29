@@ -1,3 +1,3 @@
 export class MaxCachedItem{
-    static readonly one = 1
+    static readonly ONE = 1
 }

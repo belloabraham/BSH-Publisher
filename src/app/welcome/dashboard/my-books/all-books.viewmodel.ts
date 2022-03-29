@@ -8,7 +8,7 @@ import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 @Injectable()
 export class AllBooksViewModel {
   
-  private allBooks$ = new ReplaySubject<IPublishedBook[]>(MaxCachedItem.one);
+  private allBooks$ = new ReplaySubject<IPublishedBook[]>(MaxCachedItem.ONE);
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
