@@ -60,7 +60,6 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
 
   private updateFormData(paymentDetail: IPaymentDetails) {
     if (paymentDetail.paymentType === PaymentType.payPal) {
-      alert("Paypal")
       this.emailFC.patchValue(
         CryptoUtil.getDecrypted(paymentDetail.paypalEmail!, this.pubId)
       );

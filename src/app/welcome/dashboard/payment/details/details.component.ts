@@ -126,6 +126,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
         this.paymentDetails = paymentDetails;
         if (this.paymentDetails) {
           this.setPaymentDetailsLastUpdated(this.paymentDetails);
+          this.paymentTypeFC.patchValue(this.paymentDetails.paymentType)
         }
       });
   }

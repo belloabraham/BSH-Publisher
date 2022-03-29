@@ -106,10 +106,27 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   private updateFormData(paymentDetail: IPaymentDetails) {
     if (paymentDetail.paymentType === PaymentType.bankTransfer) {
-     this.bankNameFC.patchValue(this.decrypt(paymentDetail.bankName!));
+      this.bankNameFC.patchValue(this.decrypt(paymentDetail.bankName!));
       this.accountNameFC.patchValue(this.decrypt(paymentDetail.accountName!));
-      this.accountNumberFC.patchValue(this.decrypt(paymentDetail.accountNumber!))
-      this.countryFC.patchValue(this.decrypt(paymentDetail.country!))
+      this.accountNumberFC.patchValue(
+        this.decrypt(paymentDetail.accountNumber!)
+      );
+      this.countryFC.patchValue(this.decrypt(paymentDetail.country!));
+      this.updateForeignFormData(paymentDetail);
+    }
+  }
+
+  private updateForeignFormData(paymentDetail: IPaymentDetails) {
+    if (paymentDetail.accountType) {
+      this.bankAddressFC.patchValue(this.decrypt(paymentDetail.bankAddress!));
+      this.bankRoutingNumberFC.patchValue(
+        this.decrypt(paymentDetail.bankRoutingNumber!)
+      );
+      this.bankSwiftCodeFC.patchValue(
+        this.decrypt(paymentDetail.bankSwiftCode!)
+      );
+      this.accountTypeFC.patchValue(this.decrypt(paymentDetail.accountType!));
+      this.addressFC.patchValue(this.decrypt(paymentDetail.address!));
     }
   }
 
