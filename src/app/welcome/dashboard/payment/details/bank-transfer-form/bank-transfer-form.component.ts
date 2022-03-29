@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Inject,
   Input,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -12,14 +14,13 @@ import { countries } from 'src/domain/data/countries';
 import { PaymentType } from 'src/domain/data/payment-type';
 import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
 import { ICountry } from 'src/domain/models/icountry';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { CryptoUtil } from 'src/helpers/utils/crypto';
-import { NotificationBuilder } from 'src/helpers/utils/notification/notification-buider';
+import { Logger } from 'src/helpers/utils/logger';
+import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { PaymentInfoViewModel } from '../../payment-info.viewmodel';
-import { StringResKeys } from '../locale/string-res-keys';
 import { BankTranferForeignFormComponent } from './bank-tranfer-foreign-form/bank-tranfer-foreign-form.component';
 
 @Component({
@@ -34,8 +35,8 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   private subscriptions = new SubSink();
 
-  private updatedSucessMsg = '';
-  private updatedFailedMsg = '';
+  @Output()
+  dataUpdatedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private pubId = this.userAuth.getPubId()!;
 
@@ -83,15 +84,12 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   constructor(
     private paymentDetailsVM: PaymentInfoViewModel,
-    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    private localeService: LocaleService
-  ) {
-    this.translateStringRes();
-  }
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
+  ) {}
 
   ngOnInit(): void {
     this.onCountrySelectedChanges();
-     this.listenForPaymentDetailsChange();
+    this.listenForPaymentDetailsChange();
   }
 
   private listenForPaymentDetailsChange() {
@@ -102,15 +100,15 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       });
   }
 
-  private decrypt(value:string) {
-    CryptoUtil.getDecrypted(value, this.pubId)
+  private decrypt(value: string) {
+    CryptoUtil.getDecrypted(value, this.pubId);
   }
 
   private updateFormData(paymentDetail: IPaymentDetails) {
     if (paymentDetail.paymentType === PaymentType.bankTransfer) {
-      this.bankNameFC.patchValue( this.decrypt(paymentDetail.bankName!))
+      this.bankNameFC.patchValue(this.decrypt(paymentDetail.bankName!));
       this.accountNameFC.patchValue(this.decrypt(paymentDetail.accountName!));
-    //  this.accountNumberFC.patchValue(this.decrypt(paymentDetail.accountNumber!))
+      //  this.accountNumberFC.patchValue(this.decrypt(paymentDetail.accountNumber!))
       //this.countryFC.patchValue(this.decrypt(paymentDetail.country!))
     }
   }
@@ -142,6 +140,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
   }
 
   async submitFormData() {
+    Shield.standard('.bank-transfer-form');
     let paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.bankTransfer,
       accountName: this.getEncrypted(this.accountNameFC.value),
@@ -151,26 +150,19 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       lastUpdated: serverTimestamp(),
     };
     this.addForiegnBankFormData(paymentDetails);
-    const notification = new NotificationBuilder().build();
     try {
       await this.paymentDetailsVM.updatePaymentDetails(
         paymentDetails,
         this.pubId
       );
       this.paymentDetailsVM.setPaymentDetails(paymentDetails);
-      notification.success(this.updatedSucessMsg);
+      Shield.remove('.bank-transfer-form');
+      this.dataUpdatedEvent.emit(true);
     } catch (error) {
-      notification.error(this.updatedFailedMsg);
+      Shield.remove('.bank-transfer-form');
+      this.dataUpdatedEvent.emit(false);
+      Logger.error(this, this.submitFormData.name, error);
     }
-  }
-
-  private translateStringRes() {
-    this.updatedFailedMsg = this.localeService.translate(
-      StringResKeys.updatedFailed
-    );
-    this.updatedSucessMsg = this.localeService.translate(
-      StringResKeys.updatedSuccfly
-    );
   }
 
   private getEncrypted(value: string) {

@@ -14,6 +14,7 @@ import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { DateUtil } from 'src/helpers/utils/date-util';
+import { NotificationBuilder } from 'src/helpers/utils/notification/notification-buider';
 import { SubSink } from 'subsink';
 import { PaymentInfoViewModel } from '../payment-info.viewmodel';
 import { BankTransferFormComponent } from './bank-transfer-form/bank-transfer-form.component';
@@ -52,7 +53,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   paymentDetailsLastUpdated = '';
 
-   pubFirstName = '';
+  pubFirstName = '';
 
   paymentDetails: IPaymentDetails | null = null;
 
@@ -130,9 +131,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   setPaymentDetailsLastUpdated(paymentDetails: IPaymentDetails) {
     const lastUpdatedTimestamp = paymentDetails.lastUpdated! as Timestamp;
-    const lastUpdated = DateUtil.getLocalDateTime(
-      lastUpdatedTimestamp
-    )
+    const lastUpdated = DateUtil.getLocalDateTime(lastUpdatedTimestamp);
     this.paymentDetailsLastUpdated = this.localeService.paramTranslate(
       StringResKeys.lastUpdated,
       { value: DateUtil.getHumanReadbleDateTime(lastUpdated) }
@@ -205,6 +204,22 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     this.unsavedFieldsMsgTitle = this.localeService.translate(
       StringResKeys.unsavedFieldsMsgTitle
     );
+
+    this.updatedFailedMsg = this.localeService.translate(
+      StringResKeys.updatedFailed
+    );
+    this.updatedSucessMsg = this.localeService.translate(
+      StringResKeys.updatedSuccfly
+    );
+  }
+
+  onDataUpdate(isSuccessful: boolean) {
+    const notification = new NotificationBuilder().build();
+    if (isSuccessful) {
+      notification.success(this.updatedSucessMsg);
+    } else {
+      notification.error(this.updatedFailedMsg);
+    }
   }
 
   editPaymentDetails() {

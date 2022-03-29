@@ -83,10 +83,10 @@
                         </div>
                     </div>
 
-                    <app-bank-transfer-form *ngIf="getBankTransferForm" [bankTransferForm]="getBankTransferForm">
+                    <app-bank-transfer-form *ngIf="getBankTransferForm" [bankTransferForm]="getBankTransferForm" (dataUpdatedEvent)="onDataUpdate($event)"  >
                     </app-bank-transfer-form>
-                    <app-paypal-form *ngIf="getPayPalForm" [payPalForm]="getPayPalForm"></app-paypal-form>
-                    <app-skrill-form *ngIf="getSkrillForm" [skrillForm]="getSkrillForm"></app-skrill-form>
+                    <app-paypal-form *ngIf="getPayPalForm" [payPalForm]="getPayPalForm"  (dataUpdatedEvent)="onDataUpdate($event)" ></app-paypal-form>
+                    <app-skrill-form *ngIf="getSkrillForm" [skrillForm]="getSkrillForm"  (dataUpdatedEvent)="onDataUpdate($event)" ></app-skrill-form>
                 </form>
             </div>
         </div>
