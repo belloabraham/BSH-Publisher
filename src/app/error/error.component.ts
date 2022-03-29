@@ -3,9 +3,8 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
+import { ErrorService } from './error.service';
 import { StringResKeys } from './locale/string-res-keys';
-import { Route } from 'src/domain/data/route';
-import { ErrorService } from '../shared/error.service';
 
 @Component({
   selector: 'app-error',

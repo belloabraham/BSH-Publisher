@@ -102,7 +102,7 @@
     "id_confid_msg":"Do not share your publisher's ID with anyone",
     "click_to_expand":"Click to expand",
      "all_dev_logout_failed_msg": "Unable to logout all devices that are signed in to this account, check your internet connection and try again",
-    "logout_all_dev_recom_msg":"We recommend that you should only logout all devices from your account if you beleive someone else have or could have access to your account on another device.",
+    "logout_all_dev_recom_msg":"We recommend that you should only logout all devices from your account if you believe someone else have or could have access to your account on another device you have previously signed in to.",
     "logout_all_devs_q":"Logout all devices?",
     "proceed":"Proceed",
     "cancel":"Cancel",

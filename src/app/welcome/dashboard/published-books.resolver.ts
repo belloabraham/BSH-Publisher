@@ -6,7 +6,7 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
-import { ErrorService } from 'src/app/shared/error.service';
+import { ErrorService } from 'src/app/error/error.service';
 import { IPublishedBook } from 'src/domain/data/ipublished-books';
 import { Providers } from 'src/domain/data/providers';
 import { Route } from 'src/domain/data/route';

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Config } from 'src/domain/data/config';
 import { Route } from 'src/domain/data/route';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
@@ -32,7 +33,8 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
     private localeService: LocaleService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
-    private pubDataVM:PubDataViewModel
+    private pubDataVM: PubDataViewModel,
+    private incomingRouteS:IncomingRouteService
   ) {
   }
 
@@ -42,7 +44,7 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   }
 
   private listenForChangesInPubData() {
-   this.subscriptions.sink =  this.pubDataVM.getPublisher()
+   this.subscriptions.sink =  this.pubDataVM.getPublisher$()
       .subscribe(pubData => {
       this.pubFirstName = pubData.firstName
     })
@@ -61,7 +63,8 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   }
 
   addABook() {
-    this.router.navigate([Route.root, Route.welcome, Route.publishYourBook]);
+    this.incomingRouteS.route = this.router.url
+    this.router.navigate([Route.welcome, Route.publishYourBook]);
   }
 
   logout() {

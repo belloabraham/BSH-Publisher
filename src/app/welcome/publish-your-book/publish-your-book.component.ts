@@ -19,6 +19,7 @@ import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 import { ImagePickerDialogComponent } from './image-picker-dialog/image-picker-dialog.component';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
+import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -64,7 +65,7 @@ export class PublishYourBookComponent
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
-    private location: Location
+    private incominRouteS:IncomingRouteService
   ) {}
 
   ready!: boolean;
@@ -117,10 +118,8 @@ export class PublishYourBookComponent
     console.warn(`'${e.name}' is not a valid image`, e);
   }
 
-
-
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl(this.incominRouteS.route)
   }
 
   expandAssetForm() {

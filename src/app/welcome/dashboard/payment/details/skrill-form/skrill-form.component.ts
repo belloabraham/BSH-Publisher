@@ -54,7 +54,7 @@ export class SkrillFormComponent implements OnInit, OnDestroy {
 
   private listenForPaymentDetailsChange() {
     this.subscriptions.sink = this.paymentDetailsVM
-      .getPaymentDetails()
+      .getPaymentDetails$()
       .subscribe((paymentDetail) => {
         this.updateFormData(paymentDetail);
       });

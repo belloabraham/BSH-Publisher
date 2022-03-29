@@ -6,6 +6,7 @@ import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
 import { FirestoreService } from 'src/domain/remote-data-source/firebase/firestore.service';
 import { Display } from 'src/helpers/utils/display';
 import { SubSink } from 'subsink';
+import { IncomingRouteService } from '../shared/incoming-route.service';
 import { PubDataViewModel } from './pub-data.viewmodels';
 
 @Component({
@@ -17,7 +18,7 @@ import { PubDataViewModel } from './pub-data.viewmodels';
       provide: DATABASE_IJTOKEN,
       useClass: FirestoreService,
     },
-    PubDataViewModel
+    PubDataViewModel, IncomingRouteService
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

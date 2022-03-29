@@ -14,7 +14,7 @@ import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { ErrorService } from '../shared/error.service';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: Providers.ANY,

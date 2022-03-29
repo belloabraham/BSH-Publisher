@@ -69,7 +69,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
     this.phoneFC = this.userDataForm.get('phoneFC') as FormControl;
 
     this.subscriptions.sink = this.pubDataViewModel
-      .getPublisher()
+      .getPublisher$()
       .subscribe((pubData) => {
         this.firstNameFC.patchValue(pubData.firstName);
         this.lastNameFC.patchValue(pubData.lastName);

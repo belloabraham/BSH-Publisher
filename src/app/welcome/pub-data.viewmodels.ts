@@ -13,7 +13,7 @@ export class PubDataViewModel {
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
-  getPublisher() {
+  getPublisher$() {
     return this.pubData$;
   }
 

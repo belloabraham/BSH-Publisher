@@ -37,6 +37,7 @@ import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/domain/remote-data-source/fields';
 import { Logger } from 'src/helpers/utils/logger';
 import { PubDataViewModel } from '../pub-data.viewmodels';
+import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -93,7 +94,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private allBooksVM: AllBooksViewModel,
     private notificationVM: NotificationsViewModel,
     private cdRef: ChangeDetectorRef,
-    private pubDataVM: PubDataViewModel
+    private pubDataVM: PubDataViewModel,
+    private incomingRouteS:IncomingRouteService
   ) {
     this.isOpenLeftNav();
   }
@@ -129,6 +131,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getLiveNotifications();
   }
 
+  setIncomingRoute() {
+   this.incomingRouteS.route = this.router.url
+  }
+
   private listenForBookChanges() {
     this.subscriptions.sink = this.activatedRoute.data
       .pipe(map((data) => data['allBooks']))
@@ -138,7 +144,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private listenForPubDataChanges() {
-      this.subscriptions.sink = this.pubDataVM.getPublisher()
+      this.subscriptions.sink = this.pubDataVM.getPublisher$()
       .subscribe(pubData => {
         this.pubFirstName = pubData.firstName
       })

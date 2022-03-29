@@ -17,7 +17,7 @@ export class NotificationsViewModel {
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
-  getAllNotifications() {
+  getAllNotifications$() {
     return this.notifications$;
   }
 

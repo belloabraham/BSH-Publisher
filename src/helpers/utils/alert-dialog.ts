@@ -13,6 +13,7 @@ export class AlertDialog {
     options: Notiflix.IConfirmOptions | undefined = {
       titleColor: '#320066',
       okButtonBackground: '#320066',
+      messageMaxLength:200,
     }
   ) {
     Confirm.show(title, msg, yesText, noText, yesCallBack, noCallBack, options);

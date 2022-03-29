@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { ErrorService } from 'src/app/shared/error.service';
+import { ErrorService } from 'src/app/error/error.service';
 import { Providers } from 'src/domain/data/providers';
 import { Route } from 'src/domain/data/route';
 import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';

@@ -14,7 +14,7 @@ export class PaymentInfoViewModel {
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
-  getPaymentDetails() {
+  getPaymentDetails$() {
     return this.paymentDetails$;
   }
 

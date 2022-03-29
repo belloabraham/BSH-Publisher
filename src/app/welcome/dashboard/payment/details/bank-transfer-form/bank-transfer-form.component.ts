@@ -94,7 +94,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   private listenForPaymentDetailsChange() {
     this.subscriptions.sink = this.paymentDetailsVM
-      .getPaymentDetails()
+      .getPaymentDetails$()
       .subscribe((paymentDetail) => {
         this.updateFormData(paymentDetail);
       });

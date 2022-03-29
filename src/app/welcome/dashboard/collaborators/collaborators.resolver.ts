@@ -5,9 +5,8 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { ErrorService } from 'src/app/shared/error.service';
+import { ErrorService } from 'src/app/error/error.service';
 import { Providers } from 'src/domain/data/providers';
-import { ICollaborators } from 'src/domain/models/entities/collaborators';
 import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
 import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';

@@ -12,7 +12,7 @@ export class AllBooksViewModel {
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
-  getAllBooks() {
+  getAllBooks$() {
     return this.allBooks$;
   }
 

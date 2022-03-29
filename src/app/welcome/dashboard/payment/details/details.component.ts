@@ -113,7 +113,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   private listenForPubDataChanges() {
     this.subscriptions.sink = this.pubDataVM
-      .getPublisher()
+      .getPublisher$()
       .subscribe((pubData) => {
         this.pubFirstName = pubData.firstName;
       });
@@ -121,7 +121,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   private listenForPaymentDetailChanges() {
     this.subscriptions.sink = this.paymentDetailsVM
-      .getPaymentDetails()
+      .getPaymentDetails$()
       .subscribe((paymentDetails) => {
         this.paymentDetails = paymentDetails;
         if (this.paymentDetails) {
