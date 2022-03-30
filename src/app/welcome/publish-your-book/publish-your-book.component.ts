@@ -20,6 +20,7 @@ import { StringResKeys } from './locale/string-res-keys';
 import { ImagePickerDialogComponent } from './image-picker-dialog/image-picker-dialog.component';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
+import { Regex } from 'src/domain/data/regex';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -38,11 +39,11 @@ export class PublishYourBookComponent
 
   bookDetailsForm = new FormGroup({
     bookPriceFC: new FormControl(undefined, [Validators.required]),
-    bookISBNFC: new FormControl(undefined),
+    bookISBNFC: new FormControl(undefined, [Validators.pattern(Regex.ISBN)]),
     bookDescFC: new FormControl(undefined, [Validators.required]),
     bookCurrencyFC: new FormControl(undefined, [Validators.required]),
     bookTagFC: new FormControl(undefined, [Validators.required]),
-    bookAuthorFC: new FormControl(undefined, [Validators.required]),
+    bookAuthorFC: new FormControl(undefined, [Validators.required,  Validators.minLength(2)]),
     bookCatgoryFC: new FormControl(undefined, [Validators.required]),
     bookNameFC: new FormControl(undefined, [Validators.required]),
   });

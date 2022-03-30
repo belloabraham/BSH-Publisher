@@ -32,12 +32,12 @@
                     <app-book-details-form> </app-book-details-form>
 
                     <ly-action-row>
-                        <button (click)="_bookAssetsPanel.open()" class="mr-1 next-btn" disabled
-                            [disabled]="bookDetailsForm.valid" ly-button bg="primary">{{t('next')}}</button>
+                        <button disabled  (click)="_bookAssetsPanel.open()" class="mr-1 next-btn" disabled
+                            [disabled]="!bookDetailsForm.valid" ly-button bg="primary">{{t('next')}}</button>
                     </ly-action-row>
                 </ly-expansion-panel>
 
-                <ly-expansion-panel [disabled]="bookDetailsForm.valid" #_bookAssetsPanel >
+                <ly-expansion-panel [disabled]="!bookDetailsForm.valid" #_bookAssetsPanel >
                     <ly-expansion-panel-header>
                         <ly-panel-title>
                             <h3>
@@ -54,7 +54,7 @@
                         <div class="form-group"
                             [ngClass]="{'has-error':bookDocumentFC.hasError('required')  && bookDocumentFC.touched}">
 
-                            <input type="file" max="1" accept=".pdf" class="form-input input-lg" id="bookDocumentFC"
+                            <input type="file" max="1"  accept=".pdf" class="form-input input-lg" id="bookDocumentFC"
                                 formControlName="bookDocumentFC">
 
                             <p *ngIf="bookDocumentFC.hasError('required') && bookDocumentFC.touched"
@@ -72,7 +72,7 @@
                             <label class="form-label label-lg flex-shrink-0 book-cover-label"
                                 for="bookCoverFC">{{ t('book_cover') }} (PNG only) <span class="text-muted">*</span>
                                 <br>
-                                <span class="text-muted">(h-500px x w-400px)</span>
+                                <span class="text-muted">(h-500px X w-400px)</span>
                             </label>
 
                             <div class="form-group"

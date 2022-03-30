@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
+import { bookCategories } from 'src/domain/data/book-categories';
+import { bookTags } from 'src/domain/data/book-tag';
+import { currencies } from 'src/domain/data/currencies';
+
 
 @Component({
   selector: 'app-book-details-form',
@@ -18,6 +22,10 @@ export class BookDetailsFormComponent implements OnInit {
   bookCatgoryFC!: FormControl;
   bookPriceFC!: FormControl;
   bookTagFC!: FormControl;
+
+  bookCategories = bookCategories;
+  bookTags = bookTags;
+  bookSalesCurrencies = currencies;
 
   constructor(private parentForm: FormGroupDirective) {}
 

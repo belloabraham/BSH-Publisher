@@ -1,4 +1,4 @@
-export var bookCategories = [
+export const bookCategories = [
   { category: 'Cook Books' },
   { category: 'Fiction' },
   { category: 'Travel and Tourism' },

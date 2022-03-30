@@ -176,6 +176,7 @@
     "pub_ur_book":"Publish your book",
     "choose_cover":"Choose cover",
     "publish":"Publish",
+    "enter_valid_isbn":"Enter a valid ISBN or leave field empty if your book does not have ISBN",
 
     "fit_screen":"Fit to screen",
     "zoom_in":"Zoom in",

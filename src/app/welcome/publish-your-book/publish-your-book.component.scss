@@ -1,6 +1,10 @@
+.form {
+  width: 45rem;
+}
 
-.form{
-    width: 45rem;
+
+input[type="file"] {
+  cursor: pointer;
 }
 
 button[type="submit"],
@@ -13,20 +17,21 @@ button[type="submit"],
   width: 11rem;
 }
 
-.next-btn{
-    width: 15rem;
+.next-btn {
+  width: 15rem;
 }
 
-.cover-frame{
+.cover-frame {
   width: 210px;
   border-radius: 10px;
   padding: 5px;
-  img{
+
+  img {
     width: 200px;
     height: auto;
   }
 }
 
-.book-cover-label{
- width: 13rem;
+.book-cover-label {
+  width: 13rem;
 }

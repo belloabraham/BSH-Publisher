@@ -1,6 +1,4 @@
 import { UserCredential } from "@angular/fire/auth";
-import { Observable } from "rxjs";
-
 export interface IUserAuth {
   sendSignInLinkToEmail: (email: string) => Promise<void>;
   signOut: () => Promise<void>;

@@ -21,7 +21,7 @@
       <div class="form-group category"
          [ngClass]="{'has-error':bookCatgoryFC.hasError('required') && bookCatgoryFC.touched}">
          <select formControlName="bookCatgoryFC" class="form-select select-lg category">
-            <option value=""></option>
+            <option  *ngFor="let bookCategory of bookCategories"  value="{{bookCategory.category}}">{{bookCategory.category}}</option>
          </select>
 
          <p *ngIf="bookCatgoryFC.hasError('required') && bookCatgoryFC.touched" class="form-input-hint">
@@ -34,11 +34,11 @@
       <label class="form-label label-lg flex-shrink-0" for="bookAuthorFC">{{ t('author') }} <span
             class="text-muted">*</span> </label>
 
-      <div class="form-group" [ngClass]="{'has-error':bookAuthorFC.hasError('required') && bookAuthorFC.touched}">
+      <div class="form-group" [ngClass]="{'has-error':(bookAuthorFC.hasError('required')|| bookAuthorFC.hasError('minlength')) && bookAuthorFC.touched}">
 
          <input type="text" class="form-input input-lg account-name" id="bookAuthorFC" formControlName="bookAuthorFC">
 
-         <p *ngIf="bookAuthorFC.hasError('required') && bookAuthorFC.touched" class="form-input-hint">
+         <p *ngIf="(bookAuthorFC.hasError('required') || bookAuthorFC.hasError('minlength')) && bookAuthorFC.touched" class="form-input-hint">
             {{ t('author_name_req') }}
          </p>
 
@@ -50,7 +50,7 @@
 
       <div class="form-group tag">
          <select formControlName="bookTagFC" class="form-select select-lg tag">
-            <option value=""></option>
+            <option  *ngFor="let bookTag of bookTags"   value="{{bookTag.tag}}">{{bookTag.tag}}</option>
          </select>
       </div>
    </div>
@@ -59,8 +59,13 @@
    <div class="d-flex gap-1 mb-2">
       <label class="form-label label-lg flex-shrink-0" for="bookISBNFC">{{ t('isbn') }}</label>
 
-      <div class="form-group">
+      <div class="form-group"  [ngClass]="{'has-error':bookISBNFC.hasError('pattern') && bookISBNFC.dirty}" >
          <input type="number" class="form-input input-lg account-name" id="bookISBNFC" formControlName="bookISBNFC">
+            <p *ngIf="(bookISBNFC.hasError('pattern')) && bookISBNFC.dirty"
+               class="form-input-hint">
+               {{ t('enter_valid_isbn') }}
+            </p>
+
       </div>
    </div>
 
@@ -72,9 +77,9 @@
       <div class="form-group price"
          [ngClass]="{'has-error':(bookPriceFC.hasError('required') || bookCurrencyFC.hasError('required')) && (bookCurrencyFC.touched || bookPriceFC.touched)}">
          <div class="input-group price">
-            <input class="form-input input-lg" type="text" formControlName="bookPriceFC">
+            <input class="form-input input-lg" type="number" formControlName="bookPriceFC">
             <select class="form-select select-lg w-100" formControlName="bookCurrencyFC">
-               <option value="">Slack</option>
+               <option *ngFor="let bookSalesCurrency of bookSalesCurrencies"   value="{{bookSalesCurrency.abbrev}}">{{bookSalesCurrency.name}} ({{bookSalesCurrency.abbrev}})</option>
             </select>
          </div>
 

@@ -16,7 +16,7 @@ export class Collection {
   //*Delete books from pending approval if added to published
   static readonly publishedBooks = 'published_books';
 
-  //*published_books/IS12344555 or ID243545433/{Book info, book Id, pubId}/collaborators/collabID(email)/{collborators info, collabId (email), pubId}
+  //*publishers/pubId/{pubData}/collaborators/collabID(email)/{collborators info, collabId (email), collabBooksId, pubId}
   static readonly collaborators = 'collaborators';
 
   //*books_pending_approval/IS12344555 or ID243545433/{book info, rejected, book Id, pub Id}/
