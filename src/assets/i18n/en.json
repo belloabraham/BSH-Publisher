@@ -175,6 +175,7 @@
     "book_cat_req":"Your book category is required",
     "pub_ur_book":"Publish your book",
     "choose_cover":"Choose cover",
+    "book_cover_req":"Your book cover is required",
     "publish":"Publish",
     "enter_valid_isbn":"Enter a valid ISBN or leave field empty if your book does not have ISBN",
 

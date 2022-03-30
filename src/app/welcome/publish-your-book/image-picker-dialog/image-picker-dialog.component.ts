@@ -1,9 +1,9 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   Inject,
   ViewChild,
   AfterViewInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   StyleRenderer,
@@ -32,8 +32,9 @@ const STYLES = (_theme: ThemeVariables, ref: ThemeRef) => {
   return {
     root: lyl`{
       ${cropper.root} {
-        max-width: 320px
-        height: 320px
+        max-width: 400px
+        height: 500px
+        margin: auto
       }
     }`,
     sliderContainer: lyl`{
@@ -44,7 +45,7 @@ const STYLES = (_theme: ThemeVariables, ref: ThemeRef) => {
         left: 0
         right: 0
         margin: auto
-        top: -32px
+      
       }
     }`,
     slider: lyl`{
@@ -57,6 +58,7 @@ const STYLES = (_theme: ThemeVariables, ref: ThemeRef) => {
   selector: 'app-image-picker-dialog',
   templateUrl: './image-picker-dialog.component.html',
   styleUrls: ['./image-picker-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImagePickerDialogComponent implements WithStyles, AfterViewInit {
   readonly classes = this.sRenderer.renderSheet(STYLES, 'root');
@@ -69,14 +71,13 @@ export class ImagePickerDialogComponent implements WithStyles, AfterViewInit {
   myConfig: ImgCropperConfig = {
     width: 400,
     height: 500,
-    type: 'image/png',
     keepAspectRatio: true,
     responsiveArea: true,
     output: {
       width: 400,
       height: 500,
     },
-     resizableArea: true,
+    resizableArea: true,
   };
 
   constructor(
@@ -96,9 +97,14 @@ export class ImagePickerDialogComponent implements WithStyles, AfterViewInit {
     this.scale = e.value;
   }
 
+  onReady(e: ImgCropperEvent) {
+    console.log('img ready', e);
+  }
+
   onCropped(e: ImgCropperEvent) {
     console.log('cropped img: ', e);
   }
+
   onLoaded(e: ImgCropperEvent) {
     console.log('img loaded', e);
   }

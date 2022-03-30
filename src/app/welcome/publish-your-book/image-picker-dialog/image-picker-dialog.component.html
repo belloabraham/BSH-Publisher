@@ -1,4 +1,4 @@
-<div ly-dialog-content [lyPx]="0">
+<div ly-dialog-content [lyPx]="0"  >
 
     <div *ngIf="ready">
         <button lyTooltip="Zoom in" [lyTooltipPlacement]="bottom"   (click)="cropper.zoomIn()" ly-button appearance="icon">
@@ -35,11 +35,13 @@
         </button>
     </div>
 
-    <ly-img-cropper [config]="myConfig" [(scale)]="scale" (ready)="ready = true" (cleaned)="ready = false"
-        (minScale)="minScale = $event" (cropped)="onCropped($event)" (loaded)="onLoaded($event)"
+    <ly-img-cropper [config]="myConfig"  [(scale)]="scale" (ready)="ready = true" (cleaned)="ready = false"
+        (minScale)="minScale = $event" (ready)="onReady($event)"  (cropped)="onCropped($event)" (loaded)="onLoaded($event)"
         (error)="onError($event)">
         <span>Drag and drop image</span>
     </ly-img-cropper>
+  
+
 
     <div *ngIf="ready" [className]="classes.sliderContainer">
         <div [class]="classes.slider">

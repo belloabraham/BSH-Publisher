@@ -1,6 +1,4 @@
 import { LyDialog } from '@alyle/ui/dialog';
-import { ImgCropperConfig, ImgCropperErrorEvent, ImgCropperEvent } from '@alyle/ui/image-cropper';
-import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -21,6 +19,7 @@ import { ImagePickerDialogComponent } from './image-picker-dialog/image-picker-d
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Regex } from 'src/domain/data/regex';
+import { ImgCropperEvent } from '@alyle/ui/image-cropper';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -33,9 +32,13 @@ export class PublishYourBookComponent
 {
   private subscriptions = new SubSink();
 
+  touched = false;
+
   bookPublishForm!: FormGroup;
-  bookCoverFC = new FormControl(undefined, [Validators.required]);
-  bookDocumentFC = new FormControl(undefined, [Validators.required, Validators.max(51200)]);
+  bookCoverFC = new FormControl(undefined, [Validators.required,]);
+  bookDocumentFC = new FormControl(undefined, [
+    Validators.required,
+  ]);
 
   bookDetailsForm = new FormGroup({
     bookPriceFC: new FormControl(undefined, [Validators.required]),
@@ -43,7 +46,10 @@ export class PublishYourBookComponent
     bookDescFC: new FormControl(undefined, [Validators.required]),
     bookCurrencyFC: new FormControl(undefined, [Validators.required]),
     bookTagFC: new FormControl(undefined, [Validators.required]),
-    bookAuthorFC: new FormControl(undefined, [Validators.required,  Validators.minLength(2)]),
+    bookAuthorFC: new FormControl(undefined, [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
     bookCatgoryFC: new FormControl(undefined, [Validators.required]),
     bookNameFC: new FormControl(undefined, [Validators.required]),
   });
@@ -66,30 +72,17 @@ export class PublishYourBookComponent
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
-    private incominRouteS:IncomingRouteService
+    private incominRouteS: IncomingRouteService
   ) {}
 
-  ready!: boolean;
-  scale: any =0;
-  minScale!: number;
-  //@ViewChild(LyImageCropper, { static: true }) cropper: LyImageCropper;
-  myConfig: ImgCropperConfig = {
-    width: 1400, // Default `250`
-    height: 1500, // Default `200`
-    type: 'image/png', // Or you can also use `image/jpeg`
-    output: {
-      width: 400,
-      height:500
-    }
-  };
-
-
-   openCropperDialog(event: Event) {
+  openCropperDialog(event: Event) {
+    console.log(event)
     this.cropped = null!;
     this._dialog
       .open<ImagePickerDialogComponent, Event>(ImagePickerDialogComponent, {
         data: event,
-        width: 320,
+        width: 400,
+        height:630,
         disableClose: true,
       })
       .afterClosed.subscribe((result?: ImgCropperEvent) => {
@@ -100,27 +93,8 @@ export class PublishYourBookComponent
       });
   }
 
-  onLoaded(e:any) {
-    
-  }
-  onCropped(e: ImgCropperEvent) {
-    alert('Cropped img: ');
-    console.log('Cropped img: ', e);
-  }
-
-  onReady(e: ImgCropperEvent) {
-    this.ready = true;
-    alert('Img ready for cropper');
-    console.log('Img ready for cropper', e);
-  }
-
-  onError(e: ImgCropperErrorEvent) {
-    alert(`'${e.name}' is not a valid image`);
-    console.warn(`'${e.name}' is not a valid image`, e);
-  }
-
   goBack() {
-    this.router.navigateByUrl(this.incominRouteS.route)
+    this.router.navigateByUrl(this.incominRouteS.route);
   }
 
   expandAssetForm() {
