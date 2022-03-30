@@ -34,10 +34,10 @@ import { IPublishedBook } from 'src/domain/data/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
 import { INotification } from 'src/domain/models/entities/inotifications';
 import { where } from '@angular/fire/firestore';
-import { Fields } from 'src/domain/remote-data-source/fields';
 import { Logger } from 'src/helpers/utils/logger';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
+import { Fields } from 'src/domain/data/remote-data-source/fields';
 
 @Component({
   selector: 'app-dashboard',

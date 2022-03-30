@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { IPublishedBook } from 'src/domain/data/ipublished-books';
 import { MaxCachedItem } from 'src/domain/data/max-cached-item';
-import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { IDatabase } from 'src/domain/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
+import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
 
 @Injectable()
 export class AllBooksViewModel {

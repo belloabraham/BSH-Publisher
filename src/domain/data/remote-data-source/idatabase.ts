@@ -1,6 +1,6 @@
 
 import { FieldPath, QueryConstraint } from '@angular/fire/firestore';
-import { IDocId } from '../models/idoc-id';
+import { IDocId } from 'src/domain/models/idoc-id';
 
 export interface IDatabase {
   getArrayOfDocData: <T>(

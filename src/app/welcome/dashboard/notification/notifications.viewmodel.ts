@@ -2,12 +2,12 @@ import { Inject, Injectable } from '@angular/core';
 import { QueryConstraint } from '@angular/fire/firestore';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/domain/data/max-cached-item';
+import { Collection } from 'src/domain/data/remote-data-source/collection';
+import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
+import { Fields } from 'src/domain/data/remote-data-source/fields';
+import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
 import { INotification } from 'src/domain/models/entities/inotifications';
 import { IDocId } from 'src/domain/models/idoc-id';
-import { Collection } from 'src/domain/remote-data-source/collection';
-import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { Fields } from 'src/domain/remote-data-source/fields';
-import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 
 @Injectable()
 export class NotificationsViewModel {

@@ -7,8 +7,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { Timestamp } from 'firebase/firestore';
+import { Collection } from 'src/domain/data/remote-data-source/collection';
 import { INotification } from 'src/domain/models/entities/inotifications';
-import { Collection } from 'src/domain/remote-data-source/collection';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { DateUtil } from 'src/helpers/utils/date-util';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';

@@ -7,8 +7,8 @@ import {
 import { Observable, of } from 'rxjs';
 import { ErrorService } from 'src/app/error/error.service';
 import { Providers } from 'src/domain/data/providers';
-import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { IDatabase } from 'src/domain/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
+import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 

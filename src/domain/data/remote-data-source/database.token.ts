@@ -1,6 +1,6 @@
 import { inject, InjectionToken } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
-import { Providers } from "../data/providers";
+import { Providers } from "../providers";
 import { FirestoreService } from "./firebase/firestore.service";
 import { IDatabase } from "./idatabase";
 

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/domain/data/max-cached-item';
+import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
+import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
 import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
-import { DATABASE_IJTOKEN } from 'src/domain/remote-data-source/database.token';
-import { IDatabase } from 'src/domain/remote-data-source/idatabase';
 
 @Injectable()
 export class CollaboratorsViewModel {
