@@ -47,61 +47,66 @@
                         <ly-panel-description>{{t('ur_book_assets')}}</ly-panel-description>
                     </ly-expansion-panel-header>
 
-                        <div class="d-flex gap-1 mb-2 mt-1">
-                            <label class="form-label label-lg flex-shrink-0" for="bookDocumentFC">{{ t('book_pdf') }}
-                                <span class="text-muted">*</span></label>
+                    <div class="d-flex gap-1 mb-2 mt-1">
+                        <label class="form-label label-lg flex-shrink-0" for="bookDocumentFC">{{ t('book_pdf') }}
+                            <span class="text-muted">*</span></label>
+
+                        <div class="form-group"
+                            [ngClass]="{'has-error':bookDocumentFC.hasError('required')  && bookDocumentFC.touched}">
+
+                            <input type="file" max="1" accept=".pdf" class="form-input input-lg" id="bookDocumentFC"
+                                formControlName="bookDocumentFC">
+
+                            <p *ngIf="bookDocumentFC.hasError('required') && bookDocumentFC.touched"
+                                class="form-input-hint">
+                                {{ t('book_file_req') }}
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="d-flex gap-1">
+
+                            <label class="form-label label-lg flex-shrink-0 book-cover-label"
+                                for="bookCoverFC">{{ t('book_cover') }} (PNG only) <span class="text-muted">*</span>
+                                <br>
+                                <span class="text-muted">(h-500px X w-400px)</span>
+                            </label>
 
                             <div class="form-group"
-                                [ngClass]="{'has-error':bookDocumentFC.hasError('required')  && bookDocumentFC.touched}">
+                                [ngClass]="{'has-error':(bookCoverFC.hasError('required') && bookCoverFC.touched)|| inValidBookCover}">
+                                <input #_fileInput type="file" max="1" class="form-input input-lg" id="bookCoverFC"
+                                    formControlName="bookCoverFC" (change)="openCropperDialog($event)"
+                                    accept="image/png" hidden>
 
-                                <input type="file" max="1" accept=".pdf" class="form-input input-lg" id="bookDocumentFC"
-                                    formControlName="bookDocumentFC">
+                                <button ly-button (click)="chooseACoverImage(_fileInput)">
+                                    <i>
+                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M5,3A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H14.09C14.03,20.67 14,20.34 14,20C14,19.32 14.12,18.64 14.35,18H5L8.5,13.5L11,16.5L14.5,12L16.73,14.97C17.7,14.34 18.84,14 20,14C20.34,14 20.67,14.03 21,14.09V5C21,3.89 20.1,3 19,3H5M19,16V19H16V21H19V24H21V21H24V19H21V16H19Z" />
+                                        </svg>
+                                    </i>
+                                    <span [lyPe]="1">{{ t('choose_cover') }}</span>
+                                </button>
 
-                                <p *ngIf="bookDocumentFC.hasError('required') && bookDocumentFC.touched"
+                                <p *ngIf="bookCoverFC.hasError('required') && bookCoverFC.touched"
                                     class="form-input-hint">
-                                    {{ t('book_file_req') }}
+                                    {{ t('book_cover_req') }}
+                                </p>
+
+                                <p *ngIf="inValidBookCover" class="form-input-hint">
+                                    {{ inValidCoverMsg }}
                                 </p>
 
                             </div>
                         </div>
-
-                        <div>
-                            <div class="d-flex gap-1">
-
-                                <label class="form-label label-lg flex-shrink-0 book-cover-label"
-                                    for="bookCoverFC">{{ t('book_cover') }} (PNG only) <span class="text-muted">*</span>
-                                    <br>
-                                    <span class="text-muted">(h-500px X w-400px)</span>
-                                </label>
-
-                                <div class="form-group"
-                                    [ngClass]="{'has-error':bookCoverFC.hasError('required') && touched}">
-                                    <input #_fileInput type="file" max="1" class="form-input input-lg" id="bookCoverFC"
-                                        formControlName="bookCoverFC" (change)="openCropperDialog($event)"
-                                        accept="image/png" hidden>
-
-                                    <button ly-button class="ml" (click)="_fileInput.click()">
-                                        <i>
-                                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                                <path fill="currentColor"
-                                                    d="M5,3A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H14.09C14.03,20.67 14,20.34 14,20C14,19.32 14.12,18.64 14.35,18H5L8.5,13.5L11,16.5L14.5,12L16.73,14.97C17.7,14.34 18.84,14 20,14C20.34,14 20.67,14.03 21,14.09V5C21,3.89 20.1,3 19,3H5M19,16V19H16V21H19V24H21V21H24V19H21V16H19Z" />
-                                            </svg>
-                                        </i>
-                                        <span [lyPe]="1">{{ t('choose_cover') }}</span>
-                                    </button>
-
-                                    <p *ngIf="bookCoverFC.hasError('max')"
-                                        class="form-input-hint">
-                                        {{ t('book_cover_req') }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div *ngIf="cropped" class="border text-center shadow-sm mt-2 cover-frame">
-                                <img width="400" height="500"  [src]="cropped">
-                            </div>
+                        <div *ngIf="cropped" class="border text-center shadow-sm mt-2 cover-frame">
+                            <img [src]="cropped">
                         </div>
+                    </div>
 
-                    <button [disabled]="!bookCoverFC.valid"  type="submit" class="mt-2" ly-button bg="primary">
+                    <button [disabled]="!bookCoverFC.valid" type="submit" class="mt-2" ly-button bg="primary">
                         <i>
                             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                 <path fill="currentColor"

@@ -38,7 +38,7 @@
     <ly-img-cropper [config]="myConfig"  [(scale)]="scale" (ready)="ready = true" (cleaned)="ready = false"
         (minScale)="minScale = $event" (ready)="onReady($event)"  (cropped)="onCropped($event)" (loaded)="onLoaded($event)"
         (error)="onError($event)">
-        <span>Drag and drop image</span>
+        <span>Click to upload image</span>
     </ly-img-cropper>
   
 

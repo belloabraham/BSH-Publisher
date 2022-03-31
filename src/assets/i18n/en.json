@@ -111,9 +111,9 @@
 
 
 
-    "internal_server_error":"Internal server error",
+    "internal_server_error":"Internal server error or poor internet connection",
     "try_again":"Try again",
-    "server_error_msg":"Unable to load the requested resource as a result of an internal server error. Wait a few minute and try again.",
+    "server_error_msg":"Unable to load the requested resource as a result of an internal server error or a poor internet connection. Wait a few minute and try again.",
 
     "publ":"Published",
     "un_publ":"Unpublished",
@@ -178,6 +178,9 @@
     "book_cover_req":"Your book cover is required",
     "publish":"Publish",
     "enter_valid_isbn":"Enter a valid ISBN or leave field empty if your book does not have ISBN",
+    "too_large_img_msg":"Image file size is too large, the max allowed size is {{value}}",
+    "invalid_img_type":"Only PNG image file type is acceptable",
+
 
     "fit_screen":"Fit to screen",
     "zoom_in":"Zoom in",

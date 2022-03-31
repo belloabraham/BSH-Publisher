@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Config } from 'src/domain/data/config';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
@@ -20,6 +20,7 @@ import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Regex } from 'src/domain/data/regex';
 import { ImgCropperEvent } from '@alyle/ui/image-cropper';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -32,13 +33,12 @@ export class PublishYourBookComponent
 {
   private subscriptions = new SubSink();
 
-  touched = false;
+  inValidBookCover = false;
+  inValidCoverMsg = '';
 
   bookPublishForm!: FormGroup;
-  bookCoverFC = new FormControl(undefined, [Validators.required,]);
-  bookDocumentFC = new FormControl(undefined, [
-    Validators.required,
-  ]);
+  bookCoverFC = new FormControl(undefined, [Validators.required]);
+  bookDocumentFC = new FormControl(undefined, [Validators.required]);
 
   bookDetailsForm = new FormGroup({
     bookPriceFC: new FormControl(undefined, [Validators.required]),
@@ -63,6 +63,9 @@ export class PublishYourBookComponent
 
   isDetailsFormExpanded = true;
 
+  private readonly PNG = 'image/png';
+  private readonly MAX_COVER_FILE_SIZE_IN_KB = 70000;
+
   inComingRoute: string | undefined;
 
   cropped?: string;
@@ -75,22 +78,63 @@ export class PublishYourBookComponent
     private incominRouteS: IncomingRouteService
   ) {}
 
+  chooseACoverImage(e: any) {
+    this.bookCoverFC.markAsTouched();
+    e.click();
+  }
+
   openCropperDialog(event: Event) {
-    console.log(event)
     this.cropped = null!;
-    this._dialog
+    this.subscriptions.sink = this._dialog
       .open<ImagePickerDialogComponent, Event>(ImagePickerDialogComponent, {
         data: event,
         width: 400,
-        height:630,
+        height: 630,
         disableClose: true,
       })
       .afterClosed.subscribe((result?: ImgCropperEvent) => {
+        this.checkForImageCoverValidity(result);
         if (result) {
-          this.cropped = result.dataURL;
           this._cd.markForCheck();
         }
       });
+  }
+
+  private checkForImageCoverValidity(result?: ImgCropperEvent) {
+    try {
+      if (result) {
+        this.inValidBookCover =
+          result.type! !== this.PNG ||
+          result.size > this.MAX_COVER_FILE_SIZE_IN_KB;
+
+        if (this.inValidBookCover) {
+          this.inValidCoverMsg = this.localeService.paramTranslate(
+            StringResKeys.imgTooLargeMsg,
+            { value: `${this.MAX_COVER_FILE_SIZE_IN_KB/1000}kb` }
+          );
+
+          if (result.type !== this.PNG) {
+            this.inValidCoverMsg = this.localeService.translate(
+              StringResKeys.invalidImgType
+            );
+          }
+        } else {
+          this.cropped = result.dataURL
+          this.inValidBookCover = false;
+        }
+      } else {
+        this.setInvalidCoverImageTypeMsg();
+      }
+    } catch (error) {
+      this.setInvalidCoverImageTypeMsg();
+    }
+  }
+
+  private setInvalidCoverImageTypeMsg() {
+     this.inValidCoverMsg = this.localeService.translate(
+        StringResKeys.invalidImgType
+      );
+      this.inValidBookCover = true;
   }
 
   goBack() {
