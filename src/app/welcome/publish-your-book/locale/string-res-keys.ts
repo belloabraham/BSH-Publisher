@@ -6,4 +6,6 @@ export enum StringResKeys {
   title = 'publish_your_book_title',
   invalidImgType = 'invalid_img_type',
   imgTooLargeMsg = 'too_large_img_msg',
+  invalidBookType = 'invalid_book_type',
+  bookTooLargeMsg = 'too_large_book_msg',
 }

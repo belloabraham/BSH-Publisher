@@ -20,7 +20,7 @@ import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Regex } from 'src/domain/data/regex';
 import { ImgCropperEvent } from '@alyle/ui/image-cropper';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+import { FileType } from 'src/domain/data/file-type';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -35,6 +35,9 @@ export class PublishYourBookComponent
 
   inValidBookCover = false;
   inValidCoverMsg = '';
+
+  inValidBook = false;
+  inValidBookMsg = '';
 
   bookPublishForm!: FormGroup;
   bookCoverFC = new FormControl(undefined, [Validators.required]);
@@ -63,12 +66,12 @@ export class PublishYourBookComponent
 
   isDetailsFormExpanded = true;
 
-  private readonly PNG = 'image/png';
-  private readonly MAX_COVER_FILE_SIZE_IN_KB = 70000;
+  private readonly MAX_ALLOWED_COVER_SIZE_IN_BYTES = 70 * 1024; //*70KB
+  private readonly MAX_ALLOWED_BOOK_SIZE_IN_BYTES = 50 * 1024 * 1024; //*50Mb
 
   inComingRoute: string | undefined;
 
-  cropped?: string;
+  croppedImage?: string;
   constructor(
     private _dialog: LyDialog,
     private _cd: ChangeDetectorRef,
@@ -83,8 +86,30 @@ export class PublishYourBookComponent
     e.click();
   }
 
+  onBookFileUpload(e: any) {
+    if (e.target.files && e.target.files[0]) {
+      let file: File = e.target.files[0];
+      if (file.type === FileType.PDF) {
+        if (file.size > this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES) {
+           this.inValidBookMsg = this.localeService.paramTranslate(
+             StringResKeys.bookTooLargeMsg,
+             { value: `${this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES / (1024 * 1024)}Mb` }
+           );
+          this.inValidBook = true
+        } else {
+          this.inValidBook = false;
+        }
+      } else {
+        this.inValidBookMsg = this.localeService.translate(
+          StringResKeys.invalidBookType
+        );
+        this.inValidBook = true;
+      }
+    }
+  }
+
   openCropperDialog(event: Event) {
-    this.cropped = null!;
+    this.croppedImage = null!;
     this.subscriptions.sink = this._dialog
       .open<ImagePickerDialogComponent, Event>(ImagePickerDialogComponent, {
         data: event,
@@ -103,23 +128,17 @@ export class PublishYourBookComponent
   private checkForImageCoverValidity(result?: ImgCropperEvent) {
     try {
       if (result) {
-        this.inValidBookCover =
-          result.type! !== this.PNG ||
-          result.size > this.MAX_COVER_FILE_SIZE_IN_KB;
+        if (
+          result.type! !== FileType.PNG ||
+          result.size > this.MAX_ALLOWED_COVER_SIZE_IN_BYTES
+        ) {
+          this.setInvalidCoverSizeMsg();
 
-        if (this.inValidBookCover) {
-          this.inValidCoverMsg = this.localeService.paramTranslate(
-            StringResKeys.imgTooLargeMsg,
-            { value: `${this.MAX_COVER_FILE_SIZE_IN_KB/1000}kb` }
-          );
-
-          if (result.type !== this.PNG) {
-            this.inValidCoverMsg = this.localeService.translate(
-              StringResKeys.invalidImgType
-            );
+          if (result.type !== FileType.PNG) {
+            this.setInvalidCoverImageTypeMsg();
           }
         } else {
-          this.cropped = result.dataURL
+          this.croppedImage = result.dataURL;
           this.inValidBookCover = false;
         }
       } else {
@@ -130,11 +149,19 @@ export class PublishYourBookComponent
     }
   }
 
+  private setInvalidCoverSizeMsg() {
+    this.inValidCoverMsg = this.localeService.paramTranslate(
+      StringResKeys.imgTooLargeMsg,
+      { value: `${this.MAX_ALLOWED_COVER_SIZE_IN_BYTES / 1024}kb` }
+    );
+    this.inValidBookCover = true;
+  }
+
   private setInvalidCoverImageTypeMsg() {
-     this.inValidCoverMsg = this.localeService.translate(
-        StringResKeys.invalidImgType
-      );
-      this.inValidBookCover = true;
+    this.inValidCoverMsg = this.localeService.translate(
+      StringResKeys.invalidImgType
+    );
+    this.inValidBookCover = true;
   }
 
   goBack() {

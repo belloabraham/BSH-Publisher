@@ -179,8 +179,9 @@
     "publish":"Publish",
     "enter_valid_isbn":"Enter a valid ISBN or leave field empty if your book does not have ISBN",
     "too_large_img_msg":"Image file size is too large, the max allowed size is {{value}}",
-    "invalid_img_type":"Only PNG image file type is acceptable",
-
+    "invalid_img_type":"Only PNG image file type is acceptable",    
+    "too_large_book_msg":"Book file size is too large, the max allowed size is {{value}}",
+    "invalid_book_type":"Only PDF file type is acceptable",  
 
     "fit_screen":"Fit to screen",
     "zoom_in":"Zoom in",

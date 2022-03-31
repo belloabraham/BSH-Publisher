@@ -52,14 +52,18 @@
                             <span class="text-muted">*</span></label>
 
                         <div class="form-group"
-                            [ngClass]="{'has-error':bookDocumentFC.hasError('required')  && bookDocumentFC.touched}">
+                            [ngClass]="{'has-error':(bookDocumentFC.hasError('required')  && bookDocumentFC.touched) || inValidBook}">
 
-                            <input type="file" max="1" accept=".pdf" class="form-input input-lg" id="bookDocumentFC"
+                            <input type="file" max="1" accept=".pdf" (change)="onBookFileUpload($event)"  class="form-input input-lg" id="bookDocumentFC"
                                 formControlName="bookDocumentFC">
 
                             <p *ngIf="bookDocumentFC.hasError('required') && bookDocumentFC.touched"
                                 class="form-input-hint">
                                 {{ t('book_file_req') }}
+                            </p>
+
+                            <p *ngIf="inValidBook" class="form-input-hint">
+                                {{ inValidBookMsg }}
                             </p>
 
                         </div>
@@ -101,12 +105,12 @@
 
                             </div>
                         </div>
-                        <div *ngIf="cropped" class="border text-center shadow-sm mt-2 cover-frame">
-                            <img [src]="cropped">
+                        <div *ngIf="croppedImage" class="border text-center shadow-sm mt-2 cover-frame">
+                            <img [src]="croppedImage">
                         </div>
                     </div>
 
-                    <button [disabled]="!bookCoverFC.valid" type="submit" class="mt-2" ly-button bg="primary">
+                    <button [disabled]="!bookPublishForm.valid || inValidBookCover" type="submit" class="mt-2" ly-button bg="primary">
                         <i>
                             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                 <path fill="currentColor"
