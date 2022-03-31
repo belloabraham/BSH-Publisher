@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -21,6 +22,11 @@ import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Regex } from 'src/domain/data/regex';
 import { ImgCropperEvent } from '@alyle/ui/image-cropper';
 import { FileType } from 'src/domain/data/file-type';
+import { currencies } from 'src/domain/data/currencies';
+import { bookTags } from 'src/domain/data/book-tag';
+import { bookCategories } from 'src/domain/data/book-categories';
+import { IUserAuth } from 'src/services/authentication/iuser-auth';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -38,23 +44,37 @@ export class PublishYourBookComponent
 
   inValidBook = false;
   inValidBookMsg = '';
+  pubId = this.userAuth.getPubId()!;
+
+  bookCategories = bookCategories;
+  bookTags = bookTags;
+  bookSalesCurrencies = currencies;
 
   bookPublishForm!: FormGroup;
   bookCoverFC = new FormControl(undefined, [Validators.required]);
   bookDocumentFC = new FormControl(undefined, [Validators.required]);
 
+  bookPriceFC = new FormControl(undefined, [Validators.required]);
+  bookISBNFC = new FormControl(undefined, [Validators.pattern(Regex.ISBN)]);
+  bookDescFC = new FormControl(undefined, [Validators.required]);
+  bookSaleCurrencyFC = new FormControl(undefined, [Validators.required]);
+  bookTagFC = new FormControl(undefined, [Validators.required]);
+  bookAuthorFC = new FormControl(undefined, [
+    Validators.required,
+    Validators.minLength(2),
+  ]);
+  bookCatgoryFC = new FormControl(undefined, [Validators.required]);
+  bookNameFC = new FormControl(undefined, [Validators.required]);
+
   bookDetailsForm = new FormGroup({
-    bookPriceFC: new FormControl(undefined, [Validators.required]),
-    bookISBNFC: new FormControl(undefined, [Validators.pattern(Regex.ISBN)]),
-    bookDescFC: new FormControl(undefined, [Validators.required]),
-    bookCurrencyFC: new FormControl(undefined, [Validators.required]),
-    bookTagFC: new FormControl(undefined, [Validators.required]),
-    bookAuthorFC: new FormControl(undefined, [
-      Validators.required,
-      Validators.minLength(2),
-    ]),
-    bookCatgoryFC: new FormControl(undefined, [Validators.required]),
-    bookNameFC: new FormControl(undefined, [Validators.required]),
+    bookPriceFC: this.bookPriceFC,
+    bookISBNFC: this.bookISBNFC,
+    bookDescFC: this.bookDescFC,
+    bookSaleCurrencyFC: this.bookSaleCurrencyFC,
+    bookTagFC: this.bookTagFC,
+    bookAuthorFC: this.bookAuthorFC,
+    bookCatgoryFC: this.bookCatgoryFC,
+    bookNameFC: this.bookNameFC,
   });
 
   private unsavedFieldsMsgTitle = '';
@@ -78,7 +98,8 @@ export class PublishYourBookComponent
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
-    private incominRouteS: IncomingRouteService
+    private incominRouteS: IncomingRouteService,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
 
   chooseACoverImage(e: any) {
@@ -91,11 +112,13 @@ export class PublishYourBookComponent
       let file: File = e.target.files[0];
       if (file.type === FileType.PDF) {
         if (file.size > this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES) {
-           this.inValidBookMsg = this.localeService.paramTranslate(
-             StringResKeys.bookTooLargeMsg,
-             { value: `${this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES / (1024 * 1024)}Mb` }
-           );
-          this.inValidBook = true
+          this.inValidBookMsg = this.localeService.paramTranslate(
+            StringResKeys.bookTooLargeMsg,
+            {
+              value: `${this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES / (1024 * 1024)}Mb`,
+            }
+          );
+          this.inValidBook = true;
         } else {
           this.inValidBook = false;
         }
@@ -227,6 +250,17 @@ export class PublishYourBookComponent
     this.unsavedFieldsMsgTitle = this.localeService.translate(
       StringResKeys.unsavedFieldsMsgTitle
     );
+  }
+
+  private getBookId(isbn: any) {
+    if (isbn) {
+      return `${isbn.toString().trim()}`;
+    } else {
+      const bookId = `${this.pubId}-${Math.floor(
+        1000000000000 + Math.random() * 9000000000000
+      )}`;
+      return bookId;
+    }
   }
 
   submitFormData() {}
