@@ -72,17 +72,17 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   }
 
   public get getSkrillForm(): FormGroup | null {
-    let value = this.paymentDetailsForm.get(this.skrillFormName);
+    const value = this.paymentDetailsForm.get(this.skrillFormName);
     return value ? (value as FormGroup) : null;
   }
 
   public get getPayPalForm(): FormGroup | null {
-    let value = this.paymentDetailsForm.get(this.payPalFormName);
+    const value = this.paymentDetailsForm.get(this.payPalFormName);
     return value ? (value as FormGroup) : null;
   }
 
   public get getBankTransferForm(): FormGroup | null {
-    let value = this.paymentDetailsForm.get(this.bankTransferFormName);
+    const value = this.paymentDetailsForm.get(this.bankTransferFormName);
     return value ? (value as FormGroup) : null;
   }
 

@@ -109,7 +109,7 @@ export class PublishYourBookComponent
 
   onBookFileUpload(e: any) {
     if (e.target.files && e.target.files[0]) {
-      let file: File = e.target.files[0];
+      const file: File = e.target.files[0];
       if (file.type === FileType.PDF) {
         if (file.size > this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES) {
           this.inValidBookMsg = this.localeService.paramTranslate(
@@ -263,7 +263,9 @@ export class PublishYourBookComponent
     }
   }
 
-  submitFormData() {}
+  submitFormData() {
+  }
+
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

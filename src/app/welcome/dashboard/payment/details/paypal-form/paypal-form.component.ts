@@ -77,7 +77,7 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
 
   private async updatedPaymentDetails(email: string) {
     Shield.standard('.paypal-form');
-    let paymentDetails: IPaymentDetails = {
+    const paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.payPal,
       paypalEmail: CryptoUtil.getEncrypted(email, this.pubId),
       lastUpdated: serverTimestamp(),

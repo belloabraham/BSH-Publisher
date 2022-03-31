@@ -225,7 +225,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   isOpenLeftNav() {
-    let value = localStorage.getItem(Settings.IS_DASHBOARD_COLLAPSED);
+    const value = localStorage.getItem(Settings.IS_DASHBOARD_COLLAPSED);
     if (value === 'true') {
       this.openLeftNav = true;
     } else {

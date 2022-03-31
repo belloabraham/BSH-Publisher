@@ -100,10 +100,10 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
 
       this.isInvalidPhoneNum = false;
 
-      let pubId = this.userAuth.getPubId()!;
-      let email = this.userAuth.getEmail()!;
+      const pubId = this.userAuth.getPubId()!;
+      const email = this.userAuth.getEmail()!;
 
-      let publisher: IPublisher = {
+      const publisher: IPublisher = {
         firstName: this.firstNameFC.value,
         lastName: this.lastNameFC.value,
         gender: this.genderFC.value,
@@ -130,7 +130,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   }
 
   onCountrySelectChanged(event: any) {
-    let value = event.target.value;
+    const value = event.target.value;
     this.dialingCodeByCountry = this.countries.find((country) => {
       return country.name === value;
     })?.callingCode;
@@ -141,7 +141,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   }
 
   private isValidPhoneNumber(phoneNumber: string) {
-    let countryCode = this.countries.find((country) => {
+    const countryCode = this.countries.find((country) => {
       return country.callingCode === this.dialingCodeByCountry;
     })?.code;
     return isValidPhone(phoneNumber, countryCode!, this.dialingCodeByCountry!);

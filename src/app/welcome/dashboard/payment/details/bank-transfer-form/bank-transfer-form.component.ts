@@ -46,7 +46,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
   private bankTransferForeignFormName = 'bankTrasnferForeignFormName';
 
   public get bankForeignForm(): FormGroup | null {
-    let value = this.bankTransferForm.get(this.bankTransferForeignFormName);
+    const value = this.bankTransferForm.get(this.bankTransferForeignFormName);
     return value ? (value as FormGroup) : null;
   }
 
@@ -158,7 +158,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   async submitFormData() {
     Shield.standard('.bank-transfer-form');
-    let paymentDetails: IPaymentDetails = {
+    const paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.bankTransfer,
       accountName: this.getEncrypted(this.accountNameFC.value),
       accountNumber: this.getEncrypted(this.accountNumberFC.value),

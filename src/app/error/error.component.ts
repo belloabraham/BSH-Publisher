@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { ErrorService } from './error.service';
@@ -15,7 +15,6 @@ import { StringResKeys } from './locale/string-res-keys';
 export class ErrorComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   constructor(
-    activatedRoute: ActivatedRoute,
     private title: Title,
     private localeService: LocaleService,
     private router: Router,

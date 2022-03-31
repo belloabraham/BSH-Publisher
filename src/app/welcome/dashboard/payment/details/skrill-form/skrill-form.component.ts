@@ -79,7 +79,7 @@ export class SkrillFormComponent implements OnInit, OnDestroy {
 
   private async updatedPaymentDetails(email: string) {
     Shield.standard('.skrill-form');
-    let paymentDetails: IPaymentDetails = {
+    const paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.skrill,
       skrillEmail: CryptoUtil.getEncrypted(email, this.pubId),
       lastUpdated: serverTimestamp(),

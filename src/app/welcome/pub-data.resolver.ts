@@ -32,7 +32,7 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
     state: RouterStateSnapshot
   ): Promise<IPublisher | null> {
     try {
-      let pubId = this.userAuth.getPubId()!;
+      const pubId = this.userAuth.getPubId()!;
       const pubData = await this.remoteData.getDocData<IPublisher>(
         Collection.publishers,
         [pubId]
