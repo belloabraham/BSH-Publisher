@@ -110,7 +110,7 @@
                         </div>
                     </div>
 
-                    <button [disabled]="!bookPublishForm.valid || inValidBookCover" type="submit" class="mt-2" ly-button bg="primary">
+                    <button [disabled]="!bookPublishForm.valid || inValidBookCover || inValidBook" type="submit" class="mt-2" ly-button bg="primary">
                         <i>
                             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                 <path fill="currentColor"
