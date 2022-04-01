@@ -50,6 +50,8 @@ export class PublishYourBookComponent
   inValidBookMsg = '';
   pubId = this.userAuth.getPubId()!;
 
+  bookUploadingMsg =""
+
   bookCategories = bookCategories;
   bookTags = bookTags;
   bookSalesCurrencies = currencies;
@@ -193,12 +195,6 @@ export class PublishYourBookComponent
 
   goBack() {
   //  this.router.navigateByUrl(this.incominRouteS.route);
-        Shield.pulse(
-          '.publish-book-container',
-          Display.remToPixel(1.5),
-          'Uploading... Do not leave this page untill book uploading completes'
-        );
-
   }
 
   expandAssetForm() {
@@ -217,7 +213,7 @@ export class PublishYourBookComponent
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
-        this.translateStringRes();
+        this.translateStringRes()
       });
   }
 
@@ -276,6 +272,15 @@ export class PublishYourBookComponent
   }
 
   submitFormData() {
+
+    const bookUploadingMsg = this.localeService.translate(StringResKeys.bookUploadingMsg)
+
+     Shield.pulse(
+       '.publish-book-container',
+       Display.remToPixel(1.5),
+       bookUploadingMsg
+     );
+
     let newBook: IPublishedBook = {
       approved: false,
       totalDownloads: 0,
@@ -296,8 +301,6 @@ export class PublishYourBookComponent
       price: this.bookPriceFC.value,
       pubId: this.pubId,
     };
-
-
 
   }
 

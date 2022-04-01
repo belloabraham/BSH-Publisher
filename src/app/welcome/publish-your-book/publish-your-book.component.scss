@@ -2,10 +2,13 @@
   width: 45rem;
 }
 
-.progress{
-  margin-bottom: .5rem;
+.bar{
+  height: 1rem;
+  .bar-item{
+    height: 100%;
+    font-size: 1.3rem;
+  }
 }
-
 
 input[type="file"] {
   cursor: pointer;

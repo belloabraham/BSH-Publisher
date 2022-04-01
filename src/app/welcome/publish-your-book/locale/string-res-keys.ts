@@ -8,4 +8,5 @@ export enum StringResKeys {
   imgTooLargeMsg = 'too_large_img_msg',
   invalidBookType = 'invalid_book_type',
   bookTooLargeMsg = 'too_large_book_msg',
+  bookUploadingMsg = 'book_uploading_msg'
 }
