@@ -30,7 +30,7 @@ import { Settings } from 'src/domain/data/settings';
 import { Route } from 'src/domain/data/route';
 import { Config } from 'src/domain/data/config';
 import { AllBooksViewModel } from './my-books/all-books.viewmodel';
-import { IPublishedBook } from 'src/domain/data/ipublished-books';
+import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
 import { INotification } from 'src/domain/models/entities/inotifications';
 import { where } from '@angular/fire/firestore';

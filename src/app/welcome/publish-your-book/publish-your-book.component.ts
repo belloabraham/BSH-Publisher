@@ -27,6 +27,10 @@ import { bookTags } from 'src/domain/data/book-tag';
 import { bookCategories } from 'src/domain/data/book-categories';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
+import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
+import { serverTimestamp } from '@angular/fire/firestore';
+import { Shield } from 'src/helpers/utils/shield';
+import { Display } from 'src/helpers/utils/display';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -188,7 +192,13 @@ export class PublishYourBookComponent
   }
 
   goBack() {
-    this.router.navigateByUrl(this.incominRouteS.route);
+  //  this.router.navigateByUrl(this.incominRouteS.route);
+        Shield.pulse(
+          '.publish-book-container',
+          Display.remToPixel(1.5),
+          'Uploading... Do not leave this page untill book uploading completes'
+        );
+
   }
 
   expandAssetForm() {
@@ -199,6 +209,8 @@ export class PublishYourBookComponent
     this.getStrinRes();
     this.bookPublishForm = this.generateBookPublishForm();
   }
+
+
 
   private getStrinRes() {
     this.subscriptions.sink = this.localeService
@@ -264,8 +276,30 @@ export class PublishYourBookComponent
   }
 
   submitFormData() {
-  }
+    let newBook: IPublishedBook = {
+      approved: false,
+      totalDownloads: 0,
+      totalRatings: 0,
+      totalReviews: 0,
+      published: false,
+      publishedDate: serverTimestamp(),
+      bookId: this.getBookId(this.bookISBNFC.value),
+      name: this.bookNameFC.value,
+      author: this.bookAuthorFC.value,
+      coverUrl: this.croppedImage!,
+      lastUpdated: serverTimestamp(),
+      description: this.bookDescFC.value,
+      category: this.bookCatgoryFC.value,
+      tag: this.bookTagFC.value,
+      sellerCurrency: this.bookSaleCurrencyFC.value,
+      recommended: false,
+      price: this.bookPriceFC.value,
+      pubId: this.pubId,
+    };
 
+
+
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

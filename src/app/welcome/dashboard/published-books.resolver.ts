@@ -7,7 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { ErrorService } from 'src/app/error/error.service';
-import { IPublishedBook } from 'src/domain/data/ipublished-books';
+import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
 import { Providers } from 'src/domain/data/providers';
 import { Collection } from 'src/domain/data/remote-data-source/collection';
 import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';

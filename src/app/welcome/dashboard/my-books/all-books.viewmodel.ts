@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { IPublishedBook } from 'src/domain/data/ipublished-books';
+import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
 import { MaxCachedItem } from 'src/domain/data/max-cached-item';
 import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
 import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
