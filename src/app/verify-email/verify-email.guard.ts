@@ -29,7 +29,7 @@ export class VerifyEmailGuard implements CanLoad {
     | UrlTree {
     //Check if user is autheneticated on the device already
     if (this.userAuth.getPubId()) {
-      this.router.navigateByUrl(Routes.welcome);
+      this.router.navigateByUrl(Routes.WELCOME);
       return false;
     } else if (this.userEmail) {
       //check if the user sign in with mail on this device
@@ -47,7 +47,7 @@ export class VerifyEmailGuard implements CanLoad {
     try {
       await this.userAuth.signInWithEmailLink(email, location.href);
       localStorage.removeItem(Settings.USER_EMAIL);
-      this.router.navigateByUrl(Routes.welcome);
+      this.router.navigateByUrl(Routes.WELCOME);
       return false;
     } catch (error:any) {
       Logger.error(this, this.verifyEmailWithLink.name, error.message);

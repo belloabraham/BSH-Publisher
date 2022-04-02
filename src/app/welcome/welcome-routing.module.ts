@@ -21,7 +21,7 @@ const routes: Routes = [
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
-        path: Route.emptyBookStore,
+        path: Route.EMPTY_BOOK_STORE,
         loadChildren: () =>
           import('./empty-book-store/empty-book-store.module').then(
             (m) => m.EmptyBookStoreModule

@@ -47,7 +47,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   onDataUpdate(isSuccessful: boolean) {
     if (isSuccessful) {
-      this.router.navigate([Route.ROOT, Route.welcome, Route.DASHBOARD]);
+      this.router.navigate([Route.ROOT, Route.WELCOME, Route.DASHBOARD]);
     } else {
       AlertDialog.error(this.submitFormErrorMsg, this.error, this.ok);
     }

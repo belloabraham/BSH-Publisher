@@ -39,7 +39,7 @@ export class NotAuthGuard implements CanLoad {
   }
 
   goToWelcomePage() {
-    this.router.navigateByUrl(Routes.welcome);
+    this.router.navigateByUrl(Routes.WELCOME);
     return false;
   }
 }

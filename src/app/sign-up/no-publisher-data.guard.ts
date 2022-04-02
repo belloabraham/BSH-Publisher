@@ -38,7 +38,7 @@ export class NoPublisherDataGuard implements CanActivate {
       .getDocData<IPublisher>(Collection.publishers, [pubId])
       .then((pubDataExist) => {
         if (pubDataExist) {
-          this.router.navigateByUrl(Routes.welcome);
+          this.router.navigateByUrl(Routes.WELCOME);
           return false;
         }
         return true;

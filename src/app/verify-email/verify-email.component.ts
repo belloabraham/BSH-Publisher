@@ -86,7 +86,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
       await this.userAuth.signInWithEmailLink(email, location.href);
       localStorage.removeItem(Settings.USER_EMAIL);
       Shield.remove()
-      this.router.navigateByUrl(Route.welcome);
+      this.router.navigateByUrl(Route.WELCOME);
     } catch (error: any) {
       Shield.remove()
       this.showEmailSignInErrorMsg(error)

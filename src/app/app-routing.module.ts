@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: Route.welcome,
+    path: Route.WELCOME,
     canLoad: [AuthGuard],
     resolve: { pubData: PubDataResolver },
     loadChildren: () =>

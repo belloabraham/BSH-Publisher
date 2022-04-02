@@ -64,7 +64,7 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
 
   addABook() {
     this.incomingRouteS.route = this.router.url
-    this.router.navigate([Route.welcome, Route.PUBLISH_YOUR_BOOK]);
+    this.router.navigate([Route.WELCOME, Route.PUBLISH_YOUR_BOOK]);
   }
 
   logout() {

@@ -2,8 +2,8 @@ export class Route {
   static readonly DASHBOARD = 'dashboard';
   static readonly NOTFOUND = '404';
   static readonly VERIFY_EMAIL = 'verify-email';
-  static readonly welcome = 'welcome';
-  static readonly emptyBookStore = 'empty-book-store';
+  static readonly WELCOME = 'welcome';
+  static readonly EMPTY_BOOK_STORE = 'empty-book-store';
   static readonly PUBLISH_YOUR_BOOK = 'publish-your-book';
   static readonly ROOT = '';
   static readonly MY_BOOKS = 'my-books';

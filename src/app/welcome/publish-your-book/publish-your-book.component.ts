@@ -41,6 +41,7 @@ import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
 import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
 import { Collection } from 'src/domain/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
+import { Route } from 'src/domain/data/route';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -88,16 +89,7 @@ export class PublishYourBookComponent
   bookCatgoryFC = new FormControl(undefined, [Validators.required]);
   bookNameFC = new FormControl(undefined, [Validators.required]);
 
-  bookDetailsForm = new FormGroup({
-    bookPriceFC: this.bookPriceFC,
-    bookISBNFC: this.bookISBNFC,
-    bookDescFC: this.bookDescFC,
-    bookSaleCurrencyFC: this.bookSaleCurrencyFC,
-    bookTagFC: this.bookTagFC,
-    bookAuthorFC: this.bookAuthorFC,
-    bookCatgoryFC: this.bookCatgoryFC,
-    bookNameFC: this.bookNameFC,
-  });
+  bookDetailsForm = this.getBookDetailsForm();
 
   private unsavedFieldsMsgTitle = '';
   private unsavedFieldsMsg = '';
@@ -117,6 +109,10 @@ export class PublishYourBookComponent
   bookFileChosenByUser!: File;
   uploadProgress = 0;
 
+  bookUploadErrorMsg = '';
+  bookUploadErrorTitle = '';
+  tryAgain = '';
+
   constructor(
     private _dialog: LyDialog,
     private _cd: ChangeDetectorRef,
@@ -128,6 +124,19 @@ export class PublishYourBookComponent
     @Inject(CLOUD_STORAGE_IJTOKEN) private cloudStorage: ICloudStorage,
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase
   ) {}
+
+  private getBookDetailsForm() {
+    return new FormGroup({
+      bookPriceFC: this.bookPriceFC,
+      bookISBNFC: this.bookISBNFC,
+      bookDescFC: this.bookDescFC,
+      bookSaleCurrencyFC: this.bookSaleCurrencyFC,
+      bookTagFC: this.bookTagFC,
+      bookAuthorFC: this.bookAuthorFC,
+      bookCatgoryFC: this.bookCatgoryFC,
+      bookNameFC: this.bookNameFC,
+    });
+  }
 
   chooseACoverImage(e: any) {
     this.bookCoverFC.markAsTouched();
@@ -216,7 +225,7 @@ export class PublishYourBookComponent
   }
 
   goBack() {
-    //  this.router.navigateByUrl(this.incominRouteS.route);
+    this.router.navigateByUrl(this.incominRouteS.route);
   }
 
   expandAssetForm() {
@@ -278,6 +287,16 @@ export class PublishYourBookComponent
     this.unsavedFieldsMsgTitle = this.localeService.translate(
       StringResKeys.unsavedFieldsMsgTitle
     );
+
+    this.bookUploadErrorMsg = this.localeService.translate(
+      StringResKeys.bookUploadErrorMsg
+    );
+
+    this.bookUploadErrorTitle = this.localeService.translate(
+      StringResKeys.bookUploadErrorTitle
+    );
+
+    this.tryAgain = this.localeService.translate(StringResKeys.tryAgain);
   }
 
   private get13DigitAutoGenNumb() {
@@ -320,7 +339,7 @@ export class PublishYourBookComponent
       pathToBookFile,
       bookFileToUpload,
       this.onProgress,
-      (downloadUrl) => {
+      _ => {
         this.uploadBookData(bookId);
       },
       this.onBookUploadError
@@ -328,25 +347,60 @@ export class PublishYourBookComponent
   }
 
   private onBookUploadError(error: any) {
-    Logger.error(this, this.onBookUploadError.name, error)
+    Logger.error(this, this.onBookUploadError.name, error);
     Shield.remove('.publish-book-container');
-    this.uploadProgress = 0;
-    //*Show upload error dialog and try again button options
+    AlertDialog.error(
+      this.bookUploadErrorMsg,
+      this.bookUploadErrorTitle,
+      this.tryAgain,
+      () => {
+        this.submitFormData();
+      }
+    );
+  }
+
+  private navigateToMyBooks() {
+    this.router.navigate([
+      Route.WELCOME,
+      Route.DASHBOARD,
+      Route.MY_BOOKS,
+      Route.PENDING_APPROVAL,
+    ]);
+  }
+
+  private showBookUploadSuccessMsg() {
+    const msg = this.localeService.translate(
+      StringResKeys.bookPublishedSuccessMsg
+    );
+    const title = this.localeService.translate(
+      StringResKeys.bookPublishedSuccessTitle
+    );
+    const actionTxt = this.localeService.translate(StringResKeys.goToMyBooks);
+    AlertDialog.success(msg, title, actionTxt, () => {
+      this.navigateToMyBooks();
+    });
   }
 
   private uploadBookData(bookId: string) {
     const newBookData = this.getBookData(bookId);
     this.remoteData
-      .addDocData(Collection.publishedBooks, [newBookData.bookId], newBookData)
+      .addDocData(Collection.publishedBooks, [bookId], newBookData)
       .then(() => {
         this.uploadProgress = this.uploadProgress + 10;
         Shield.remove('.publish-book-container');
-        //*Show alert for upload complete and  navigate to my books
+        this.showBookUploadSuccessMsg();
       })
       .catch((error) => {
-        Logger.error(this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES, this.uploadBookData.name, error)
+        Logger.error(this, this.uploadBookData.name, error);
         Shield.remove('.publish-book-container');
-        //*Show error alert and give the user the option to try again, the option that will only trigger book upload data and not the whole process from the beginning
+        AlertDialog.error(
+          this.bookUploadErrorMsg,
+          this.bookUploadErrorTitle,
+          this.tryAgain,
+          () => {
+            this.uploadBookData(bookId);
+          }
+        );
       });
   }
 
