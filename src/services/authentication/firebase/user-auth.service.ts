@@ -1,13 +1,11 @@
 import { Injectable, Optional } from '@angular/core';
-import { Auth, authState, signOut, UserCredential } from '@angular/fire/auth';
+import { Auth, signOut, UserCredential } from '@angular/fire/auth';
 import { GoogleAuthService } from './google-auth.service';
 import { EmailAuthService } from './email-auth.service';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
 import { StringResKeys } from '../locale/string-res-keys';
 import { ErrorCodes } from './error-codes';
 import { IUserAuth } from '../iuser-auth';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserAuthService implements IUserAuth {

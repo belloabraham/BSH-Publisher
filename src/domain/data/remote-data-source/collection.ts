@@ -11,7 +11,7 @@ export class Collection {
   //*Allow read if owner, allow delete if owner, allow for others if false.
   static readonly notifications = 'notifications';
 
-  //*published_books/IS12344555 or ID243545433/{book info, book Id, pub Id}/
+  //*published_books/bookId/{book info, book Id, pub Id}/
   //*Allow all if admin, allow read only if authenticated, allow modified published if owner
   //*Delete books from pending approval if added to published
   static readonly publishedBooks = 'published_books';
@@ -19,7 +19,7 @@ export class Collection {
   //*publishers/pubId/{pubData}/collaborators/collabID(email)/{collborators info, collabId (email), collabBooksId, pubId}
   static readonly collaborators = 'collaborators';
 
-  //*books_pending_approval/IS12344555 or ID243545433/{book info, rejected, book Id, pub Id}/
-  //*Allow read, update if owner and is authenticated. Allow delete and read if admin
-  static readonly booksPendingApproval = 'books_pending_approval';
+  /*books_pending_approval/IS12344555 or ID243545433/{book info, rejected, book Id, pub Id}/
+  Allow read, update if owner and is authenticated. Allow delete and read if admin
+  static readonly booksPendingApproval = 'books_pending_approval';*/
 }

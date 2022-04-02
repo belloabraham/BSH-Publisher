@@ -31,12 +31,28 @@ import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { Shield } from 'src/helpers/utils/shield';
 import { Display } from 'src/helpers/utils/display';
+import { CloudStoragePath } from 'src/services/storage/storage-path';
+import { FileUtil } from 'src/helpers/utils/file-util';
+import { CLOUD_STORAGE_IJTOKEN } from 'src/services/storage/icloud-storage-token';
+import { CloudStorageService } from 'src/services/storage/firebase/cloud-storage.service';
+import { ICloudStorage } from 'src/services/storage/icloud-storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage';
+import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
+import { Collection } from 'src/domain/data/remote-data-source/collection';
+import { Logger } from 'src/helpers/utils/logger';
 
 @Component({
   selector: 'app-publish-your-book',
   templateUrl: './publish-your-book.component.html',
   styleUrls: ['./publish-your-book.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: CLOUD_STORAGE_IJTOKEN,
+      useClass: CloudStorageService,
+    },
+  ],
 })
 export class PublishYourBookComponent
   implements OnInit, OnDestroy, ICanDeactivate
@@ -50,7 +66,7 @@ export class PublishYourBookComponent
   inValidBookMsg = '';
   pubId = this.userAuth.getPubId()!;
 
-  bookUploadingMsg =""
+  bookUploadingMsg = '';
 
   bookCategories = bookCategories;
   bookTags = bookTags;
@@ -98,6 +114,9 @@ export class PublishYourBookComponent
   inComingRoute: string | undefined;
 
   croppedImage?: string;
+  bookFileChosenByUser!: File;
+  uploadProgress = 0;
+
   constructor(
     private _dialog: LyDialog,
     private _cd: ChangeDetectorRef,
@@ -105,7 +124,9 @@ export class PublishYourBookComponent
     private localeService: LocaleService,
     private router: Router,
     private incominRouteS: IncomingRouteService,
-    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
+    @Inject(CLOUD_STORAGE_IJTOKEN) private cloudStorage: ICloudStorage,
+    @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase
   ) {}
 
   chooseACoverImage(e: any) {
@@ -127,6 +148,7 @@ export class PublishYourBookComponent
           this.inValidBook = true;
         } else {
           this.inValidBook = false;
+          this.bookFileChosenByUser = file;
         }
       } else {
         this.inValidBookMsg = this.localeService.translate(
@@ -194,7 +216,7 @@ export class PublishYourBookComponent
   }
 
   goBack() {
-  //  this.router.navigateByUrl(this.incominRouteS.route);
+    //  this.router.navigateByUrl(this.incominRouteS.route);
   }
 
   expandAssetForm() {
@@ -206,14 +228,12 @@ export class PublishYourBookComponent
     this.bookPublishForm = this.generateBookPublishForm();
   }
 
-
-
   private getStrinRes() {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
-        this.translateStringRes()
+        this.translateStringRes();
       });
   }
 
@@ -260,35 +280,89 @@ export class PublishYourBookComponent
     );
   }
 
-  private getBookId(isbn: any) {
-    if (isbn) {
-      return `${isbn.toString().trim()}`;
-    } else {
-      const bookId = `${this.pubId}-${Math.floor(
-        1000000000000 + Math.random() * 9000000000000
-      )}`;
-      return bookId;
-    }
+  private get13DigitAutoGenNumb() {
+    const bookId = `${Math.floor(
+      1000000000000 + Math.random() * 9000000000000
+    )}`;
+    return bookId;
   }
 
   submitFormData() {
+    const bookUploadingMsg = this.localeService.translate(
+      StringResKeys.bookUploadingMsg
+    );
+    Shield.pulse(
+      '.publish-book-container',
+      Display.remToPixel(1.5),
+      bookUploadingMsg
+    );
+    let bookId = '';
+    const autoGenIdNumb = this.get13DigitAutoGenNumb();
+    let bookFileName = '';
 
-    const bookUploadingMsg = this.localeService.translate(StringResKeys.bookUploadingMsg)
+    if (this.bookISBNFC.value) {
+      bookId = this.bookISBNFC.value;
+      bookFileName = bookId;
+    } else {
+      bookId = `${this.pubId}-${autoGenIdNumb}`;
+      bookFileName = autoGenIdNumb;
+    }
 
-     Shield.pulse(
-       '.publish-book-container',
-       Display.remToPixel(1.5),
-       bookUploadingMsg
-     );
+    bookFileName = `${bookFileName}.pdf`;
+    const bookFileToUpload = FileUtil.rename(
+      this.bookFileChosenByUser,
+      bookFileName
+    );
 
-    let newBook: IPublishedBook = {
+    const pathToBookFile = `${CloudStoragePath.publishedBooks}/${this.pubId}/${bookId}/${bookFileName}`;
+
+    this.cloudStorage.uploadBytesResumable(
+      pathToBookFile,
+      bookFileToUpload,
+      this.onProgress,
+      (downloadUrl) => {
+        this.uploadBookData(bookId);
+      },
+      this.onBookUploadError
+    );
+  }
+
+  private onBookUploadError(error: any) {
+    Logger.error(this, this.onBookUploadError.name, error)
+    Shield.remove('.publish-book-container');
+    this.uploadProgress = 0;
+    //*Show upload error dialog and try again button options
+  }
+
+  private uploadBookData(bookId: string) {
+    const newBookData = this.getBookData(bookId);
+    this.remoteData
+      .addDocData(Collection.publishedBooks, [newBookData.bookId], newBookData)
+      .then(() => {
+        this.uploadProgress = this.uploadProgress + 10;
+        Shield.remove('.publish-book-container');
+        //*Show alert for upload complete and  navigate to my books
+      })
+      .catch((error) => {
+        Logger.error(this.MAX_ALLOWED_BOOK_SIZE_IN_BYTES, this.uploadBookData.name, error)
+        Shield.remove('.publish-book-container');
+        //*Show error alert and give the user the option to try again, the option that will only trigger book upload data and not the whole process from the beginning
+      });
+  }
+
+  private onProgress(snapshot: UploadTaskSnapshot, progress: number) {
+    this.uploadProgress = progress - 10;
+  }
+
+  private getBookData(bookId: string) {
+    let bookData: IPublishedBook = {
       approved: false,
       totalDownloads: 0,
       totalRatings: 0,
       totalReviews: 0,
       published: false,
       publishedDate: serverTimestamp(),
-      bookId: this.getBookId(this.bookISBNFC.value),
+      bookId: bookId,
       name: this.bookNameFC.value,
       author: this.bookAuthorFC.value,
       coverUrl: this.croppedImage!,
@@ -302,6 +376,7 @@ export class PublishYourBookComponent
       pubId: this.pubId,
     };
 
+    return bookData;
   }
 
   ngOnDestroy(): void {
