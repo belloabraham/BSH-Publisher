@@ -35,7 +35,7 @@ export class NoPublisherDataGuard implements CanActivate {
     const pubId = this.userAuth.getPubId()!;
 
     return this.remoteData
-      .getDocData<IPublisher>(Collection.publishers, [pubId])
+      .getDocData<IPublisher>(Collection.PUBLISHERS, [pubId])
       .then((pubDataExist) => {
         if (pubDataExist) {
           this.router.navigateByUrl(Routes.WELCOME);

@@ -107,7 +107,7 @@ export class PublishYourBookComponent
 
   croppedImage?: string;
   bookFileChosenByUser!: File;
-  uploadProgress = 0;
+  uploadProgress?:number
 
   bookUploadErrorMsg = '';
   bookUploadErrorTitle = '';
@@ -384,9 +384,9 @@ export class PublishYourBookComponent
   private uploadBookData(bookId: string) {
     const newBookData = this.getBookData(bookId);
     this.remoteData
-      .addDocData(Collection.publishedBooks, [bookId], newBookData)
+      .addDocData(Collection.PUBLISHED_BOOKS, [bookId], newBookData)
       .then(() => {
-        this.uploadProgress = this.uploadProgress + 10;
+        this.uploadProgress = this.uploadProgress! + 10;
         Shield.remove('.publish-book-container');
         this.showBookUploadSuccessMsg();
       })
@@ -409,6 +409,7 @@ export class PublishYourBookComponent
   }
 
   private getBookData(bookId: string) {
+    
     let bookData: IPublishedBook = {
       approved: false,
       totalDownloads: 0,

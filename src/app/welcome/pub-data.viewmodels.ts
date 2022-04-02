@@ -23,7 +23,7 @@ export class PubDataViewModel {
   }
 
   async updatePublisher(publisher: IPublisher, pubId: string) {
-    return await this.remoteData.addDocData(Collection.publishers, [pubId], publisher).then(_ => {
+    return await this.remoteData.addDocData(Collection.PUBLISHERS, [pubId], publisher).then(_ => {
        this.setPublisher(publisher)
     });
   }

@@ -65,8 +65,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   deleteAllNotifications() {
     if (this.notifications) {
       this.notificationVM.deleteAllNotifications(
-        Collection.publishers,
-        [this.pubId, Collection.notifications],
+        Collection.PUBLISHERS,
+        [this.pubId, Collection.NOTIFICATIONS],
         this.notifications
       );
     }

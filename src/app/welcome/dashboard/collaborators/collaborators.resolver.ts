@@ -4,18 +4,21 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
 import { ErrorService } from 'src/app/error/error.service';
 import { Providers } from 'src/domain/data/providers';
+import { Collection } from 'src/domain/data/remote-data-source/collection';
 import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
 import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
+import { Route } from 'src/domain/data/route';
+import { ICollaborators } from 'src/domain/models/entities/icollaborators';
+import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 
 @Injectable({
   providedIn: Providers.ANY,
 })
-export class CollaboratorsResolver implements Resolve<boolean> {
+export class CollaboratorsResolver implements Resolve<ICollaborators[] | null> {
   constructor(
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
@@ -23,17 +26,26 @@ export class CollaboratorsResolver implements Resolve<boolean> {
     private errorService: ErrorService
   ) {}
 
-  resolve(
+  async resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> {
+  ): Promise<ICollaborators[] | null> {
 
     const pubId = this.userAuth.getPubId()!
 
-    //this.remoteData.getArrayOfDocData<ICollaborators>()
-
-    //*If error navigate to error page passing route and error message
-
-    return of(true);
+    try {
+      const collaborators = await this.remoteData.getArrayOfDocData<ICollaborators>(Collection.PUBLISHERS, [pubId, Collection.COLLABORATORS], [])
+      const isCollaboratorsExist = collaborators.length > 0
+      
+      if (!isCollaboratorsExist) {
+        return null
+      }
+      return collaborators;
+    } catch (error) {
+      Logger.error(this, this.resolve.name, error)
+      this.errorService.errorRoute = [Route.WELCOME, Route.DASHBOARD, Route.COLLABORATORS];
+      this.router.navigateByUrl(Route.ERROR);
+      return null
+    }
   }
 }

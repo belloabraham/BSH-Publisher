@@ -26,9 +26,9 @@ export class NotificationsViewModel {
   }
 
   deleteANotification(docId: string, pubId: string) {
-    return this.remoteData.deleteDoc(Collection.publishers, [
+    return this.remoteData.deleteDoc(Collection.PUBLISHERS, [
       pubId,
-      Collection.notifications,
+      Collection.NOTIFICATIONS,
       pubId,
     ]);
   }
@@ -40,8 +40,8 @@ export class NotificationsViewModel {
     onError: (errorCode: string) => void
   ) {
     this.remoteData.getLiveArrayOfDocData<INotification>(
-      Collection.publishers,
-      [pubId, Collection.notifications],
+      Collection.PUBLISHERS,
+      [pubId, Collection.NOTIFICATIONS],
       queryConstraints,
       onNext,
       onError
@@ -61,8 +61,8 @@ export class NotificationsViewModel {
     unreadNotifications: INotification[]
   ) {
     this.remoteData.updateAllDocData(
-      Collection.publishers,
-      [pubId, Collection.notifications],
+      Collection.PUBLISHERS,
+      [pubId, Collection.NOTIFICATIONS],
       Fields.isRead,
       true,
       unreadNotifications

@@ -19,7 +19,7 @@ export class PaymentInfoViewModel {
 
   updatePaymentDetails(paymentDetails: IPaymentDetails, pubId: string) {
       return this.remoteData.addDocData(
-        Collection.paymentDetails,
+        Collection.PAYMENT_DETAILS,
         [pubId],
         paymentDetails,
         { merge: false }

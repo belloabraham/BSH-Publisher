@@ -34,7 +34,7 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
     try {
       const pubId = this.userAuth.getPubId()!;
       const pubData = await this.remoteData.getDocData<IPublisher>(
-        Collection.publishers,
+        Collection.PUBLISHERS,
         [pubId]
       );
       if (pubData === null) {

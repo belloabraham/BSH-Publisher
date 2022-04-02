@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/domain/data/route';
+import { CollaboratorsResolver } from './collaborators/collaborators.resolver';
 import { DashboardComponent } from './dashboard.component';
 import { PaymentInfoResolver } from './payment/payment-info.resolver';
 
@@ -27,6 +28,7 @@ const routes: Routes = [
       },
       {
         path: Route.COLLABORATORS,
+        resolve: {collaborators: CollaboratorsResolver},
         loadChildren: () =>
           import('./collaborators/collaborators.module').then(
             (m) => m.CollaboratorsModule

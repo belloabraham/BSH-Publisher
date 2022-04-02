@@ -35,7 +35,7 @@ export class PaymentInfoResolver implements Resolve<IPaymentDetails | null> {
     const pubId = this.userAuth.getPubId()!;
     try {
       const paymentDetails = await this.remoteData.getDocData<IPaymentDetails>(
-        Collection.paymentDetails,
+        Collection.PAYMENT_DETAILS,
         [pubId]
       );
       return paymentDetails;

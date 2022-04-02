@@ -5,6 +5,7 @@ import { IDocId } from 'src/domain/models/idoc-id';
 export interface IDatabase {
   getArrayOfDocData: <T>(
     path: string,
+    pathSegment: string[],
     queryConstraint: QueryConstraint[]
   ) => Promise<T[]>;
 
