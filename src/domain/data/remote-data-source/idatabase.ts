@@ -6,6 +6,11 @@ export interface IDatabase {
   getArrayOfDocData: <T>(
     path: string,
     pathSegment: string[],
+  ) => Promise<T[]>;
+
+  getArrayOfDocDataWhere: <T>(
+    path: string,
+    pathSegment: string[],
     queryConstraint: QueryConstraint[]
   ) => Promise<T[]>;
 
@@ -15,7 +20,7 @@ export interface IDatabase {
     field: string | FieldPath,
     fieldValue: unknown,
     docIds: IDocId[]
-  ) => Promise<void>
+  ) => Promise<void>;
 
   getLiveArrayOfDocData: <T>(
     path: string,

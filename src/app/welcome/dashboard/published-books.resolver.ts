@@ -38,7 +38,7 @@ export class PublishedBooksResolver
     try {
       const pubId = this.userAuth.getPubId()!;
       const queryConstraint = where(Fields.pubId, '==', pubId);
-      const allBooks = await this.remoteData.getArrayOfDocData<IPublishedBook>(
+      const allBooks = await this.remoteData.getArrayOfDocDataWhere<IPublishedBook>(
         Collection.PUBLISHED_BOOKS,[],
         [queryConstraint]
       );

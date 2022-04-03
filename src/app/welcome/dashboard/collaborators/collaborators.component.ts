@@ -31,6 +31,10 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
       });
   }
 
+  addACollaborator() {
+    
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

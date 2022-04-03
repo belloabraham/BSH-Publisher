@@ -64,12 +64,31 @@ export class FirestoreService implements IDatabase {
     return deleteDoc(docRef);
   }
 
-  async getArrayOfDocData<T>(
+
+   async getArrayOfDocDataWhere<T>(
     path: string,
     pathSegment: string[],
     queryConstraint: QueryConstraint[]
   ): Promise<T[]> {
     let q = query(collection(this.firestore, path, ...pathSegment), ...queryConstraint);
+    const querySnapshot = await getDocs(q);
+    let dataArray: T[] = [];
+    querySnapshot.forEach((queryDoc) => {
+      if (queryDoc.exists()) {
+        let data = queryDoc.data();
+        let json = JSON.stringify(data);
+        let type: T = JSON.parse(json);
+        dataArray.concat(type);
+      }
+    });
+    return dataArray;
+  }
+
+  async getArrayOfDocData<T>(
+    path: string,
+    pathSegment: string[],
+  ): Promise<T[]> {
+    let q = query(collection(this.firestore, path, ...pathSegment));
     const querySnapshot = await getDocs(q);
     let dataArray: T[] = [];
     querySnapshot.forEach((queryDoc) => {

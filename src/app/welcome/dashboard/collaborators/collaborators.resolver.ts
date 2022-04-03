@@ -34,7 +34,7 @@ export class CollaboratorsResolver implements Resolve<ICollaborators[] | null> {
     const pubId = this.userAuth.getPubId()!
 
     try {
-      const collaborators = await this.remoteData.getArrayOfDocData<ICollaborators>(Collection.PUBLISHERS, [pubId, Collection.COLLABORATORS], [])
+      const collaborators = await this.remoteData.getArrayOfDocData<ICollaborators>(Collection.PUBLISHERS, [pubId, Collection.COLLABORATORS])
       const isCollaboratorsExist = collaborators.length > 0
       
       if (!isCollaboratorsExist) {
