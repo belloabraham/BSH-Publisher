@@ -17,7 +17,7 @@ import { DateUtil } from 'src/helpers/utils/date-util';
 import { Notification } from 'src/helpers/utils/notification/notification';
 import { NotificationBuilder } from 'src/helpers/utils/notification/notification-buider';
 import { SubSink } from 'subsink';
-import { PaymentInfoViewModel } from '../payment-info.viewmodel';
+import { PaymentDetailsViewModel } from '../payment-details.viewmodel';
 import { BankTransferFormComponent } from './bank-transfer-form/bank-transfer-form.component';
 import { StringResKeys } from './locale/string-res-keys';
 import { PaypalFormComponent } from './paypal-form/paypal-form.component';
@@ -62,7 +62,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   constructor(
     private localeService: LocaleService,
-    private paymentDetailsVM: PaymentInfoViewModel,
+    private paymentDetailsVM: PaymentDetailsViewModel,
     private pubDataVM: PubDataViewModel
   ) {}
 

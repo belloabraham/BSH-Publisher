@@ -20,7 +20,7 @@ import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
-import { PaymentInfoViewModel } from '../../payment-info.viewmodel';
+import { PaymentDetailsViewModel } from '../../payment-details.viewmodel';
 import { BankTranferForeignFormComponent } from './bank-tranfer-foreign-form/bank-tranfer-foreign-form.component';
 
 @Component({
@@ -83,7 +83,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
   }
 
   constructor(
-    private paymentDetailsVM: PaymentInfoViewModel,
+    private paymentDetailsVM: PaymentDetailsViewModel,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
 
@@ -169,10 +169,9 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
     this.addForiegnBankFormData(paymentDetails);
     try {
       await this.paymentDetailsVM.updatePaymentDetails(
-        paymentDetails,
+        { paymentDetails: paymentDetails },
         this.pubId
       );
-      this.paymentDetailsVM.setPaymentDetails(paymentDetails);
       Shield.remove('.bank-transfer-form');
       this.dataUpdatedEvent.emit(true);
     } catch (error) {

@@ -6,7 +6,7 @@ import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.to
 import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
 import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
 @Injectable()
-export class PaymentInfoViewModel {
+export class PaymentDetailsViewModel {
   private paymentDetails$ = new ReplaySubject<IPaymentDetails>(
     MaxCachedItem.ONE
   );
@@ -17,17 +17,18 @@ export class PaymentInfoViewModel {
     return this.paymentDetails$;
   }
 
-  updatePaymentDetails(paymentDetails: IPaymentDetails, pubId: string) {
-      return this.remoteData.addDocData(
-        Collection.PAYMENT_DETAILS,
-        [pubId],
-        paymentDetails,
-        { merge: false }
-      )
+  async updatePaymentDetails(
+    paymentDetails: { paymentDetails: IPaymentDetails },
+    pubId: string
+  ) {
+    return await this.remoteData
+      .updateDocData(Collection.PUBLISHERS, [pubId], paymentDetails)
+      .then((_) => {
+        this.setPaymentDetails(paymentDetails.paymentDetails);
+      });
   }
 
   setPaymentDetails(paymentDetails: IPaymentDetails) {
     this.paymentDetails$.next(paymentDetails);
   }
-
 }

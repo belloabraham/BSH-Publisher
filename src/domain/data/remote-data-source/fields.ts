@@ -4,4 +4,7 @@ export class Fields {
   static readonly published = 'published';
   static readonly message = 'message';
   static readonly isRead = 'isRead';
+  static readonly publisherData = "pubData"
+  static readonly paymentDetails = "paymentDetails"
+  static readonly total ="total"
 }

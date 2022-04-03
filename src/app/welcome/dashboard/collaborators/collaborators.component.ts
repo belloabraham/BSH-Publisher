@@ -27,7 +27,9 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.activatedRoute.data
       .pipe(map((data) => data['collaborators']))
       .subscribe((collaborators) => {
-        this.collaboratorsVM.setCollaborators(collaborators);
+        if (collaborators) {
+          this.collaboratorsVM.setCollaborators(collaborators);
+        }
       });
   }
 

@@ -1,7 +1,5 @@
 export interface ICollaborators{
     name: string,
-    bookId: string, 
-    pubId: string,
-    email: string,
-    bookName:string
+    addedBookIds: string[], 
+    email: string,    
 }

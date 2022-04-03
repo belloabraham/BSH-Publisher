@@ -17,4 +17,5 @@ export interface IPublishedBook {
   pubId: string;
   price: number;
   recommended: boolean;
+  sn:number
 }

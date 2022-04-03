@@ -19,7 +19,7 @@ import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
-import { PaymentInfoViewModel } from '../../payment-info.viewmodel';
+import { PaymentDetailsViewModel } from '../../payment-details.viewmodel';
 
 @Component({
   selector: 'app-paypal-form',
@@ -41,7 +41,7 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   dataUpdatedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
-    private paymentDetailsVM: PaymentInfoViewModel,
+    private paymentDetailsVM: PaymentDetailsViewModel,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
 
@@ -84,10 +84,9 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
     };
     try {
       await this.paymentDetailsVM.updatePaymentDetails(
-        paymentDetails,
+        { paymentDetails: paymentDetails },
         this.pubId
       );
-      this.paymentDetailsVM.setPaymentDetails(paymentDetails);
       Shield.remove('.paypal-form');
       this.dataUpdatedEvent.emit(true);
     } catch (error) {

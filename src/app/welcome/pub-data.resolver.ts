@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
+import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import {
   Resolve,
   RouterStateSnapshot,
@@ -19,7 +20,9 @@ import { ErrorService } from '../error/error.service';
 @Injectable({
   providedIn: Providers.ANY,
 })
-export class PubDataResolver implements Resolve<IPublisher | null> {
+export class PubDataResolver
+  implements Resolve<QueryDocumentSnapshot<DocumentData> | null>
+{
   constructor(
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
@@ -30,10 +33,10 @@ export class PubDataResolver implements Resolve<IPublisher | null> {
   async resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<IPublisher | null> {
+  ): Promise<QueryDocumentSnapshot<DocumentData> | null> {
     try {
       const pubId = this.userAuth.getPubId()!;
-      const pubData = await this.remoteData.getDocData<IPublisher>(
+      const pubData = await this.remoteData.getQueryDocumentSnapshot(
         Collection.PUBLISHERS,
         [pubId]
       );
