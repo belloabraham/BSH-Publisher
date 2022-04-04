@@ -45,7 +45,7 @@ export class PubDataResolver
       }
       return pubData;
     } catch (error: any) {
-      Logger.error(this, this.resolve.name, error.message);
+      Logger.error('PubDataResolver', this.resolve.name, error.message);
       this.errorService.errorRoute = [Route.WELCOME];
       this.router.navigateByUrl(Route.ERROR);
       return null;

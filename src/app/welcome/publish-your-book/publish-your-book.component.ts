@@ -383,8 +383,7 @@ export class PublishYourBookComponent
     });
   }
 
-  private async  uploadBookData(bookId: string) {
-
+  private async uploadBookData(bookId: string) {
     try {
       const bookInventory = await  this.getBookSerialNo()
       const newBookData = this.getBookData(bookId, bookInventory!.total);

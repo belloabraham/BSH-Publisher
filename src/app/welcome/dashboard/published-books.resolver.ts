@@ -50,7 +50,7 @@ export class PublishedBooksResolver
       }
       return allBooks;
     } catch (error: any) {
-      Logger.error(this,this.resolve.name, error.message);
+      Logger.error("PublishedBooksResolver",this.resolve.name, error.message);
       this.errorService.errorRoute = [Route.WELCOME, Route.DASHBOARD];
       this.router.navigateByUrl(Route.ERROR);
       return null;

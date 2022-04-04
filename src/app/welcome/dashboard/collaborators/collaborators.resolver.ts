@@ -42,7 +42,7 @@ export class CollaboratorsResolver implements Resolve<ICollaborators[] | null> {
       }
       return collaborators;
     } catch (error) {
-      Logger.error(this, this.resolve.name, error)
+      Logger.error("CollaboratorsResolver", this.resolve.name, error)
       this.errorService.errorRoute = [Route.WELCOME, Route.DASHBOARD, Route.COLLABORATORS];
       this.router.navigateByUrl(Route.ERROR);
       return null
