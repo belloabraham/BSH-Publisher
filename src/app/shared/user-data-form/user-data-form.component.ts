@@ -114,6 +114,8 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         lastUpdated: this.lastUpdated,
       };
       try {
+
+        await this.userAuth.updateDisplayName(publisher.firstName)
         await this.pubDataViewModel.updatePublisher({pubData:publisher}, pubId);
 
         Shield.remove('.form');

@@ -1,5 +1,5 @@
 import { Injectable, Optional } from '@angular/core';
-import { Auth, signOut, UserCredential } from '@angular/fire/auth';
+import { Auth, signOut, updateProfile, UserCredential } from '@angular/fire/auth';
 import { GoogleAuthService } from './google-auth.service';
 import { EmailAuthService } from './email-auth.service';
 import { LocaleService } from 'src/helpers/transloco/locale.service';
@@ -16,6 +16,10 @@ export class UserAuthService implements IUserAuth {
     @Optional() private auth: Auth,
     private localeService: LocaleService,
   ) {
+  }
+
+  updateDisplayName(name:string): Promise<void> {
+    return updateProfile(this.auth.currentUser!, { displayName: name });
   }
 
   signInWithEmailLink(

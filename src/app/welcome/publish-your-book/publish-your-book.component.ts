@@ -42,6 +42,8 @@ import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.to
 import { Collection } from 'src/domain/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
 import { Route } from 'src/domain/data/route';
+import { Document } from 'src/domain/data/remote-data-source/document';
+import { IBookInventory } from 'src/domain/models/entities/ibook-inventory';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -339,8 +341,8 @@ export class PublishYourBookComponent
       pathToBookFile,
       bookFileToUpload,
       this.onProgress,
-      _ => {
-        this.uploadBookData(bookId);
+      async _ => {
+       await  this.uploadBookData(bookId);
       },
       this.onBookUploadError
     );
@@ -381,17 +383,20 @@ export class PublishYourBookComponent
     });
   }
 
-  private uploadBookData(bookId: string) {
-    const newBookData = this.getBookData(bookId);
-    this.remoteData
-      .addDocData(Collection.PUBLISHED_BOOKS, [bookId], newBookData)
-      .then(() => {
-        this.uploadProgress = this.uploadProgress! + 10;
+  private async  uploadBookData(bookId: string) {
+
+    try {
+      const bookInventory = await  this.getBookSerialNo()
+      const newBookData = this.getBookData(bookId, bookInventory!.total);
+
+        this.remoteData
+          .addDocData(Collection.PUBLISHED_BOOKS, [bookId], newBookData)
+         this.uploadProgress = this.uploadProgress! + 10;
         Shield.remove('.publish-book-container');
         this.showBookUploadSuccessMsg();
-      })
-      .catch((error) => {
-        Logger.error(this, this.uploadBookData.name, error);
+      
+    } catch (error) {
+      Logger.error(this, this.uploadBookData.name, error);
         Shield.remove('.publish-book-container');
         AlertDialog.error(
           this.bookUploadErrorMsg,
@@ -401,14 +406,19 @@ export class PublishYourBookComponent
             this.uploadBookData(bookId);
           }
         );
-      });
+    }
+
   }
 
   private onProgress(snapshot: UploadTaskSnapshot, progress: number) {
     this.uploadProgress = progress - 10;
   }
 
-  private getBookData(bookId: string) {
+  private  getBookSerialNo() {
+   return  this.remoteData.getDocData<IBookInventory>(Collection.INVENTORY, [Document.BOOKS])
+  }
+
+  private getBookData(bookId: string, bookSerialNo:number) {
     
     let bookData: IPublishedBook = {
       approved: false,
@@ -429,6 +439,7 @@ export class PublishYourBookComponent
       recommended: false,
       price: this.bookPriceFC.value,
       pubId: this.pubId,
+      serialNo:bookSerialNo
     };
 
     return bookData;

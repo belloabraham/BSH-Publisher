@@ -11,4 +11,5 @@ export interface IUserAuth {
     email: string,
     emailLink: string
   ) => Promise<UserCredential>;
+  updateDisplayName: (name: string) => Promise<void>;
 }

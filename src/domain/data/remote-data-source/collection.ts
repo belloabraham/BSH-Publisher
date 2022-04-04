@@ -19,7 +19,7 @@ export class Collection {
   //*publishers/pubId/{pubData}/collaborators/collabID(email)/{collborators info, collabId (email), collabBooksId, pubId}
   static readonly COLLABORATORS = 'collaborators';
 
-  static readonly inventory = 'inventory';
+  static readonly INVENTORY = 'inventory';
 
   
 }

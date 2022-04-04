@@ -5,11 +5,11 @@ import { IDocId } from 'src/domain/models/idoc-id';
 export interface IDatabase {
   getArrayOfDocData: <T>(path: string, pathSegment: string[]) => Promise<T[]>;
 
-  updateDocData:(
+  updateDocData: (
     path: string,
     pathSegment: string[],
     object: any
-  )=> Promise<void>;
+  ) => Promise<void>;
 
   getQueryDocumentSnapshot: (
     path: string,

@@ -1,3 +1,3 @@
 export class Document {
-  static readonly books = 'books';
+  static readonly BOOKS = 'books';
 }
