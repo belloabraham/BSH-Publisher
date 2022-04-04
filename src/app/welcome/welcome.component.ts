@@ -49,7 +49,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.activatedRoute.data
       .pipe(map((data) => data['pubData']))
       .subscribe((pubData: QueryDocumentSnapshot<DocumentData>) => {
-        const pubProfile = pubData.get(Fields.publisherData);
+        const pubProfile = pubData.get(Fields.pubData);
         this.pubDataViewModel.setPublisher(pubProfile);
         const paymentDetails = pubData.get(Fields.paymentDetails);
         if (paymentDetails) {

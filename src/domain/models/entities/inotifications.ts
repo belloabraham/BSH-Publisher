@@ -6,5 +6,7 @@ export interface INotification extends IDocId {
   title: string;
   isRead: boolean;
   sentDateTime: Timestamp;
+  pubEmail: string;
+  pubFirstName: string;
   docId?: string;
 }
