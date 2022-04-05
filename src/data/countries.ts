@@ -1,4 +1,4 @@
-import { ICountry } from "../models/icountry";
+import { ICountry } from "./models/icountry";
 
 export var countries: ICountry[] = [
   {

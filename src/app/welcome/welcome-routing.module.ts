@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Route } from 'src/domain/data/route';
+import { Route } from 'src/data/route';
 import { PublishedBooksResolver } from './dashboard/published-books.resolver';
 import { WelcomeComponent } from './welcome.component';
 

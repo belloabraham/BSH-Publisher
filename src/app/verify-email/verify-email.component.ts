@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Config } from 'src/domain/data/config';
-import { Regex } from 'src/domain/data/regex';
-import { Route } from 'src/domain/data/route';
-import { Settings } from 'src/domain/data/settings';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { Config } from 'src/data/config';
+import { Regex } from 'src/data/regex';
+import { Route } from 'src/data/route';
+import { Settings } from 'src/data/settings';
+import { LocaleService } from 'src/services/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';

@@ -10,9 +10,9 @@ import {
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PaymentType } from 'src/domain/data/payment-type';
-import { Regex } from 'src/domain/data/regex';
-import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
+import { PaymentType } from 'src/data/payment-type';
+import { Regex } from 'src/data/regex';
+import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
 import { CryptoUtil } from 'src/helpers/utils/crypto';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';

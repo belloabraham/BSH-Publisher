@@ -8,9 +8,9 @@ import {
 import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
-import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
-import { Fields } from 'src/domain/data/remote-data-source/fields';
-import { FirestoreService } from 'src/domain/data/remote-data-source/firebase/firestore.service';
+import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
+import { Fields } from 'src/data/remote-data-source/fields';
+import { FirestoreService } from 'src/data/remote-data-source/firebase/firestore.service';
 import { Display } from 'src/helpers/utils/display';
 import { SubSink } from 'subsink';
 import { IncomingRouteService } from '../shared/incoming-route.service';

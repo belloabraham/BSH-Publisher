@@ -2,7 +2,7 @@ import { Injectable, Optional } from '@angular/core';
 import { Auth, signOut, updateProfile, UserCredential } from '@angular/fire/auth';
 import { GoogleAuthService } from './google-auth.service';
 import { EmailAuthService } from './email-auth.service';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { LocaleService } from 'src/services/transloco/locale.service';
 import { StringResKeys } from '../locale/string-res-keys';
 import { ErrorCodes } from './error-codes';
 import { IUserAuth } from '../iuser-auth';

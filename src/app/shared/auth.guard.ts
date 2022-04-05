@@ -2,8 +2,8 @@ import { Injectable, Optional } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
 import { Auth, authState } from '@angular/fire/auth';
-import { Providers } from 'src/domain/data/providers';
-import { Route as Routes } from 'src/domain/data/route';
+import { Providers } from 'src/data/providers';
+import { Route as Routes } from 'src/data/route';
 import { Logger } from 'src/helpers/utils/logger';
 
 @Injectable({

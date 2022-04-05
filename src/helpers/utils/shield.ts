@@ -1,5 +1,5 @@
 import { Block } from "notiflix";
-import { Config } from "src/domain/data/config";
+import { Config } from "src/data/config";
 
 export class Shield {
   private static readonly shield = '.shield';

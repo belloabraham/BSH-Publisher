@@ -11,23 +11,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { Config } from 'src/domain/data/config';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { Config } from 'src/data/config';
+import { LocaleService } from 'src/services/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 import { ImagePickerDialogComponent } from './image-picker-dialog/image-picker-dialog.component';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
-import { Regex } from 'src/domain/data/regex';
+import { Regex } from 'src/data/regex';
 import { ImgCropperEvent } from '@alyle/ui/image-cropper';
-import { FileType } from 'src/domain/data/file-type';
-import { currencies } from 'src/domain/data/currencies';
-import { bookTags } from 'src/domain/data/book-tag';
-import { bookCategories } from 'src/domain/data/book-categories';
+import { FileType } from 'src/data/file-type';
+import { currencies } from 'src/data/currencies';
+import { bookTags } from 'src/data/book-tag';
+import { bookCategories } from 'src/data/book-categories';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
+import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { Shield } from 'src/helpers/utils/shield';
 import { Display } from 'src/helpers/utils/display';
@@ -37,13 +37,13 @@ import { CLOUD_STORAGE_IJTOKEN } from 'src/services/storage/icloud-storage-token
 import { CloudStorageService } from 'src/services/storage/firebase/cloud-storage.service';
 import { ICloudStorage } from 'src/services/storage/icloud-storage';
 import { UploadTaskSnapshot } from '@angular/fire/storage';
-import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
-import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
-import { Collection } from 'src/domain/data/remote-data-source/collection';
+import { IDatabase } from 'src/data/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
+import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
-import { Route } from 'src/domain/data/route';
-import { Document } from 'src/domain/data/remote-data-source/document';
-import { IBookInventory } from 'src/domain/models/entities/ibook-inventory';
+import { Route } from 'src/data/route';
+import { Document } from 'src/data/remote-data-source/document';
+import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -103,7 +103,7 @@ export class PublishYourBookComponent
   isDetailsFormExpanded = true;
 
   private readonly MAX_ALLOWED_COVER_SIZE_IN_BYTES = 70 * 1024; //*70KB
-  private readonly MAX_ALLOWED_BOOK_SIZE_IN_BYTES = 50 * 1024 * 1024; //*50Mb
+  private readonly MAX_ALLOWED_BOOK_SIZE_IN_BYTES = 100 * 1024 * 1024; //*100Mb
 
   inComingRoute: string | undefined;
 
@@ -414,7 +414,7 @@ export class PublishYourBookComponent
   }
 
   private  getBookSerialNo() {
-   return  this.remoteData.getDocData<IBookInventory>(Collection.INVENTORY, [Document.BOOKS])
+   return  this.remoteData.getDocData<IBookInventory>(Collection.INVENTORY, [Document.BOOK])
   }
 
   private getBookData(bookId: string, bookSerialNo:number) {

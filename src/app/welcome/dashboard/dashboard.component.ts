@@ -14,7 +14,7 @@ import {
   Router,
 } from '@angular/router';
 import { filter, map, mapTo, merge, Observable } from 'rxjs';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { LocaleService } from 'src/services/transloco/locale.service';
 import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
@@ -26,18 +26,18 @@ import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 
 import { XPosition, YPosition } from '@alyle/ui';
-import { Settings } from 'src/domain/data/settings';
-import { Route } from 'src/domain/data/route';
-import { Config } from 'src/domain/data/config';
+import { Settings } from 'src/data/settings';
+import { Route } from 'src/data/route';
+import { Config } from 'src/data/config';
 import { AllBooksViewModel } from './my-books/all-books.viewmodel';
-import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
+import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
-import { INotification } from 'src/domain/models/entities/inotifications';
+import { INotification } from 'src/data/models/entities/inotifications';
 import { where } from '@angular/fire/firestore';
 import { Logger } from 'src/helpers/utils/logger';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
-import { Fields } from 'src/domain/data/remote-data-source/fields';
+import { Fields } from 'src/data/remote-data-source/fields';
 
 @Component({
   selector: 'app-dashboard',

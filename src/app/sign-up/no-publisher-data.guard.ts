@@ -1,16 +1,16 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Providers } from 'src/domain/data/providers';
-import { Route as Routes } from 'src/domain/data/route';
-import { IPublisher } from 'src/domain/models/entities/ipublisher';
+import { Providers } from 'src/data/providers';
+import { Route as Routes } from 'src/data/route';
+import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { ErrorService } from '../error/error.service';
-import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
-import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
-import { Collection } from 'src/domain/data/remote-data-source/collection';
+import { IDatabase } from 'src/data/remote-data-source/idatabase';
+import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
+import { Collection } from 'src/data/remote-data-source/collection';
 
 @Injectable({
   providedIn: Providers.ANY,

@@ -16,9 +16,8 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
   updateDoc,
-  where,
 } from '@angular/fire/firestore';
-import { IDocId } from 'src/domain/models/idoc-id';
+import { IDocId } from 'src/data/models/idoc-id';
 import { Logger } from 'src/helpers/utils/logger';
 import { IDatabase } from '../idatabase';
 import { ErrorCodes } from './ErrorCodes';

@@ -7,13 +7,13 @@ import {
   Router,
 } from '@angular/router';
 import { ErrorService } from 'src/app/error/error.service';
-import { IPublishedBook } from 'src/domain/models/entities/ipublished-books';
-import { Providers } from 'src/domain/data/providers';
-import { Collection } from 'src/domain/data/remote-data-source/collection';
-import { DATABASE_IJTOKEN } from 'src/domain/data/remote-data-source/database.token';
-import { Fields } from 'src/domain/data/remote-data-source/fields';
-import { IDatabase } from 'src/domain/data/remote-data-source/idatabase';
-import { Route } from 'src/domain/data/route';
+import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
+import { Providers } from 'src/data/providers';
+import { Collection } from 'src/data/remote-data-source/collection';
+import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
+import { Fields } from 'src/data/remote-data-source/fields';
+import { IDatabase } from 'src/data/remote-data-source/idatabase';
+import { Route } from 'src/data/route';
 import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Providers } from 'src/domain/data/providers';
-import { Route as Routes } from 'src/domain/data/route';
-import { Settings } from 'src/domain/data/settings';
+import { Providers } from 'src/data/providers';
+import { Route as Routes } from 'src/data/route';
+import { Settings } from 'src/data/settings';
 import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';

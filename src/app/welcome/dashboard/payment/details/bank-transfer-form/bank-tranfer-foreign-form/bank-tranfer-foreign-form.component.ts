@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountType } from 'src/domain/data/account-type';
-import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
+import { AccountType } from 'src/data/account-type';
 
 @Component({
   selector: 'app-bank-tranfer-foreign-form',

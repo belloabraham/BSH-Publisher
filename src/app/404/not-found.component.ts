@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Route } from 'src/domain/data/route';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { Route } from 'src/data/route';
+import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 

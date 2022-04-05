@@ -10,10 +10,10 @@ import {
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { countries } from 'src/domain/data/countries';
-import { PaymentType } from 'src/domain/data/payment-type';
-import { IPaymentDetails } from 'src/domain/models/entities/ipayment-details';
-import { ICountry } from 'src/domain/models/icountry';
+import { countries } from 'src/data/countries';
+import { PaymentType } from 'src/data/payment-type';
+import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
+import { ICountry } from 'src/data/models/icountry';
 import { CryptoUtil } from 'src/helpers/utils/crypto';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';

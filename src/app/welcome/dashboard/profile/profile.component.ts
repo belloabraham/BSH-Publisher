@@ -7,10 +7,10 @@ import {
 import { FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
-import { LocaleService } from 'src/helpers/transloco/locale.service';
+import { LocaleService } from 'src/services/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { StringResKeys } from './locale/string-res-keys';
-import { NotificationBuilder } from '../../../../helpers/utils/notification/notification-buider';
+import { NotificationBuilder } from '../../../../helpers/notification/notification-buider';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
@@ -19,11 +19,11 @@ import { ICloudFunctions } from 'src/services/function/icloud-function';
 import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 import { CloudFunctions } from 'src/services/function/cloud-functions';
 import { Router } from '@angular/router';
-import { Route } from 'src/domain/data/route';
+import { Route } from 'src/data/route';
 import { Logger } from 'src/helpers/utils/logger';
 import { CloudFunctionService } from 'src/services/function/firebase/cloud-function.service';
 import { ClipboardService } from 'ngx-clipboard';
-import { Notification } from 'src/helpers/utils/notification/notification';
+import { Notification } from 'src/helpers/notification/notification';
 
 @Component({
   selector: 'app-profile',

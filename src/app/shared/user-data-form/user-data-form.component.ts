@@ -14,10 +14,10 @@ import { Shield } from 'src/helpers/utils/shield';
 import { isValidPhone } from 'src/helpers/utils/validators';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { countries } from 'src/domain/data/countries';
-import { diallingCodes } from 'src/domain/data/dialling-code';
-import { IPublisher } from 'src/domain/models/entities/ipublisher';
-import { ICountry } from 'src/domain/models/icountry';
+import { countries } from 'src/data/countries';
+import { diallingCodes } from 'src/data/dialling-code';
+import { IPublisher } from 'src/data/models/entities/ipublisher';
+import { ICountry } from 'src/data/models/icountry';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
 import { SubSink } from 'subsink';
 
