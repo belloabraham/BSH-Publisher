@@ -14,7 +14,7 @@
 
 
         <div *ngIf="uploadProgress"  class="progress">
-            <div  class="progress-bar" role="progressbar" [lyWidth]="uploadProgress!"  style="padding-bottom: .5rem;" aria-valuenow="25" aria-valuemin="0"
+            <div  class="progress-bar" role="progressbar" [style.width]="uploadProgress+'%'"  [style.width]="uploadProgress!"   style="padding-bottom: .5rem;" aria-valuenow="25" aria-valuemin="0"
                 aria-valuemax="100"> <span > {{uploadProgress}}% </span> </div>
         </div>
         

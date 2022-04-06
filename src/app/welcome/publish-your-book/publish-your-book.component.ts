@@ -109,8 +109,7 @@ export class PublishYourBookComponent
 
   croppedImage?: string;
   bookFileChosenByUser!: File;
-  uploadProgress?:number
-
+  uploadProgress?:number 
   bookUploadErrorMsg = '';
   bookUploadErrorTitle = '';
   tryAgain = '';
@@ -390,7 +389,7 @@ export class PublishYourBookComponent
 
         this.remoteData
           .addDocData(Collection.PUBLISHED_BOOKS, [bookId], newBookData)
-         this.uploadProgress = this.uploadProgress! + 10;
+      this.uploadProgress = this.uploadProgress! + 10;
         Shield.remove('.publish-book-container');
         this.showBookUploadSuccessMsg();
       
