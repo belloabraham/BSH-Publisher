@@ -19,17 +19,10 @@ const routes: Routes = [
           import('./published/published.module').then((m) => m.PublishedModule),
       },
       {
-        path: Route.UNPUBLISHED,
+        path: Route.SALES_RECORD,
         loadChildren: () =>
-          import('./unpublished/unpublished.module').then(
-            (m) => m.UnpublishedModule
-          ),
-      },
-      {
-        path: Route.PENDING_APPROVAL,
-        loadChildren: () =>
-          import('./pending-approval/pending-approval.module').then(
-            (m) => m.PendingApprovalModule
+          import('./sales-record/sales-record.module').then(
+            (m) => m.SalesRecordModule
           ),
       },
     ],

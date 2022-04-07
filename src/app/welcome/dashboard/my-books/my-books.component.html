@@ -1,14 +1,12 @@
 <div *transloco="let t"  class="navigation">
     <ul class="tab">
         <li class="tab-item">
-            <a [routerLink]="'published'" [routerLinkActive]="'active'">{{ t('publ')}}</a>
+            <a [routerLink]="'published'" [routerLinkActive]="'active'">{{ t('my_books')}}</a>
         </li>
         <li class="tab-item">
-            <a [routerLink]="unpublished" [routerLinkActive]="'active'">{{ t('un_publ')}}</a>
+            <a [routerLink]="salesRecord" [routerLinkActive]="'active'">{{ t('sales_record')}}</a>
         </li>
-        <li class="tab-item">
-            <a [routerLink]="pending" [routerLinkActive]="'active'">{{ t('pending_approv')}}</a>
-        </li>
+       
     </ul>
 </div>
 <router-outlet></router-outlet>

@@ -12,8 +12,8 @@ export class Route {
   static readonly PROFILE = 'profile';
 
   static readonly PUBLISHED = 'published';
-  static readonly UNPUBLISHED = 'unpublished';
-  static readonly PENDING_APPROVAL = 'pending-approval';
+
+  static readonly SALES_RECORD = 'sales-record';
 
   static readonly ERROR = 'error';
 

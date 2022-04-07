@@ -9,8 +9,7 @@ import { Route } from 'src/data/route';
 })
 export class MyBooksComponent {
 
-  unpublished = Route.UNPUBLISHED
-  pending = Route.PENDING_APPROVAL
+  salesRecord = Route.SALES_RECORD
 
   constructor() {
   

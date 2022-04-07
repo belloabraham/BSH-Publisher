@@ -365,7 +365,6 @@ export class PublishYourBookComponent
       Route.WELCOME,
       Route.DASHBOARD,
       Route.MY_BOOKS,
-      Route.PENDING_APPROVAL,
     ]);
   }
 
