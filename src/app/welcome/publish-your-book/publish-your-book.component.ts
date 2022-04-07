@@ -347,6 +347,7 @@ export class PublishYourBookComponent
     );
   }
 
+  
   private onBookUploadError(error: any) {
     Logger.error(this, this.onBookUploadError.name, error);
     Shield.remove('.publish-book-container');

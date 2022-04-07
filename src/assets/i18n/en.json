@@ -115,10 +115,21 @@
     "try_again":"Try again",
     "server_error_msg":"Unable to load the requested resource as a result of an internal server error. Wait a few minute and try again.",
 
-    "publ":"Published",
-    "un_publ":"Unpublished",
+    
+    "published":"Published",
+    "unpublished":"Unpublished",
     "pending_approv":"Pending approval",
     "sales_record":"Sales Record",
+
+
+    "name":"Name",
+    "status":"Status",
+    "approved":"Approved",
+    "reviews":"Reviews",
+    "downloads":"Downloads",
+    "rating":"Rating",
+    "last_updated_hed":"Last updated",
+    "published_date":"Published date",
 
 
     "paym_details":"Payment details",
