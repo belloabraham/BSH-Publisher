@@ -120,7 +120,8 @@
     "unpublished":"Unpublished",
     "pending_approv":"Pending approval",
     "sales_record":"Sales Record",
-
+    "unpublish":"Unpublish",
+    "edit":"Edit",
 
     "name":"Name",
     "status":"Status",

@@ -1,3 +1,4 @@
+import { XPosition, YPosition } from '@alyle/ui';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
@@ -15,24 +16,41 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class PublishedComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  books?:IPublishedBook[]
+  books?: IPublishedBook[];
 
-  constructor(private allBookVM: AllBooksViewModel, private localeService:LocaleService) {}
+  bottom = YPosition.below;
+
+  constructor(
+    private allBookVM: AllBooksViewModel,
+    private localeService: LocaleService
+  ) {}
 
   ngOnInit(): void {
-    this.subscriptions.sink = this.allBookVM.getAllBooks$()
+    this.subscriptions.sink = this.allBookVM
+      .getAllBooks$()
       .subscribe((allBooks) => {
-        this.books = allBooks
-    })
+        this.books = allBooks;
+      });
   }
 
-  getDateTime(timeStamp:Timestamp) { 
-    return  DateUtil.getHumanReadbleDateTime(DateUtil.getLocalDateTime(timeStamp))
+
+  edit(bookId:string) {
+    
   }
 
-  getBookStatus(book:IPublishedBook) {
+  unpublish(bookId:string){
+    
+  }
+
+  getDateTime(timeStamp: Timestamp) {
+    return DateUtil.getHumanReadbleDateTime(
+      DateUtil.getLocalDateTime(timeStamp)
+    );
+  }
+
+  getBookStatus(book: IPublishedBook) {
     if (book.approved === false) {
-      return  this.localeService.translate(StringResKeys.pendingApproval)
+      return this.localeService.translate(StringResKeys.pendingApproval);
     } else if (book.published === false) {
       return this.localeService.translate(StringResKeys.unPublished);
     } else {
@@ -43,5 +61,4 @@ export class PublishedComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

@@ -5,17 +5,17 @@ import { PublishedRoutingModule } from './published-routing.module';
 import { PublishedComponent } from './published.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LyButtonModule } from '@alyle/ui/button';
+import { LyTooltipModule } from '@alyle/ui/tooltip';
 
 
 @NgModule({
-  declarations: [
-    PublishedComponent
-  ],
+  declarations: [PublishedComponent],
   imports: [
     CommonModule,
     PublishedRoutingModule,
     TranslocoModule,
-    LyButtonModule
-  ]
+    LyButtonModule,
+    LyTooltipModule,
+  ],
 })
-export class PublishedModule { }
+export class PublishedModule {}
