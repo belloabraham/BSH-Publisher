@@ -206,6 +206,9 @@
     "fit_screen":"Fit to screen",
     "zoom_in":"Zoom in",
     "zoom_out":"Zoom out",
-    "rotate_90":"Rotate 90 deg CW"
+    "rotate_90":"Rotate 90 deg CW",
+
+    "unsurported_device_title":"Unsurported Device - {{value}}",
+    "unsurported_device_msg":"Mobile devices are not supported for this webiste, visit this website on a Laptop, Desktop or a Tablet computer."
     
 }

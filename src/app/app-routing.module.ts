@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: Route.SIGN_UP,
     canLoad: [AuthGuard],
-    canActivate:[NoPublisherDataGuard],
+    canActivate: [NoPublisherDataGuard],
     loadChildren: () =>
       import('./sign-up/sign-up.module').then((m) => m.SignUpModule),
   },
@@ -40,6 +40,13 @@ const routes: Routes = [
     path: Route.ERROR,
     loadChildren: () =>
       import('./error/error.module').then((m) => m.ErrorModule),
+  },
+  {
+    path: Route.UNSURPOTED_DEVICE,
+    loadChildren: () =>
+      import('./unsurported-device/unsurported-device.module').then(
+        (m) => m.UnsurportedDeviceModule
+      ),
   },
   {
     path: '**',

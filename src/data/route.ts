@@ -17,6 +17,8 @@ export class Route {
 
   static readonly ERROR = 'error';
 
+  static readonly UNSURPOTED_DEVICE = 'unsurported-device';
+
   static readonly DETAILS = 'details';
   static readonly EARNINGS = 'earnings';
   static readonly SIGN_UP = 'sign-up';

@@ -42,7 +42,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
-     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
   ) {}
 
   onDataUpdate(isSuccessful: boolean) {
