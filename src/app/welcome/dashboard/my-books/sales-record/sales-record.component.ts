@@ -10,6 +10,7 @@ export class SalesRecordComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log()
   }
 
 }
