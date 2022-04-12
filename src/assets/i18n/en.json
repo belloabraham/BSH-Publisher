@@ -122,6 +122,7 @@
     "sales_record":"Sales Record",
     "unpublish":"Unpublish",
     "edit":"Edit",
+    "search_hint":"Type any word from the record",
 
     "name":"Name",
     "status":"Status",

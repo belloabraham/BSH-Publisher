@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UserConfig } from 'gridjs';
 import { Config } from 'src/data/config';
 import { Display } from 'src/helpers/utils/display';
@@ -7,20 +7,21 @@ import { Display } from 'src/helpers/utils/display';
   selector: 'app-sales-record',
   templateUrl: './sales-record.component.html',
   styleUrls: ['./sales-record.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SalesRecordComponent implements OnInit {
   public gridConfig: UserConfig = {
     language: {
       search: {
-        placeholder: '🔍 Search...',
+        placeholder: 'Type any word from the record',
       },
     },
     columns: ['Name', 'Email', 'Phone Number'],
     pagination: {
-      enabled:true,
+      enabled: true,
       limit: 50,
     },
-    sort:true,
+    sort: true,
     search: true,
     data: [
       ['John', 'john@example.com', '(353) 01 222 3333'],
@@ -31,10 +32,14 @@ export class SalesRecordComponent implements OnInit {
     ],
     className: {
       table: 'table table-striped table-hover table-bordered',
+      th: 'text-dark',
     },
     style: {
       table: {
         'font-size': Display.remToPixel(1.2),
+      },
+      th: {
+        'font-size': Display.remToPixel(1.3),
       },
       td: {
         'font-family': Config.defaultFontFamily,

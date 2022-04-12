@@ -4,6 +4,30 @@
 @forward './scss/utils';
 @forward './scss/components/custom_scroll_bar';
 
+@import './scss/mermaid';
+
+//*Grid Js
+/*@import './scss/mermaid/colors.scss';
+@import './scss/mermaid/button.scss';
+@import './scss/mermaid/shadow.scss';
+@import './scss/mermaid/head.scss';
+@import './scss/mermaid/container.scss';
+@import './scss/mermaid//footer.scss';
+@import './scss/mermaid/input.scss';
+@import './scss/mermaid/pagination.scss';
+@import './scss/mermaid/sort.scss';
+@import './scss/mermaid/table.scss';
+@import './scss/mermaid/tbody.scss';
+@import './scss/mermaid/td.scss';
+@import './scss/mermaid/th.scss';
+@import './scss/mermaid/tr.scss';
+@import './scss/mermaid/thead.scss';
+@import './scss/mermaid/wrapper.scss';
+@import './scss/mermaid/search.scss';
+@import './scss/mermaid/loadingBar.scss';
+@import './scss/mermaid/checkbox.scss';
+@import './scss/mermaid/resizable.scss';*/
+
 
 body{
   transition: .5s;
