@@ -1,5 +1,59 @@
-<div class="sales-record p-2">
-<input type="number" placeholder="YYYY" min="2017" max="2100">
+<div *transloco="let t" class="sales-record ph-2">
+
+    <form [formGroup]="orderedBookQueryForm" (ngSubmit)="getOrderedBooks()" class="d-flex form pb-2">
+
+        <div class="form-group">
+            <label class="form-label label-lg flex-shrink-0"> {{ t('for') }}
+            </label>
+            <select formControlName="yearFC" class="form-select select-lg">
+                <option *ngFor="let year of years" value="{{ year }}">{{ year }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label label-lg flex-shrink-0"> {{ t('from') }}
+            </label>
+            <select formControlName="fromMonthFC" class="form-select select-lg">
+                <option value="1">{{ t('january') }}</option>
+                <option value="2">{{ t('february') }}</option>
+                <option value="3">{{ t('march') }}</option>
+                <option value="4">{{ t('april') }}</option>
+                <option value="5">{{ t('may') }}</option>
+                <option value="6">{{ t('june') }}</option>
+                <option value="7">{{ t('july') }}</option>
+                <option value="8">{{ t('august') }}</option>
+                <option value="9">{{ t('september') }}</option>
+                <option value="10">{{ t('october') }}</option>
+                <option value="11">{{ t('november') }}</option>
+                <option value="12">{{ t('december') }}</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label label-lg flex-shrink-0"> {{ t('to') }}
+            </label>
+            <select formControlName="toMonthFC" class="form-select select-lg">
+                <option value="1">{{ t('january') }}</option>
+                <option value="2">{{ t('february') }}</option>
+                <option value="3">{{ t('march') }}</option>
+                <option value="4">{{ t('april') }}</option>
+                <option value="5">{{ t('may') }}</option>
+                <option value="6">{{ t('june') }}</option>
+                <option value="7">{{ t('july') }}</option>
+                <option value="8">{{ t('august') }}</option>
+                <option value="9">{{ t('september') }}</option>
+                <option value="10">{{ t('october') }}</option>
+                <option value="11">{{ t('november') }}</option>
+                <option value="12">{{ t('december') }}</option>
+            </select>
+        </div>
+
+        <div style="align-self: flex-end; margin-bottom: .5rem;">
+            <button disabled [disabled]="!orderedBookQueryForm.valid"  type="submit" [elevation]="1" ly-button raised bg="primary" >{{ t('get_sales_rec')}}</button>
+        </div>
+        
+    </form>
 
 
     <gridjs-angular [config]="gridConfig"></gridjs-angular>

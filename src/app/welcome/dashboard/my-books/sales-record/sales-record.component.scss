@@ -2,3 +2,10 @@
   min-height: 80vh;
 }
 
+.form{
+  gap: 2rem;
+  align-items: baseline;
+}
+.form-group, button[type="submit"]{
+  width: 15rem;
+}

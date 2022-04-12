@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserConfig } from 'gridjs';
 import { Config } from 'src/data/config';
 import { Display } from 'src/helpers/utils/display';
@@ -10,6 +11,13 @@ import { Display } from 'src/helpers/utils/display';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SalesRecordComponent implements OnInit {
+  years: number[] = this.initializeYears()
+
+  orderedBookQueryForm!: FormGroup;
+  yearFC = new FormControl(undefined, [Validators.required]);
+  fromMonthFC = new FormControl(undefined, [Validators.required]);
+  toMonthFC = new FormControl(undefined, [Validators.required]);
+
   public gridConfig: UserConfig = {
     language: {
       search: {
@@ -47,9 +55,34 @@ export class SalesRecordComponent implements OnInit {
     },
   };
 
-  constructor() {}
+  constructor() {
+    this.initializeYears()
+  }
 
   ngOnInit(): void {
-    console.log();
+    this.orderedBookQueryForm = this.generateOredereBooksQuearyForm()
+  }
+
+
+  private generateOredereBooksQuearyForm() {
+    return new FormGroup({
+      yearFC: this.yearFC,
+      fromMonthFC: this.fromMonthFC,
+      toMonthFC: this.toMonthFC,
+   })
+}
+
+  private initializeYears() {
+    let years:number[]=[]
+    let year = 2022;
+    for (let index = 0; index < 100; index++) {
+      year++
+      years.concat(year);
+    }
+    return years
+  }
+
+  getOrderedBooks(){
+
   }
 }
