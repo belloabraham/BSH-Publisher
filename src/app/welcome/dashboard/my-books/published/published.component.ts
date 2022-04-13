@@ -17,7 +17,7 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
-import { PublishedBookViewModel } from '../published-book.viewmodel';
+import { PublishedBookViewModel } from '../../published-book.viewmodel';
 import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
@@ -29,14 +29,12 @@ import { StringResKeys } from './locale/string-res-keys';
 export class PublishedComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   books?: IPublishedBook[];
-  pubId = this.userAuth.getPubId()!;
 
   bottom = YPosition.below;
 
   constructor(
     private publishedBookVM: PublishedBookViewModel,
     private localeService: LocaleService,
-    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
 
   ngOnInit(): void {
@@ -57,8 +55,7 @@ export class PublishedComponent implements OnInit, OnDestroy {
         Collection.PUBLISHED_BOOKS,
         [bookId],
         Fields.published,
-        false,
-        this.pubId
+        false
       );
       const successMsg = this.localeService.translate(
         StringResKeys.updateSuccessMsg

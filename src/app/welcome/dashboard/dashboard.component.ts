@@ -29,7 +29,7 @@ import { XPosition, YPosition } from '@alyle/ui';
 import { Settings } from 'src/data/settings';
 import { Route } from 'src/data/route';
 import { Config } from 'src/data/config';
-import { PublishedBookViewModel } from './my-books/published-book.viewmodel';
+import { PublishedBookViewModel } from './published-book.viewmodel';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
 import { INotification } from 'src/data/models/entities/inotifications';
@@ -48,7 +48,6 @@ import { Fields } from 'src/data/remote-data-source/fields';
       provide: REMOTE_CONFIG_IJTOKEN,
       useClass: FirebaseRemoteConfigService,
     },
-    PublishedBookViewModel,
     NotificationsViewModel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

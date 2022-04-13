@@ -6,5 +6,7 @@ export class Fields {
   static readonly isRead = 'isRead';
   static readonly pubData = "pubData"
   static readonly paymentDetails = "paymentDetails"
-  static readonly total ="total"
+  static readonly total = "total"
+  static readonly year = "year"
+  static readonly month="month"
 }

@@ -4,15 +4,22 @@ import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/data/max-cached-item';
 import { IOrderedBooks } from 'src/data/models/entities/iordered-books';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
+import { Fields } from 'src/data/remote-data-source/fields';
 import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { Logger } from 'src/helpers/utils/logger';
+import { IUserAuth } from 'src/services/authentication/iuser-auth';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 
 @Injectable()
 export class SalesRecordViewModel {
   private salesRecord$ = new ReplaySubject<any[]>(MaxCachedItem.ONE);
 
-  constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {
-  }
+  private pubId = this.userAuth.getPubId()!
+
+  constructor(
+    @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
+  ) {}
 
   getSalesRecord$() {
     return this.salesRecord$;
@@ -27,8 +34,9 @@ export class SalesRecordViewModel {
   ) {
     try {
       const queryConstraint = [
-        where('year', '==', year),
-        orderBy('month'),
+        where(Fields.year, '==', year),
+        where(Fields.pubId, '==', this.pubId),
+        orderBy(Fields.month),
         startAt(fromMonth),
         endAt(toMonth),
       ];

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -30,7 +31,8 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
 
   gridConfig: UserConfig = this.getOrderedBooksTableConfig();
 
-  constructor(private salesRecordVM: SalesRecordViewModel) {}
+  constructor(private salesRecordVM: SalesRecordViewModel
+) {}
 
   ngOnInit(): void {
     this.orderedBookQueryForm = this.generateOredereBooksQuearyForm();

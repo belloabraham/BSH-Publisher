@@ -7,12 +7,18 @@ import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/data/remote-data-source/fields';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
+import { IUserAuth } from 'src/services/authentication/iuser-auth';
 
 @Injectable()
 export class PublishedBookViewModel {
   private allBooks$ = new ReplaySubject<IPublishedBook[]>(MaxCachedItem.ONE);
+  private pubId = this.userAuth.getPubId()!;
 
-  constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
+  constructor(
+    @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
+  ) {}
 
   getAllBooks$() {
     return this.allBooks$;
@@ -22,23 +28,28 @@ export class PublishedBookViewModel {
     this.allBooks$.next(publishedBooks);
   }
 
-  getAllPublishedBook(pubId:string) {
-    const queryConstraint = where(Fields.pubId, '==', pubId);
-     return  this.remoteData.getArrayOfDocDataWhere<IPublishedBook>(
-       Collection.PUBLISHED_BOOKS,
-       [],
-       [queryConstraint]
-     );
+  getAllPublishedBook() {
+    const queryConstraint = where(Fields.pubId, '==', this.pubId);
+    return this.remoteData.getArrayOfDocDataWhere<IPublishedBook>(
+      Collection.PUBLISHED_BOOKS,
+      [],
+      [queryConstraint]
+    );
   }
 
-  async unPublishBook(path: string, pathSegment: string[], field: string, value:any, pubId:string) {
-    return await this.remoteData.updateDocField(path, pathSegment, field, value)
+  async unPublishBook(
+    path: string,
+    pathSegment: string[],
+    field: string,
+    value: any
+  ) {
+    return await this.remoteData
+      .updateDocField(path, pathSegment, field, value)
       .then(() => {
-        return this.getAllPublishedBook(pubId).then(books => {
-           this.setAllBooks(books)
-        })
-       
-      })
+        return this.getAllPublishedBook().then((books) => {
+          this.setAllBooks(books);
+        });
+      });
   }
 
   publishMyBook(publishedBooks: IPublishedBook, pubId: string) {}
