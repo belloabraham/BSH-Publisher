@@ -2,7 +2,6 @@ import { YPosition } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -13,8 +12,6 @@ import { Fields } from 'src/data/remote-data-source/fields';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
 import { Logger } from 'src/helpers/utils/logger';
-import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { PublishedBookViewModel } from '../../published-book.viewmodel';
