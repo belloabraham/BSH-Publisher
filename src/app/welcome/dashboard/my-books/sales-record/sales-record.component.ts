@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Grid, UserConfig } from 'gridjs';
+import { UserConfig } from 'gridjs';
 import { Config } from 'src/data/config';
 import { years } from 'src/data/oredered-record-yeas';
 import { Display } from 'src/helpers/utils/display';
+import { SubSink } from 'subsink';
+import { SalesRecordViewModel } from '../sales-record.viewmodel';
 
 @Component({
   selector: 'app-sales-record',
@@ -11,7 +13,8 @@ import { Display } from 'src/helpers/utils/display';
   styleUrls: ['./sales-record.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SalesRecordComponent implements OnInit {
+export class SalesRecordComponent implements OnInit, OnDestroy {
+  private subscriptions = new SubSink();
   years: number[] = years;
 
   orderedBookQueryForm!: FormGroup;
@@ -21,10 +24,15 @@ export class SalesRecordComponent implements OnInit {
 
   gridConfig: UserConfig = this.getOrderedBooksTableConfig();
 
-  constructor() {}
+  constructor(private salesRecordVM: SalesRecordViewModel) {}
 
   ngOnInit(): void {
     this.orderedBookQueryForm = this.generateOredereBooksQuearyForm();
+    this.salesRecordVM.getSalesRecord$().subscribe(
+      (orderedBooks) => {
+        this.gridConfig.data = [...orderedBooks]
+      }
+    );
   }
 
   private generateOredereBooksQuearyForm() {
@@ -67,5 +75,9 @@ export class SalesRecordComponent implements OnInit {
         },
       },
     };
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

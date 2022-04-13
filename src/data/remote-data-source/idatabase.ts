@@ -1,5 +1,5 @@
 
-import { DocumentData, FieldPath, QueryConstraint, QueryDocumentSnapshot } from '@angular/fire/firestore';
+import { DocumentData, FieldPath, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
 import { IDocId } from 'src/data/models/idoc-id';
 
 export interface IDatabase {
@@ -15,6 +15,12 @@ export interface IDatabase {
     path: string,
     pathSegment: string[]
   ) => Promise<QueryDocumentSnapshot<DocumentData> | null>;
+
+  getQuerySnapshotWhere:(
+    path: string,
+    pathSegment: string[],
+    queryConstraint: QueryConstraint[]
+  ) => Promise<QuerySnapshot<DocumentData>>;
 
   getArrayOfDocDataWhere: <T>(
     path: string,

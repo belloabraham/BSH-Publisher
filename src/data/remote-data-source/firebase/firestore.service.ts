@@ -16,6 +16,7 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
   updateDoc,
+  QuerySnapshot,
 } from '@angular/fire/firestore';
 import { IDocId } from 'src/data/models/idoc-id';
 import { Logger } from 'src/helpers/utils/logger';
@@ -50,7 +51,7 @@ export class FirestoreService implements IDatabase {
     path: string,
     pathSegment: string[],
     object: any
-  ):Promise<void> {
+  ): Promise<void> {
     const docRef = doc(this.firestore, path, ...pathSegment);
     return updateDoc(docRef, object);
   }
@@ -98,12 +99,24 @@ export class FirestoreService implements IDatabase {
     return dataArray;
   }
 
+  async getQuerySnapshotWhere(
+    path: string,
+    pathSegment: string[],
+    queryConstraint: QueryConstraint[]
+  ): Promise<QuerySnapshot<DocumentData>> {
+    const q = query(
+      collection(this.firestore, path, ...pathSegment),
+      ...queryConstraint
+    );
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  }
+
   async getArrayOfDocData<T>(
     path: string,
     pathSegment: string[]
   ): Promise<T[]> {
-    const q = query(collection(this.firestore, path, ...pathSegment),
-    );
+    const q = query(collection(this.firestore, path, ...pathSegment));
     const querySnapshot = await getDocs(q);
     const dataArray: T[] = [];
     querySnapshot.forEach((queryDoc) => {
