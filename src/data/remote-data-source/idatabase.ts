@@ -11,12 +11,19 @@ export interface IDatabase {
     object: any
   ) => Promise<void>;
 
+  updateDocField: (
+    path: string,
+    pathSegment: string[],
+    field: string | FieldPath,
+    fieldValue: unknown
+  ) => Promise<void>;
+
   getQueryDocumentSnapshot: (
     path: string,
     pathSegment: string[]
   ) => Promise<QueryDocumentSnapshot<DocumentData> | null>;
 
-  getQuerySnapshotWhere:(
+  getQuerySnapshotWhere: (
     path: string,
     pathSegment: string[],
     queryConstraint: QueryConstraint[]

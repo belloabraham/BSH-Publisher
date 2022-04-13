@@ -29,7 +29,7 @@ import { XPosition, YPosition } from '@alyle/ui';
 import { Settings } from 'src/data/settings';
 import { Route } from 'src/data/route';
 import { Config } from 'src/data/config';
-import { AllBooksViewModel } from './my-books/all-books.viewmodel';
+import { PublishedBookViewModel } from './my-books/published-book.viewmodel';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
 import { INotification } from 'src/data/models/entities/inotifications';
@@ -48,7 +48,7 @@ import { Fields } from 'src/data/remote-data-source/fields';
       provide: REMOTE_CONFIG_IJTOKEN,
       useClass: FirebaseRemoteConfigService,
     },
-    AllBooksViewModel,
+    PublishedBookViewModel,
     NotificationsViewModel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private allBooksVM: AllBooksViewModel,
+    private allBooksVM: PublishedBookViewModel,
     private notificationVM: NotificationsViewModel,
     private cdRef: ChangeDetectorRef,
     private pubDataVM: PubDataViewModel,

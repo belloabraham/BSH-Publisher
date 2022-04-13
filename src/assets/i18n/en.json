@@ -150,6 +150,8 @@
     "rating":"Rating",
     "last_updated_hed":"Last updated",
     "published_date":"Published date",
+    "unpublished_success_msg":"Book removed from book store successfully",
+    "unpublished_failed_msg":"Network Error: Unable to unpublish book",
 
 
     "paym_details":"Payment details",

@@ -34,20 +34,20 @@ export class PubDataResolver
     state: RouterStateSnapshot
   ): Promise<QueryDocumentSnapshot<DocumentData> | null> {
     try {
-      const pubId = this.userAuth.getPubId()!;
-      const pubData = await this.remoteData.getQueryDocumentSnapshot(
-        Collection.PUBLISHERS,
-        [pubId]
-      );
-      if (pubData === null) {
-        this.router.navigateByUrl(Route.SIGN_UP);
+        const pubId = this.userAuth.getPubId()!;
+        const pubData = await this.remoteData.getQueryDocumentSnapshot(
+          Collection.PUBLISHERS,
+          [pubId]
+        );
+        if (pubData === null) {
+          this.router.navigateByUrl(Route.SIGN_UP);
+        }
+        return pubData;
+      } catch (error: any) {
+        Logger.error('PubDataResolver', this.resolve.name, error.message);
+        this.errorService.errorRoute = [Route.WELCOME];
+        this.router.navigateByUrl(Route.ERROR);
+        return null;
       }
-      return pubData;
-    } catch (error: any) {
-      Logger.error('PubDataResolver', this.resolve.name, error.message);
-      this.errorService.errorRoute = [Route.WELCOME];
-      this.router.navigateByUrl(Route.ERROR);
-      return null;
-    }
   }
 }

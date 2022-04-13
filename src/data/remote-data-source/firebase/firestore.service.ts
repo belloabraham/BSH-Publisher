@@ -56,6 +56,16 @@ export class FirestoreService implements IDatabase {
     return updateDoc(docRef, object);
   }
 
+  updateDocField(
+    path: string,
+    pathSegment: string[],
+    field: string | FieldPath,
+    fieldValue: unknown
+  ) {
+       const docRef = doc(this.firestore, path, ...pathSegment);
+       return updateDoc(docRef, field, fieldValue);
+  }
+
   updateAllDocData<T>(
     path: string,
     pathSegment: string[],
