@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserConfig } from 'gridjs';
 import { Config } from 'src/data/config';
 import { years } from 'src/data/oredered-record-yeas';
+import { Collection } from 'src/data/remote-data-source/collection';
 import { Display } from 'src/helpers/utils/display';
 import { SubSink } from 'subsink';
-import { SalesRecordViewModel } from '../sales-record.viewmodel';
+import { SalesRecordViewModel } from './sales-record.viewmodel';
 
 @Component({
   selector: 'app-sales-record',
@@ -28,11 +34,11 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.orderedBookQueryForm = this.generateOredereBooksQuearyForm();
-    this.salesRecordVM.getSalesRecord$().subscribe(
-      (orderedBooks) => {
-        this.gridConfig.data = [...orderedBooks]
-      }
-    );
+    this.subscriptions.sink = this.salesRecordVM
+      .getSalesRecord$()
+      .subscribe((orderedBooks) => {
+        this.gridConfig.data = [...orderedBooks];
+      });
   }
 
   private generateOredereBooksQuearyForm() {
@@ -43,7 +49,18 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
     });
   }
 
-  getOrderedBooks() {}
+  async getOrderedBooks() {
+    const fromMonth = this.fromMonthFC.value;
+    const toMonth = this.toMonthFC.value;
+    const year = this.yearFC.value;
+    await this.salesRecordVM.getSalesRecord(
+      Collection.ORDERED_BOOKS,
+      [],
+      year,
+      fromMonth,
+      toMonth
+    );
+  }
 
   private getOrderedBooksTableConfig() {
     return {

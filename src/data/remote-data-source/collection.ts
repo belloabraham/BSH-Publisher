@@ -21,5 +21,5 @@ export class Collection {
 
   static readonly INVENTORY = 'inventory';
 
-  
+  static readonly ORDERED_BOOKS = 'ordered_books';
 }

@@ -11,12 +11,12 @@ import { Logger } from 'src/helpers/utils/logger';
 export class SalesRecordViewModel {
   private salesRecord$ = new ReplaySubject<any[]>(MaxCachedItem.ONE);
 
-    constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) { }
-    
-   
-    getSalesRecord$() {
-        return this.salesRecord$
-    }
+  constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {
+  }
+
+  getSalesRecord$() {
+    return this.salesRecord$;
+  }
 
   async getSalesRecord(
     path: string,
@@ -50,12 +50,12 @@ export class SalesRecordViewModel {
             bookId: type.bookId,
             additionalInfo: type.additionInfo,
           });
-          }
+        }
       });
-        
-    this.salesRecord$.next(dataArray)
+
+      this.salesRecord$.next(dataArray);
     } catch (error) {
-        Logger.error(this, this.getSalesRecord.name, error)
+      Logger.error(this, this.getSalesRecord.name, error);
     }
   }
 }

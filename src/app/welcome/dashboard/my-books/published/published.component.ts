@@ -1,4 +1,4 @@
-import { XPosition, YPosition } from '@alyle/ui';
+import { YPosition } from '@alyle/ui';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
