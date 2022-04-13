@@ -1,6 +1,6 @@
 import { ICountry } from "./models/icountry";
 
-export var countries: ICountry[] = [
+export const countries: ICountry[] = [
   {
     name: 'Nigeria',
     code: 'NG',
