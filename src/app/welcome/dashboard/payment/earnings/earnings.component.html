@@ -1,1 +1,32 @@
-<p>earnings works!</p>
+<div *transloco="let t" class="my-books p-2">
+
+
+    <div class="table-responsive-lg">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">{{ t('book_name')}}</th>
+                    <th scope="col">{{ t('book_id')}}</th>
+                    <th scope="col">{{ t('earnings_so_far')}}</th>
+                    <th scope="col">{{ t('total_earnings')}}</th>
+                    <th scope="col">{{ t('total_paid')}}</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let earning of earnings">
+                    <th scope="row">{{earnings!.indexOf(earning)+1}}</th>
+                    <td></td>
+                    <td>{{earning.bookId}}</td>
+                    <td>{{earning.totalEarnings - earning.totalPaid}}</td>
+                    <td>{{earning.totalEarnings}}</td>
+                    <td>{{earning.totalPaid}}</td>
+                    <td> <button  ly-button > {{ t('request_payment') }}</button> </td>
+                </tr>>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>

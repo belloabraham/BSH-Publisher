@@ -96,12 +96,7 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
         th: 'text-dark',
       },
       style: {
-        table: {
-          'font-size': Display.remToPixel(1.2),
-        },
-        th: {
-          'font-size': Display.remToPixel(1.3),
-        },
+       
         td: {
           'font-family': Config.defaultFontFamily,
         },

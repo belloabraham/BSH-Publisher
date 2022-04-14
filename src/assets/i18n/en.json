@@ -140,6 +140,11 @@
     "record_for":"Record for",
     "get_sales_rec":"Get sales record",
 
+    "book_id":"Book Id",
+    "earnings_so_far":"Earnings so far",
+    "total_earnings":"Total earnings",
+    "total_paid":"Total paid",
+    "request_payment":"Request Payment",
 
 
     "name":"Name",

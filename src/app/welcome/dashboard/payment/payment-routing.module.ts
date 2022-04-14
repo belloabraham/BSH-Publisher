@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
+import { EarningsResolver } from './earnings/earnings.resolver';
 import { PaymentComponent } from './payment.component';
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
       },
       {
         path: Route.EARNINGS,
+        resolve: {earnings: EarningsResolver},
         loadChildren: () =>
           import('./earnings/earnings.module').then((m) => m.EarningsModule),
       },

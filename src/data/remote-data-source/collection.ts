@@ -21,6 +21,9 @@ export class Collection {
 
   static readonly INVENTORY = 'inventory';
 
+  //*earnings/bookId/{pubId, bookId, totalEarnings, totalPaid}
+  static readonly EARNINGS = 'earnings';
+
   //*ordered_books/docId/{orderedBooksData}
   static readonly ORDERED_BOOKS = 'ordered_books';
 }
