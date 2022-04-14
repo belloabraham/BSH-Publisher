@@ -11,19 +11,19 @@
                     <th scope="col">{{ t('earnings_so_far')}}</th>
                     <th scope="col">{{ t('total_earnings')}}</th>
                     <th scope="col">{{ t('total_paid')}}</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-
                 <tr *ngFor="let earning of earnings">
                     <th scope="row">{{earnings!.indexOf(earning)+1}}</th>
-                    <td></td>
+                    <td>{{getBookName(earning.bookId)}}</td>
                     <td>{{earning.bookId}}</td>
                     <td>{{earning.totalEarnings - earning.totalPaid}}</td>
                     <td>{{earning.totalEarnings}}</td>
                     <td>{{earning.totalPaid}}</td>
                     <td> <button  ly-button > {{ t('request_payment') }}</button> </td>
-                </tr>>
+                </tr>
 
             </tbody>
         </table>

@@ -1,8 +1,11 @@
+import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { IEarnings } from 'src/data/models/entities/iearnings';
+import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { SubSink } from 'subsink';
+import { PublishedBookViewModel } from '../../published-book.viewmodel';
 import { EarningsViewModel } from './earning.viewmodel';
 
 @Component({
@@ -13,11 +16,19 @@ import { EarningsViewModel } from './earning.viewmodel';
 })
 export class EarningsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  earnings?:IEarnings[]
+  earnings?: IEarnings[]
+  allPublisedBooks:IPublishedBook[]=[]
   
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute, private publishedBooksVM: PublishedBookViewModel) {}
 
   ngOnInit(): void {
+
+    this.subscriptions.sink = this.publishedBooksVM.getAllBooks$()
+      .subscribe(allBooks => {
+      this.allPublisedBooks.concat(allBooks)
+    })
+
+
     this.subscriptions.sink = this.activatedRoute.data
       .pipe(map((data) => data['earnings']))
       .subscribe((earnings) => {
@@ -31,7 +42,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  getBookName() {
-    
+  getBookName(bookId:string) {
+   return  this.allPublisedBooks.find(book => book.bookId === bookId)?.name
   }
 }
