@@ -40,7 +40,7 @@ export class FirestoreService implements IDatabase {
   deleteAllDocs(path: string, pathSegment: string[], docIds: IDocId[]) {
     const batch = writeBatch(this.firestore);
     for (let index = 0; index < docIds.length; index++) {
-      const pathSegmentWithId = pathSegment.concat(docIds[index].docId!);
+      const pathSegmentWithId = pathSegment.concat([docIds[index].docId!]);
       const docRef = doc(this.firestore, path, ...pathSegmentWithId);
       batch.delete(docRef);
     }
@@ -75,7 +75,7 @@ export class FirestoreService implements IDatabase {
   ) {
     const batch = writeBatch(this.firestore);
     for (let index = 0; index < docIds.length; index++) {
-      const pathSegmentWithId = pathSegment.concat(docIds[index].docId!);
+      const pathSegmentWithId = pathSegment.concat([docIds[index].docId!]);
       const docRef = doc(this.firestore, path, ...pathSegmentWithId);
       batch.update(docRef, field, fieldValue);
     }
@@ -103,7 +103,7 @@ export class FirestoreService implements IDatabase {
         const data = queryDoc.data();
         const json = JSON.stringify(data);
         const type: T = JSON.parse(json);
-        dataArray.concat(type);
+        dataArray.push(type);
       }
     });
     return dataArray;
@@ -134,7 +134,7 @@ export class FirestoreService implements IDatabase {
         const data = queryDoc.data();
         const json = JSON.stringify(data);
         const type: T = JSON.parse(json);
-        dataArray.concat(type);
+        dataArray.push(type);
       }
     });
     return dataArray;

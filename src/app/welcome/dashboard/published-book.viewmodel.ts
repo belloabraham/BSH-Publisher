@@ -9,8 +9,11 @@ import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
+import { Providers } from 'src/data/providers';
 
-@Injectable()
+@Injectable({
+  providedIn:Providers.ROOT
+})
 export class PublishedBookViewModel {
   private allBooks$ = new ReplaySubject<IPublishedBook[]>(MaxCachedItem.ONE);
   private pubId = this.userAuth.getPubId()!;

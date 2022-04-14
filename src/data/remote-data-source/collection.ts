@@ -16,10 +16,11 @@ export class Collection {
   //*Delete books from pending approval if added to published
   static readonly PUBLISHED_BOOKS = 'published_books';
 
-  //*publishers/pubId/{pubData}/collaborators/collabID(email)/{collborators info, collabId (email), collabBooksId, pubId}
+  //*collaborators/colabId/{CollabData}/books/bookId/{bookData}
   static readonly COLLABORATORS = 'collaborators';
 
   static readonly INVENTORY = 'inventory';
 
+  //*ordered_books/docId/{orderedBooksData}
   static readonly ORDERED_BOOKS = 'ordered_books';
 }

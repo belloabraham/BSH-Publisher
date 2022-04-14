@@ -1,9 +1,9 @@
 <div *transloco="let t" class="sales-record ph-2">
 
-    <form [formGroup]="orderedBookQueryForm" (ngSubmit)="getOrderedBooks()" class="d-flex form pb-2">
+    <form [formGroup]="orderedBookQueryForm" (ngSubmit)="getOrderedBooks()" class="d-flex form pb-2 mb-2">
 
         <div class="form-group">
-            <label class="form-label label-lg flex-shrink-0"> {{ t('for') }}
+            <label class="form-label label-lg flex-shrink-0"> {{ t('record_for') }}
             </label>
             <select formControlName="yearFC" class="form-select select-lg">
                 <option *ngFor="let year of years" value="{{ year }}">{{ year }}</option>
@@ -56,6 +56,6 @@
     </form>
 
 
-    <gridjs-angular [config]="gridConfig" ></gridjs-angular>
+    <gridjs-angular [data]="data"  [config]="gridConfig" ></gridjs-angular>
 
 </div>

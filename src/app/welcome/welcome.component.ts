@@ -15,7 +15,6 @@ import { Display } from 'src/helpers/utils/display';
 import { SubSink } from 'subsink';
 import { IncomingRouteService } from '../shared/incoming-route.service';
 import { PaymentDetailsViewModel } from './dashboard/payment/payment-details.viewmodel';
-import { PublishedBookViewModel } from './dashboard/published-book.viewmodel';
 import { PubDataViewModel } from './pub-data.viewmodels';
 
 @Component({
@@ -29,7 +28,6 @@ import { PubDataViewModel } from './pub-data.viewmodels';
     },
     IncomingRouteService,
     PaymentDetailsViewModel,
-    PublishedBookViewModel
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { endAt, orderBy, startAt, where } from '@angular/fire/firestore';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/data/max-cached-item';
-import { IOrderedBooks } from 'src/data/models/entities/iordered-books';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { IDatabase } from 'src/data/remote-data-source/idatabase';
@@ -12,7 +11,7 @@ import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 
 @Injectable()
 export class SalesRecordViewModel {
-  private salesRecord$ = new ReplaySubject<any[]>(MaxCachedItem.ONE);
+  private salesRecord$ = new ReplaySubject<string[][]>(MaxCachedItem.ONE);
 
   private pubId = this.userAuth.getPubId()!
 
@@ -47,17 +46,17 @@ export class SalesRecordViewModel {
         queryConstraint
       );
 
-      const dataArray: IOrderedBooks[] = [];
+      const dataArray: string[][] = [];
       arrayOfDocData.forEach((queryDoc) => {
         if (queryDoc.exists()) {
           const data = queryDoc.data();
           const json = JSON.stringify(data);
           const type = JSON.parse(json);
-          dataArray.concat({
-            name: type.name,
-            bookId: type.bookId,
-            additionalInfo: type.additionInfo,
-          });
+          dataArray.push([
+             type.name,
+             type.bookId,
+            type.additionInfo,
+          ]);
         }
       });
 
