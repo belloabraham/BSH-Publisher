@@ -37,6 +37,6 @@ export class PaymentDetailsViewModel {
 
   setPaymentDetails(paymentDetails: IPaymentDetails) {
      this.paymentDetails = paymentDetails
-    this.paymentDetails$.next(paymentDetails);
+    this.paymentDetails$.next(this.paymentDetails);
   }
 }

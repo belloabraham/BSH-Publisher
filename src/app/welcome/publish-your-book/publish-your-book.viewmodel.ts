@@ -1,7 +1,8 @@
 import { Inject, Injectable } from "@angular/core";
+import { DocumentData, DocumentReference } from "@angular/fire/firestore";
 import { UploadMetadata, UploadTaskSnapshot } from "@angular/fire/storage";
 import { IBookInventory } from "src/data/models/entities/ibook-inventory";
-import { Collection } from "src/data/remote-data-source/collection";
+import { IPublishedBook } from "src/data/models/entities/ipublished-books";
 import { DATABASE_IJTOKEN } from "src/data/remote-data-source/database.token";
 import { IDatabase } from "src/data/remote-data-source/idatabase";
 import { ICloudStorage } from "src/services/storage/icloud-storage";
@@ -12,23 +13,27 @@ export class PublishYourBookViewModel {
   constructor(
     @Inject(CLOUD_STORAGE_IJTOKEN) private cloudStorage: ICloudStorage,
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase
-    ) { }
-    
+  ) {}
 
-    getAvailableBookSerialNo(collection:string, pathSegment:string[]) {
-         return this.remoteData.getDocData<IBookInventory>(
-           collection,
-           pathSegment
-         );
-    }
+  private getAvailableBookSerialNos(collection: string, pathSegment: string[]) {
+    return this.remoteData.getDocData<IBookInventory>(collection, pathSegment);
+  }
 
-    uploadBookData(collection:string, pathSegment:string[], type:any) {
-       return  this.remoteData.addDocData(
-           collection,
-           pathSegment,
-           type
-         );
-    }
+   getDocRef(collection: string, pathSegment: string[]) {
+    return this.remoteData.getDocRef(collection, pathSegment);
+  }
+
+  uploadBookData(
+    sNDocRef: DocumentReference<DocumentData>,
+    bookUploadDocRef: DocumentReference<DocumentData>,
+    book: IPublishedBook
+  ) {
+    return this.remoteData.uploadBookData(sNDocRef, bookUploadDocRef, book);
+  }
+
+  uploadBookDatas(collection: string, pathSegment: string[], type: any) {
+    return this.remoteData.addDocData(collection, pathSegment, type);
+  }
 
   uploadBookFile(
     pathToFile: string,

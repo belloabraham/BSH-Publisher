@@ -13,11 +13,12 @@
         </div>
 
 
-        <div *ngIf="uploadProgress"  class="progress">
-            <div  class="progress-bar" role="progressbar" [style.width]="uploadProgress+'%'"  [style.width]="uploadProgress!"   style="padding-bottom: .5rem;" aria-valuenow="25" aria-valuemin="0"
-                aria-valuemax="100"> <span > {{uploadProgress}}% </span> </div>
+        <div *ngIf="uploadProgress" class="progress">
+            <div class="progress-bar" role="progressbar" [style.width]="uploadProgress+'%'"
+                [style.width]="uploadProgress!" style="padding-bottom: .5rem;" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100"> <span> {{uploadProgress}}% </span> </div>
         </div>
-        
+
         <form [formGroup]="bookPublishForm" (ngSubmit)="submitFormData()" class="form  publish-book-container">
 
             <ly-accordion>
@@ -125,10 +126,19 @@
                                 [ngClass]="{'has-error':(bookPriceFC.hasError('required') || bookSaleCurrencyFC.hasError('required')) && (bookSaleCurrencyFC.touched || bookPriceFC.touched)}">
                                 <div class="input-group price">
                                     <input class="form-input input-lg" type="number" formControlName="bookPriceFC">
-                                    <select class="form-select select-lg w-100" formControlName="bookSaleCurrencyFC">
-                                        <option *ngFor="let bookSalesCurrency of bookSalesCurrencies"
-                                            value="{{bookSalesCurrency.abbrev}}">{{bookSalesCurrency.name}}
-                                            ({{bookSalesCurrency.abbrev}})</option>
+                                    <select [disabled]="sellerCurrency !== undefined" class="form-select select-lg w-100" formControlName="bookSaleCurrencyFC">
+
+                                        <option selected *ngIf="sellerCurrency else firstBookPublish" value="{{sellerCurrency}}">
+                                            {{sellerCurrency}}
+                                            ({{sellerCurrency}})
+                                        </option>
+
+                                        <ng-template #firstBookPublish>
+                                            <option *ngFor="let bookSalesCurrency of bookSalesCurrencies"
+                                                value="{{bookSalesCurrency.abbrev}}">{{bookSalesCurrency.name}}
+                                                ({{bookSalesCurrency.abbrev}})</option>
+                                        </ng-template>
+
                                     </select>
                                 </div>
 
@@ -147,8 +157,7 @@
 
                             <div class="form-group"
                                 [ngClass]="{'has-error':bookDescFC.hasError('required') && bookDescFC.touched}">
-                                <textarea class="form-input" formControlName="bookDescFC"
-                                    id="bookDescFC"></textarea>
+                                <textarea class="form-input" formControlName="bookDescFC" id="bookDescFC"></textarea>
 
                                 <p *ngIf="bookDescFC.hasError('required') && bookDescFC.touched"
                                     class="form-input-hint">

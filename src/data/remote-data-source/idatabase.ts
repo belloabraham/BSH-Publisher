@@ -1,9 +1,21 @@
 
-import { DocumentData, FieldPath, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
+import { DocumentData, DocumentReference, FieldPath, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
 import { IDocId } from 'src/data/models/idoc-id';
+import { IPublishedBook } from '../models/entities/ipublished-books';
 
 export interface IDatabase {
   getArrayOfDocData: <T>(path: string, pathSegment: string[]) => Promise<T[]>;
+
+  uploadBookData: (
+    sNDocRef: DocumentReference<DocumentData>,
+    bookUploadDocRef: DocumentReference<DocumentData>,
+    book: IPublishedBook
+  ) => Promise<void>;
+
+  getDocRef: (
+    path: string,
+    pathSegment: string[]
+  ) => DocumentReference<DocumentData>;
 
   updateDocData: (
     path: string,

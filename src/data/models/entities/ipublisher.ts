@@ -5,6 +5,7 @@ export interface IPublisher {
   nationality: string;
   phoneNumber: string;
   email: string;
+  sellerCurrency?: string;
   registeredDate?: any;
   lastUpdated?: any;
 }

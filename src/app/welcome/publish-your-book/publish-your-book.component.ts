@@ -35,16 +35,13 @@ import { CloudStoragePath } from 'src/services/storage/storage-path';
 import { FileUtil } from 'src/helpers/utils/file-util';
 import { CLOUD_STORAGE_IJTOKEN } from 'src/services/storage/icloud-storage-token';
 import { CloudStorageService } from 'src/services/storage/firebase/cloud-storage.service';
-import { ICloudStorage } from 'src/services/storage/icloud-storage';
 import { UploadTaskSnapshot } from '@angular/fire/storage';
-import { IDatabase } from 'src/data/remote-data-source/idatabase';
-import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
 import { Route } from 'src/data/route';
 import { Document } from 'src/data/remote-data-source/document';
-import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
 import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
+import { PubDataViewModel } from '../pub-data.viewmodels';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -56,7 +53,7 @@ import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
       provide: CLOUD_STORAGE_IJTOKEN,
       useClass: CloudStorageService,
     },
-    PublishYourBookViewModel
+    PublishYourBookViewModel,
   ],
 })
 export class PublishYourBookComponent
@@ -111,10 +108,13 @@ export class PublishYourBookComponent
 
   croppedImage?: string;
   bookFileChosenByUser!: File;
-  uploadProgress?:number 
+  uploadProgress?: number;
   bookUploadErrorMsg = '';
   bookUploadErrorTitle = '';
   tryAgain = '';
+
+  publisher = this.pubDataVM.getPublisher();
+  sellerCurrency = this.publisher?.sellerCurrency;
 
   constructor(
     private _dialog: LyDialog,
@@ -124,7 +124,8 @@ export class PublishYourBookComponent
     private router: Router,
     private incominRouteS: IncomingRouteService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    private publishYouBookVM:PublishYourBookViewModel
+    private publishYouBookVM: PublishYourBookViewModel,
+    private pubDataVM: PubDataViewModel
   ) {}
 
   private getBookDetailsForm() {
@@ -341,15 +342,13 @@ export class PublishYourBookComponent
       pathToBookFile,
       bookFileToUpload,
       this.onProgress,
-      async _ => {
-       await  this.uploadBookData(bookId);
+      async (_) => {
+        await this.uploadBookData(bookId);
       },
       this.onBookUploadError
     );
-
   }
 
-  
   private onBookUploadError(error: any) {
     Logger.error(this, this.onBookUploadError.name, error);
     Shield.remove('.publish-book-container');
@@ -364,11 +363,7 @@ export class PublishYourBookComponent
   }
 
   private navigateToMyBooks() {
-    this.router.navigate([
-      Route.WELCOME,
-      Route.DASHBOARD,
-      Route.MY_BOOKS,
-    ]);
+    this.router.navigate([Route.WELCOME, Route.DASHBOARD, Route.MY_BOOKS]);
   }
 
   private showBookUploadSuccessMsg() {
@@ -386,39 +381,43 @@ export class PublishYourBookComponent
 
   private async uploadBookData(bookId: string) {
     try {
-      const bookInventory = await  this.publishYouBookVM.getAvailableBookSerialNo(Collection.INVENTORY, [Document.BOOK])
-      const newBookData = this.getBookData(bookId, bookInventory!.total);
+     
+      const newBookData = this.getBookData(bookId);
 
-     await this.publishYouBookVM.uploadBookData(
-       Collection.PUBLISHED_BOOKS,
-       [bookId],
-       newBookData
-     );
+      const sNDocRef = this.publishYouBookVM.getDocRef(Collection.INVENTORY,
+        [Document.BOOK])
+      const bookUploadDocRef = this.publishYouBookVM.getDocRef(
+        Collection.PUBLISHED_BOOKS,
+        [bookId]
+      );
+      await this.publishYouBookVM.uploadBookData(
+        sNDocRef,
+        bookUploadDocRef,
+        newBookData
+      );
+
       this.uploadProgress = this.uploadProgress! + 10;
-        Shield.remove('.publish-book-container');
-        this.showBookUploadSuccessMsg();
-      
+      Shield.remove('.publish-book-container');
+      this.showBookUploadSuccessMsg();
     } catch (error) {
       Logger.error(this, this.uploadBookData.name, error);
-        Shield.remove('.publish-book-container');
-        AlertDialog.error(
-          this.bookUploadErrorMsg,
-          this.bookUploadErrorTitle,
-          this.tryAgain,
-          () => {
-            this.uploadBookData(bookId);
-          }
-        );
+      Shield.remove('.publish-book-container');
+      AlertDialog.error(
+        this.bookUploadErrorMsg,
+        this.bookUploadErrorTitle,
+        this.tryAgain,
+        () => {
+          this.uploadBookData(bookId);
+        }
+      );
     }
-
   }
 
   private onProgress(snapshot: UploadTaskSnapshot, progress: number) {
     this.uploadProgress = progress - 10;
   }
 
-  private getBookData(bookId: string, bookSerialNo:number) {
-    
+  private getBookData(bookId: string) {
     let bookData: IPublishedBook = {
       approved: false,
       totalDownloads: 0,
@@ -438,7 +437,6 @@ export class PublishYourBookComponent
       recommended: false,
       price: this.bookPriceFC.value,
       pubId: this.pubId,
-      serialNo:bookSerialNo
     };
 
     return bookData;

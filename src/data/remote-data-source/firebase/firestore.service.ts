@@ -17,7 +17,11 @@ import {
   QueryDocumentSnapshot,
   updateDoc,
   QuerySnapshot,
+  runTransaction,
+  DocumentReference,
 } from '@angular/fire/firestore';
+import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
+import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { IDocId } from 'src/data/models/idoc-id';
 import { Logger } from 'src/helpers/utils/logger';
 import { IDatabase } from '../idatabase';
@@ -26,6 +30,29 @@ import { ErrorCodes } from './ErrorCodes';
 @Injectable()
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
+
+   uploadBookData(
+    sNDocRef: DocumentReference<DocumentData>,
+    bookUploadDocRef: DocumentReference<DocumentData>,
+    book:IPublishedBook
+  ):Promise<void> {
+    return  runTransaction(
+      this.firestore,
+      async (transaction) => {
+        const sNDoc = await transaction.get(sNDocRef);
+        const data = sNDoc.data();
+        const json = JSON.stringify(data);
+        const bookInventory: IBookInventory = JSON.parse(json);
+        book.serialNo = bookInventory.total
+        transaction.set(bookUploadDocRef, book);
+      }
+    );
+   }
+  
+  getDocRef(path: string,
+    pathSegment: string[]) {
+   return  doc(this.firestore, path, ...pathSegment);
+  }
 
   addDocData(
     path: string,
@@ -62,8 +89,8 @@ export class FirestoreService implements IDatabase {
     field: string | FieldPath,
     fieldValue: unknown
   ) {
-       const docRef = doc(this.firestore, path, ...pathSegment);
-       return updateDoc(docRef, field, fieldValue);
+    const docRef = doc(this.firestore, path, ...pathSegment);
+    return updateDoc(docRef, field, fieldValue);
   }
 
   updateAllDocData<T>(

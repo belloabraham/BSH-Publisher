@@ -36,6 +36,7 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'welcome/edit-your-book', loadChildren: () => import('./edit-your-book/edit-your-book.module').then(m => m.EditYourBookModule) },
 ];
 
 @NgModule({

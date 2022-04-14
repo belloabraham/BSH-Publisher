@@ -9,19 +9,25 @@ import { IPublisher } from 'src/data/models/entities/ipublisher';
 
 
 @Injectable({
-  providedIn:Providers.ROOT
+  providedIn: Providers.ROOT,
 })
 export class PubDataViewModel {
   private pubData$ = new ReplaySubject<IPublisher>(MaxCachedItem.ONE);
+  private pubData?: IPublisher;
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
+
+  getPublisher() {
+    return this.pubData;
+  }
 
   getPublisher$() {
     return this.pubData$;
   }
 
   setPublisher(publisher: IPublisher) {
-    this.pubData$.next(publisher);
+    this.pubData = publisher;
+    this.pubData$.next(this.pubData);
   }
 
   async updatePublisher(publisher: { pubData: IPublisher }, pubId: string) {
