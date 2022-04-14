@@ -145,6 +145,10 @@
     "total_earnings":"Total earnings",
     "total_paid":"Total paid",
     "request_payment":"Request Payment",
+    "paymnet_details_req":"Payment details required",
+    "add_payment_details_msg":"You will have to add a payment details before you can request for payment",
+    "payment_req_success_msg":"Payment request was sent successfully",
+    "payment_req_error_msg":"Network error, unable to send payment request",
 
 
     "name":"Name",

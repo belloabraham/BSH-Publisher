@@ -3,17 +3,11 @@ export class Collection {
   //*Allow all permission except delete if owner and is authenticated.Allow read if admin
   static readonly PUBLISHERS = 'publishers';
 
-  //*publishers/pubId/{pubData}/payment_details/pubId/{Payment details}
-  //*Allow all permission except delete if owner and authenticated, allow read if admin
-  static readonly PAYMENT_DETAILS = 'payment_details';
-
   //*publishers/pubId/{pubData}/notifications/docId/{notification data}
   //*Allow read if owner, allow delete if owner, allow for others if false.
   static readonly NOTIFICATIONS = 'notifications';
 
   //*published_books/bookId/{book info, book Id, pub Id}/
-  //*Allow all if admin, allow read only if authenticated, allow modified published if owner
-  //*Delete books from pending approval if added to published
   static readonly PUBLISHED_BOOKS = 'published_books';
 
   //*collaborators/colabId/{CollabData}/books/bookId/{bookData}
@@ -26,4 +20,7 @@ export class Collection {
 
   //*ordered_books/docId/{orderedBooksData}
   static readonly ORDERED_BOOKS = 'ordered_books';
+
+  //*payment_request/pubId/{}
+  static readonly PAYMENT_REQUEST = 'payment_request';
 }

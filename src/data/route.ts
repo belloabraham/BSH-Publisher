@@ -10,15 +10,11 @@ export class Route {
   static readonly PAYMENT = 'payment';
   static readonly COLLABORATORS = 'collaborators';
   static readonly PROFILE = 'profile';
-
   static readonly PUBLISHED = 'published';
-
   static readonly SALES_RECORD = 'sales-record';
-
   static readonly ERROR = 'error';
-
   static readonly UNSURPOTED_DEVICE = 'unsurported-device';
-
+  static readonly EDIT_YOUR_BOOK = 'edit-your-book';
   static readonly DETAILS = 'details';
   static readonly EARNINGS = 'earnings';
   static readonly SIGN_UP = 'sign-up';

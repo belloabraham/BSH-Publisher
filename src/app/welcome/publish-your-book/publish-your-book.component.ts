@@ -53,7 +53,6 @@ import { PubDataViewModel } from '../pub-data.viewmodels';
       provide: CLOUD_STORAGE_IJTOKEN,
       useClass: CloudStorageService,
     },
-    PublishYourBookViewModel,
   ],
 })
 export class PublishYourBookComponent
