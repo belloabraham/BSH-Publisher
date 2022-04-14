@@ -1,3 +1,3 @@
-export interface IBookInventory{
-    total:number
+export interface IBookInventory {
+  total: number;
 }

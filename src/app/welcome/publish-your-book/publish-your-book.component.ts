@@ -44,6 +44,7 @@ import { Logger } from 'src/helpers/utils/logger';
 import { Route } from 'src/data/route';
 import { Document } from 'src/data/remote-data-source/document';
 import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
+import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -55,6 +56,7 @@ import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
       provide: CLOUD_STORAGE_IJTOKEN,
       useClass: CloudStorageService,
     },
+    PublishYourBookViewModel
   ],
 })
 export class PublishYourBookComponent
@@ -122,8 +124,7 @@ export class PublishYourBookComponent
     private router: Router,
     private incominRouteS: IncomingRouteService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
-    @Inject(CLOUD_STORAGE_IJTOKEN) private cloudStorage: ICloudStorage,
-    @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase
+    private publishYouBookVM:PublishYourBookViewModel
   ) {}
 
   private getBookDetailsForm() {
@@ -336,7 +337,7 @@ export class PublishYourBookComponent
 
     const pathToBookFile = `${CloudStoragePath.publishedBooks}/${this.pubId}/${bookId}/${bookFileName}`;
 
-    this.cloudStorage.uploadBytesResumable(
+    this.publishYouBookVM.uploadBookFile(
       pathToBookFile,
       bookFileToUpload,
       this.onProgress,
@@ -345,6 +346,7 @@ export class PublishYourBookComponent
       },
       this.onBookUploadError
     );
+
   }
 
   
@@ -384,11 +386,14 @@ export class PublishYourBookComponent
 
   private async uploadBookData(bookId: string) {
     try {
-      const bookInventory = await  this.getBookSerialNo()
+      const bookInventory = await  this.publishYouBookVM.getAvailableBookSerialNo(Collection.INVENTORY, [Document.BOOK])
       const newBookData = this.getBookData(bookId, bookInventory!.total);
 
-        this.remoteData
-          .addDocData(Collection.PUBLISHED_BOOKS, [bookId], newBookData)
+     await this.publishYouBookVM.uploadBookData(
+       Collection.PUBLISHED_BOOKS,
+       [bookId],
+       newBookData
+     );
       this.uploadProgress = this.uploadProgress! + 10;
         Shield.remove('.publish-book-container');
         this.showBookUploadSuccessMsg();
@@ -410,10 +415,6 @@ export class PublishYourBookComponent
 
   private onProgress(snapshot: UploadTaskSnapshot, progress: number) {
     this.uploadProgress = progress - 10;
-  }
-
-  private  getBookSerialNo() {
-   return  this.remoteData.getDocData<IBookInventory>(Collection.INVENTORY, [Document.BOOK])
   }
 
   private getBookData(bookId: string, bookSerialNo:number) {

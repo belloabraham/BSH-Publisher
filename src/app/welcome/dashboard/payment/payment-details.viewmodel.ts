@@ -7,6 +7,9 @@ import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
 @Injectable()
 export class PaymentDetailsViewModel {
+
+  private paymentDetails?:IPaymentDetails
+
   private paymentDetails$ = new ReplaySubject<IPaymentDetails>(
     MaxCachedItem.ONE
   );
@@ -28,7 +31,12 @@ export class PaymentDetailsViewModel {
       });
   }
 
+  getPaymentDetails() {
+    return this.paymentDetails
+  }
+
   setPaymentDetails(paymentDetails: IPaymentDetails) {
+     this.paymentDetails = paymentDetails
     this.paymentDetails$.next(paymentDetails);
   }
 }

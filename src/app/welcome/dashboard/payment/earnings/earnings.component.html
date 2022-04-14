@@ -22,7 +22,7 @@
                     <td>{{earning.totalEarnings - earning.totalPaid}}</td>
                     <td>{{earning.totalEarnings}}</td>
                     <td>{{earning.totalPaid}}</td>
-                    <td> <button  ly-button > {{ t('request_payment') }}</button> </td>
+                    <td> <button  (click)="requestPayment(earning.bookId)"  ly-button > {{ t('request_payment') }}</button> </td>
                 </tr>
 
             </tbody>

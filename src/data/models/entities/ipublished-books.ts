@@ -11,8 +11,8 @@ export interface IPublishedBook {
   totalReviews: number;
   totalRatings: number;
   publishedDate: any;
-  lastUpdated:any,
-  approved:boolean,
+  lastUpdated: any;
+  approved: boolean;
   published: boolean;
   pubId: string;
   price: number;

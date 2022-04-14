@@ -1,5 +1,5 @@
 export interface IOrderedBooks {
-    name: string,
-    bookId:string,
-    additionalInfo:string,
+  name: string;
+  bookId: string;
+  additionalInfo: string;
 }
