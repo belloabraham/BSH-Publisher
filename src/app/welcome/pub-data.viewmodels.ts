@@ -30,6 +30,22 @@ export class PubDataViewModel {
     this.pubData$.next(this.pubData);
   }
 
+  async updatePublishersField(
+    pubId:string,
+    field: string,
+    fieldValue: any
+  ) {
+    return this.remoteData.updateDocField(
+      Collection.PUBLISHERS,
+      [pubId],
+      field,
+      fieldValue
+    ).then(() => {
+      const pubData = this.pubData!.sellerCurrency = fieldValue
+       this.setPublisher(pubData);
+    });
+  }
+
   async updatePublisher(publisher: { pubData: IPublisher }, pubId: string) {
     return await this.remoteData
       .addDocData(Collection.PUBLISHERS, [pubId], publisher)

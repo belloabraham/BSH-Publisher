@@ -31,7 +31,7 @@ import { ErrorCodes } from './ErrorCodes';
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
 
-   uploadBookData(
+   uploadBookDataTransaction(
     sNDocRef: DocumentReference<DocumentData>,
     bookUploadDocRef: DocumentReference<DocumentData>,
     book:IPublishedBook

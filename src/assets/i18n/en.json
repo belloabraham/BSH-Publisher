@@ -149,7 +149,9 @@
     "add_payment_details_msg":"You will have to add a payment details before you can request for payment",
     "payment_req_success_msg":"Payment request was sent successfully",
     "payment_req_error_msg":"Network error, unable to send payment request",
-
+    "total_earnings_exp":"Total earnings from first book sales till date",
+    "total_paid_exp":"Total payment recieved from the first payment till date",
+    "earnings_so_far_exp":"Earnings available for payment  = (Total earnings - Total paid)",
 
     "name":"Name",
     "status":"Status",

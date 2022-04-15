@@ -6,7 +6,7 @@ import { IPublishedBook } from '../models/entities/ipublished-books';
 export interface IDatabase {
   getArrayOfDocData: <T>(path: string, pathSegment: string[]) => Promise<T[]>;
 
-  uploadBookData: (
+  uploadBookDataTransaction: (
     sNDocRef: DocumentReference<DocumentData>,
     bookUploadDocRef: DocumentReference<DocumentData>,
     book: IPublishedBook

@@ -1,3 +1,4 @@
+import { YPosition } from '@alyle/ui';
 import { TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -36,7 +37,9 @@ export class EarningsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   earnings?: IEarnings[];
   allPublisedBooks: IPublishedBook[] = [];
-  private pubId = this.userAuth.getPubId()!;
+   private pubId = this.userAuth.getPubId()!;
+  bottom = YPosition.below;
+  sellerCurrency = this.pubDataVM.getPublisher()?.sellerCurrency
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -46,7 +49,8 @@ export class EarningsComponent implements OnInit, OnDestroy {
     private paymentDetailsVM: PaymentDetailsViewModel,
     private pubDataVM: PubDataViewModel,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscriptions.sink = this.publishedBooksVM

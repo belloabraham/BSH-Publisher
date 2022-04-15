@@ -23,16 +23,21 @@ export class PublishYourBookViewModel {
     return this.remoteData.getDocRef(collection, pathSegment);
   }
 
-  uploadBookData(
+  uploadBookDataTransaction(
     sNDocRef: DocumentReference<DocumentData>,
     bookUploadDocRef: DocumentReference<DocumentData>,
     book: IPublishedBook
   ) {
-    return this.remoteData.uploadBookData(sNDocRef, bookUploadDocRef, book);
+    return this.remoteData.uploadBookDataTransaction(sNDocRef, bookUploadDocRef, book);
   }
 
-  uploadBookDatas(collection: string, pathSegment: string[], type: any) {
-    return this.remoteData.addDocData(collection, pathSegment, type);
+  updatePaymentCurrency(collection: string, pathSegment: string[], field:string, fieldValue: any) {
+    return this.remoteData.updateDocField(
+      collection,
+      pathSegment,
+      field,
+      fieldValue
+    );
   }
 
   uploadBookFile(

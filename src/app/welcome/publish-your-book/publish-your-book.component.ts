@@ -42,6 +42,7 @@ import { Route } from 'src/data/route';
 import { Document } from 'src/data/remote-data-source/document';
 import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
 import { PubDataViewModel } from '../pub-data.viewmodels';
+import { Fields } from 'src/data/remote-data-source/fields';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -113,9 +114,8 @@ export class PublishYourBookComponent
   bookUploadErrorTitle = '';
   tryAgain = '';
 
-  publisher = this.pubDataVM.getPublisher();
-  sellerCurrency = this.publisher?.sellerCurrency;
-
+  sellerCurrency?: string
+  
   constructor(
     private _dialog: LyDialog,
     private _cd: ChangeDetectorRef,
@@ -238,6 +238,10 @@ export class PublishYourBookComponent
   ngOnInit(): void {
     this.getStrinRes();
     this.bookPublishForm = this.generateBookPublishForm();
+    this.subscriptions.sink = this.pubDataVM.getPublisher$()
+      .subscribe((pubData) => {
+      this.sellerCurrency= pubData.sellerCurrency
+    })
   }
 
   private getStrinRes() {
@@ -379,10 +383,19 @@ export class PublishYourBookComponent
     });
   }
 
+
   private async uploadBookData(bookId: string) {
     try {
      
       const newBookData = this.getBookData(bookId);
+
+      if (this.sellerCurrency === undefined || this.sellerCurrency === null) {
+        await this.pubDataVM.updatePublishersField(
+          this.pubId,
+          Fields.sellerCurrency,
+          newBookData.sellerCurrency
+        );
+      }
 
       const sNDocRef = this.publishYouBookVM.getDocRef(Collection.INVENTORY,
         [Document.BOOK])
@@ -390,7 +403,7 @@ export class PublishYourBookComponent
         Collection.PUBLISHED_BOOKS,
         [bookId]
       );
-      await this.publishYouBookVM.uploadBookData(
+      await this.publishYouBookVM.uploadBookDataTransaction(
         sNDocRef,
         bookUploadDocRef,
         newBookData
