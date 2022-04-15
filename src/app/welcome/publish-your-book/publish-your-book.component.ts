@@ -43,6 +43,7 @@ import { Document } from 'src/data/remote-data-source/document';
 import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { Fields } from 'src/data/remote-data-source/fields';
+import { IPublisher } from 'src/data/models/entities/ipublisher';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -115,6 +116,7 @@ export class PublishYourBookComponent
   tryAgain = '';
 
   sellerCurrency?: string
+  pubData!:IPublisher
   
   constructor(
     private _dialog: LyDialog,
@@ -240,7 +242,8 @@ export class PublishYourBookComponent
     this.bookPublishForm = this.generateBookPublishForm();
     this.subscriptions.sink = this.pubDataVM.getPublisher$()
       .subscribe((pubData) => {
-      this.sellerCurrency= pubData.sellerCurrency
+        this.pubData = pubData
+        this.sellerCurrency = pubData.sellerCurrency
     })
   }
 
@@ -390,10 +393,11 @@ export class PublishYourBookComponent
       const newBookData = this.getBookData(bookId);
 
       if (this.sellerCurrency === undefined || this.sellerCurrency === null) {
-        await this.pubDataVM.updatePublishersField(
-          this.pubId,
-          Fields.sellerCurrency,
-          newBookData.sellerCurrency
+
+        this.pubData.sellerCurrency = newBookData.sellerCurrency
+        await this.pubDataVM.updatePublisher(
+          {pubData: this.pubData},
+          this.pubId
         );
       }
 

@@ -23,7 +23,7 @@ export class BankTranferForeignFormComponent {
   @Input()
   countryFC!: FormControl;
   @Input()
-  addressFC!: FormControl;
+  residentialAddressFC!: FormControl;
 
   savings = AccountType.savings;
   current = AccountType.current;

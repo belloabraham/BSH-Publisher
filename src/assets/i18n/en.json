@@ -182,7 +182,7 @@
     "bank_routing_numb":"Bank routing number",
     "bank_address":"Bank address",
     "account_type":"Account type",
-    "your_address":"Your address",
+    "residential_address":"Residential address",
     "bank_swift_code_req_msg":"Your bank swift code is required",
     "bank_addr_req":"Your bank address is required",
     "bank_swift__code_req":"Your bank swift code is required",

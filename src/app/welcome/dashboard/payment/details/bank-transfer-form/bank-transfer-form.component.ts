@@ -72,8 +72,8 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
     return this.bankForeignForm?.get('bankSwiftCodeFC') as FormControl;
   }
 
-  public get addressFC(): FormControl {
-    return this.bankForeignForm?.get('addressFC') as FormControl;
+  public get residentialAddressFC(): FormControl {
+    return this.bankForeignForm?.get('residentialAddressFC') as FormControl;
   }
   public get accountTypeFC(): FormControl {
     return this.bankForeignForm?.get('accountTypeFC') as FormControl;
@@ -126,7 +126,9 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
         this.decrypt(paymentDetail.bankSwiftCode!)
       );
       this.accountTypeFC.patchValue(this.decrypt(paymentDetail.accountType!));
-      this.addressFC.patchValue(this.decrypt(paymentDetail.address!));
+      this.residentialAddressFC.patchValue(
+        this.decrypt(paymentDetail.address!)
+      );
     }
   }
 
@@ -196,7 +198,9 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       paymentDetails.bankSwiftCode = this.getEncrypted(
         this.bankSwiftCodeFC.value
       );
-      paymentDetails.address = this.getEncrypted(this.addressFC.value);
+      paymentDetails.address = this.getEncrypted(
+        this.residentialAddressFC.value
+      );
     }
   }
 }

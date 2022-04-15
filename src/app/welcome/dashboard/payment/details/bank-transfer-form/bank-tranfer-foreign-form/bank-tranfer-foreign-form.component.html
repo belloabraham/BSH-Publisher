@@ -70,14 +70,14 @@
 
     <div class="d-flex mb-2">
         <div class="d-flex gap-1">
-            <label class="form-label label-lg flex-shrink-0" for="addressFC">{{ t('your_address') }}</label>
+            <label class="form-label label-lg flex-shrink-0" for="residentialAddressFC">{{ t('residential_address') }}</label>
 
             <div class="form-group your-address"
-                [ngClass]="{'has-error':addressFC.hasError('required') && addressFC.touched}">
+                [ngClass]="{'has-error':residentialAddressFC.hasError('required') && residentialAddressFC.touched}">
 
-                <input type="text" class="form-input input-lg your-address" id="addressFC" formControlName="addressFC">
+                <input type="text" class="form-input input-lg your-address" id="addressFC" formControlName="residentialAddressFC">
 
-                <p *ngIf="addressFC.hasError('required') && addressFC.touched" class="form-input-hint">
+                <p *ngIf="residentialAddressFC.hasError('required') && residentialAddressFC.touched" class="form-input-hint">
                     {{ t('your_addr_req') }}
                 </p>
 
