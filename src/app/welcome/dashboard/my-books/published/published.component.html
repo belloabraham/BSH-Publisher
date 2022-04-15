@@ -23,7 +23,7 @@
                     <th scope="row">{{books!.indexOf(book)+1}}</th>
                     <td>{{book.name}}</td>
                     <td>{{getBookStatus(book)}}</td>
-                    <td>{{book.sellerCurrency+book.price}}</td>
+                    <td>{{book.price | currency:book.sellerCurrency:'symbol-narrow'}}</td>
                     <td>{{book.category}}</td>
                     <td>{{book.totalDownloads}}</td>
                     <td>{{book.totalRatings/book.totalReviews}}</td>
