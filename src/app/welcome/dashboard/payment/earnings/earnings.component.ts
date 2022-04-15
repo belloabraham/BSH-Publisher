@@ -77,7 +77,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
         const paymentRequest = this.getPaymentRequest(bookId, paymentDetails);
         await this.paymentDetailsVM.sendPaymentRequest(
           Collection.PAYMENT_REQUEST,
-          [this.pubId],
+          [this.pubId+bookId],
           paymentRequest
         )
         const sucessMsg = this.localeService.translate(StringResKeys.paymentReqSuccessMsg);
@@ -96,12 +96,9 @@ export class EarningsComponent implements OnInit, OnDestroy {
     bookId: string,
     paymentDetails: IPaymentDetails
   ): IPaymentRequest {
-    const pubData = this.pubDataVM.getPublisher()!;
     const bookName = this.getBookName(bookId)!;
     return {
       paymentDetails: paymentDetails,
-      pubName: `${pubData.firstName} ${pubData.lastName}`,
-      pubEmail: pubData.email,
       pubId: this.pubId,
       bookName: bookName,
       bookId: bookId,
