@@ -36,7 +36,7 @@ export class BankTranferForeignFormComponent {
       bankSwiftCodeFC: new FormControl(undefined, [Validators.required]),
       bankRoutingNumberFC: new FormControl(undefined, [Validators.required]),
       accountTypeFC: new FormControl(undefined, [Validators.required]),
-      addressFC: new FormControl(undefined, [Validators.required]),
+      residentialAddressFC: new FormControl(undefined, [Validators.required]),
     });
   }
 }

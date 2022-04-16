@@ -1,5 +1,5 @@
 
-import { DocumentData, DocumentReference, FieldPath, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
+import { DocumentData, DocumentReference, FieldPath, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, Unsubscribe } from '@angular/fire/firestore';
 import { IDocId } from 'src/data/models/idoc-id';
 import { IPublishedBook } from '../models/entities/ipublished-books';
 
@@ -61,7 +61,7 @@ export interface IDatabase {
     queryConstraint: QueryConstraint[],
     onNext: (type: T[], arrayOfDocIds: string[]) => void,
     onError: (errorCode: string) => void
-  ) => void;
+  ) => Unsubscribe;
 
   deleteAllDocs: (
     path: string,
@@ -74,7 +74,7 @@ export interface IDatabase {
     path: string,
     pathSegment: string[],
     onNext: (type: T) => void
-  ) => void;
+  ) => Unsubscribe;
   getDocData: <T>(path: string, pathSegment: string[]) => Promise<T | null>;
   addDocData: (
     path: string,

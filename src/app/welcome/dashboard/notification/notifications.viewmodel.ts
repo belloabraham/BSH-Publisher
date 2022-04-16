@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { QueryConstraint } from '@angular/fire/firestore';
+import { QueryConstraint, Unsubscribe } from '@angular/fire/firestore';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/data/max-cached-item';
 import { Collection } from 'src/data/remote-data-source/collection';
@@ -21,7 +21,7 @@ export class NotificationsViewModel {
     return this.notifications$;
   }
 
-  addNotifications(notifications: INotification[] | null) {
+  postNotifications(notifications: INotification[] | null) {
     this.notifications$.next(notifications);
   }
 
@@ -38,8 +38,8 @@ export class NotificationsViewModel {
     queryConstraints: QueryConstraint[],
     onNext: (type: INotification[], arrayOfDocIds: string[]) => void,
     onError: (errorCode: string) => void
-  ) {
-    this.remoteData.getLiveArrayOfDocData<INotification>(
+  ):Unsubscribe {
+   return  this.remoteData.getLiveArrayOfDocData<INotification>(
       Collection.PUBLISHERS,
       [pubId, Collection.NOTIFICATIONS],
       queryConstraints,

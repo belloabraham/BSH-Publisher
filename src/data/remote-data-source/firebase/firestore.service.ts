@@ -180,7 +180,7 @@ export class FirestoreService implements IDatabase {
     );
     const dataArray: T[] = [];
     const arrayOfIds: string[] = [];
-    onSnapshot(q, {
+    const unsubscribe = onSnapshot(q, {
       next: (querySnapShot) => {
         querySnapShot.forEach((queryDoc) => {
           if (queryDoc.exists()) {
@@ -210,6 +210,7 @@ export class FirestoreService implements IDatabase {
         }
       },
     });
+    return unsubscribe
   }
 
   async getQueryDocumentSnapshot(
@@ -244,7 +245,7 @@ export class FirestoreService implements IDatabase {
     onNext: (type: T) => void
   ) {
     const ref = doc(this.firestore, path, ...pathSegment);
-    onSnapshot(ref, {
+   const unsubscribe =  onSnapshot(ref, {
       next: (docSnapshot) => {
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
@@ -262,6 +263,8 @@ export class FirestoreService implements IDatabase {
           }, 2000);
         }
       },
-    });
+   });
+    return unsubscribe
   }
+  
 }

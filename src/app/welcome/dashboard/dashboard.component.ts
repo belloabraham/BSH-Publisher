@@ -33,7 +33,7 @@ import { PublishedBookViewModel } from './published-book.viewmodel';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { NotificationsViewModel } from './notification/notifications.viewmodel';
 import { INotification } from 'src/data/models/entities/inotifications';
-import { where } from '@angular/fire/firestore';
+import { Unsubscribe, where } from '@angular/fire/firestore';
 import { Logger } from 'src/helpers/utils/logger';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
@@ -82,6 +82,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   pubId = this.userAuth.getPubId()!;
 
   pubFirstName = '';
+  unsubscribeFromNotification!: Unsubscribe
 
   constructor(
     private title: Title,
@@ -178,9 +179,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.cdRef.detectChanges();
       }
 
-      const notificationsToAdd =
+      const notificationsToPost =
         notifications.length > 0 ? notifications : null;
-      this.notificationVM.addNotifications(notificationsToAdd);
+      this.notificationVM.postNotifications(notificationsToPost);
     };
 
     const onError = (errorCode: string) => {
@@ -193,7 +194,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     const queryConstraints = [where(Fields.message, '!=', '')];
 
-    this.notificationVM.getLiveNotifications(
+    this.unsubscribeFromNotification =  this.notificationVM.getLiveNotifications(
       this.pubId,
       queryConstraints,
       onNext,
@@ -243,5 +244,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.unsubscribeFromNotification()
   }
 }
