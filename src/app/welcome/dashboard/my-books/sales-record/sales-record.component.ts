@@ -67,7 +67,6 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
     try {
       await this.salesRecordVM.getSalesRecord(
         Collection.ORDERED_BOOKS,
-        [],
         year,
         fromMonth,
         toMonth

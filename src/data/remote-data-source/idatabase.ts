@@ -35,9 +35,8 @@ export interface IDatabase {
     pathSegment: string[]
   ) => Promise<QueryDocumentSnapshot<DocumentData> | null>;
 
-  getQuerySnapshotWhere: (
-    path: string,
-    pathSegment: string[],
+  getQuerySnapshotWhereWithQueryGroup: (
+    collection: string,
     queryConstraint: QueryConstraint[]
   ) => Promise<QuerySnapshot<DocumentData>>;
 

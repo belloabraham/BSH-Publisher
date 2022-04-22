@@ -18,7 +18,7 @@ export class Collection {
   //*earnings/bookId/{pubId, bookId, totalEarnings, totalPaid}
   static readonly EARNINGS = 'earnings';
 
-  //*ordered_books/docId/{orderedBooksData}
+  //*users/userId/ordered_books/docId/{orderedBooksData} //This will be done as a query group
   static readonly ORDERED_BOOKS = 'ordered_books';
 
   //*payment_request/pubId/{}

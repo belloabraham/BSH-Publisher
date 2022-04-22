@@ -19,6 +19,8 @@ import {
   QuerySnapshot,
   runTransaction,
   DocumentReference,
+  DocumentSnapshot,
+  collectionGroup,
 } from '@angular/fire/firestore';
 import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
@@ -31,27 +33,23 @@ import { ErrorCodes } from './ErrorCodes';
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
 
-   uploadBookDataTransaction(
+  uploadBookDataTransaction(
     sNDocRef: DocumentReference<DocumentData>,
     bookUploadDocRef: DocumentReference<DocumentData>,
-    book:IPublishedBook
-  ):Promise<void> {
-    return  runTransaction(
-      this.firestore,
-      async (transaction) => {
-        const sNDoc = await transaction.get(sNDocRef);
-        const data = sNDoc.data();
-        const json = JSON.stringify(data);
-        const bookInventory: IBookInventory = JSON.parse(json);
-        book.serialNo = bookInventory.total
-        transaction.set(bookUploadDocRef, book);
-      }
-    );
-   }
-  
-  getDocRef(path: string,
-    pathSegment: string[]) {
-   return  doc(this.firestore, path, ...pathSegment);
+    book: IPublishedBook
+  ): Promise<void> {
+    return runTransaction(this.firestore, async (transaction) => {
+      const sNDoc = await transaction.get(sNDocRef);
+      const data = sNDoc.data();
+      const json = JSON.stringify(data);
+      const bookInventory: IBookInventory = JSON.parse(json);
+      book.serialNo = bookInventory.total;
+      transaction.set(bookUploadDocRef, book);
+    });
+  }
+
+  getDocRef(path: string, pathSegment: string[]) {
+    return doc(this.firestore, path, ...pathSegment);
   }
 
   addDocData(
@@ -124,25 +122,15 @@ export class FirestoreService implements IDatabase {
       ...queryConstraint
     );
     const querySnapshot = await getDocs(q);
-    const dataArray: T[] = [];
-    querySnapshot.forEach((queryDoc) => {
-      if (queryDoc.exists()) {
-        const data = queryDoc.data();
-        const json = JSON.stringify(data);
-        const type: T = JSON.parse(json);
-        dataArray.push(type);
-      }
-    });
-    return dataArray;
+    return this.querySnapshotToArrayOfType<T>(querySnapshot);
   }
 
-  async getQuerySnapshotWhere(
-    path: string,
-    pathSegment: string[],
+  async getQuerySnapshotWhereWithQueryGroup(
+    collection: string,
     queryConstraint: QueryConstraint[]
   ): Promise<QuerySnapshot<DocumentData>> {
     const q = query(
-      collection(this.firestore, path, ...pathSegment),
+      collectionGroup(this.firestore, collection),
       ...queryConstraint
     );
     const querySnapshot = await getDocs(q);
@@ -155,16 +143,7 @@ export class FirestoreService implements IDatabase {
   ): Promise<T[]> {
     const q = query(collection(this.firestore, path, ...pathSegment));
     const querySnapshot = await getDocs(q);
-    const dataArray: T[] = [];
-    querySnapshot.forEach((queryDoc) => {
-      if (queryDoc.exists()) {
-        const data = queryDoc.data();
-        const json = JSON.stringify(data);
-        const type: T = JSON.parse(json);
-        dataArray.push(type);
-      }
-    });
-    return dataArray;
+    return this.querySnapshotToArrayOfType(querySnapshot);
   }
 
   getLiveArrayOfDocData<T>(
@@ -210,7 +189,7 @@ export class FirestoreService implements IDatabase {
         }
       },
     });
-    return unsubscribe
+    return unsubscribe;
   }
 
   async getQueryDocumentSnapshot(
@@ -229,14 +208,8 @@ export class FirestoreService implements IDatabase {
   async getDocData<T>(path: string, pathSegment: string[]): Promise<T | null> {
     const docRef = doc(this.firestore, path, ...pathSegment);
     const docSnapShot = await getDoc(docRef);
-    if (docSnapShot.exists()) {
-      const data = docSnapShot.data();
-      const json = JSON.stringify(data);
-      const type: T = JSON.parse(json);
-      return type;
-    } else {
-      return null;
-    }
+
+   return this.documentDataSnapshotToType<T>(docSnapShot);
   }
 
   getLiveDocData<T>(
@@ -245,7 +218,7 @@ export class FirestoreService implements IDatabase {
     onNext: (type: T) => void
   ) {
     const ref = doc(this.firestore, path, ...pathSegment);
-   const unsubscribe =  onSnapshot(ref, {
+    const unsubscribe = onSnapshot(ref, {
       next: (docSnapshot) => {
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
@@ -257,14 +230,39 @@ export class FirestoreService implements IDatabase {
       error: (error: FirestoreError) => {
         Logger.error('FirestoreService', 'getLiveData', error);
         const code = error.code.toString();
-        if (code !==  ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
+        if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
           setTimeout(() => {
             this.getLiveDocData(path, pathSegment, onNext);
           }, 2000);
         }
       },
-   });
-    return unsubscribe
+    });
+    return unsubscribe;
   }
-  
+
+  documentDataSnapshotToType<T>(docSnapShot:DocumentSnapshot<DocumentData>) {
+    if (docSnapShot.exists()) {
+      const data = docSnapShot.data();
+      const json = JSON.stringify(data);
+      const type: T = JSON.parse(json);
+      return type;
+    } else {
+      return null;
+    }
+  }
+
+  querySnapshotToArrayOfType<T>(
+    querySnapshot: QuerySnapshot<DocumentData>
+  ): T[] {
+    const dataArray: T[] = [];
+    querySnapshot.forEach((queryDoc) => {
+      if (queryDoc.exists()) {
+        const data = queryDoc.data();
+        const json = JSON.stringify(data);
+        const type: T = JSON.parse(json);
+        dataArray.push(type);
+      }
+    });
+    return dataArray;
+  }
 }

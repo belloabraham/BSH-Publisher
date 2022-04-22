@@ -11,8 +11,6 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
 import { Config } from 'src/data/config';
-import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
-import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { Route } from 'src/data/route';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';

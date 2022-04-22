@@ -25,8 +25,7 @@ export class SalesRecordViewModel {
   }
 
   async getSalesRecord(
-    path: string,
-    pathSegment: string[],
+    collection: string,
     year: number,
     fromMonth: number,
     toMonth: number
@@ -40,9 +39,8 @@ export class SalesRecordViewModel {
         endAt(toMonth),
       ];
 
-      const arrayOfDocData = await this.remoteData.getQuerySnapshotWhere(
-        path,
-        pathSegment,
+      const arrayOfDocData = await this.remoteData.getQuerySnapshotWhereWithQueryGroup(
+        collection,
         queryConstraint
       );
 
