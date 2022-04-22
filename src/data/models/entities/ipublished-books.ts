@@ -5,15 +5,15 @@ export interface IPublishedBook {
   coverUrl: string;
   totalDownloads: number;
   description: string;
+  publishedDate: any;
   category: string;
   tag: string | undefined;
   sellerCurrency: string;
   totalReviews: number;
   totalRatings: number;
-  publishedDate: any;
+  published: boolean;
   lastUpdated: any;
   approved: boolean;
-  published: boolean;
   pubId: string;
   price: number;
   recommended: boolean;

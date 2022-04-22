@@ -8,4 +8,5 @@ export interface IPublisher {
   registeredDate?: any;
   lastUpdated?: any;
   sellerCurrency?: string;
+
 }

@@ -257,7 +257,7 @@ export class FirestoreService implements IDatabase {
       error: (error: FirestoreError) => {
         Logger.error('FirestoreService', 'getLiveData', error);
         const code = error.code.toString();
-        if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
+        if (code !==  ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
           setTimeout(() => {
             this.getLiveDocData(path, pathSegment, onNext);
           }, 2000);
