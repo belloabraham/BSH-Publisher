@@ -11,15 +11,12 @@ export const environment = {
     storageBucket: 'bookshelfhub-fa4cf.appspot.com',
     locationId: 'europe-west',
     apiKey: 'AIzaSyB_xY6c3EBAiLbuBL_pYs3KqSC38YRPhmw',
-    //  authDomain: 'bookshelfhub-fa4cf.firebaseapp.com',
       authDomain: 'auth.bookshelfhub.com',
     messagingSenderId: '665623853292',
     measurementId: 'G-4T2HLQM6NV',
   },
   reCAPTCHA3SiteKey: '6LfzOhQdAAAAABdaib4CdBpcJlpBOTjP4ghzbdzO',
   production: false,
-  vapidKey:
-    'BBof4Q0Ax0kuL_t_OZRyJKQDcyU52SyRpNyWEUmqnuMskZEHZ3I5fs4xrG217wlpcHeCpHhfolg-jPHR2C9Kj1o',
 };
 
 /*
