@@ -1,15 +1,5 @@
 @use '../../scss/components/logo'as *;
 
-.root {
-  width: 100%;
-  height: 100%;
-}
-
 .logo {
   @include logo;
-}
-
-.content {
-  display: flex;
-  justify-content: center;
 }

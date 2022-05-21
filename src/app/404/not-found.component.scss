@@ -7,6 +7,9 @@ div{
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    button{
+        text-transform: capitalize;
+    }
     img, button{
         width: 31.25rem;
     }
