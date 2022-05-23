@@ -28,6 +28,7 @@ import { Route } from 'src/data/route';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
+  title=''
   private subscriptions = new SubSink();
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;

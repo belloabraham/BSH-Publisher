@@ -1,7 +1,7 @@
 @forward '../../../scss/components/side-nav-links';
 @forward '../../../scss/components/arrow_toggle_button';
 @use '../../../scss/variables/colors'as *;
-@use '../../../scss/visibility'as *;
+//@use '../../../scss/visibility'as *;
 @use '../../../scss/variables/sidenav'as *;
 @use '../../../scss/variables/toolbar'as *;
 @use '../../../scss/components/logout-btn'as *;
@@ -67,8 +67,6 @@ $notification-panel-width-offset: calc($notification-panel-width + 2rem);
       display: none;
     }
   }
-
-
 }
 
 .footer {
