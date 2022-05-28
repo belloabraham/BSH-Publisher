@@ -1,163 +1,173 @@
-    <div *transloco="let t" [ngClass]="{'minimize':openLeftNav}" class="root">
+<div *transloco="let t" [ngClass]="{'minimize':openLeftNav}" class="root">
 
 
-        <div class="tool-bar fixed-top top-toolbar align-items-end d-flex justify-content-between align-items-center ph-2 bg-light">
+    <div
+        class="tool-bar fixed-top top-toolbar align-items-end d-flex justify-content-between align-items-center ph-2 bg-light">
 
-            <div class="welcome d-flex align-items-center gap-1">
-                <h2 class="m-0 p-0"> {{t('hi_username', {value: pubFirstName})}} </h2>
-                <span class="wave">👋🏽</span>
-            </div>
-
-            <div class="d-flex align-items-center gap-1">
-                <button ly-button appearance="icon" (click)="toggleNotificationPanel()"
-                    class="notification-toggle-button">
-
-                    <svg *ngIf="!isNewNotification" [ngClass]="{'d-none':openRightNav}"  viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21" />
-                    </svg>
-
-                    <svg *ngIf="isNewNotification"  [ngClass]="{'d-none':openRightNav}"  viewBox="0 0 18 21">
-                        <path fill="red" 
-                            d="M21,6.5A3.5,3.5,0,1,1,17.5,3,3.5,3.5,0,0,1,21,6.5" transform="translate(-3 -2)" />
-                        <path fill="currentColor"
-                            d="M19,11.79a6,6,0,0,1-1.5.21,5.51,5.51,0,0,1-4-9.29A1.93,1.93,0,0,0,12,2a2,2,0,0,0-2,2v.29A7,7,0,0,0,5,11v6L3,19v1H21V19l-2-2V11.79"
-                            transform="translate(-3 -2)" />
-                        <path fill="currentColor" d="M12,23a2,2,0,0,0,2-2H10A2,2,0,0,0,12,23Z"
-                            transform="translate(-3 -2)" />
-                    </svg>
-
-                    <svg style="width: 28px; height: 28px;" [ngClass]="{'d-none':!openRightNav}"
-                          version="1.1"
-                        width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                    </svg>
-
-                </button>
-
-                <button ly-button class="logout" (click)="logout()">
-                    <i>
-                        <svg viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
-                        </svg>
-                    </i>
-                    <span [lyPe]="1">{{t('logout')}}</span>
-                </button>
-            </div>
-
+        <div class="welcome d-flex align-items-center gap-1">
+            <h2 class="m-0 p-0"> {{t('hi_username', {value: pubFirstName})}} </h2>
+            <span class="wave">👋🏽</span>
         </div>
 
-        <div class="text-white left-nav d-flex flex-column justify-content-between" id="nav-bar">
+        <div class="d-flex align-items-center gap-1">
+            <button ly-button appearance="icon" (click)="toggleNotificationPanel()" class="notification-toggle-button">
 
-            <a class="text-gray-100 logo no-select" [routerLink]="['./']">
-                <svg  viewBox="0 0 146.68 177.63">
-                    <path d="M25.34,13.51c1.88,0,103.63-23.77,104.55-24.32V-24C127.56-23.89,26.78,13.47,25.34,13.51Z"
-                        transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
-                    <path
-                        d="M41.06,4.14c9.56-2.67,20-6.5,29.68-9.68s19.81-6.81,29.78-9.81v-9C98.28-23.79,42.41,3.47,41.06,4.14Z"
-                        transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
-                    <path d="M59.84-8.17l19.58-8.36v-6.7C78-22.58,60.82-9.36,59.84-8.17Z"
-                        transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
-                    <path
-                        d="M33.13,51c15.9-16.75,35-28.81,60.92-32.45C113.29,17.14,134.17,33,128.4,64.74c0,7.84,6,4.17,11.47.92,1.65-.7,3.81-1.83,5.57-2.51A59.54,59.54,0,0,1,152.63,61c7.28-.72,23.33,7.27,18.49,23.83-4.23,22.17-15.35,41.77-28.74,60.53-2.1-.82-3.5,1.34-4.81,0-4.55-4.57-5.13-17.31-1.41-25.3,1.53.2,3.28,1,4.87-.77,5.31-5.79,11.64-19.65,9.76-30.92-10.91,3.64-34.09,22-36,33.13-1.33,7.76.7,12.84,6.23,15.47a20.3,20.3,0,0,1,4.89,16.28c-7.26-2-15.79-10.37-23.69-15.56-2.63-.2-5.9-1.81-11-7.5C75,111.66,66.2,92.68,49,75.9c-1.18-1.85-3.76,3.19-7,.72-4.47-3.43-8.71-5.76-13.42-10.29L27,57.62c-.12-.64,4.26-5,6.11-6.64Zm31.26,5.74c7.07-6.09,14.39-10.33,22.18-11.07,4,.1,6,1.43,6,4,0,5.72-1,13.32-1.43,19.28l-3,28.74C77.23,86.35,68.66,76.81,63.25,66.53c-3-5.75-3-6.21,1.14-9.81Z"
-                        transform="translate(-25.34 24.38)" fill="currentColor" fill-rule="evenodd" />
+                <svg *ngIf="!isNewNotification" [ngClass]="{'d-none':openRightNav}" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21" />
                 </svg>
 
-                <span>
-                    {{ t('app_name') | slice:1}}
-                </span>
-            </a>
+                <svg *ngIf="isNewNotification" [ngClass]="{'d-none':openRightNav}" viewBox="0 0 18 21">
+                    <path fill="red" d="M21,6.5A3.5,3.5,0,1,1,17.5,3,3.5,3.5,0,0,1,21,6.5"
+                        transform="translate(-3 -2)" />
+                    <path fill="currentColor"
+                        d="M19,11.79a6,6,0,0,1-1.5.21,5.51,5.51,0,0,1-4-9.29A1.93,1.93,0,0,0,12,2a2,2,0,0,0-2,2v.29A7,7,0,0,0,5,11v6L3,19v1H21V19l-2-2V11.79"
+                        transform="translate(-3 -2)" />
+                    <path fill="currentColor" d="M12,23a2,2,0,0,0,2-2H10A2,2,0,0,0,12,23Z"
+                        transform="translate(-3 -2)" />
+                </svg>
 
-            <hr>
+                <svg style="width: 28px; height: 28px;" [ngClass]="{'d-none':!openRightNav}" version="1.1" width="24"
+                    height="24" viewBox="0 0 24 24">
+                    <path
+                        d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                </svg>
 
-            <nav class="nav mt-2 scrollbar-light">
-                <div>
-                    <div class="nav_list">
-                        <a [routerLink]="myBooks" [routerLinkActive]="'active'" class="nav_link">
-                            <svg lyTooltip="{{ t('my_books') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M9 3V18H12V3H9M12 5L16 18L19 17L15 4L12 5M5 5V18H8V5H5M3 19V21H21V19H3Z" />
-                            </svg>
-                            <span class="nav_name">{{ t('my_books') }}</span>
-                        </a>
+            </button>
+
+            <button ly-button class="logout" (click)="logout()">
+                <i>
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
+                    </svg>
+                </i>
+                <span [lyPe]="1">{{t('logout')}}</span>
+            </button>
+        </div>
+    </div>
 
 
-                        <a [routerLink]="payment" [routerLinkActive]="'active'" class="nav_link">
-                            <svg lyTooltip="{{ t('payment') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
-                            </svg>
-                            <span class="nav_name">{{ t('payment') }}</span>
-                        </a>
 
-                        <a [routerLink]="collaborators" [routerLinkActive]="'active'" class="nav_link">
-                            <svg lyTooltip="{{ t('collaborators') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z" />
-                            </svg>
-                            <span class="nav_name">{{ t('collaborators') }}</span>
-                        </a>
+    <div class="text-white left-nav d-flex flex-column justify-content-between" id="nav-bar">
 
-                        <a [routerLink]="profile" [routerLinkActive]="'active'" class="nav_link">
-                            <svg lyTooltip="{{ t('profile') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
-                            </svg>
-                            <span class="nav_name">{{ t('profile') }}</span>
-                        </a>
+        <a class="text-gray-100 logo no-select" [routerLink]="['./']">
+            <svg viewBox="0 0 146.68 177.63">
+                <path d="M25.34,13.51c1.88,0,103.63-23.77,104.55-24.32V-24C127.56-23.89,26.78,13.47,25.34,13.51Z"
+                    transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
+                <path
+                    d="M41.06,4.14c9.56-2.67,20-6.5,29.68-9.68s19.81-6.81,29.78-9.81v-9C98.28-23.79,42.41,3.47,41.06,4.14Z"
+                    transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
+                <path d="M59.84-8.17l19.58-8.36v-6.7C78-22.58,60.82-9.36,59.84-8.17Z"
+                    transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
+                <path
+                    d="M33.13,51c15.9-16.75,35-28.81,60.92-32.45C113.29,17.14,134.17,33,128.4,64.74c0,7.84,6,4.17,11.47.92,1.65-.7,3.81-1.83,5.57-2.51A59.54,59.54,0,0,1,152.63,61c7.28-.72,23.33,7.27,18.49,23.83-4.23,22.17-15.35,41.77-28.74,60.53-2.1-.82-3.5,1.34-4.81,0-4.55-4.57-5.13-17.31-1.41-25.3,1.53.2,3.28,1,4.87-.77,5.31-5.79,11.64-19.65,9.76-30.92-10.91,3.64-34.09,22-36,33.13-1.33,7.76.7,12.84,6.23,15.47a20.3,20.3,0,0,1,4.89,16.28c-7.26-2-15.79-10.37-23.69-15.56-2.63-.2-5.9-1.81-11-7.5C75,111.66,66.2,92.68,49,75.9c-1.18-1.85-3.76,3.19-7,.72-4.47-3.43-8.71-5.76-13.42-10.29L27,57.62c-.12-.64,4.26-5,6.11-6.64Zm31.26,5.74c7.07-6.09,14.39-10.33,22.18-11.07,4,.1,6,1.43,6,4,0,5.72-1,13.32-1.43,19.28l-3,28.74C77.23,86.35,68.66,76.81,63.25,66.53c-3-5.75-3-6.21,1.14-9.81Z"
+                    transform="translate(-25.34 24.38)" fill="currentColor" fill-rule="evenodd" />
+            </svg>
 
-                        <a [routerLink]="['../', publishYourBook]" (click)="setIncomingRoute()"  [routerLinkActive]="'active'" class="nav_link">
+            <span>
+                {{ t('app_name') | slice:1}}
+            </span>
+        </a>
+
+        <hr>
+
+        <nav class="nav mt-2 scrollbar-light">
+            <div>
+                <div class="nav_list">
+                    <a [routerLink]="myBooks" [routerLinkActive]="'active'" class="nav_link">
+                        <svg lyTooltip="{{ t('my_books') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M9 3V18H12V3H9M12 5L16 18L19 17L15 4L12 5M5 5V18H8V5H5M3 19V21H21V19H3Z" />
+                        </svg>
+                        <span class="nav_name">{{ t('my_books') }}</span>
+                    </a>
+
+                    <a [routerLink]="salesRecord" [routerLinkActive]="'active'" class="nav_link">
+                        <svg lyTooltip="{{ t('sales_record') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M10,13H7V11H10V13M14,13H11V11H14V13M10,16H7V14H10V16M14,16H11V14H14V16M10,19H7V17H10V19M14,19H11V17H14V19Z" />
+                        </svg>
+                        <span class="nav_name">{{ t('sales_record') }}</span>
+                    </a>
+
+
+                    <a [routerLink]="payment" [routerLinkActive]="'active'" class="nav_link">
+                        <svg lyTooltip="{{ t('payment') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+                        </svg>
+                        <span class="nav_name">{{ t('payment') }}</span>
+                    </a>
+
+                    <a [routerLink]="collaborators" [routerLinkActive]="'active'" class="nav_link">
+                        <svg lyTooltip="{{ t('collaborators') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z" />
+                        </svg>
+                        <span class="nav_name">{{ t('collaborators') }}</span>
+                    </a>
+
+                    <a [routerLink]="profile" [routerLinkActive]="'active'" class="nav_link">
+                        <svg lyTooltip="{{ t('profile') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
+                        </svg>
+                        <span class="nav_name">{{ t('profile') }}</span>
+                    </a>
+
+                    <a [routerLink]="['../', publishYourBook]" (click)="setIncomingRoute()"
+                        [routerLinkActive]="'active'" class="nav_link">
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                             <path fill="currentColor"
                                 d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
                         </svg>
-                            <span class="nav_name">{{ t('pub_ur_book') }}</span>
-                        </a>
+                        <span class="nav_name">{{ t('pub_ur_book') }}</span>
+                    </a>
 
-                    </div>
                 </div>
-
-                <footer class="d-flex flex-column footer">
-                    <hr>
-
-                    <a [href]="helpLink" class="text-muted" target="_blank">
-
-                        <span> {{ t('need_help') }} </span>
-
-                        <svg lyTooltip="{{ t('need_help') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
-                        </svg> </a>
-
-                    <a [href]="feedbackLink" class="text-muted" target="_blank"> <span> {{ t('give_feedback') }} </span>
-                        <svg lyTooltip="{{ t('give_feedback') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M18,8H6V6H18V8M18,11H6V9H18V11M18,14H6V12H18V14M22,4A2,2 0 0,0 20,2H4A2,2 0 0,0 2,4V16A2,2 0 0,0 4,18H18L22,22V4Z" />
-                        </svg> </a>
-                </footer>
-            </nav>
-            <div class="collapse-icon">
-                <label [lyTooltip]="openLeftNav ? t('expand'): t('collapse')" [lyTooltipPlacement]="right"
-                    [ngClass]="{'float-end':!openLeftNav}" class="arrow-label no-select" for="arrow-checkbox">
-                    <input (change)="toggleLeftNav()" type="checkbox" id="arrow-checkbox" />
-                    <span [ngClass]="{'left':!openLeftNav, 'right':openLeftNav}" class="arrow--l-r">
-                        <span></span><span></span><span></span><span></span><span></span></span>
-                </label>
             </div>
 
-        </div>
+            <footer class="d-flex flex-column footer">
+                <hr>
 
-        <div class="main bg-light dashboard-main">
+                <a [href]="helpLink" class="text-muted" target="_blank">
 
+                    <span> {{ t('need_help') }} </span>
 
-        </div>
+                    <svg lyTooltip="{{ t('need_help') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
+                    </svg> </a>
 
-        <div class="notification-panel bg-white" [ngClass]="{'notf-panel-show':openRightNav}">
-
-            <app-notification></app-notification>
-
+                <a [href]="feedbackLink" class="text-muted" target="_blank"> <span> {{ t('give_feedback') }} </span>
+                    <svg lyTooltip="{{ t('give_feedback') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M18,8H6V6H18V8M18,11H6V9H18V11M18,14H6V12H18V14M22,4A2,2 0 0,0 20,2H4A2,2 0 0,0 2,4V16A2,2 0 0,0 4,18H18L22,22V4Z" />
+                    </svg> </a>
+            </footer>
+        </nav>
+        <div class="collapse-icon">
+            <label [lyTooltip]="openLeftNav ? t('expand'): t('collapse')" [lyTooltipPlacement]="right"
+                [ngClass]="{'float-end':!openLeftNav}" class="arrow-label no-select" for="arrow-checkbox">
+                <input (change)="toggleLeftNav()" type="checkbox" id="arrow-checkbox" />
+                <span [ngClass]="{'left':!openLeftNav, 'right':openLeftNav}" class="arrow--l-r">
+                    <span></span><span></span><span></span><span></span><span></span></span>
+            </label>
         </div>
 
     </div>
+
+    <div class="main bg-light dashboard-main">
+
+        <router-outlet></router-outlet>
+
+    </div>
+
+    <div class="notification-panel bg-white" [ngClass]="{'notf-panel-show':openRightNav}">
+
+        <app-notification></app-notification>
+
+    </div>
+
+</div>

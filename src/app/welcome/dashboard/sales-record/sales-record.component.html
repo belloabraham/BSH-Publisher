@@ -1,6 +1,17 @@
-<div *transloco="let t" class="sales-record ph-2">
+<div *transloco="let t" class="sales-record pt-2">
 
-    <form [formGroup]="orderedBookQueryForm" (ngSubmit)="getOrderedBooks()" class="d-flex form pb-2 mb-2">
+
+    <div class="navigation align-self-stretch">
+        <ul class="tab">
+            <li class="tab-item">
+                <a [routerLink]="'./'" [routerLinkActive]="'active'">{{t('sales_record')}}</a>
+            </li>
+        </ul>
+    </div>
+
+
+<div class="p-2">
+     <form [formGroup]="orderedBookQueryForm" (ngSubmit)="getOrderedBooks()" class="d-flex form mb-2">
 
         <div class="form-group">
             <label class="form-label label-lg flex-shrink-0"> {{ t('record_for') }}
@@ -55,7 +66,7 @@
         
     </form>
 
-
     <gridjs-angular [data]="data"  [config]="gridConfig" ></gridjs-angular>
+</div>
 
 </div>

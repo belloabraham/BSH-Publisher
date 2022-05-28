@@ -38,6 +38,7 @@ import { Logger } from 'src/helpers/utils/logger';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Fields } from 'src/data/remote-data-source/fields';
+import { SalesRecordViewModel } from './sales-record/sales-record.viewmodel';
 
 @Component({
   selector: 'app-dashboard',
@@ -49,6 +50,7 @@ import { Fields } from 'src/data/remote-data-source/fields';
       useClass: FirebaseRemoteConfigService,
     },
     NotificationsViewModel,
+    SalesRecordViewModel
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -71,6 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   myBooks = Route.MY_BOOKS;
   profile = Route.PROFILE;
   publishYourBook = Route.PUBLISH_YOUR_BOOK;
+  salesRecord = Route.SALES_RECORD;
 
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;

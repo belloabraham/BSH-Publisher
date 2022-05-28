@@ -20,6 +20,11 @@ const routes: Routes = [
           import('./my-books/my-books.module').then((m) => m.MyBooksModule),
       },
       {
+        path: Route.SALES_RECORD,
+        loadChildren: () =>
+          import('./sales-record/sales-record.module').then((m) => m.SalesRecordModule),
+      },
+      {
         path: Route.PAYMENT,
         loadChildren: () =>
           import('./payment/payment.module').then((m) => m.PaymentModule),

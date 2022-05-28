@@ -17,14 +17,7 @@ const routes: Routes = [
         path: Route.PUBLISHED,
         loadChildren: () =>
           import('./published/published.module').then((m) => m.PublishedModule),
-      },
-      {
-        path: Route.SALES_RECORD,
-        loadChildren: () =>
-          import('./sales-record/sales-record.module').then(
-            (m) => m.SalesRecordModule
-          ),
-      },
+      }
     ],
   },
 ];
