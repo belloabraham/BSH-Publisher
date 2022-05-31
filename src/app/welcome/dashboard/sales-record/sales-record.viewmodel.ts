@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { endAt, orderBy, startAt, where } from '@angular/fire/firestore';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/data/max-cached-item';
+import { Collection } from 'src/data/remote-data-source/collection';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { IDatabase } from 'src/data/remote-data-source/idatabase';
@@ -30,7 +31,6 @@ export class SalesRecordViewModel {
     fromMonth: number,
     toMonth: number
   ) {
-    try {
       const queryConstraint = [
         where(Fields.year, '==', year),
         where(Fields.pubId, '==', this.pubId),
@@ -58,9 +58,6 @@ export class SalesRecordViewModel {
         }
       });
 
-      this.salesRecord$.next(dataArray);
-    } catch (error) {
-      Logger.error(this, this.getSalesRecord.name, error);
-    }
+      this.salesRecord$.next(dataArray);   
   }
 }

@@ -129,6 +129,7 @@ export class FirestoreService implements IDatabase {
     collection: string,
     queryConstraint: QueryConstraint[]
   ): Promise<QuerySnapshot<DocumentData>> {
+
     const q = query(
       collectionGroup(this.firestore, collection),
       ...queryConstraint
