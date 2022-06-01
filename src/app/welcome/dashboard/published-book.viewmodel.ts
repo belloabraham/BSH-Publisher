@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { find, ReplaySubject } from 'rxjs';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { MaxCachedItem } from 'src/data/max-cached-item';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
@@ -12,11 +12,12 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { Providers } from 'src/data/providers';
 
 @Injectable({
-  providedIn:Providers.ROOT
+  providedIn: Providers.ROOT,
 })
 export class PublishedBookViewModel {
   private allBooks$ = new ReplaySubject<IPublishedBook[]>(MaxCachedItem.ONE);
   private pubId = this.userAuth.getPubId()!;
+  private allBooks: IPublishedBook[] = [];
 
   constructor(
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
@@ -28,7 +29,8 @@ export class PublishedBookViewModel {
   }
 
   setAllBooks(publishedBooks: IPublishedBook[]) {
-    this.allBooks$.next(publishedBooks);
+    this.allBooks = publishedBooks;
+    this.allBooks$.next(this.allBooks);
   }
 
   getAllPublishedBook() {
@@ -53,6 +55,10 @@ export class PublishedBookViewModel {
           this.setAllBooks(books);
         });
       });
+  }
+
+  getPublishedBookById(bookId: string) {
+    return this.allBooks.find((pubBook) => pubBook.bookId === bookId);
   }
 
   publishMyBook(publishedBooks: IPublishedBook, pubId: string) {}

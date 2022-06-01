@@ -44,6 +44,8 @@ import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { RouteDataVewModel } from '../route-data.viewmodel';
+import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
+import { IUpdatedBook } from 'src/data/models/entities/iupdated-book';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -95,11 +97,6 @@ export class PublishYourBookComponent
 
   bookDetailsForm = this.getBookDetailsForm();
 
-  private unsavedFieldsMsgTitle = '';
-  private unsavedFieldsMsg = '';
-  private yes = '';
-  private no = '';
-
   private canExitRoute = new Subject<boolean>();
 
   isDetailsFormExpanded = true;
@@ -120,7 +117,8 @@ export class PublishYourBookComponent
   sellerCurrency?: string;
   pubData!: IPublisher;
   pageTitle = '';
-  submitActionText = ''
+  submitActionText = '';
+  existingBookData?: IPublishedBook;
 
   constructor(
     private _dialog: LyDialog,
@@ -132,8 +130,24 @@ export class PublishYourBookComponent
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
     private pubDataVM: PubDataViewModel,
-    private routeData: RouteDataVewModel
+    private routeData: RouteDataVewModel,
+    private publishedBookVM: PublishedBookViewModel
   ) {}
+
+  private loadExistingBookData(bookId: string) {
+    let book = this.publishedBookVM.getPublishedBookById(bookId)!;
+    this.existingBookData = book;
+
+    this.bookAuthorFC.patchValue(book.author);
+    this.bookCatgoryFC.patchValue(book.category);
+    this.bookDescFC.patchValue(book.description);
+    this.bookPriceFC.patchValue(book.price);
+    this.bookNameFC.patchValue(book.name);
+    this.bookTagFC.patchValue(book.tag);
+    //  this.bookSaleCurrencyFC.patchValue(book.sellerCurrency);
+
+    this._cd.detectChanges();
+  }
 
   private getBookDetailsForm() {
     return new FormGroup({
@@ -243,14 +257,21 @@ export class PublishYourBookComponent
   }
 
   ngOnInit(): void {
-    this.getStrinRes();
     this.bookPublishForm = this.generateBookPublishForm();
+    this.getStrinRes();
     this.subscriptions.sink = this.pubDataVM
       .getPublisher$()
       .subscribe((pubData) => {
         this.pubData = pubData;
         this.sellerCurrency = pubData.sellerCurrency;
+        if (this.sellerCurrency) {
+          this.bookSaleCurrencyFC.patchValue(this.sellerCurrency);
+        }
       });
+
+    if (this.routeData.bookIdToEdit) {
+      this.loadExistingBookData(this.routeData.bookIdToEdit);
+    }
   }
 
   private getStrinRes() {
@@ -258,9 +279,8 @@ export class PublishYourBookComponent
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
-        this.setDynamicText();
         this.translateStringRes();
-
+        this.setDynamicText();
       });
   }
 
@@ -274,11 +294,19 @@ export class PublishYourBookComponent
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.bookPublishForm.dirty && !this.published) {
+      const no = this.localeService.translate(StringResKeys.no);
+      const yes = this.localeService.translate(StringResKeys.yes);
+      const unsavedFieldsMsg = this.localeService.translate(
+        StringResKeys.unsavedFieldsMsg
+      );
+      const unsavedFieldsMsgTitle = this.localeService.translate(
+        StringResKeys.unsavedFieldsMsgTitle
+      );
       AlertDialog.warn(
-        this.unsavedFieldsMsg,
-        this.unsavedFieldsMsgTitle,
-        this.yes,
-        this.no,
+        unsavedFieldsMsg,
+        unsavedFieldsMsgTitle,
+        yes,
+        no,
         () => this.canExitRoute.next(true),
         () => this.canExitRoute.next(false)
       );
@@ -300,24 +328,15 @@ export class PublishYourBookComponent
     this.pageTitle = this.routeData.bookIdToEdit
       ? this.localeService.translate(StringResKeys.updateUrBook)
       : this.localeService.translate(StringResKeys.publishUrBk);
-    
+
     this.submitActionText = this.routeData.bookIdToEdit
-      ? this.localeService.translate(StringResKeys.updateUrBook)
+      ? this.localeService.translate(StringResKeys.update)
       : this.localeService.translate(StringResKeys.publishUrBk);
 
     this._cd.detectChanges();
   }
 
   private translateStringRes() {
-    this.no = this.localeService.translate(StringResKeys.no);
-    this.yes = this.localeService.translate(StringResKeys.yes);
-    this.unsavedFieldsMsg = this.localeService.translate(
-      StringResKeys.unsavedFieldsMsg
-    );
-    this.unsavedFieldsMsgTitle = this.localeService.translate(
-      StringResKeys.unsavedFieldsMsgTitle
-    );
-
     this.bookUploadErrorMsg = this.localeService.translate(
       StringResKeys.bookUploadErrorMsg
     );
@@ -329,7 +348,7 @@ export class PublishYourBookComponent
     this.tryAgain = this.localeService.translate(StringResKeys.tryAgain);
   }
 
-  private get13DigitAutoGenNumb() {
+  private generate13DigitNumb() {
     const bookId = `${Math.floor(
       1000000000000 + Math.random() * 9000000000000
     )}`;
@@ -346,17 +365,18 @@ export class PublishYourBookComponent
       bookUploadingMsg
     );
     let bookId = '';
-    const autoGenIdNumb = this.get13DigitAutoGenNumb();
+    const autoGenIdNumb = this.generate13DigitNumb();
     let bookFileName = '';
 
     if (this.bookISBNFC.value) {
       bookId = this.bookISBNFC.value;
       bookFileName = bookId;
+    } else if (this.existingBookData) {
+      bookId = this.existingBookData.bookId!;
     } else {
       bookId = `${this.pubId}-${autoGenIdNumb}`;
       bookFileName = autoGenIdNumb;
     }
-
     bookFileName = `${bookFileName}.pdf`;
     const bookFileToUpload = FileUtil.rename(
       this.bookFileChosenByUser,
@@ -381,6 +401,7 @@ export class PublishYourBookComponent
         Logger.error(this, 'onBookUploadError', error);
         Shield.remove('.publish-book-container');
         this.published = false;
+        console.log(error.message);
         AlertDialog.error(
           this.bookUploadErrorMsg,
           this.bookUploadErrorTitle,
@@ -430,15 +451,25 @@ export class PublishYourBookComponent
         Collection.PUBLISHED_BOOKS,
         [bookId]
       );
-      await this.publishYouBookVM.uploadBookDataTransaction(
-        sNDocRef,
-        bookUploadDocRef,
-        newBookData
-      );
+
+      if (this.existingBookData) {
+        await this.publishYouBookVM.updateBookData(
+          Collection.PUBLISHED_BOOKS,
+          [bookId],
+          this.getUpdatedBookData(this.existingBookData)
+        );
+      } else {
+        await this.publishYouBookVM.uploadBookDataTransaction(
+          sNDocRef,
+          bookUploadDocRef,
+          newBookData
+        );
+      }
 
       this.uploadProgress = this.uploadProgress + 10;
       this._cd.detectChanges();
       Shield.remove('.publish-book-container');
+
       this.showBookUploadSuccessMsg();
     } catch (error) {
       Logger.error(this, this.uploadBookData.name, error);
@@ -454,8 +485,22 @@ export class PublishYourBookComponent
     }
   }
 
-  private getBookData(bookId: string) {
-    let bookData: IPublishedBook = {
+  private getUpdatedBookData(existingBookData:IPublishedBook): IUpdatedBook {
+    return {
+      name: this.bookNameFC.value,
+      author: this.bookAuthorFC.value,
+      coverUrl: this.croppedImage!,
+      lastUpdated: serverTimestamp(),
+      description: this.bookDescFC.value,
+      category: this.bookCatgoryFC.value,
+      tag: this.bookTagFC.value,
+      published: existingBookData.published,
+      price: this.bookPriceFC.value,
+    };
+  }
+
+  private getBookData(bookId: string): IPublishedBook {
+    return {
       approved: false,
       totalDownloads: 0,
       totalRatings: 0,
@@ -475,12 +520,10 @@ export class PublishYourBookComponent
       price: this.bookPriceFC.value,
       pubId: this.pubId,
     };
-
-    return bookData;
   }
 
   ngOnDestroy(): void {
-    this.routeData.bookIdToEdit = null
+    this.routeData.bookIdToEdit = null;
     this.subscriptions.unsubscribe();
   }
 }
