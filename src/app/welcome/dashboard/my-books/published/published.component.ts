@@ -1,6 +1,7 @@
 import { YPosition } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -15,6 +16,7 @@ import { Route } from 'src/data/route';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
 import { Logger } from 'src/helpers/utils/logger';
+import { Shield } from 'src/helpers/utils/shield';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { PublishedBookViewModel } from '../../published-book.viewmodel';
@@ -36,7 +38,8 @@ export class PublishedComponent implements OnInit, OnDestroy {
     private publishedBookVM: PublishedBookViewModel,
     private localeService: LocaleService,
     private routeData: RouteDataVewModel,
-    private router: Router
+    private router: Router,
+    private cdRef:ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -44,16 +47,23 @@ export class PublishedComponent implements OnInit, OnDestroy {
       .getAllBooks$()
       .subscribe((allBooks) => {
         this.books = allBooks;
+        this.cdRef.detectChanges()
       });
   }
 
   edit(bookId: string) {
     this.routeData.bookIdToEdit = bookId;
-    this.router.navigate([Route.ROOT, Route.WELCOME, Route.PUBLISH_YOUR_BOOK])
+    this.router.navigate([Route.ROOT, Route.WELCOME, Route.PUBLISH_YOUR_BOOK]);
+  }
+
+
+  getBookRating(book:IPublishedBook) {
+    return book.totalRatings === 0 || book.totalReviews === 0 ? 0 : book.totalRatings / book.totalReviews
   }
 
   async unpublish(bookId: string) {
     const notification = new NotificationBuilder().build();
+    Shield.standard('.my-books', 'Updating book');
     try {
       await this.publishedBookVM.unPublishBook(
         Collection.PUBLISHED_BOOKS,
@@ -64,12 +74,15 @@ export class PublishedComponent implements OnInit, OnDestroy {
       const successMsg = this.localeService.translate(
         StringResKeys.updateSuccessMsg
       );
+      this.publishedBookVM.setPublishedStatus(false, bookId);
+      Shield.remove('.my-books');
       notification.success(successMsg);
     } catch (error) {
       Logger.error(this, this.unpublish.name, error);
       const errorsMsg = this.localeService.translate(
         StringResKeys.updateErrorMsg
       );
+      Shield.remove('.my-books');
       notification.error(errorsMsg);
     }
   }
@@ -78,6 +91,26 @@ export class PublishedComponent implements OnInit, OnDestroy {
     return DateUtil.getHumanReadbleDateTime(
       DateUtil.getLocalDateTime(timeStamp)
     );
+  }
+
+  async publish(bookId: string) {
+    const notification = new NotificationBuilder().build();
+    Shield.standard('.my-books', 'Updating book');
+    try {
+      await this.publishedBookVM.unPublishBook(
+        Collection.PUBLISHED_BOOKS,
+        [bookId],
+        Fields.published,
+        true
+      );
+      this.publishedBookVM.setPublishedStatus(true, bookId)
+      Shield.remove('.my-books');
+      notification.success("Book successfully published to book store");
+    } catch (error) {
+      Logger.error(this, this.publish.name, error);
+      Shield.remove('.my-books');
+      notification.error("Network error, failed to published book.");
+    }
   }
 
   getBookStatus(book: IPublishedBook) {

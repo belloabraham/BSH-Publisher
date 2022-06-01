@@ -1,5 +1,17 @@
+@use '../../../../../scss/font' as *;
+
 .my-books{
    min-height: 80vh;
+  
+   .table{
+      font-size: 1.3rem;
+      font-family: $app-font;
+      tbody{
+        tr{
+          font-size: 1.2rem;
+        }
+      }
+   }
 }
 
 

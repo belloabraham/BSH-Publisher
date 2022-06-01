@@ -22,7 +22,15 @@ export class PublishedBookViewModel {
   constructor(
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
-  ) {}
+  ) { }
+  
+
+  setPublishedStatus(value:boolean, bookId:string) {
+    this.allBooks.find(book => book.bookId === bookId)!.published = value
+    const empty: IPublishedBook[] = []
+    const updatedBooks = this.allBooks.concat(empty)
+    this.setAllBooks(updatedBooks)
+  }
 
   getAllBooks$() {
     return this.allBooks$;

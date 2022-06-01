@@ -5,7 +5,7 @@ export interface IUpdatedBook {
   description: string;
   category: string;
   tag: string | undefined;
-    lastUpdated: any;
-    published:boolean,
+  lastUpdated: any;
+  published: boolean;
   price: number;
 }

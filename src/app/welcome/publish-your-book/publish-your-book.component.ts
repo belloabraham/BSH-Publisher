@@ -67,7 +67,7 @@ export class PublishYourBookComponent
 
   inValidBookCover = false;
   inValidCoverMsg = '';
-  published = false;
+  isPublishedBookSucess = false;
 
   inValidBook = false;
   inValidBookMsg = '';
@@ -293,7 +293,7 @@ export class PublishYourBookComponent
   }
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.bookPublishForm.dirty && !this.published) {
+    if (this.bookPublishForm.dirty && !this.isPublishedBookSucess) {
       const no = this.localeService.translate(StringResKeys.no);
       const yes = this.localeService.translate(StringResKeys.yes);
       const unsavedFieldsMsg = this.localeService.translate(
@@ -400,7 +400,7 @@ export class PublishYourBookComponent
       (error) => {
         Logger.error(this, 'onBookUploadError', error);
         Shield.remove('.publish-book-container');
-        this.published = false;
+        this.isPublishedBookSucess = false;
         console.log(error.message);
         AlertDialog.error(
           this.bookUploadErrorMsg,
@@ -425,7 +425,7 @@ export class PublishYourBookComponent
     const title = this.localeService.translate(
       StringResKeys.bookPublishedSuccessTitle
     );
-    this.published = true;
+    this.isPublishedBookSucess = true;
     const actionTxt = this.localeService.translate(StringResKeys.goToMyBooks);
     AlertDialog.success(msg, title, actionTxt, () => {
       this.navigateToMyBooks();
@@ -505,7 +505,7 @@ export class PublishYourBookComponent
       totalDownloads: 0,
       totalRatings: 0,
       totalReviews: 0,
-      published: false,
+      published: true,
       publishedDate: serverTimestamp(),
       bookId: bookId,
       name: this.bookNameFC.value,
