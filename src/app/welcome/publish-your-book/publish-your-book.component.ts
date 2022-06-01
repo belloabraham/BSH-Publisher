@@ -42,7 +42,6 @@ import { Route } from 'src/data/route';
 import { Document } from 'src/data/remote-data-source/document';
 import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
 import { PubDataViewModel } from '../pub-data.viewmodels';
-import { Fields } from 'src/data/remote-data-source/fields';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
 
 @Component({
@@ -65,6 +64,7 @@ export class PublishYourBookComponent
 
   inValidBookCover = false;
   inValidCoverMsg = '';
+  published = false
 
   inValidBook = false;
   inValidBookMsg = '';
@@ -110,7 +110,8 @@ export class PublishYourBookComponent
 
   croppedImage?: string;
   bookFileChosenByUser!: File;
-  uploadProgress?: number;
+  uploadProgress = 0;
+  hello = 10;
   bookUploadErrorMsg = '';
   bookUploadErrorTitle = '';
   tryAgain = '';
@@ -265,7 +266,7 @@ export class PublishYourBookComponent
   }
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.bookPublishForm.dirty) {
+    if (this.bookPublishForm.dirty && !this.published) {
       AlertDialog.warn(
         this.unsavedFieldsMsg,
         this.unsavedFieldsMsgTitle,
@@ -348,26 +349,29 @@ export class PublishYourBookComponent
     this.publishYouBookVM.uploadBookFile(
       pathToBookFile,
       bookFileToUpload,
-      this.onProgress,
+      (snapshot: UploadTaskSnapshot, progress: number)=>{
+        this.uploadProgress = Math.floor(progress > 10 ? progress - 10 : progress);
+        this._cd.detectChanges();
+      },
       async (_) => {
         await this.uploadBookData(bookId);
       },
-      this.onBookUploadError
+      (error) =>{
+        Logger.error(this, 'onBookUploadError', error);
+        Shield.remove('.publish-book-container');
+        this.published = false;
+        AlertDialog.error(
+          this.bookUploadErrorMsg,
+          this.bookUploadErrorTitle,
+          this.tryAgain,
+          () => {
+            this.submitFormData();
+          }
+        );
+     }
     );
   }
 
-  private onBookUploadError(error: any) {
-    Logger.error(this, this.onBookUploadError.name, error);
-   Shield.remove('.publish-book-container');
-    AlertDialog.error(
-      this.bookUploadErrorMsg,
-      this.bookUploadErrorTitle,
-      this.tryAgain,
-      () => {
-        this.submitFormData();
-      }
-    );
-  }
 
   private navigateToMyBooks() {
     this.router.navigate([Route.WELCOME, Route.DASHBOARD, Route.MY_BOOKS]);
@@ -380,6 +384,7 @@ export class PublishYourBookComponent
     const title = this.localeService.translate(
       StringResKeys.bookPublishedSuccessTitle
     );
+    this.published = true
     const actionTxt = this.localeService.translate(StringResKeys.goToMyBooks);
     AlertDialog.success(msg, title, actionTxt, () => {
       this.navigateToMyBooks();
@@ -413,7 +418,8 @@ export class PublishYourBookComponent
         newBookData
       );
 
-      this.uploadProgress = this.uploadProgress! + 10;
+      this.uploadProgress = this.uploadProgress + 10;
+      this._cd.detectChanges();
       Shield.remove('.publish-book-container');
       this.showBookUploadSuccessMsg();
     } catch (error) {
@@ -428,10 +434,6 @@ export class PublishYourBookComponent
         }
       );
     }
-  }
-
-  private onProgress(snapshot: UploadTaskSnapshot, progress: number) {
-    this.uploadProgress = progress - 10;
   }
 
   private getBookData(bookId: string) {
