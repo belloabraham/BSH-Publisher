@@ -43,6 +43,7 @@ import { Document } from 'src/data/remote-data-source/document';
 import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
+import { RouteDataVewModel } from '../route-data.viewmodel';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -64,7 +65,7 @@ export class PublishYourBookComponent
 
   inValidBookCover = false;
   inValidCoverMsg = '';
-  published = false
+  published = false;
 
   inValidBook = false;
   inValidBookMsg = '';
@@ -116,9 +117,11 @@ export class PublishYourBookComponent
   bookUploadErrorTitle = '';
   tryAgain = '';
 
-  sellerCurrency?: string
-  pubData!:IPublisher
-  
+  sellerCurrency?: string;
+  pubData!: IPublisher;
+  pageTitle = '';
+  submitActionText = ''
+
   constructor(
     private _dialog: LyDialog,
     private _cd: ChangeDetectorRef,
@@ -128,7 +131,8 @@ export class PublishYourBookComponent
     private incominRouteS: IncomingRouteService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
-    private pubDataVM: PubDataViewModel
+    private pubDataVM: PubDataViewModel,
+    private routeData: RouteDataVewModel
   ) {}
 
   private getBookDetailsForm() {
@@ -241,11 +245,12 @@ export class PublishYourBookComponent
   ngOnInit(): void {
     this.getStrinRes();
     this.bookPublishForm = this.generateBookPublishForm();
-    this.subscriptions.sink = this.pubDataVM.getPublisher$()
+    this.subscriptions.sink = this.pubDataVM
+      .getPublisher$()
       .subscribe((pubData) => {
-        this.pubData = pubData
-        this.sellerCurrency = pubData.sellerCurrency
-    })
+        this.pubData = pubData;
+        this.sellerCurrency = pubData.sellerCurrency;
+      });
   }
 
   private getStrinRes() {
@@ -253,7 +258,9 @@ export class PublishYourBookComponent
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
+        this.setDynamicText();
         this.translateStringRes();
+
       });
   }
 
@@ -287,6 +294,18 @@ export class PublishYourBookComponent
       bookCoverFC: this.bookCoverFC,
       bookDetailsForm: this.bookDetailsForm,
     });
+  }
+
+  private setDynamicText() {
+    this.pageTitle = this.routeData.bookIdToEdit
+      ? this.localeService.translate(StringResKeys.updateUrBook)
+      : this.localeService.translate(StringResKeys.publishUrBk);
+    
+    this.submitActionText = this.routeData.bookIdToEdit
+      ? this.localeService.translate(StringResKeys.updateUrBook)
+      : this.localeService.translate(StringResKeys.publishUrBk);
+
+    this._cd.detectChanges();
   }
 
   private translateStringRes() {
@@ -349,14 +368,16 @@ export class PublishYourBookComponent
     this.publishYouBookVM.uploadBookFile(
       pathToBookFile,
       bookFileToUpload,
-      (snapshot: UploadTaskSnapshot, progress: number)=>{
-        this.uploadProgress = Math.floor(progress > 10 ? progress - 10 : progress);
+      (snapshot: UploadTaskSnapshot, progress: number) => {
+        this.uploadProgress = Math.floor(
+          progress > 10 ? progress - 10 : progress
+        );
         this._cd.detectChanges();
       },
       async (_) => {
         await this.uploadBookData(bookId);
       },
-      (error) =>{
+      (error) => {
         Logger.error(this, 'onBookUploadError', error);
         Shield.remove('.publish-book-container');
         this.published = false;
@@ -368,10 +389,9 @@ export class PublishYourBookComponent
             this.submitFormData();
           }
         );
-     }
+      }
     );
   }
-
 
   private navigateToMyBooks() {
     this.router.navigate([Route.WELCOME, Route.DASHBOARD, Route.MY_BOOKS]);
@@ -384,30 +404,28 @@ export class PublishYourBookComponent
     const title = this.localeService.translate(
       StringResKeys.bookPublishedSuccessTitle
     );
-    this.published = true
+    this.published = true;
     const actionTxt = this.localeService.translate(StringResKeys.goToMyBooks);
     AlertDialog.success(msg, title, actionTxt, () => {
       this.navigateToMyBooks();
     });
   }
 
-
   private async uploadBookData(bookId: string) {
     try {
-     
       const newBookData = this.getBookData(bookId);
 
       if (this.sellerCurrency === undefined || this.sellerCurrency === null) {
-
-        this.pubData.sellerCurrency = newBookData.sellerCurrency
+        this.pubData.sellerCurrency = newBookData.sellerCurrency;
         await this.pubDataVM.updatePublisher(
-          {pubData: this.pubData},
+          { pubData: this.pubData },
           this.pubId
         );
       }
 
-      const sNDocRef = this.publishYouBookVM.getDocRef(Collection.INVENTORY,
-        [Document.BOOK])
+      const sNDocRef = this.publishYouBookVM.getDocRef(Collection.INVENTORY, [
+        Document.BOOK,
+      ]);
       const bookUploadDocRef = this.publishYouBookVM.getDocRef(
         Collection.PUBLISHED_BOOKS,
         [bookId]
@@ -462,6 +480,7 @@ export class PublishYourBookComponent
   }
 
   ngOnDestroy(): void {
+    this.routeData.bookIdToEdit = null
     this.subscriptions.unsubscribe();
   }
 }

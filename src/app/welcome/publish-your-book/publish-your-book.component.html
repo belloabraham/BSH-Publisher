@@ -9,10 +9,10 @@
                         d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
                 </svg>
             </button>
-            <h2>{{t('pub_ur_book')}}</h2>
+            <h2>{{pageTitle}}</h2>
         </div>
 
-        <div class="progress">
+        <div class="progress shadow" >
             <div class="progress-bar" role="progressbar" [style.width]="uploadProgress+'%'" 
                 style="padding-bottom: .5rem;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> <span>
                     {{uploadProgress}}% </span> </div>
@@ -257,7 +257,7 @@
                         </i>
 
                         <span [lyPe]="1">
-                            {{t('publish')}}
+                            {{submitActionText}}
                         </span>
 
                     </button>

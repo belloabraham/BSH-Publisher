@@ -10,6 +10,9 @@ import { CLOUD_STORAGE_IJTOKEN } from "src/services/storage/icloud-storage-token
 
 @Injectable()
 export class PublishYourBookViewModel {
+
+
+  
   constructor(
     @Inject(CLOUD_STORAGE_IJTOKEN) private cloudStorage: ICloudStorage,
     @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase

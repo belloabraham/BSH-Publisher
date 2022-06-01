@@ -15,4 +15,8 @@ export enum StringResKeys {
   bookUploadErrorMsg = 'book_upload_error_msg',
   bookUploadErrorTitle = 'book_upload_error_title',
   tryAgain = 'try_again',
+  publishUrBk = 'pub_ur_book',
+  updateUrBook = 'update_ur_book',
+  publish = 'publish',
+  update = 'update',
 }
