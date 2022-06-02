@@ -9,7 +9,7 @@
                         d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
                 </svg>
             </button>
-            <h2>{{pageTitle}}</h2>
+            <h2>{{t('pub_ur_book')}}</h2>
         </div>
 
         <div class="progress shadow">
@@ -105,7 +105,7 @@
                         </div>
 
 
-                        <div *ngIf="!existingBookData" class="d-flex gap-1 mb-2">
+                        <div class="d-flex gap-1 mb-2">
                             <label class="form-label label-lg flex-shrink-0" for="bookISBNFC">{{ t('isbn') }}</label>
 
                             <div class="form-group"
@@ -263,7 +263,7 @@
                         </i>
 
                         <span [lyPe]="1">
-                            {{submitActionText}}
+                            {{ t('publish') }}
                         </span>
 
                     </button>

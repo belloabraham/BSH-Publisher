@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Providers } from 'src/data/providers';
 
-@Injectable()
+@Injectable({
+  providedIn: Providers.ROOT,
+})
 export class RouteDataVewModel {
-
   private _bookId: string | null = null;
   public get bookIdToEdit(): string | null {
     return this._bookId;
@@ -11,6 +13,5 @@ export class RouteDataVewModel {
     this._bookId = v;
   }
 
-    constructor() { }
-    
+  constructor() {}
 }

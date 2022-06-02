@@ -1,1 +1,250 @@
-<p>edit-your-book works!</p>
+<div *transloco="let t" class="edit-your-book d-flex justify-content-center w-100 h-100">
+
+    <div class="m-4">
+
+        <div class="mb-1 d-flex align-items-center gap-2">
+            <button (click)="goBack()" ly-button appearance="icon">
+                <svg style="width:26px;height:26px" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+                </svg>
+            </button>
+            <h2>{{ t('edit') }}</h2>
+        </div>
+
+        <form class="bg-white shadow-sm p-2 form-book-details" [formGroup]="bookDetailsForm" (ngSubmit)="uploadBookDataForm()">
+
+            <h3 class="mb-2" >{{t('book_details_only')}}</h3>
+
+            <div class="d-flex gap-1 mb-2">
+                <label class="form-label label-lg flex-shrink-0" for="bookNameFC">{{ t('book_name') }} <span
+                        class="text-muted">*</span></label>
+
+                <div class="form-group" [ngClass]="{'has-error':bookNameFC.hasError('required') && bookNameFC.touched}">
+
+                    <input type="text" class="form-input input-lg account-name" id="bookNameFC"
+                        formControlName="bookNameFC">
+
+                    <p *ngIf="bookNameFC.hasError('required') && bookNameFC.touched" class="form-input-hint">
+                        {{ t('book_name_req') }}
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="d-flex mb-2 gap-1">
+                <label class="form-label label-lg flex-shrink-0">{{ t('category') }} <span class="text-muted">*</span>
+                </label>
+
+                <div class="form-group category"
+                    [ngClass]="{'has-error':bookCatgoryFC.hasError('required') && bookCatgoryFC.touched}">
+                    <select formControlName="bookCatgoryFC" class="form-select select-lg category">
+                        <option *ngFor="let bookCategory of bookCategories" value="{{bookCategory.category}}">
+                            {{bookCategory.category}}
+                        </option>
+                    </select>
+
+                    <p *ngIf="bookCatgoryFC.hasError('required') && bookCatgoryFC.touched" class="form-input-hint">
+                        {{ t('book_cat_req') }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex gap-1 mb-2">
+                <label class="form-label label-lg flex-shrink-0" for="bookAuthorFC">{{ t('author') }} <span
+                        class="text-muted">*</span> </label>
+
+                <div class="form-group"
+                    [ngClass]="{'has-error':(bookAuthorFC.hasError('required')|| bookAuthorFC.hasError('minlength')) && bookAuthorFC.touched}">
+
+                    <input type="text" class="form-input input-lg account-name" id="bookAuthorFC"
+                        formControlName="bookAuthorFC">
+
+                    <p *ngIf="(bookAuthorFC.hasError('required') || bookAuthorFC.hasError('minlength')) && bookAuthorFC.touched"
+                        class="form-input-hint">
+                        {{ t('author_name_req') }}
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="d-flex mb-2 gap-1">
+                <label class="form-label label-lg flex-shrink-0">{{ t('tag') }}</label>
+
+                <div class="form-group tag">
+                    <select formControlName="bookTagFC" class="form-select select-lg tag">
+                        <option *ngFor="let bookTag of bookTags" value="{{bookTag.tag}}">{{bookTag.tag}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex gap-1 mb-2">
+            
+                <label class="form-label label-lg flex-shrink-0" for="bookPriceFC">{{ t('price') }} <span
+                        class="text-muted">*</span> </label>
+            
+                <div class="form-group"
+                    [ngClass]="{'has-error':(bookPriceFC.hasError('required') || bookSaleCurrencyFC.hasError('required')) && (bookSaleCurrencyFC.touched || bookPriceFC.touched)}">
+                    <div class="input-group">
+                        <input class="form-input input-lg" type="number" formControlName="bookPriceFC">
+                        <select class="form-select select-lg w-100" formControlName="bookSaleCurrencyFC">
+            
+                            <option selected value="{{sellerCurrency}}">
+                                {{sellerCurrency}}
+                            </option>
+            
+                        </select>
+                    </div>
+            
+                    <p *ngIf="(bookPriceFC.hasError('required') || bookSaleCurrencyFC.hasError('required')) && (bookSaleCurrencyFC.touched || bookPriceFC.touched)"
+                        class="form-input-hint">
+                        {{ t('price_currency_req') }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex gap-1 mb-2">
+
+                <label class="form-label label-lg flex-shrink-0" for="bookDescFC">{{ t('desc') }} <span
+                        class="text-muted">*</span>
+                </label>
+
+                <div class="form-group" [ngClass]="{'has-error':bookDescFC.hasError('required') && bookDescFC.touched}">
+                    <textarea class="form-input" formControlName="bookDescFC" id="bookDescFC"></textarea>
+
+                    <p *ngIf="bookDescFC.hasError('required') && bookDescFC.touched" class="form-input-hint">
+                        {{ t('book_desc_req') }}
+                    </p>
+                </div>
+
+            </div>
+            <div class="text-end">
+                <button type="submit" disabled [disabled]="!bookDetailsForm.valid || bookDetailsForm.pristine" ly-button
+                    bg="primary">
+                    <i>
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
+                        </svg>
+                    </i>
+                    
+                    <span [lyPe]="1">
+                        {{ t('update') }}
+                    </span>
+                </button>
+            </div>
+
+        </form>
+
+        <form class="bg-white p-2 my-2 shadow-sm form-book-cover" [formGroup]="bookCoverForm">
+            <h3 class="mb-2" >{{t('book_cover_only')}}</h3>
+            <div>
+                <div class="d-flex gap-1">
+
+                    <label class="form-label label-lg flex-shrink-0 book-cover-label"
+                        for="bookCoverFC">{{ t('book_cover') }} (PNG only) <span class="text-muted">*</span>
+                        <br>
+                        <span class="text-muted">(h-500px X w-400px)</span>
+                    </label>
+
+                    <div class="form-group"
+                        [ngClass]="{'has-error':(bookCoverFC.hasError('required') && bookCoverFC.touched)|| isInValidBookCover}">
+                        <input #_fileInput type="file" max="1" class="form-input input-lg" id="bookCoverFC"
+                            formControlName="bookCoverFC" (change)="openCropperDialog($event)" accept="image/png"
+                            hidden>
+
+                        <button ly-button (click)="chooseACoverImage(_fileInput)">
+                            <i>
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M5,3A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H14.09C14.03,20.67 14,20.34 14,20C14,19.32 14.12,18.64 14.35,18H5L8.5,13.5L11,16.5L14.5,12L16.73,14.97C17.7,14.34 18.84,14 20,14C20.34,14 20.67,14.03 21,14.09V5C21,3.89 20.1,3 19,3H5M19,16V19H16V21H19V24H21V21H24V19H21V16H19Z" />
+                                </svg>
+                            </i>
+                            <span [lyPe]="1">{{ t('choose_cover') }}</span>
+                        </button>
+
+                        <p *ngIf="bookCoverFC.hasError('required') && bookCoverFC.touched" class="form-input-hint">
+                            {{ t('book_cover_req') }}
+                        </p>
+
+                        <p *ngIf="isInValidBookCover" class="form-input-hint">
+                            {{ inValidCoverMsg }}
+                        </p>
+
+                    </div>
+                </div>
+                <div *ngIf="croppedImage" class="border text-center shadow-sm mt-2 cover-frame">
+                    <img [src]="croppedImage">
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button (click)="uploadBookCover()"  [disabled]="!bookCoverForm.valid || isInValidBookCover" type="submit" class="mt-2" ly-button
+                    bg="primary">
+                    <i>
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
+                        </svg>
+                    </i>
+
+                    <span [lyPe]="1">
+                        {{ t('update') }}
+                    </span>
+
+                </button>
+            </div>
+        </form>
+
+        <div class="progress shadow-sm mt-2">
+            <div class="progress-bar" role="progressbar" [style.width]="bookDocUploadProgress+'%'"
+                style="padding-bottom: .5rem;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> <span>
+                    {{bookDocUploadProgress}}% </span> </div>
+        </div>
+        <form class="bg-white p-2 shadow-sm form-book"  [formGroup]="bookDocumentForm" (ngSubmit)="uploadBookDocForm()">
+            <h3 class="mb-2">{{t('ur_book_only')}}</h3>
+            <div class="d-flex gap-1 mb-2 mt-1">
+                <label class="form-label label-lg flex-shrink-0" for="bookDocumentFC">{{ t('book_pdf') }}
+                    <span class="text-muted">*</span></label>
+
+                <div class="form-group"
+                    [ngClass]="{'has-error':(bookDocumentFC.hasError('required')  && bookDocumentFC.touched) || isInValidBook}">
+
+                    <input type="file" max="1" accept="application/pdf" (change)="onBookFileUpload($event)"
+                        class="form-input input-lg" id="bookDocumentFC" formControlName="bookDocumentFC">
+
+                    <p *ngIf="bookDocumentFC.hasError('required') && bookDocumentFC.touched" class="form-input-hint">
+                        {{ t('book_file_req') }}
+                    </p>
+
+                    <p *ngIf="isInValidBook" class="form-input-hint">
+                        {{ inValidBookMsg }}
+                    </p>
+
+                </div>
+            </div>
+
+
+            <div class="text-end">
+                  <button [disabled]="!bookDocumentForm.valid || isInValidBook" type="submit" class="mt-2" ly-button
+                bg="primary">
+                <i>
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
+                    </svg>
+                </i>
+
+                <span [lyPe]="1">
+                    {{ t('update') }}
+                </span>
+
+            </button>
+            </div>
+          
+        </form>
+
+    </div>
+
+</div>

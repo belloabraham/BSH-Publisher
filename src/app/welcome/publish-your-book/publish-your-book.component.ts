@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
+  NgZone,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -16,7 +17,6 @@ import { LocaleService } from 'src/services/transloco/locale.service';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
-import { ImagePickerDialogComponent } from './image-picker-dialog/image-picker-dialog.component';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Regex } from 'src/data/regex';
@@ -40,12 +40,13 @@ import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
 import { Route } from 'src/data/route';
 import { Document } from 'src/data/remote-data-source/document';
-import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
+import { PublishYourBookViewModel } from '../publish-your-book.viewmodel';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { RouteDataVewModel } from '../route-data.viewmodel';
 import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
 import { IUpdatedBook } from 'src/data/models/entities/iupdated-book';
+import { ImagePickerDialogComponent } from '../../shared/image-picker-dialog/image-picker-dialog.component';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -71,9 +72,7 @@ export class PublishYourBookComponent
 
   inValidBook = false;
   inValidBookMsg = '';
-  pubId = this.userAuth.getPubId()!;
-
-  bookUploadingMsg = '';
+  private pubId = this.userAuth.getPubId()!;
 
   bookCategories = bookCategories;
   bookTags = bookTags;
@@ -87,7 +86,7 @@ export class PublishYourBookComponent
   bookISBNFC = new FormControl(undefined, [Validators.pattern(Regex.ISBN)]);
   bookDescFC = new FormControl(undefined, [Validators.required]);
   bookSaleCurrencyFC = new FormControl(undefined, [Validators.required]);
-  bookTagFC = new FormControl(undefined, [Validators.required]);
+  bookTagFC = new FormControl(undefined);
   bookAuthorFC = new FormControl(undefined, [
     Validators.required,
     Validators.minLength(2),
@@ -104,21 +103,15 @@ export class PublishYourBookComponent
   private readonly MAX_ALLOWED_COVER_SIZE_IN_BYTES = 70 * 1024; //*70KB
   private readonly MAX_ALLOWED_BOOK_SIZE_IN_BYTES = 100 * 1024 * 1024; //*100Mb
 
-  inComingRoute: string | undefined;
-
   croppedImage?: string;
   bookFileChosenByUser!: File;
   uploadProgress = 0;
-  hello = 10;
-  bookUploadErrorMsg = '';
-  bookUploadErrorTitle = '';
-  tryAgain = '';
+  private bookUploadErrorMsg = '';
+  private bookUploadErrorTitle = '';
+  private tryAgain = '';
 
   sellerCurrency?: string;
   pubData!: IPublisher;
-  pageTitle = '';
-  submitActionText = '';
-  existingBookData?: IPublishedBook;
 
   constructor(
     private _dialog: LyDialog,
@@ -126,28 +119,13 @@ export class PublishYourBookComponent
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
+    private ngZone:NgZone,
     private incominRouteS: IncomingRouteService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
     private pubDataVM: PubDataViewModel,
-    private routeData: RouteDataVewModel,
     private publishedBookVM: PublishedBookViewModel
   ) {}
-
-  private loadExistingBookData(bookId: string) {
-    let book = this.publishedBookVM.getPublishedBookById(bookId)!;
-    this.existingBookData = book;
-
-    this.bookAuthorFC.patchValue(book.author);
-    this.bookCatgoryFC.patchValue(book.category);
-    this.bookDescFC.patchValue(book.description);
-    this.bookPriceFC.patchValue(book.price);
-    this.bookNameFC.patchValue(book.name);
-    this.bookTagFC.patchValue(book.tag);
-    //  this.bookSaleCurrencyFC.patchValue(book.sellerCurrency);
-
-    this._cd.detectChanges();
-  }
 
   private getBookDetailsForm() {
     return new FormGroup({
@@ -268,10 +246,6 @@ export class PublishYourBookComponent
           this.bookSaleCurrencyFC.patchValue(this.sellerCurrency);
         }
       });
-
-    if (this.routeData.bookIdToEdit) {
-      this.loadExistingBookData(this.routeData.bookIdToEdit);
-    }
   }
 
   private getStrinRes() {
@@ -280,7 +254,6 @@ export class PublishYourBookComponent
       .subscribe((_) => {
         this.setTitle();
         this.translateStringRes();
-        this.setDynamicText();
       });
   }
 
@@ -307,8 +280,8 @@ export class PublishYourBookComponent
         unsavedFieldsMsgTitle,
         yes,
         no,
-        () => this.canExitRoute.next(true),
-        () => this.canExitRoute.next(false)
+        () => this.ngZone.run(()=> this.canExitRoute.next(true)),
+        () => this.ngZone.run(()=> this.canExitRoute.next(false))
       );
       return this.canExitRoute;
     } else {
@@ -324,17 +297,6 @@ export class PublishYourBookComponent
     });
   }
 
-  private setDynamicText() {
-    this.pageTitle = this.routeData.bookIdToEdit
-      ? this.localeService.translate(StringResKeys.updateUrBook)
-      : this.localeService.translate(StringResKeys.publishUrBk);
-
-    this.submitActionText = this.routeData.bookIdToEdit
-      ? this.localeService.translate(StringResKeys.update)
-      : this.localeService.translate(StringResKeys.publishUrBk);
-
-    this._cd.detectChanges();
-  }
 
   private translateStringRes() {
     this.bookUploadErrorMsg = this.localeService.translate(
@@ -371,8 +333,6 @@ export class PublishYourBookComponent
     if (this.bookISBNFC.value) {
       bookId = this.bookISBNFC.value;
       bookFileName = bookId;
-    } else if (this.existingBookData) {
-      bookId = this.existingBookData.bookId!;
     } else {
       bookId = `${this.pubId}-${autoGenIdNumb}`;
       bookFileName = autoGenIdNumb;
@@ -407,7 +367,7 @@ export class PublishYourBookComponent
           this.bookUploadErrorTitle,
           this.tryAgain,
           () => {
-            this.submitFormData();
+            this.ngZone.run(()=>this.submitFormData());
           }
         );
       }
@@ -428,7 +388,7 @@ export class PublishYourBookComponent
     this.isPublishedBookSucess = true;
     const actionTxt = this.localeService.translate(StringResKeys.goToMyBooks);
     AlertDialog.success(msg, title, actionTxt, () => {
-      this.navigateToMyBooks();
+      this.ngZone.run(()=> this.navigateToMyBooks())
     });
   }
 
@@ -452,19 +412,12 @@ export class PublishYourBookComponent
         [bookId]
       );
 
-      if (this.existingBookData) {
-        await this.publishYouBookVM.updateBookData(
-          Collection.PUBLISHED_BOOKS,
-          [bookId],
-          this.getUpdatedBookData(this.existingBookData)
-        );
-      } else {
         await this.publishYouBookVM.uploadBookDataTransaction(
           sNDocRef,
           bookUploadDocRef,
           newBookData
         );
-      }
+      
 
       this.uploadProgress = this.uploadProgress + 10;
       this._cd.detectChanges();
@@ -479,24 +432,10 @@ export class PublishYourBookComponent
         this.bookUploadErrorTitle,
         this.tryAgain,
         () => {
-          this.uploadBookData(bookId);
+          this.ngZone.run(() => this.uploadBookData(bookId));
         }
       );
     }
-  }
-
-  private getUpdatedBookData(existingBookData:IPublishedBook): IUpdatedBook {
-    return {
-      name: this.bookNameFC.value,
-      author: this.bookAuthorFC.value,
-      coverUrl: this.croppedImage!,
-      lastUpdated: serverTimestamp(),
-      description: this.bookDescFC.value,
-      category: this.bookCatgoryFC.value,
-      tag: this.bookTagFC.value,
-      published: existingBookData.published,
-      price: this.bookPriceFC.value,
-    };
   }
 
   private getBookData(bookId: string): IPublishedBook {
@@ -523,7 +462,6 @@ export class PublishYourBookComponent
   }
 
   ngOnDestroy(): void {
-    this.routeData.bookIdToEdit = null;
     this.subscriptions.unsubscribe();
   }
 }

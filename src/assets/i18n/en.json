@@ -109,13 +109,10 @@
     "copy":"Copy",
     "copied_msg":"Copied to clipboard",
 
-
-
     "internal_server_error":"Internal server error",
     "try_again":"Try again",
     "server_error_msg":"Unable to load the requested resource as a result of an internal server error. Wait a few minute and try again.",
 
-    
     "published":"Published",
     "unpublished":"Unpublished",
     "pending_approv":"Pending approval",
@@ -209,18 +206,19 @@
     "currency":"Currency",
     "desc":"Description",
     "category":"Category",
-    "book_cover":"Your book cover",
+    "ur_book_cover":"Your book cover",
     "book_pdf":"Your book (PDF only)",
     "book_file_req":"Your book file is required",
     "book_name_req":"Your book name is required",
     "author_name_req":"Author name is required",
     "price_currency_req":"Your book sales price and currency is required",
+     "price_req":"Your book sales price is required",
     "book_desc_req":"Your book description is required",
     "req_fields":"All fields marked with * are required",
     "pub_your_book":"Add your book to the book store",
     "book_cat_req":"Your book category is required",
     "pub_ur_book":"Publish your book",
-    "update_ur_book":"Update your book",
+    "book_cover":"Book cover",
     "choose_cover":"Choose cover",
     "book_cover_req":"Your book cover is required",
     "publish":"Publish",
@@ -235,6 +233,18 @@
     "go_to_my_books":"Go to my books",
     "book_upload_error_title":"Network Error",
     "book_upload_error_msg":"Book upload failed as a result of poor internet connection, make sure you are connected to the internet and try again",
+
+
+    "book_edit_title":"Edit Book - {{value}}",
+    "book_details_only":"Book Details Only",
+    "book_cover_only":"Book Cover Only",
+    "ur_book_only":"Your Book Only",
+    "updating_book_details":"Updating book details, please wait.",
+    "updating_book_cover":"Updating book cover, please wait.",
+    "updating_book":"Updating book, please wait.",
+    "update_success":"Updated successfully",
+    "update_error":"Network error: Update failed try again",
+    "book_updating_msg":"Updating book, do not leave this page untill book update completes.", 
 
 
     "fit_screen":"Fit to screen",

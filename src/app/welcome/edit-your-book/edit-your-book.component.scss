@@ -1,0 +1,38 @@
+.form {
+  width: 45rem;
+}
+
+.form-book-details{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
+
+button[type="submit"],
+.input-group,
+.form-input {
+  width: 20rem;
+}
+
+
+.form-label {
+  width: 11rem;
+}
+
+.cover-frame {
+  width: 210px;
+  border-radius: 10px;
+  padding: 5px;
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+}
+
+.book-cover-label {
+  width: 13rem;
+}

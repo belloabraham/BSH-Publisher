@@ -12,10 +12,13 @@ import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { FirestoreService } from 'src/data/remote-data-source/firebase/firestore.service';
 import { Display } from 'src/helpers/utils/display';
+import { CloudStorageService } from 'src/services/storage/firebase/cloud-storage.service';
+import { CLOUD_STORAGE_IJTOKEN } from 'src/services/storage/icloud-storage-token';
 import { SubSink } from 'subsink';
 import { IncomingRouteService } from '../shared/incoming-route.service';
 import { PaymentDetailsViewModel } from './dashboard/payment/payment-details.viewmodel';
 import { PubDataViewModel } from './pub-data.viewmodels';
+import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
 import { RouteDataVewModel } from './route-data.viewmodel';
 
 @Component({
@@ -27,9 +30,13 @@ import { RouteDataVewModel } from './route-data.viewmodel';
       provide: DATABASE_IJTOKEN,
       useClass: FirestoreService,
     },
+    {
+      provide: CLOUD_STORAGE_IJTOKEN,
+      useClass: CloudStorageService,
+    },
     IncomingRouteService,
     PaymentDetailsViewModel,
-    RouteDataVewModel
+    PublishYourBookViewModel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

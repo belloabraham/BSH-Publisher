@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
 import { PublishedBooksResolver } from './dashboard/published-books.resolver';
+import { EditBookGuard } from './edit-your-book/edit-book.guard';
 import { WelcomeComponent } from './welcome.component';
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
       },
       {
         path: Route.EDIT_YOUR_BOOK,
+        canLoad:[EditBookGuard],
         loadChildren: () =>
           import('./edit-your-book/edit-your-book.module').then(
             (m) => m.EditYourBookModule

@@ -1,0 +1,17 @@
+export enum StringResKeys {
+  no = 'no',
+  yes = 'yes',
+  unsavedFieldsMsgTitle = 'unsaved_field_msg_title',
+  unsavedFieldsMsg = 'unsaved_field_msg',
+  title = 'book_edit_title',
+  invalidImgType = 'invalid_img_type',
+  imgTooLargeMsg = 'too_large_img_msg',
+  invalidBookType = 'invalid_book_type',
+  bookTooLargeMsg = 'too_large_book_msg',
+  bookUpdatingMsg = 'book_updating_msg',
+  updatingBookCover = 'updating_book_cover',
+  updatingBookDetails = 'updating_book_details',
+  updatingBook = 'updating_book',
+  updatedSucess = 'update_success',
+  updateError = 'update_error',
+}

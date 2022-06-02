@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeComponent } from './welcome.component';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+
 
 @NgModule({
   declarations: [WelcomeComponent],
@@ -10,6 +12,7 @@ import { WelcomeComponent } from './welcome.component';
     CommonModule,
     WelcomeRoutingModule,
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
   ],
 })
 export class WelcomeModule {}

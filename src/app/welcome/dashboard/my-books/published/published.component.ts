@@ -53,7 +53,7 @@ export class PublishedComponent implements OnInit, OnDestroy {
 
   edit(bookId: string) {
     this.routeData.bookIdToEdit = bookId;
-    this.router.navigate([Route.ROOT, Route.WELCOME, Route.PUBLISH_YOUR_BOOK]);
+    this.router.navigate([Route.ROOT, Route.WELCOME, Route.EDIT_YOUR_BOOK]);
   }
 
 

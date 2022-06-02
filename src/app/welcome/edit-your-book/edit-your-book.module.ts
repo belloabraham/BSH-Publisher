@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { EditYourBookRoutingModule } from './edit-your-book-routing.module';
 import { EditYourBookComponent } from './edit-your-book.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { LyButtonModule } from '@alyle/ui/button';
+import { TranslocoModule } from '@ngneat/transloco';
+import { ImagePickerDialogModule } from '../../shared/image-picker-dialog/image-picker-dialog.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,11 @@ import { EditYourBookComponent } from './edit-your-book.component';
   ],
   imports: [
     CommonModule,
-    EditYourBookRoutingModule
+    EditYourBookRoutingModule,
+    ImagePickerDialogModule,
+    LyButtonModule,
+    TranslocoModule,
+    ReactiveFormsModule
   ]
 })
 export class EditYourBookModule { }

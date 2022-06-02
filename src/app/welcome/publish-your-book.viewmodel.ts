@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { DocumentData, DocumentReference } from '@angular/fire/firestore';
 import { UploadMetadata, UploadTaskSnapshot } from '@angular/fire/storage';
-import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { IUpdatedBook } from 'src/data/models/entities/iupdated-book';
+import { IUpdatedBookCover } from 'src/data/models/entities/iupdated-book-cover';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
 import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { ICloudStorage } from 'src/services/storage/icloud-storage';
@@ -20,8 +20,8 @@ export class PublishYourBookViewModel {
     return this.remoteData.updateDocData(path, pathSegment, book);
   }
 
-  private getAvailableBookSerialNos(collection: string, pathSegment: string[]) {
-    return this.remoteData.getDocData<IBookInventory>(collection, pathSegment);
+  updateBookCover(path: string, pathSegment: string[], bookCover: IUpdatedBookCover) {
+    return this.remoteData.updateDocData(path, pathSegment, bookCover);
   }
 
   getDocRef(collection: string, pathSegment: string[]) {
