@@ -2,11 +2,22 @@ import { LyDialog } from '@alyle/ui/dialog';
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FunctionsError, FunctionsErrorCode } from 'firebase/functions';
 import { map } from 'rxjs';
+import { ICollaborators } from 'src/data/models/entities/icollaborators';
+import { ICreateCollab } from 'src/data/models/icreate-collab';
+import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
+import { Display } from 'src/helpers/utils/display';
+import { Logger } from 'src/helpers/utils/logger';
+import { Shield } from 'src/helpers/utils/shield';
+import { ErrorCodes } from 'src/services/function/firebase/error-codes';
+import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
+import { ICloudFunctions } from 'src/services/function/icloud-function';
 import { SubSink } from 'subsink';
 import { AddCollaboratorsDialogComponent } from './add-collaborators-dialog/add-collaborators-dialog.component';
 import { CollaboratorsViewModel } from './collaborators.viewmodel';
@@ -20,10 +31,14 @@ import { CollaboratorsViewModel } from './collaborators.viewmodel';
 })
 export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
+  collaborators?:ICollaborators[]
+
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private collaboratorsVM: CollaboratorsViewModel,
-    private _dialog: LyDialog
+    private _dialog: LyDialog,
+    @Inject(CLOUD_FUNCTIONS) private cloudFunctions: ICloudFunctions
   ) {}
 
   ngOnInit(): void {
@@ -34,9 +49,13 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
           this.collaboratorsVM.setCollaborators(collaborators);
         }
       });
+    
+    this.subscriptions.sink = this.collaboratorsVM.getCollaborators$().subscribe(
+      collaborators => {
+        this.collaborators = collaborators
+      }
+    )
   }
-
-
 
   addACollaborator() {
     const dialogRef = this._dialog.open<AddCollaboratorsDialogComponent>(
@@ -45,7 +64,35 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
         width: 400,
       }
     );
-    dialogRef.afterClosed.subscribe((result) => console.log(result));
+    this.subscriptions.sink = dialogRef.afterClosed.subscribe( async (data) => {
+       if (data) {
+         await  this.createACollaborator(data)
+       }
+    });
+  }
+
+  async createACollaborator(data:ICreateCollab) {
+     Shield.pulse(
+      '.collaborators',
+      Display.remToPixel(1.2),
+      'Creating collaborator, please wait...'
+    );
+    const notification = new NotificationBuilder().build();
+
+    try {
+    //*  await this.cloudFunctions.call(CloudFunctions.createACollaborator, data);
+      Shield.remove('.collaborators');
+      notification.success("Collaborator was created successfully")
+      try {
+        let collab = await this.collaboratorsVM.getRemoteCollaborators()
+        this.collaboratorsVM.setCollaborators(collab);
+      } catch (error) {  }
+    } catch (error: any) {
+      Logger.error(this, this.createACollaborator.name, error)
+      Shield.remove('.collaborators');
+      const errorMsg = error.code === ErrorCodes.NOT_FOUND ? `${data.email} is yet to sign up on Bookshelf Hub.` : "Network error, unable to create collaborator, try again.";
+      notification.error(errorMsg)
+    }
   }
 
   ngOnDestroy(): void {

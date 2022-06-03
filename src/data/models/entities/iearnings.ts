@@ -3,4 +3,5 @@ export interface IEarnings {
   pubId: string;
   totalEarnings: number;
   totalPaid: number;
+  bookName: string;
 }

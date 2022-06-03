@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { LyDialogRef } from '@alyle/ui/dialog';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
+import { ICreateCollab } from 'src/data/models/icreate-collab';
 import { Regex } from 'src/data/regex';
 import { getBookId } from 'src/helpers/get-book-id';
-import { Display } from 'src/helpers/utils/display';
-import { Shield } from 'src/helpers/utils/shield';
 import { PublishedBookViewModel } from '../../published-book.viewmodel';
 
 @Component({
@@ -30,16 +30,28 @@ export class AddCollaboratorsDialogComponent implements OnInit {
   constructor(
     private pubBookVM: PublishedBookViewModel,
     private pubData: PubDataViewModel,
-    private cdRef:ChangeDetectorRef
+    private lyDialogRef: LyDialogRef
   ) {}
 
   ngOnInit(): void {
     this.collaboratorsForm = this.getCollaboratorsForm();
   }
 
+   createAcollaborator() {
+    const pub = this.pubData.getPublisher()!;
+    const bookId: string = this.bookFC.value;
+    const book = this.pubBookVM.getPublishedBookById(bookId)!;
+    const data: ICreateCollab = {
+      name: this.nameFC.value,
+      bookName: book.name,
+      bookId: bookId,
+      pubId: book.pubId,
+      pubName: pub.firstName,
+      email: this.emailFC.value,
+      commission: this.commissionFC.value,
+    };
 
-  createAcollaborator() {
-    Shield.pulse('.collab-dialog', Display.remToPixel(1.2),'Creating collaborator, please waite...');
+     this.lyDialogRef.close(data);
   }
 
   getCollaboratorsForm() {

@@ -11,7 +11,8 @@ import {
 import { LyButtonModule } from '@alyle/ui/button';
 import { NotificationComponent } from './notification/notification.component';
 import { LyTooltipModule } from '@alyle/ui/tooltip';
-
+import { getFunctions, provideFunctions } from '@angular/fire/functions';
+import { CloudFunctions } from 'src/services/function/cloud-functions';
 
 @NgModule({
   declarations: [DashboardComponent, NotificationComponent],
@@ -22,6 +23,7 @@ import { LyTooltipModule } from '@alyle/ui/tooltip';
     LyButtonModule,
     LyTooltipModule,
     provideRemoteConfig(() => getRemoteConfig()),
+    provideFunctions(() => getFunctions(undefined, CloudFunctions.location)),
   ],
 })
 export class DashboardModule {}

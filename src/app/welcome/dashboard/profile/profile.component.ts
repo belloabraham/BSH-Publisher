@@ -22,7 +22,6 @@ import { CloudFunctions } from 'src/services/function/cloud-functions';
 import { Router } from '@angular/router';
 import { Route } from 'src/data/route';
 import { Logger } from 'src/helpers/utils/logger';
-import { CloudFunctionService } from 'src/services/function/firebase/cloud-function.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { Notification } from 'src/helpers/notification/notification';
 
@@ -31,12 +30,6 @@ import { Notification } from 'src/helpers/notification/notification';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: CLOUD_FUNCTIONS,
-      useClass: CloudFunctionService,
-    },
-  ],
 })
 export class ProfileComponent implements OnInit, ICanDeactivate {
   profileForm!: FormGroup;
@@ -62,7 +55,7 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
     private clipboardService: ClipboardService,
-    private ngZone:NgZone
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -95,17 +88,19 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
   }
 
   copyToClipboard(value: string) {
-
     this.clipboardService.copy(value);
-    const copyMsg = this.localeService.translate(StringResKeys.copiedMsg)
+    const copyMsg = this.localeService.translate(StringResKeys.copiedMsg);
     const notification = new NotificationBuilder()
-      .setTimeOut(Notification.SHORT_LENGHT).build();
+      .setTimeOut(Notification.SHORT_LENGHT)
+      .build();
     notification.success(copyMsg);
   }
 
   onDataUpdate(isSuccessful: boolean) {
     this.profileForm.markAsPristine();
-    const notification = new NotificationBuilder().setTimeOut(Notification.SHORT_LENGHT).build();
+    const notification = new NotificationBuilder()
+      .setTimeOut(Notification.SHORT_LENGHT)
+      .build();
     if (isSuccessful) {
       notification.success(this.updatedSucessMsg);
     } else {
@@ -123,11 +118,10 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     const proceed = this.localeService.translate(StringResKeys.proceed);
     const cancel = this.localeService.translate(StringResKeys.cancel);
 
-    AlertDialog.warn(message, title, proceed, cancel,
-       () => {
-        this.ngZone.run(async() => { 
+    AlertDialog.warn(message, title, proceed, cancel, () => {
+      this.ngZone.run(async () => {
         await this.revokeAllUserAuth();
-      })
+      });
     });
   }
 
@@ -152,8 +146,8 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
         this.unsavedFieldsMsgTitle,
         this.yes,
         this.no,
-        () => this.ngZone.run(()=>this.canExitRoute.next(true)),
-        () => this.ngZone.run(()=>this.canExitRoute.next(false))
+        () => this.ngZone.run(() => this.canExitRoute.next(true)),
+        () => this.ngZone.run(() => this.canExitRoute.next(false))
       );
       return this.canExitRoute;
     } else {

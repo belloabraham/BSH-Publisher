@@ -36,7 +36,7 @@
             <tbody>
                 <tr *ngFor="let earning of earnings">
                     <th scope="row">{{earnings!.indexOf(earning)+1}}</th>
-                    <td>{{getBookName(earning.bookId)}}</td>
+                    <td>{{earning.bookName}}</td>
                     <td>{{earning.bookId}}</td>
                     <td>{{(earning.totalEarnings - earning.totalPaid) | currency:sellerCurrency:'symbol-narrow'}}</td>
                     <td>{{earning.totalEarnings | currency:sellerCurrency:'symbol-narrow' }}</td>

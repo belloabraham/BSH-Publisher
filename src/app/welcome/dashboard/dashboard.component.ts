@@ -39,6 +39,8 @@ import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { SalesRecordViewModel } from './sales-record/sales-record.viewmodel';
+import { CloudFunctionService } from 'src/services/function/firebase/cloud-function.service';
+import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,6 +50,10 @@ import { SalesRecordViewModel } from './sales-record/sales-record.viewmodel';
     {
       provide: REMOTE_CONFIG_IJTOKEN,
       useClass: FirebaseRemoteConfigService,
+    },
+    {
+      provide: CLOUD_FUNCTIONS,
+      useClass: CloudFunctionService,
     },
     NotificationsViewModel,
     SalesRecordViewModel,
