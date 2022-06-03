@@ -42,7 +42,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     const dialogRef = this._dialog.open<AddCollaboratorsDialogComponent>(
       AddCollaboratorsDialogComponent,
       {
-        width: 320,
+        width: 400,
       }
     );
     dialogRef.afterClosed.subscribe((result) => console.log(result));

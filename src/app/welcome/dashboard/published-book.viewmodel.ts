@@ -25,6 +25,10 @@ export class PublishedBookViewModel {
   ) { }
   
 
+  getAllBooks() {
+    return this.allBooks
+  }
+
   setPublishedStatus(value:boolean, bookId:string) {
     this.allBooks.find(book => book.bookId === bookId)!.published = value
     const empty: IPublishedBook[] = []

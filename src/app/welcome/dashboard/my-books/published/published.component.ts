@@ -13,6 +13,7 @@ import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { Route } from 'src/data/route';
+import { getBookId } from 'src/helpers/get-book-id';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
 import { Logger } from 'src/helpers/utils/logger';
@@ -31,6 +32,7 @@ import { StringResKeys } from './locale/string-res-keys';
 export class PublishedComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   books?: IPublishedBook[];
+  getBookId = getBookId;
 
   bottom = YPosition.below;
 
@@ -39,7 +41,7 @@ export class PublishedComponent implements OnInit, OnDestroy {
     private localeService: LocaleService,
     private routeData: RouteDataVewModel,
     private router: Router,
-    private cdRef:ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class PublishedComponent implements OnInit, OnDestroy {
       .getAllBooks$()
       .subscribe((allBooks) => {
         this.books = allBooks;
-        this.cdRef.detectChanges()
+        this.cdRef.detectChanges();
       });
   }
 
@@ -56,9 +58,10 @@ export class PublishedComponent implements OnInit, OnDestroy {
     this.router.navigate([Route.ROOT, Route.WELCOME, Route.EDIT_YOUR_BOOK]);
   }
 
-
-  getBookRating(book:IPublishedBook) {
-    return book.totalRatings === 0 || book.totalReviews === 0 ? 0 : book.totalRatings / book.totalReviews
+  getBookRating(book: IPublishedBook) {
+    return book.totalRatings === 0 || book.totalReviews === 0
+      ? 0
+      : book.totalRatings / book.totalReviews;
   }
 
   async unpublish(bookId: string) {
@@ -103,13 +106,13 @@ export class PublishedComponent implements OnInit, OnDestroy {
         Fields.published,
         true
       );
-      this.publishedBookVM.setPublishedStatus(true, bookId)
+      this.publishedBookVM.setPublishedStatus(true, bookId);
       Shield.remove('.my-books');
-      notification.success("Book successfully published to book store");
+      notification.success('Book successfully published to book store');
     } catch (error) {
       Logger.error(this, this.publish.name, error);
       Shield.remove('.my-books');
-      notification.error("Network error, failed to published book.");
+      notification.error('Network error, failed to published book.');
     }
   }
 

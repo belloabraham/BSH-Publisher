@@ -38,6 +38,7 @@
     "sign_up_title":"Sign Up - {{value}}",
     "signup_sub_header":"You are new here, tell us about you.",
     "first_name":"First name",
+    "country_field_country":"Country field is required",
     "full_name":"Full name",
     "last_name":"Last name",
     "name_field_required":"Name field is required",
@@ -246,6 +247,15 @@
     "update_error":"Network error: Update failed try again",
     "book_updating_msg":"Updating book, do not leave this page untill book update completes.", 
 
+
+    "book_red":"Book field is required",
+    "book":"Book",
+    "collab_name":"Collaborators name",
+    "collab_name_req":"Collaborators name is required",
+    "collab_email":"Collaborators email used on",
+    "commission_req":"Sales commission is required",
+    "collab_sales_comm":"Collaborators sales commission",
+    "create_collab":"Create collaborator",
 
     "fit_screen":"Fit to screen",
     "zoom_in":"Zoom in",

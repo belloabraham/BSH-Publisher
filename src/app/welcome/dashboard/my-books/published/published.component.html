@@ -7,6 +7,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">{{ t('name')}}</th>
+                    <th scope="col">ID/ISBN</th>
                     <th scope="col">{{ t('status')}}</th>
                     <th scope="col">{{ t('price')}}</th>
                     <th scope="col">{{ t('category')}}</th>
@@ -22,6 +23,7 @@
                 <tr *ngFor="let book of books">
                     <th scope="row">{{books!.indexOf(book)+1}}</th>
                     <td>{{book.name}}</td>
+                    <td>{{getBookId(book)}}</td>
                     <td>{{getBookStatus(book)}}</td>
                     <td>{{book.price | currency:book.sellerCurrency:'symbol-narrow'}}</td>
                     <td>{{book.category}}</td>
