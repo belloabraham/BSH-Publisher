@@ -53,13 +53,6 @@ import { ImagePickerDialogComponent } from '../../shared/image-picker-dialog/ima
   templateUrl: './publish-your-book.component.html',
   styleUrls: ['./publish-your-book.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: CLOUD_STORAGE_IJTOKEN,
-      useClass: CloudStorageService,
-    },
-    PublishYourBookViewModel,
-  ],
 })
 export class PublishYourBookComponent
   implements OnInit, OnDestroy, ICanDeactivate

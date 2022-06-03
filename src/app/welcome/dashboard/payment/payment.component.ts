@@ -14,7 +14,4 @@ export class PaymentComponent {
 
   constructor(
   ) {}
-
-
-  
 }

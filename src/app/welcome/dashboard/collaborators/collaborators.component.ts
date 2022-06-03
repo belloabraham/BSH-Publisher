@@ -1,3 +1,4 @@
+import { LyDialog } from '@alyle/ui/dialog';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,6 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { SubSink } from 'subsink';
+import { AddCollaboratorsDialogComponent } from './add-collaborators-dialog/add-collaborators-dialog.component';
 import { CollaboratorsViewModel } from './collaborators.viewmodel';
 
 @Component({
@@ -20,7 +22,8 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   constructor(
     private activatedRoute: ActivatedRoute,
-    private collaboratorsVM: CollaboratorsViewModel
+    private collaboratorsVM: CollaboratorsViewModel,
+    private _dialog: LyDialog
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +36,16 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
       });
   }
 
+
+
   addACollaborator() {
-    
+    const dialogRef = this._dialog.open<AddCollaboratorsDialogComponent>(
+      AddCollaboratorsDialogComponent,
+      {
+        width: 320,
+      }
+    );
+    dialogRef.afterClosed.subscribe((result) => console.log(result));
   }
 
   ngOnDestroy(): void {

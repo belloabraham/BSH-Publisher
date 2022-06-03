@@ -3,11 +3,11 @@ import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/data/max-cached-item';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
 import { IDatabase } from 'src/data/remote-data-source/idatabase';
-import { ICollaborators as ICollaborator } from 'src/data/models/entities/icollaborators';
+import { ICollaborators } from 'src/data/models/entities/icollaborators';
 
 @Injectable()
 export class CollaboratorsViewModel {
-  private collaborators$ = new ReplaySubject<ICollaborator[]>(
+  private collaborators$ = new ReplaySubject<ICollaborators[]>(
     MaxCachedItem.ONE
   );
 
@@ -17,8 +17,11 @@ export class CollaboratorsViewModel {
     return this.collaborators$;
   }
 
-  setCollaborators(collaborators: ICollaborator[]) {
+  setCollaborators(collaborators: ICollaborators[]) {
     this.collaborators$.next(collaborators);
   }
+
+  
+
   
 }

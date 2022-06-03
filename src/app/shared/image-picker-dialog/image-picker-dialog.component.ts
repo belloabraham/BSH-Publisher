@@ -98,18 +98,14 @@ export class ImagePickerDialogComponent implements WithStyles, AfterViewInit {
   }
 
   onReady(e: ImgCropperEvent) {
-    console.log('img ready', e);
   }
 
   onCropped(e: ImgCropperEvent) {
-    console.log('cropped img: ', e);
   }
 
   onLoaded(e: ImgCropperEvent) {
-    console.log('img loaded', e);
   }
   onError(e: ImgCropperErrorEvent) {
-    console.warn(`'${e.name}' is not a valid image`, e);
     // Close the dialog if it fails
     this.dialogRef.close();
   }

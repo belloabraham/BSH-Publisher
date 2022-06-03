@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  NgZone,
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -60,7 +61,8 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     @Inject(CLOUD_FUNCTIONS) private cloudFunctions: ICloudFunctions,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
-    private clipboardService: ClipboardService
+    private clipboardService: ClipboardService,
+    private ngZone:NgZone
   ) {}
 
   ngOnInit(): void {
@@ -121,8 +123,11 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
     const proceed = this.localeService.translate(StringResKeys.proceed);
     const cancel = this.localeService.translate(StringResKeys.cancel);
 
-    AlertDialog.warn(message, title, proceed, cancel, async () => {
-      await this.revokeAllUserAuth();
+    AlertDialog.warn(message, title, proceed, cancel,
+       () => {
+        this.ngZone.run(async() => { 
+        await this.revokeAllUserAuth();
+      })
     });
   }
 
@@ -147,8 +152,8 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
         this.unsavedFieldsMsgTitle,
         this.yes,
         this.no,
-        () => this.canExitRoute.next(true),
-        () => this.canExitRoute.next(false)
+        () => this.ngZone.run(()=>this.canExitRoute.next(true)),
+        () => this.ngZone.run(()=>this.canExitRoute.next(false))
       );
       return this.canExitRoute;
     } else {

@@ -56,7 +56,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.publishedBooksVM
       .getAllBooks$()
       .subscribe((allBooks) => {
-        this.allPublisedBooks.concat(allBooks);
+        this.allPublisedBooks.push(...allBooks)
       });
 
     this.subscriptions.sink = this.activatedRoute.data

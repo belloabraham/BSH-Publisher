@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LyButtonModule } from '@alyle/ui/button';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ImagePickerDialogModule } from '../../shared/image-picker-dialog/image-picker-dialog.module';
-
+import { LyCommonModule } from '@alyle/ui';
 @NgModule({
   declarations: [
     EditYourBookComponent
@@ -17,6 +17,7 @@ import { ImagePickerDialogModule } from '../../shared/image-picker-dialog/image-
     EditYourBookRoutingModule,
     ImagePickerDialogModule,
     LyButtonModule,
+    LyCommonModule,
     TranslocoModule,
     ReactiveFormsModule
   ]

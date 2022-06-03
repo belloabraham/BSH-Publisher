@@ -1,6 +1,6 @@
 export interface IEarnings {
   bookId: string;
-  pubId: number;
+  pubId: string;
   totalEarnings: number;
   totalPaid: number;
 }

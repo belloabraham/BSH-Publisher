@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  NgZone,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -63,7 +64,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   constructor(
     private localeService: LocaleService,
     private paymentDetailsVM: PaymentDetailsViewModel,
-    private pubDataVM: PubDataViewModel
+    private pubDataVM: PubDataViewModel,
+    private ngZone:NgZone
   ) {}
 
   goToPayment() {
@@ -93,8 +95,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
         this.unsavedFieldsMsgTitle,
         this.yes,
         this.no,
-        () => this.canExitRoute.next(true),
-        () => this.canExitRoute.next(false)
+        () => this.ngZone.run(()=>this.canExitRoute.next(true)),
+        () => this.ngZone.run(()=>this.canExitRoute.next(false))
       );
       return this.canExitRoute;
     } else {

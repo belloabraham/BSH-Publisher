@@ -50,7 +50,7 @@ import { SalesRecordViewModel } from './sales-record/sales-record.viewmodel';
       useClass: FirebaseRemoteConfigService,
     },
     NotificationsViewModel,
-    SalesRecordViewModel
+    SalesRecordViewModel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   pubId = this.userAuth.getPubId()!;
 
   pubFirstName = '';
-  unsubscribeFromNotification!: Unsubscribe
+  unsubscribeFromNotification!: Unsubscribe;
 
   constructor(
     private title: Title,
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private notificationVM: NotificationsViewModel,
     private cdRef: ChangeDetectorRef,
     private pubDataVM: PubDataViewModel,
-    private incomingRouteS:IncomingRouteService
+    private incomingRouteS: IncomingRouteService
   ) {
     this.isOpenLeftNav();
   }
@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   setIncomingRoute() {
-   this.incomingRouteS.route = this.router.url
+    this.incomingRouteS.route = this.router.url;
   }
 
   private listenForBookChanges() {
@@ -147,10 +147,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private listenForPubDataChanges() {
-      this.subscriptions.sink = this.pubDataVM.getPublisher$()
-      .subscribe(pubData => {
-        this.pubFirstName = pubData.firstName
-      })
+    this.subscriptions.sink = this.pubDataVM
+      .getPublisher$()
+      .subscribe((pubData) => {
+        this.pubFirstName = pubData.firstName;
+      });
   }
 
   toggleNotificationPanel() {
@@ -197,7 +198,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     const queryConstraints = [where(Fields.message, '!=', '')];
 
-    this.unsubscribeFromNotification =  this.notificationVM.getLiveNotifications(
+    this.unsubscribeFromNotification = this.notificationVM.getLiveNotifications(
       this.pubId,
       queryConstraints,
       onNext,
@@ -247,6 +248,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.unsubscribeFromNotification()
+    this.unsubscribeFromNotification();
   }
 }
