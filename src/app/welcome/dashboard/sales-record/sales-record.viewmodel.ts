@@ -27,12 +27,14 @@ export class SalesRecordViewModel {
 
   async getSalesRecord(
     collection: string,
+    bookId:string,
     year: number,
     fromMonth: number,
     toMonth: number
   ) {
       const queryConstraint = [
         where(Fields.year, '==', year),
+        where(Fields.bookId, '==', bookId),
         where(Fields.pubId, '==', this.pubId),
         orderBy(Fields.month),
         startAt(fromMonth),

@@ -5,5 +5,5 @@ export interface ICreateCollab {
   pubId: string;
   pubName: string;
   email: string;
-  commission: string;
+  commission: number;
 }

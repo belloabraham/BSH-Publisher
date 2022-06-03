@@ -16,6 +16,14 @@
         <div class="form-group">
             <label class="form-label label-lg flex-shrink-0"> {{ t('record_for') }}
             </label>
+            <select formControlName="bookFC" class="form-select select-lg">
+                <option *ngFor="let book of books" value="{{ book.bookId }}">{{book.name}} ( {{getBookId(book)}} )</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label label-lg flex-shrink-0"> {{ t('year') }}
+            </label>
             <select formControlName="yearFC" class="form-select select-lg">
                 <option *ngFor="let year of years" value="{{ year }}">{{ year }}</option>
             </select>
@@ -39,7 +47,6 @@
                 <option value="12">{{ t('december') }}</option>
             </select>
         </div>
-
 
         <div class="form-group">
             <label class="form-label label-lg flex-shrink-0"> {{ t('to') }}

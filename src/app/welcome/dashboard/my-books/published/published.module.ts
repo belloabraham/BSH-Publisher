@@ -6,10 +6,9 @@ import { PublishedComponent } from './published.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LyButtonModule } from '@alyle/ui/button';
 import { LyTooltipModule } from '@alyle/ui/tooltip';
-
+import { LyCommonModule } from '@alyle/ui';
 import { LyMenuModule } from '@alyle/ui/menu';
 import { LyDividerModule } from '@alyle/ui/divider';
-import { LyIconModule } from '@alyle/ui/icon';
 
 @NgModule({
   declarations: [PublishedComponent],
@@ -18,9 +17,8 @@ import { LyIconModule } from '@alyle/ui/icon';
     PublishedRoutingModule,
     TranslocoModule,
     LyButtonModule,
-    LyIconModule,
+    LyCommonModule,
     LyMenuModule,
-    LyDividerModule,
     LyTooltipModule,
   ],
 })

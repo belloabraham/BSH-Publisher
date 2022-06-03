@@ -7,13 +7,14 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserConfig } from 'gridjs';
-import { TData } from 'gridjs/dist/src/types';
 import { Config } from 'src/data/config';
+import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { years } from 'src/data/oredered-record-yeas';
 import { Collection } from 'src/data/remote-data-source/collection';
-import { Display } from 'src/helpers/utils/display';
+import { getBookId } from 'src/helpers/get-book-id';
 import { Shield } from 'src/helpers/utils/shield';
 import { SubSink } from 'subsink';
+import { PublishedBookViewModel } from '../published-book.viewmodel';
 import { SalesRecordViewModel } from './sales-record.viewmodel';
 
 @Component({
@@ -26,22 +27,28 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   years: number[] = years;
 
+  books!: IPublishedBook[];
+
   orderedBookQueryForm!: FormGroup;
   yearFC = new FormControl(undefined, [Validators.required]);
+  bookFC= new FormControl(undefined, [Validators.required]);
   fromMonthFC = new FormControl(undefined, [Validators.required]);
   toMonthFC = new FormControl(undefined, [Validators.required]);
 
   data: string[][] = [];
 
   gridConfig: UserConfig = this.getOrderedBooksTableConfig();
+  getBookId = getBookId;
 
   constructor(
     private salesRecordVM: SalesRecordViewModel,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private publishedBookVM: PublishedBookViewModel
   ) {}
 
   ngOnInit(): void {
     this.orderedBookQueryForm = this.generateOredereBooksQuearyForm();
+    this.books = this.publishedBookVM.getAllBooks();
     this.subscriptions.sink = this.salesRecordVM
       .getSalesRecord$()
       .subscribe((orderedBooks) => {
@@ -54,6 +61,7 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
   private generateOredereBooksQuearyForm() {
     return new FormGroup({
       yearFC: this.yearFC,
+      bookFC: this.bookFC,
       fromMonthFC: this.fromMonthFC,
       toMonthFC: this.toMonthFC,
     });
@@ -64,9 +72,11 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
     const fromMonth = this.fromMonthFC.value;
     const toMonth = this.toMonthFC.value;
     const year = this.yearFC.value;
+    const bookId = this.bookFC.value;
     try {
       await this.salesRecordVM.getSalesRecord(
         Collection.ORDERED_BOOKS,
+        bookId,
         year,
         fromMonth,
         toMonth
@@ -95,7 +105,6 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
         th: 'text-dark',
       },
       style: {
-       
         td: {
           'font-family': Config.defaultFontFamily,
         },

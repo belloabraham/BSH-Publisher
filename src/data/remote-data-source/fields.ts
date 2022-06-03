@@ -9,5 +9,6 @@ export class Fields {
   static readonly total = 'total';
   static readonly year = 'year';
   static readonly month = 'month';
-  static readonly sellerCurrency = "sellerCurrency";
+  static readonly bookId = 'bookId';
+  static readonly sellerCurrency = 'sellerCurrency';
 }

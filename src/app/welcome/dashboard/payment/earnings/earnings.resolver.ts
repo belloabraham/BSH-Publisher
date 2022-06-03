@@ -35,10 +35,9 @@ export class EarningsResolver implements Resolve<IEarnings[] | null> {
   ): Promise<IEarnings[] | null> {
     try {
       const pubId = this.userAuth.getPubId()!;
-      const earnings = await this.remoteData.getArrayOfDocDataWhere<IEarnings>(
-        Collection.EARNINGS,
-        [],
-        [where(Fields.pubId, '==', pubId)]
+      const earnings = await this.remoteData.getArrayOfDocData<IEarnings>(
+        Collection.PUBLISHERS,
+        [pubId, Collection.EARNINGS],
       );
 
       const isEarnings = earnings.length > 0;
