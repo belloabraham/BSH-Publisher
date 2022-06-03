@@ -1,7 +1,5 @@
-
 .indeterminate-progress {
     animation-delay: 200ms;
-    animation-name: fast-network-delay;
     animation-fill-mode: both;
     z-index: 20;
     pointer-events: none;
@@ -12,9 +10,8 @@
     .indeterminate {
     background-color: #ffe5d0;
     &:before{
-          position: absolute;
+     position: absolute;
     top: 0;
-    bottom: 0;
     left: 0;
     content: "";
     background-color: inherit;
@@ -35,9 +32,6 @@
     content: "";
     background-color: inherit;
     animation: indeterminate 2.1s cubic-bezier(0.165,0.84,0.44,1) infinite;
-    //animation-duration: 2.1s;
-    //animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    //animation-iteration-count: infinite;
     animation-direction: normal;
     animation-fill-mode: none;
     animation-play-state: running;
@@ -49,12 +43,3 @@
 }
 
 @-webkit-keyframes indeterminate{0%{right:100%;left:-35%}60%{right:-90%;left:100%}100%{right:-90%;left:100%}}@keyframes indeterminate{0%{right:100%;left:-35%}60%{right:-90%;left:100%}100%{right:-90%;left:100%}}@-webkit-keyframes indeterminate-short{0%{right:100%;left:-200%}60%{right:-8%;left:107%}100%{right:-8%;left:107%}}@keyframes indeterminate-short{0%{right:100%;left:-200%}60%{right:-8%;left:107%}100%{right:-8%;left:107%}}
-
-@keyframes fast-network-delay{
-    from{
-        opacity: 0.0;
-    }
-    to{
-        opacity: 1.0;
-    }
-}

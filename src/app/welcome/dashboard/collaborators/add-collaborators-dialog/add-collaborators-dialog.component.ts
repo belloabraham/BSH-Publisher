@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
-import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { Regex } from 'src/data/regex';
 import { getBookId } from 'src/helpers/get-book-id';
+import { Display } from 'src/helpers/utils/display';
+import { Shield } from 'src/helpers/utils/shield';
 import { PublishedBookViewModel } from '../../published-book.viewmodel';
 
 @Component({
@@ -28,13 +29,18 @@ export class AddCollaboratorsDialogComponent implements OnInit {
 
   constructor(
     private pubBookVM: PublishedBookViewModel,
-    private pubData: PubDataViewModel
+    private pubData: PubDataViewModel,
+    private cdRef:ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.collaboratorsForm = this.getCollaboratorsForm();
   }
 
+
+  createAcollaborator() {
+    Shield.pulse('.collab-dialog', Display.remToPixel(1.2),'Creating collaborator, please waite...');
+  }
 
   getCollaboratorsForm() {
     return new FormGroup({
