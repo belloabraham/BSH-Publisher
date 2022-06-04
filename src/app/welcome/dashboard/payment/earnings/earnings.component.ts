@@ -1,5 +1,4 @@
 import { YPosition } from '@alyle/ui';
-import { TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,

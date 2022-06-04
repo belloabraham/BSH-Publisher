@@ -33,8 +33,6 @@ import { Shield } from 'src/helpers/utils/shield';
 import { Display } from 'src/helpers/utils/display';
 import { CloudStoragePath } from 'src/services/storage/storage-path';
 import { FileUtil } from 'src/helpers/utils/file-util';
-import { CLOUD_STORAGE_IJTOKEN } from 'src/services/storage/icloud-storage-token';
-import { CloudStorageService } from 'src/services/storage/firebase/cloud-storage.service';
 import { UploadTaskSnapshot } from '@angular/fire/storage';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
@@ -43,9 +41,7 @@ import { Document } from 'src/data/remote-data-source/document';
 import { PublishYourBookViewModel } from '../publish-your-book.viewmodel';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
-import { RouteDataVewModel } from '../route-data.viewmodel';
 import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
-import { IUpdatedBook } from 'src/data/models/entities/iupdated-book';
 import { ImagePickerDialogComponent } from '../../shared/image-picker-dialog/image-picker-dialog.component';
 
 @Component({

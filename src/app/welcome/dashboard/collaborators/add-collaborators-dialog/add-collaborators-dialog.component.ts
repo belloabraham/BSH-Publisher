@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
-import { ICreateCollab } from 'src/data/models/icreate-collab';
 import { Regex } from 'src/data/regex';
 import { getBookId } from 'src/helpers/get-book-id';
 import { PublishedBookViewModel } from '../../published-book.viewmodel';

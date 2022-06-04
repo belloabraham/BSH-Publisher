@@ -2,11 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { endAt, orderBy, startAt, where } from '@angular/fire/firestore';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/data/max-cached-item';
-import { Collection } from 'src/data/remote-data-source/collection';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { IDatabase } from 'src/data/remote-data-source/idatabase';
-import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 

@@ -19,7 +19,6 @@ import { IncomingRouteService } from '../shared/incoming-route.service';
 import { PaymentDetailsViewModel } from './dashboard/payment/payment-details.viewmodel';
 import { PubDataViewModel } from './pub-data.viewmodels';
 import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
-import { RouteDataVewModel } from './route-data.viewmodel';
 
 @Component({
   selector: 'app-welcome',

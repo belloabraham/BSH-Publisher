@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { find, ReplaySubject } from 'rxjs';
+import {  ReplaySubject } from 'rxjs';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { MaxCachedItem } from 'src/data/max-cached-item';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';

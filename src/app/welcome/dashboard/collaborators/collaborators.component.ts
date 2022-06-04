@@ -12,7 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { map } from 'rxjs';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
-import { ICreateCollab } from 'src/data/models/icreate-collab';
 import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
@@ -20,7 +19,6 @@ import { Display } from 'src/helpers/utils/display';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { CloudFunctions } from 'src/services/function/cloud-functions';
-import { ErrorCodes } from 'src/services/function/firebase/error-codes';
 import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 import { ICloudFunctions } from 'src/services/function/icloud-function';
 import { SubSink } from 'subsink';
@@ -109,7 +107,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     });
   }
 
-  async createACollaborator(data: ICreateCollab) {
+  async createACollaborator(data: ICollaborators) {
     Shield.pulse(
       '.collaborators',
       Display.remToPixel(1.2),
@@ -128,7 +126,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     } catch (error: any) {
       Logger.error(this, this.createACollaborator.name, error);
       Shield.remove('.collaborators');
-      notification.error(`Network error or ${data.email} is yet to sign up on Bookshelf Hub.`);
+      notification.error(`Network error or ${data.collabEmail} is yet to sign up on Bookshelf Hub.`);
     }
   }
 
