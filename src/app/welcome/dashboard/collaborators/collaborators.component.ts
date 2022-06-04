@@ -128,11 +128,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     } catch (error: any) {
       Logger.error(this, this.createACollaborator.name, error);
       Shield.remove('.collaborators');
-      const errorMsg =
-        error.code === ErrorCodes.NOT_FOUND
-          ? `${data.email} is yet to sign up on Bookshelf Hub.`
-          : 'Network error, unable to create collaborator, try again.';
-      notification.error(errorMsg);
+      notification.error(`Network error or ${data.email} is yet to sign up on Bookshelf Hub.`);
     }
   }
 

@@ -36,8 +36,7 @@
 
             <div class="form-group mb-1 w-50"
                 [ngClass]="{'has-error':(commissionFC.hasError('required') || commissionFC.hasError('pattern')) && commissionFC.touched}">
-                <label class="form-label label-lg" for="commissionFC">{{ t('collab_sales_comm') }} in <span
-                        style="font-family: sans-serif;">%</span></label>
+                <label class="form-label label-lg" for="commissionFC">{{ t('collab_sales_comm') }} (%) </label>
                 <input class="form-input input-lg" id="commissionFC" type="number" formControlName="commissionFC">
                 <p *ngIf="commissionFC.hasError('required') && commissionFC.touched" class="form-input-hint">
                     {{ t('commission_req') }}
