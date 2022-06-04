@@ -1,12 +1,12 @@
 export interface ICollaborators {
   collabName: string;
-  coverUrl: string,
-  collabId: string,
+  collabId: string | null,
   bookName: string,
-  dateCreated: any,
+  dateCreated?: any,
+  pubName:string,
   pubId: string,
   bookId:string,
   collabComm: number, 
-  link:string,
+  link:string | null,
   collabEmail: string;
 }

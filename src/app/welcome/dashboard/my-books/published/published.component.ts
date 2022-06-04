@@ -14,6 +14,7 @@ import { Collection } from 'src/data/remote-data-source/collection';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { Route } from 'src/data/route';
 import { getBookId } from 'src/helpers/get-book-id';
+import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
 import { Logger } from 'src/helpers/utils/logger';
@@ -65,7 +66,10 @@ export class PublishedComponent implements OnInit, OnDestroy {
   }
 
   async unpublish(bookId: string) {
-    const notification = new NotificationBuilder().build();
+    const notification = new NotificationBuilder()
+      .setTimeOut(Notification.SHORT_LENGHT)
+      .setIsClickToClose(true)
+      .build();
     Shield.standard('.my-books', 'Updating book');
     try {
       await this.publishedBookVM.unPublishBook(
@@ -97,7 +101,10 @@ export class PublishedComponent implements OnInit, OnDestroy {
   }
 
   async publish(bookId: string) {
-    const notification = new NotificationBuilder().build();
+    const notification = new NotificationBuilder()
+      .setTimeOut(Notification.SHORT_LENGHT)
+      .setIsClickToClose(true)
+      .build();
     Shield.standard('.my-books', 'Updating book');
     try {
       await this.publishedBookVM.unPublishBook(

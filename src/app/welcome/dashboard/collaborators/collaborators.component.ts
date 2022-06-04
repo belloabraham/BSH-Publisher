@@ -1,17 +1,21 @@
 import { LyDialog } from '@alyle/ui/dialog';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { FunctionsError, FunctionsErrorCode } from 'firebase/functions';
+import { ClipboardService } from 'ngx-clipboard';
 import { map } from 'rxjs';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { ICreateCollab } from 'src/data/models/icreate-collab';
+import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
+import { DateUtil } from 'src/helpers/utils/date-util';
 import { Display } from 'src/helpers/utils/display';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
@@ -32,12 +36,14 @@ import { CollaboratorsViewModel } from './collaborators.viewmodel';
 })
 export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  collaborators?: ICollaborators[];
+  collaborators: ICollaborators[] | null = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private collaboratorsVM: CollaboratorsViewModel,
     private _dialog: LyDialog,
+    private cdRef: ChangeDetectorRef,
+    private clipboardService: ClipboardService,
     @Inject(CLOUD_FUNCTIONS) private cloudFunctions: ICloudFunctions
   ) {}
 
@@ -53,8 +59,25 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.collaboratorsVM
       .getCollaborators$()
       .subscribe((collaborators) => {
-        this.collaborators = collaborators;
+        if (collaborators) {
+          this.collaborators = collaborators;
+          this.cdRef.detectChanges();
+        }
       });
+  }
+
+  copyLinkToClipBoard(link: string) {
+    this.clipboardService.copy(link);
+    const notification = new NotificationBuilder()
+      .setTimeOut(Notification.SHORT_LENGHT)
+      .build();
+    notification.success("Link copied successfully");
+  }
+
+  getDateTime(timeStamp: Timestamp) {
+    return DateUtil.getHumanReadbleDateTime(
+      DateUtil.getLocalDateTime(timeStamp)
+    );
   }
 
   addACollaborator() {
@@ -95,7 +118,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     const notification = new NotificationBuilder().build();
 
     try {
-        await this.cloudFunctions.call(CloudFunctions.createACollaborator, data);
+      await this.cloudFunctions.call(CloudFunctions.createACollaborator, data);
       Shield.remove('.collaborators');
       notification.success('Collaborator was created successfully');
       try {

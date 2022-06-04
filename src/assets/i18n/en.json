@@ -90,6 +90,10 @@
     "no_collaborators_heading":"Collaborators are {{value}}'s mobile app users that sell your book on your behalf for a commission you assign to them. This is particularly useful in the case of academic institutions selling your book to it's student on your behalf.", 
     "no_collaborators_sub_heading":"Collaborators earn assigned commision whenever a user buy your book by clicking on the link to your book that the collaborator shared to user from the book store, or your book page on the collaborator's device. This is particularly useful in the case of academic institutions selling your book to it's student on your behalf",
     "add_collaborator":"Add a collaborator",
+    "date_created":"Date created",
+    "commission":"Commission",
+    "sales_link":"Sales link",
+    "collabs_email":"Collaborator's email",
 
     
     "add_your_book":"Add your book",
@@ -140,7 +144,7 @@
     "record_for":"Record for",
     "get_sales_rec":"Get sales record",
 
-    "book_id":"Book Id",
+    "book_id":"Book ID",
     "earnings_so_far":"Earnings so far",
     "total_earnings":"Total earnings",
     "total_paid":"Total paid",

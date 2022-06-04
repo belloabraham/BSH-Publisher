@@ -2,6 +2,7 @@ import { LyDialogRef } from '@alyle/ui/dialog';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
+import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { ICreateCollab } from 'src/data/models/icreate-collab';
 import { Regex } from 'src/data/regex';
 import { getBookId } from 'src/helpers/get-book-id';
@@ -41,14 +42,17 @@ export class AddCollaboratorsDialogComponent implements OnInit {
     const pub = this.pubData.getPublisher()!;
     const bookId: string = this.bookFC.value;
     const book = this.pubBookVM.getPublishedBookById(bookId)!;
-    const data: ICreateCollab = {
-      name: this.nameFC.value,
+    const data: ICollaborators = {
+      collabName: this.nameFC.value,
       bookName: book.name,
       bookId: bookId,
       pubId: book.pubId,
       pubName: pub.firstName,
-      email: this.emailFC.value,
-      commission: this.commissionFC.value,
+      dateCreated: null,
+      collabId: null,
+      link: null,
+      collabEmail: this.emailFC.value,
+      collabComm: this.commissionFC.value,
     };
 
      this.lyDialogRef.close(data);

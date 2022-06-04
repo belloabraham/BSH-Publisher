@@ -9,8 +9,50 @@
         </ul>
     </div>
 
+    <ly-paper *ngIf="collaborators else addACollaboratorMsg"  [elevation]="2">
+        <div  class="table-responsive-lg">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{ t('collab_name')}}</th>
+                        <th scope="col">{{ t('collabs_email')}}</th>
+                        <th scope="col">{{ t('book')}}</th>
+                        <th scope="col">{{ t('book_id')}}</th>
+                        <th scope="col">{{ t('commission')}} (%)</th>
+                        <th scope="col">{{ t('date_created')}}</th>
+                        <th scope="col">{{ t('sales_link')}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                    <tr *ngFor="let collab of collaborators!">
+                        <th scope="row">{{collaborators!.indexOf(collab)+1}}</th>
+                        <td>{{collab.collabName}}</td>
+                        <td>{{collab.collabEmail}}</td>
+                        <td>{{collab.bookName}}</td>
+                        <td>{{collab.bookId}}</td>
+                        <td>{{collab.collabComm}}</td>
+                        <td>{{getDateTime(collab.dateCreated)}}</td>
+                        <td>
+                            {{collab.link}}
+                            <button (click)="copyLinkToClipBoard(collab.link!)"  lyTooltip="{{ t('copy') }}" class="ml-1" ly-button appearance="icon">
+                                 <svg style="width:22px;height:22px"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+    
+                </tbody>
+            </table>
+        </div>
+    </ly-paper>
 
-    <div class="empty-state d-flex flex-column justify-content-center align-items-center gap-2">
+    <ng-template #addACollaboratorMsg>
+    <div *ngIf="collaborators === null"  class="empty-state d-flex flex-column justify-content-center align-items-center gap-2">
         <div>
             <p class="d-inline">{{t('no_collaborators_heading', {value: t('app_name')})}}</p>
 
@@ -24,7 +66,7 @@
         <div class="d-flex align-items-center ">
             <img src="assets/images/collaborators.svg">
 
-            <button ly-button raised bg="primary" (click)="addACollaborator()">
+            <button (click)="addACollaborator()"  ly-button raised bg="primary" >
                 <i>
                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -38,6 +80,6 @@
             </button>
         </div>
     </div>
-
+    </ng-template>
 
 </div>

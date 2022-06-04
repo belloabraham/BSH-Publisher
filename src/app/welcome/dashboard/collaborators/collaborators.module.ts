@@ -9,6 +9,8 @@ import { LyDialogModule } from '@alyle/ui/dialog';
 import { LyCommonModule, LyOverlayModule } from '@alyle/ui';
 import { AddCollaboratorsDialogComponent } from './add-collaborators-dialog/add-collaborators-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LyTooltipModule } from '@alyle/ui/tooltip';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [CollaboratorsComponent, AddCollaboratorsDialogComponent],
@@ -20,7 +22,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     LyCommonModule,
     LyButtonModule,
     LyOverlayModule,
+    LyTooltipModule,
     LyDialogModule,
+    ClipboardModule,
   ],
 })
 export class CollaboratorsModule {}
