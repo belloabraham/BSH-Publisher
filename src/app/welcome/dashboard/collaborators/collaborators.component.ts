@@ -15,6 +15,7 @@ import { NotificationBuilder } from 'src/helpers/notification/notification-buide
 import { Display } from 'src/helpers/utils/display';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
+import { CloudFunctions } from 'src/services/function/cloud-functions';
 import { ErrorCodes } from 'src/services/function/firebase/error-codes';
 import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 import { ICloudFunctions } from 'src/services/function/icloud-function';
@@ -31,8 +32,7 @@ import { CollaboratorsViewModel } from './collaborators.viewmodel';
 })
 export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  collaborators?:ICollaborators[]
-
+  collaborators?: ICollaborators[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -49,12 +49,12 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
           this.collaboratorsVM.setCollaborators(collaborators);
         }
       });
-    
-    this.subscriptions.sink = this.collaboratorsVM.getCollaborators$().subscribe(
-      collaborators => {
-        this.collaborators = collaborators
-      }
-    )
+
+    this.subscriptions.sink = this.collaboratorsVM
+      .getCollaborators$()
+      .subscribe((collaborators) => {
+        this.collaborators = collaborators;
+      });
   }
 
   addACollaborator() {
@@ -64,15 +64,30 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
         width: 400,
       }
     );
-    this.subscriptions.sink = dialogRef.afterClosed.subscribe( async (data) => {
-       if (data) {
-         await  this.createACollaborator(data)
-       }
+    this.subscriptions.sink = dialogRef.afterClosed.subscribe(async (data) => {
+      if (data) {
+        const notification = new NotificationBuilder().build();
+        if (this.collaborators) {
+          const existingCollab = this.collaborators!.find(
+            (collab) =>
+              collab.collabEmail === data.collabEmail &&
+              collab.bookId === data.bookId
+          );
+          if (existingCollab) {
+            const errorMsg = `Collaborator with ${data.collabEmail} already exist`;
+            notification.error(errorMsg);
+          } else {
+            await this.createACollaborator(data);
+          }
+        } else {
+          await this.createACollaborator(data);
+        }
+      }
     });
   }
 
-  async createACollaborator(data:ICreateCollab) {
-     Shield.pulse(
+  async createACollaborator(data: ICreateCollab) {
+    Shield.pulse(
       '.collaborators',
       Display.remToPixel(1.2),
       'Creating collaborator, please wait...'
@@ -80,18 +95,21 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     const notification = new NotificationBuilder().build();
 
     try {
-    //*  await this.cloudFunctions.call(CloudFunctions.createACollaborator, data);
+        await this.cloudFunctions.call(CloudFunctions.createACollaborator, data);
       Shield.remove('.collaborators');
-      notification.success("Collaborator was created successfully")
+      notification.success('Collaborator was created successfully');
       try {
-        let collab = await this.collaboratorsVM.getRemoteCollaborators()
+        let collab = await this.collaboratorsVM.getRemoteCollaborators();
         this.collaboratorsVM.setCollaborators(collab);
-      } catch (error) {  }
+      } catch (error) {}
     } catch (error: any) {
-      Logger.error(this, this.createACollaborator.name, error)
+      Logger.error(this, this.createACollaborator.name, error);
       Shield.remove('.collaborators');
-      const errorMsg = error.code === ErrorCodes.NOT_FOUND ? `${data.email} is yet to sign up on Bookshelf Hub.` : "Network error, unable to create collaborator, try again.";
-      notification.error(errorMsg)
+      const errorMsg =
+        error.code === ErrorCodes.NOT_FOUND
+          ? `${data.email} is yet to sign up on Bookshelf Hub.`
+          : 'Network error, unable to create collaborator, try again.';
+      notification.error(errorMsg);
     }
   }
 
