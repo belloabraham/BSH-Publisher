@@ -23,6 +23,24 @@
             "value": "no-cache"
           }
         ]
+      },
+      {
+        "source": "**/*.@(ttf|woff|woff2|otf)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|webp|svg)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
       }
     ],
     "rewrites": [
