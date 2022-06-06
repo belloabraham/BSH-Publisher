@@ -1,8 +1,12 @@
 @use './mixins' as *;
 
 $app-font: Stickler;
-
 $app-secondary-font: Procyon;
+
+:host{
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+}
 
 @font-face {
   font-family: 'Procyon';
