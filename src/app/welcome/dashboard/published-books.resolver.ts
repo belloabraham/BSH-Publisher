@@ -34,7 +34,7 @@ export class PublishedBooksResolver
 
       const isBookExist = allBooks.length > 0;
       if (!isBookExist) {
-         this.router.navigate([Route.welcome, Route.emptyBookStore]);
+         this.router.navigate([Route.WELCOME, Route.EMPTY_BOOK_STORE]);
         return null;
       }
       return allBooks;
