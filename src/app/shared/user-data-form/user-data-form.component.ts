@@ -20,6 +20,7 @@ import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { ICountry } from 'src/data/models/icountry';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
 import { SubSink } from 'subsink';
+import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 
 @Component({
   selector: 'app-user-data-form',
@@ -104,8 +105,8 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       const email = this.userAuth.getEmail()!;
 
       const publisher: IPublisher = {
-        firstName: this.firstNameFC.value.escapeJSONNewlineChars(),
-        lastName: this.lastNameFC.value.escapeJSONNewlineChars(),
+        firstName: escapeJSONNewlineChars(this.firstNameFC.value),
+        lastName: escapeJSONNewlineChars(this.lastNameFC.value),
         gender: this.genderFC.value,
         nationality: this.countryFC.value,
         phoneNumber: this.phoneFC.value,

@@ -38,6 +38,7 @@ import { PublishYourBookViewModel } from '../publish-your-book.viewmodel';
 import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
 import { ImagePickerDialogComponent } from 'src/app/shared/image-picker-dialog/image-picker-dialog.component';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
+import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 
 @Component({
   selector: 'app-edit-your-book',
@@ -370,10 +371,10 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
   private getUpdatedBookData(): IUpdatedBook {
     return {
-      name: this.bookNameFC.value.escapeJSONNewlineChars(),
-      author: this.bookAuthorFC.value.escapeJSONNewlineChars(),
+      name: escapeJSONNewlineChars(this.bookNameFC.value),
+      author: escapeJSONNewlineChars(this.bookAuthorFC.value),
       lastUpdated: serverTimestamp(),
-      description: this.bookDescFC.value.escapeJSONNewlineChars(),
+      description: escapeJSONNewlineChars(this.bookDescFC.value),
       category: this.bookCatgoryFC.value,
       tag: this.bookTagFC.value,
       price: this.bookPriceFC.value,

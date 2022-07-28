@@ -15,6 +15,7 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from '../auth/locale/string-res-keys';
+import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 
 @Component({
   selector: 'app-verify-email',
@@ -73,7 +74,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   verifyEmail() {
     if (this.verifyEmailForm.valid) {
       this.hasError = false;
-      var email:string = this.emailFC.value.escapeJSONNewlineChars();
+      var email:string = escapeJSONNewlineChars(this.emailFC.value);
       this.verifyEmailWithLink(email);
     } else {
       this.hasError = true;

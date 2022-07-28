@@ -43,6 +43,7 @@ import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
 import { ImagePickerDialogComponent } from '../../shared/image-picker-dialog/image-picker-dialog.component';
+import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -436,11 +437,11 @@ export class PublishYourBookComponent
       published: true,
       publishedDate: serverTimestamp(),
       bookId: bookId,
-      name: this.bookNameFC.value.escapeJSONNewlineChars(),
-      author: this.bookAuthorFC.value.escapeJSONNewlineChars(),
+      name: escapeJSONNewlineChars(this.bookNameFC.value),
+      author: escapeJSONNewlineChars(this.bookAuthorFC.value),
       coverUrl: this.croppedImage!,
       lastUpdated: serverTimestamp(),
-      description: this.bookDescFC.value.escapeJSONNewlineChars(),
+      description: escapeJSONNewlineChars(this.bookDescFC.value),
       category: this.bookCatgoryFC.value,
       tag: this.bookTagFC.value,
       sellerCurrency: this.bookSaleCurrencyFC.value,

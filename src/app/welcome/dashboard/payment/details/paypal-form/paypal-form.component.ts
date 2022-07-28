@@ -20,6 +20,7 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { PaymentDetailsViewModel } from '../../payment-details.viewmodel';
+import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 
 @Component({
   selector: 'app-paypal-form',
@@ -69,7 +70,7 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   async submitFormData() {
     if (this.emailFC.valid) {
       this.hasError = false;
-      await this.updatedPaymentDetails(this.emailFC.value);
+      await this.updatedPaymentDetails( escapeJSONNewlineChars(this.emailFC.value));
     } else {
       this.hasError = true;
     }

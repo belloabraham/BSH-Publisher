@@ -5,6 +5,7 @@ import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { Regex } from 'src/data/regex';
 import { getBookId } from 'src/helpers/get-book-id';
+import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 import { PublishedBookViewModel } from '../../published-book.viewmodel';
 
 @Component({
@@ -42,15 +43,15 @@ export class AddCollaboratorsDialogComponent implements OnInit {
     const bookId: string = this.bookFC.value;
     const book = this.pubBookVM.getPublishedBookById(bookId)!;
     const data: ICollaborators = {
-      collabName: this.nameFC.value.escapeJSONNewlineChars(),
-      bookName: book.name.escapeJSONNewlineChars(),
+      collabName: escapeJSONNewlineChars(this.nameFC.value),
+      bookName: book.name,
       bookId: bookId,
       pubId: book.pubId,
       pubName: pub.firstName,
       dateCreated: null,
       collabId: null,
       link: null,
-      collabEmail: this.emailFC.value.escapeJSONNewlineChars(),
+      collabEmail: escapeJSONNewlineChars(this.emailFC.value),
       collabComm: this.commissionFC.value,
     };
 

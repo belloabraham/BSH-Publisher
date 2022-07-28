@@ -22,6 +22,7 @@ import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { PaymentDetailsViewModel } from '../../payment-details.viewmodel';
 import { BankTranferForeignFormComponent } from './bank-tranfer-foreign-form/bank-tranfer-foreign-form.component';
+import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 
 @Component({
   selector: 'app-bank-transfer-form',
@@ -162,9 +163,11 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
     Shield.standard('.bank-transfer-form');
     const paymentDetails: IPaymentDetails = {
       paymentType: PaymentType.bankTransfer,
-      accountName: this.getEncrypted(this.accountNameFC.value),
+      accountName: this.getEncrypted(
+        escapeJSONNewlineChars(this.accountNameFC.value)
+      ),
       accountNumber: this.getEncrypted(this.accountNumberFC.value),
-      bankName: this.getEncrypted(this.bankNameFC.value),
+      bankName: this.getEncrypted(escapeJSONNewlineChars(this.bankNameFC.value)),
       country: this.getEncrypted(this.countryFC.value),
       lastUpdated: serverTimestamp(),
     };
