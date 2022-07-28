@@ -73,7 +73,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   verifyEmail() {
     if (this.verifyEmailForm.valid) {
       this.hasError = false;
-      var email = this.emailFC.value + ''.trim();
+      var email:string = this.emailFC.value.escapeJSONNewlineChars();
       this.verifyEmailWithLink(email);
     } else {
       this.hasError = true;

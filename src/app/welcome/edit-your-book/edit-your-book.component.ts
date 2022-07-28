@@ -370,10 +370,10 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
   private getUpdatedBookData(): IUpdatedBook {
     return {
-      name: this.bookNameFC.value,
-      author: this.bookAuthorFC.value,
+      name: this.bookNameFC.value.escapeJSONNewlineChars(),
+      author: this.bookAuthorFC.value.escapeJSONNewlineChars(),
       lastUpdated: serverTimestamp(),
-      description: this.bookDescFC.value,
+      description: this.bookDescFC.value.escapeJSONNewlineChars(),
       category: this.bookCatgoryFC.value,
       tag: this.bookTagFC.value,
       price: this.bookPriceFC.value,

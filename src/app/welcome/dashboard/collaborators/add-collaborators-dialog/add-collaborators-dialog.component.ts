@@ -42,15 +42,15 @@ export class AddCollaboratorsDialogComponent implements OnInit {
     const bookId: string = this.bookFC.value;
     const book = this.pubBookVM.getPublishedBookById(bookId)!;
     const data: ICollaborators = {
-      collabName: this.nameFC.value,
-      bookName: book.name,
+      collabName: this.nameFC.value.escapeJSONNewlineChars(),
+      bookName: book.name.escapeJSONNewlineChars(),
       bookId: bookId,
       pubId: book.pubId,
       pubName: pub.firstName,
       dateCreated: null,
       collabId: null,
       link: null,
-      collabEmail: this.emailFC.value,
+      collabEmail: this.emailFC.value.escapeJSONNewlineChars(),
       collabComm: this.commissionFC.value,
     };
 

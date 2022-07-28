@@ -104,8 +104,8 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       const email = this.userAuth.getEmail()!;
 
       const publisher: IPublisher = {
-        firstName: this.firstNameFC.value,
-        lastName: this.lastNameFC.value,
+        firstName: this.firstNameFC.value.escapeJSONNewlineChars(),
+        lastName: this.lastNameFC.value.escapeJSONNewlineChars(),
         gender: this.genderFC.value,
         nationality: this.countryFC.value,
         phoneNumber: this.phoneFC.value,

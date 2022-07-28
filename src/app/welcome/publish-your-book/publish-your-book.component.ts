@@ -73,7 +73,7 @@ export class PublishYourBookComponent
 
   bookPriceFC = new FormControl(undefined, [Validators.required]);
   bookISBNFC = new FormControl(undefined, [Validators.pattern(Regex.ISBN)]);
-  bookDescFC = new FormControl(undefined, [Validators.required]);
+  bookDescFC = new FormControl(undefined, [Validators.required, Validators.maxLength(4000)]);
   bookSaleCurrencyFC = new FormControl(undefined, [Validators.required]);
   bookTagFC = new FormControl(undefined);
   bookAuthorFC = new FormControl(undefined, [
@@ -436,11 +436,11 @@ export class PublishYourBookComponent
       published: true,
       publishedDate: serverTimestamp(),
       bookId: bookId,
-      name: this.bookNameFC.value,
-      author: this.bookAuthorFC.value,
+      name: this.bookNameFC.value.escapeJSONNewlineChars(),
+      author: this.bookAuthorFC.value.escapeJSONNewlineChars(),
       coverUrl: this.croppedImage!,
       lastUpdated: serverTimestamp(),
-      description: this.bookDescFC.value,
+      description: this.bookDescFC.value.escapeJSONNewlineChars(),
       category: this.bookCatgoryFC.value,
       tag: this.bookTagFC.value,
       sellerCurrency: this.bookSaleCurrencyFC.value,

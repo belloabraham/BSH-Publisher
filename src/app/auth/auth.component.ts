@@ -88,7 +88,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   async signInWithEmail() {
     if (this.emailSignInForm.valid) {
       this.hasError = false;
-      var email = this.emailFC.value + ''.trim();
+      var email:string = this.emailFC.value.trim()
       await this.sendSignInLinkToEmail(email);
     } else {
       this.hasError = true;
