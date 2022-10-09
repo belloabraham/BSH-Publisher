@@ -7,10 +7,11 @@ import {
 import { Title } from '@angular/platform-browser';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import {
-  GuardsCheckEnd,
   NavigationEnd,
   NavigationStart,
   Router,
+  NavigationCancel,
+  NavigationError,
 } from '@angular/router';
 import { ConnectionService } from 'ng-connection-service';
 import { merge, Observable, of } from 'rxjs';
@@ -32,10 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;
-  private showResolverEvent$!: Observable<boolean>;
-  private hideResolverEvent$!: Observable<boolean>;
 
-  isResolving$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
   isStarting$: Observable<boolean> = of(true);
   isNotConnected$: Observable<boolean> = of(true);
@@ -55,6 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private breakpointObserver: BreakpointObserver
   ) {
+
     title.setTitle(Config.APP_NAME);
     this.subscriptions.sink = this.isTabletAndAbove$.subscribe(
       (isTabletAndAbove) => {
@@ -71,32 +70,24 @@ export class AppComponent implements OnInit, OnDestroy {
       .monitor()
       .pipe(map((connected) => !connected));
 
-    this.showResolverEvent$ = this.router.events.pipe(
-      filter((e) => e instanceof NavigationStart),
-      mapTo(true)
-    );
-    this.hideResolverEvent$ = this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      mapTo(false)
-    );
-
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof NavigationStart),
       mapTo(true)
     );
+
     this.hideLoaderEvent$ = this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
+      filter(
+        (e) =>
+          e instanceof NavigationEnd ||
+          e instanceof NavigationCancel ||
+          e instanceof NavigationError
+      ),
       mapTo(false)
     );
 
-    this.hideLoaderEvent$ = this.router.events.pipe(
-      filter((e) => e instanceof GuardsCheckEnd),
-      mapTo(false)
-    );
 
     this.showPreloader$ = merge(this.hideLoaderEvent$, this.isStarting$);
     this.isLoading$ = merge(this.hideLoaderEvent$, this.showLoaderEvent$);
-    this.isResolving$ = merge(this.hideResolverEvent$, this.showResolverEvent$);
   }
 
   ngOnDestroy(): void {

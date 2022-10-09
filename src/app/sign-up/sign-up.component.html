@@ -12,9 +12,10 @@
 
             <h1 class="mb-3">{{ t('signup_sub_header') }}</h1>
 
-            <form [formGroup]="completeSignUpForm" >
-                 <app-user-data-form (dataUpdatedEvent)="onDataUpdate( $event )" [registeredDate]="registeredDate"
-                [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm"></app-user-data-form>
+            <form [formGroup]="completeSignUpForm">
+                <app-user-data-form (dataUpdatedEvent)="onDataUpdate( $event )" [registeredDate]="registeredDate"
+                    [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm">
+                </app-user-data-form>
             </form>
 
         </div>
