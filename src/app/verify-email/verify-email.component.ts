@@ -26,6 +26,7 @@ import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 export class VerifyEmailComponent implements OnInit, OnDestroy {
   
   private subscriptions = new SubSink();
+  
   verifyEmailForm!: FormGroup;
   emailFC = new FormControl('', [
     Validators.required,

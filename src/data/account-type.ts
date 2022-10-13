@@ -1,4 +1,4 @@
-export enum AccountType {
-  savings = 'Savings',
-  current = 'Current',
+export class AccountType {
+  static readonly savings = 'Savings'
+  static readonly  current = 'Current'
 }

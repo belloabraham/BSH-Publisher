@@ -1,6 +1,6 @@
 import { ICountry } from "./models/icountry";
 
-export var diallingCodes: ICountry[] = [
+export const diallingCodes: ICountry[] = [
   {
     name: 'Nigeria',
     code: 'NG',

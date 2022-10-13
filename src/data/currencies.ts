@@ -1,6 +1,6 @@
 import { ICurrency } from "./models/icurrency";
 
-export var currencies: ICurrency[] = [
+export const currencies: ICurrency[] = [
   { name: 'Nigeria Naira', abbrev: 'NGN' },
   { name: 'Albania Lek', abbrev: 'ALL' },
   { name: 'Afghanistan Afghani', abbrev: 'AFN' },

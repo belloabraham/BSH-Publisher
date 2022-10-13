@@ -1,3 +1,3 @@
-export enum StringResKeys {
-    title = "not_found_title"
+export class StringResKeys {
+   static readonly  title = "not_found_title"
 }

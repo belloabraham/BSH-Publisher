@@ -14,6 +14,7 @@ import { Providers } from 'src/data/providers';
   providedIn: Providers.ROOT,
 })
 export class EmailAuthService {
+  
   constructor(@Optional() private auth: Auth) {}
 
   

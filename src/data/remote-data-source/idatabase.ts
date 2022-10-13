@@ -4,6 +4,7 @@ import { IDocId } from 'src/data/models/idoc-id';
 import { IPublishedBook } from '../models/entities/ipublished-books';
 
 export interface IDatabase {
+  
   getArrayOfDocData: <T>(path: string, pathSegment: string[]) => Promise<T[]>;
 
   uploadBookDataTransaction: (

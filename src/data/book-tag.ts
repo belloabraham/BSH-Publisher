@@ -1,4 +1,4 @@
-export var bookTags = [
+export const bookTags = [
   { tag: 'Engineering and Mathematics' },
   { tag: 'Data Analysis' },
   { tag: 'Islam' },

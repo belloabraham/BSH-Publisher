@@ -1,3 +1,3 @@
-export enum StringResKeys {
-  title = 'internal_server_error',
+export class StringResKeys {
+  static readonly title = 'internal_server_error'
 }

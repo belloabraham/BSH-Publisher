@@ -1,5 +1,5 @@
-export enum PaymentType {
-  bankTransfer = 'Bank Transfer',
-  payPal = 'PayPal',
-  skrill = 'Skrill',
+export class PaymentType {
+ static readonly bankTransfer = 'Bank Transfer'
+ static readonly payPal = 'PayPal'
+ static readonly skrill = 'Skrill'
 }
