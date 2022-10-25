@@ -8,7 +8,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { isValidPhone } from 'src/helpers/utils/validators';
@@ -32,7 +32,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
   @Input()
-  userDataForm!: FormGroup;
+  userDataForm!: UntypedFormGroup;
 
   @Input()
   action!: string;
@@ -51,11 +51,11 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   dialingCodeByCountry? = countries[0].callingCode;
   isInvalidPhoneNum = false;
 
-  firstNameFC!: FormControl;
-  lastNameFC!: FormControl;
-  genderFC!: FormControl;
-  phoneFC!: FormControl;
-  countryFC!: FormControl;
+  firstNameFC!: UntypedFormControl;
+  lastNameFC!: UntypedFormControl;
+  genderFC!: UntypedFormControl;
+  phoneFC!: UntypedFormControl;
+  countryFC!: UntypedFormControl;
 
   constructor(
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
@@ -63,11 +63,11 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.firstNameFC = this.userDataForm.get('firstNameFC') as FormControl;
-    this.lastNameFC = this.userDataForm.get('lastNameFC') as FormControl;
-    this.countryFC = this.userDataForm.get('countryFC') as FormControl;
-    this.genderFC = this.userDataForm.get('genderFC') as FormControl;
-    this.phoneFC = this.userDataForm.get('phoneFC') as FormControl;
+    this.firstNameFC = this.userDataForm.get('firstNameFC') as UntypedFormControl;
+    this.lastNameFC = this.userDataForm.get('lastNameFC') as UntypedFormControl;
+    this.countryFC = this.userDataForm.get('countryFC') as UntypedFormControl;
+    this.genderFC = this.userDataForm.get('genderFC') as UntypedFormControl;
+    this.phoneFC = this.userDataForm.get('phoneFC') as UntypedFormControl;
 
     this.subscriptions.sink = this.pubDataViewModel
       .getPublisher$()
@@ -86,12 +86,12 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
 
   static getUserDataForm() {
     let validName = [Validators.required, Validators.minLength(2)];
-    return new FormGroup({
-      firstNameFC: new FormControl(undefined, validName),
-      lastNameFC: new FormControl(undefined, validName),
-      genderFC: new FormControl(undefined, [Validators.required]),
-      phoneFC: new FormControl(undefined, [Validators.required]),
-      countryFC: new FormControl(undefined, [Validators.required]),
+    return new UntypedFormGroup({
+      firstNameFC: new UntypedFormControl(undefined, validName),
+      lastNameFC: new UntypedFormControl(undefined, validName),
+      genderFC: new UntypedFormControl(undefined, [Validators.required]),
+      phoneFC: new UntypedFormControl(undefined, [Validators.required]),
+      countryFC: new UntypedFormControl(undefined, [Validators.required]),
     });
   }
 

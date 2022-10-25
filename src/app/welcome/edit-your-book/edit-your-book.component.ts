@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Config } from 'src/data/config';
@@ -60,23 +60,23 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   bookCategories = bookCategories;
   bookTags = bookTags;
 
-  bookCoverFC = new FormControl(undefined, [Validators.required]);
-  bookDocumentFC = new FormControl(undefined, [Validators.required]);
+  bookCoverFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookDocumentFC = new UntypedFormControl(undefined, [Validators.required]);
 
-  bookPriceFC = new FormControl(undefined, [Validators.required]);
-  bookDescFC = new FormControl(undefined, [Validators.required]);
-  bookTagFC = new FormControl(undefined);
-  bookAuthorFC = new FormControl(undefined, [
+  bookPriceFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookDescFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookTagFC = new UntypedFormControl(undefined);
+  bookAuthorFC = new UntypedFormControl(undefined, [
     Validators.required,
     Validators.minLength(2),
   ]);
-  bookSaleCurrencyFC = new FormControl(undefined, [Validators.required]);
-  bookCatgoryFC = new FormControl(undefined, [Validators.required]);
-  bookNameFC = new FormControl(undefined, [Validators.required]);
+  bookSaleCurrencyFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookCatgoryFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookNameFC = new UntypedFormControl(undefined, [Validators.required]);
 
-  bookDetailsForm!: FormGroup;
-  bookDocumentForm!: FormGroup;
-  bookCoverForm!: FormGroup;
+  bookDetailsForm!: UntypedFormGroup;
+  bookDocumentForm!: UntypedFormGroup;
+  bookCoverForm!: UntypedFormGroup;
 
   private readonly MAX_ALLOWED_COVER_SIZE_IN_BYTES = 70 * 1024; //*70KB
   private readonly MAX_ALLOWED_BOOK_SIZE_IN_BYTES = 100 * 1024 * 1024; //*100Mb
@@ -109,7 +109,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   }
 
   private getBookDetailsForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       bookPriceFC: this.bookPriceFC,
       bookDescFC: this.bookDescFC,
       bookTagFC: this.bookTagFC,
@@ -256,13 +256,13 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   }
 
   private getBookDocumentForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       bookDocumentFC: this.bookDocumentFC,
     });
   }
 
   private getBookCoverForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       bookCoverFC: this.bookCoverFC,
     });
   }

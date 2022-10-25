@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Config } from 'src/data/config';
 import { Regex } from 'src/data/regex';
@@ -32,8 +32,8 @@ export class AuthComponent implements OnInit, OnDestroy {
   ok = '';
   signInErrorTitle = '';
 
-  emailSignInForm!: FormGroup;
-  emailFC = new FormControl('', [
+  emailSignInForm!: UntypedFormGroup;
+  emailFC = new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(Regex.EMAIL),
   ]);
@@ -129,7 +129,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   private generateForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       emailFC: this.emailFC,
     });
   }

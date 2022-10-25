@@ -5,7 +5,7 @@ import {
   NgZone,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
 import { LocaleService } from 'src/services/transloco/locale.service';
@@ -32,8 +32,8 @@ import { Notification } from 'src/helpers/notification/notification';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit, ICanDeactivate {
-  profileForm!: FormGroup;
-  userDataForm!: FormGroup;
+  profileForm!: UntypedFormGroup;
+  userDataForm!: UntypedFormGroup;
   action = '';
   registeredDate = null;
   lastUpdated = serverTimestamp();
@@ -60,11 +60,11 @@ export class ProfileComponent implements OnInit, ICanDeactivate {
 
   ngOnInit(): void {
     this.translateStringRes();
-    this.profileForm = new FormGroup({
+    this.profileForm = new UntypedFormGroup({
       userDataForm: UserDataFormComponent.getUserDataForm(),
     });
 
-    this.userDataForm = this.profileForm.get('userDataForm') as FormGroup;
+    this.userDataForm = this.profileForm.get('userDataForm') as UntypedFormGroup;
   }
 
   private translateStringRes() {

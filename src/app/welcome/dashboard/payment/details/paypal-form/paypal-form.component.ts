@@ -9,7 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { PaymentType } from 'src/data/payment-type';
 import { Regex } from 'src/data/regex';
 import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
@@ -33,9 +33,9 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   private pubId = this.userAuth.getPubId()!;
 
   @Input()
-  payPalForm!: FormGroup;
+  payPalForm!: UntypedFormGroup;
 
-  emailFC!: FormControl;
+  emailFC!: UntypedFormControl;
   hasError = false;
 
   @Output()
@@ -47,7 +47,7 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.emailFC = this.payPalForm.get('emailFC') as FormControl;
+    this.emailFC = this.payPalForm.get('emailFC') as UntypedFormControl;
     this.listenForPaymentDetailsChange();
   }
 
@@ -98,8 +98,8 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   }
 
   static getPayPalForm() {
-    return new FormGroup({
-      emailFC: new FormControl(undefined, [
+    return new UntypedFormGroup({
+      emailFC: new UntypedFormControl(undefined, [
         Validators.required,
         Validators.pattern(Regex.EMAIL),
       ]),

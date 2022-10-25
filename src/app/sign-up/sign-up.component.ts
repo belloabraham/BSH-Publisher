@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { UserDataFormComponent } from 'src/app/shared/user-data-form/user-data-form.component';
@@ -25,8 +25,8 @@ import { StringResKeys } from '../sign-up/locale/string-res-keys';
 export class SignUpComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
-  completeSignUpForm!: FormGroup;
-  userDataForm!: FormGroup;
+  completeSignUpForm!: UntypedFormGroup;
+  userDataForm!: UntypedFormGroup;
   action = '';
   registeredDate = serverTimestamp();
   lastUpdated = null;
@@ -52,12 +52,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getStringRes()
 
-    this.completeSignUpForm = new FormGroup({
+    this.completeSignUpForm = new UntypedFormGroup({
       userDataForm: UserDataFormComponent.getUserDataForm(),
     });
     this.userDataForm = this.completeSignUpForm.get(
       'userDataForm'
-    ) as FormGroup;
+    ) as UntypedFormGroup;
   }
 
   private getStringRes() {

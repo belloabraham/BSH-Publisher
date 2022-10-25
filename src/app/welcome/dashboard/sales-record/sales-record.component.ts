@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserConfig } from 'gridjs';
 import { Config } from 'src/data/config';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
@@ -29,11 +29,11 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
 
   books!: IPublishedBook[];
 
-  orderedBookQueryForm!: FormGroup;
-  yearFC = new FormControl(undefined, [Validators.required]);
-  bookFC= new FormControl(undefined, [Validators.required]);
-  fromMonthFC = new FormControl(undefined, [Validators.required]);
-  toMonthFC = new FormControl(undefined, [Validators.required]);
+  orderedBookQueryForm!: UntypedFormGroup;
+  yearFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookFC= new UntypedFormControl(undefined, [Validators.required]);
+  fromMonthFC = new UntypedFormControl(undefined, [Validators.required]);
+  toMonthFC = new UntypedFormControl(undefined, [Validators.required]);
 
   data: string[][] = [];
 
@@ -59,7 +59,7 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
   }
 
   private generateOredereBooksQuearyForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       yearFC: this.yearFC,
       bookFC: this.bookFC,
       fromMonthFC: this.fromMonthFC,

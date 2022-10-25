@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Config } from 'src/data/config';
@@ -27,8 +27,8 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   
   private subscriptions = new SubSink();
   
-  verifyEmailForm!: FormGroup;
-  emailFC = new FormControl('', [
+  verifyEmailForm!: UntypedFormGroup;
+  emailFC = new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(Regex.EMAIL),
   ]);
@@ -108,7 +108,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   }
 
   private generateForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       emailFC: this.emailFC,
     });
   }

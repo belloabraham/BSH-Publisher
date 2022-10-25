@@ -9,7 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { countries } from 'src/data/countries';
 import { PaymentType } from 'src/data/payment-type';
 import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
@@ -32,7 +32,7 @@ import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 })
 export class BankTransferFormComponent implements OnDestroy, OnInit {
   @Input()
-  bankTransferForm!: FormGroup;
+  bankTransferForm!: UntypedFormGroup;
 
   private subscriptions = new SubSink();
 
@@ -46,41 +46,41 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
 
   private bankTransferForeignFormName = 'bankTrasnferForeignFormName';
 
-  public get bankForeignForm(): FormGroup | null {
+  public get bankForeignForm(): UntypedFormGroup | null {
     const value = this.bankTransferForm.get(this.bankTransferForeignFormName);
-    return value ? (value as FormGroup) : null;
+    return value ? (value as UntypedFormGroup) : null;
   }
 
-  public get bankNameFC(): FormControl {
-    return this.bankTransferForm.get('bankNameFC') as FormControl;
+  public get bankNameFC(): UntypedFormControl {
+    return this.bankTransferForm.get('bankNameFC') as UntypedFormControl;
   }
-  public get accountNumberFC(): FormControl {
-    return this.bankTransferForm.get('accountNumberFC') as FormControl;
-  }
-
-  public get accountNameFC(): FormControl {
-    return this.bankTransferForm.get('accountNameFC') as FormControl;
+  public get accountNumberFC(): UntypedFormControl {
+    return this.bankTransferForm.get('accountNumberFC') as UntypedFormControl;
   }
 
-  public get countryFC(): FormControl {
-    return this.bankTransferForm.get('countryFC') as FormControl;
+  public get accountNameFC(): UntypedFormControl {
+    return this.bankTransferForm.get('accountNameFC') as UntypedFormControl;
   }
 
-  public get bankAddressFC(): FormControl {
-    return this.bankForeignForm?.get('bankAddressFC') as FormControl;
-  }
-  public get bankSwiftCodeFC(): FormControl {
-    return this.bankForeignForm?.get('bankSwiftCodeFC') as FormControl;
+  public get countryFC(): UntypedFormControl {
+    return this.bankTransferForm.get('countryFC') as UntypedFormControl;
   }
 
-  public get residentialAddressFC(): FormControl {
-    return this.bankForeignForm?.get('residentialAddressFC') as FormControl;
+  public get bankAddressFC(): UntypedFormControl {
+    return this.bankForeignForm?.get('bankAddressFC') as UntypedFormControl;
   }
-  public get accountTypeFC(): FormControl {
-    return this.bankForeignForm?.get('accountTypeFC') as FormControl;
+  public get bankSwiftCodeFC(): UntypedFormControl {
+    return this.bankForeignForm?.get('bankSwiftCodeFC') as UntypedFormControl;
   }
-  public get bankRoutingNumberFC(): FormControl {
-    return this.bankForeignForm?.get('bankRoutingNumberFC') as FormControl;
+
+  public get residentialAddressFC(): UntypedFormControl {
+    return this.bankForeignForm?.get('residentialAddressFC') as UntypedFormControl;
+  }
+  public get accountTypeFC(): UntypedFormControl {
+    return this.bankForeignForm?.get('accountTypeFC') as UntypedFormControl;
+  }
+  public get bankRoutingNumberFC(): UntypedFormControl {
+    return this.bankForeignForm?.get('bankRoutingNumberFC') as UntypedFormControl;
   }
 
   constructor(
@@ -147,11 +147,11 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
   }
 
   static getBankTransferForm() {
-    return new FormGroup({
-      countryFC: new FormControl(undefined, [Validators.required]),
-      bankNameFC: new FormControl(undefined, [Validators.required]),
-      accountNameFC: new FormControl(undefined, [Validators.required]),
-      accountNumberFC: new FormControl(undefined, [Validators.required]),
+    return new UntypedFormGroup({
+      countryFC: new UntypedFormControl(undefined, [Validators.required]),
+      bankNameFC: new UntypedFormControl(undefined, [Validators.required]),
+      accountNameFC: new UntypedFormControl(undefined, [Validators.required]),
+      accountNumberFC: new UntypedFormControl(undefined, [Validators.required]),
     });
   }
 

@@ -1,6 +1,6 @@
 import { LyDialogRef } from '@alyle/ui/dialog';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { Regex } from 'src/data/regex';
@@ -17,16 +17,16 @@ import { PublishedBookViewModel } from '../../published-book.viewmodel';
 export class AddCollaboratorsDialogComponent implements OnInit {
   allBooks = this.pubBookVM.getAllBooks();
 
-  collaboratorsForm!: FormGroup;
+  collaboratorsForm!: UntypedFormGroup;
   getBookId = getBookId;
 
-  emailFC = new FormControl('', [
+  emailFC = new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(Regex.EMAIL),
   ]);
-  nameFC = new FormControl(undefined, [Validators.required]);
-  commissionFC = new FormControl(undefined, [Validators.required]);
-  bookFC = new FormControl(undefined, [Validators.required]);
+  nameFC = new UntypedFormControl(undefined, [Validators.required]);
+  commissionFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookFC = new UntypedFormControl(undefined, [Validators.required]);
 
   constructor(
     private pubBookVM: PublishedBookViewModel,
@@ -59,7 +59,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
   }
 
   getCollaboratorsForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       nameFC: this.nameFC,
       bookFC: this.bookFC,
       commissionFC: this.commissionFC,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AccountType } from 'src/data/account-type';
 
 @Component({
@@ -10,20 +10,20 @@ import { AccountType } from 'src/data/account-type';
 })
 export class BankTranferForeignFormComponent {
   @Input()
-  bankForeignForm!: FormGroup;
+  bankForeignForm!: UntypedFormGroup;
 
   @Input()
-  bankAddressFC!: FormControl;
+  bankAddressFC!: UntypedFormControl;
   @Input()
-  bankSwiftCodeFC!: FormControl;
+  bankSwiftCodeFC!: UntypedFormControl;
   @Input()
-  bankRoutingNumberFC!: FormControl;
+  bankRoutingNumberFC!: UntypedFormControl;
   @Input()
-  accountTypeFC!: FormControl;
+  accountTypeFC!: UntypedFormControl;
   @Input()
-  countryFC!: FormControl;
+  countryFC!: UntypedFormControl;
   @Input()
-  residentialAddressFC!: FormControl;
+  residentialAddressFC!: UntypedFormControl;
 
   savings = AccountType.savings;
   current = AccountType.current;
@@ -31,12 +31,12 @@ export class BankTranferForeignFormComponent {
   constructor() {}
 
   static getBankTransferForeignForm() {
-    return new FormGroup({
-      bankAddressFC: new FormControl(undefined, [Validators.required]),
-      bankSwiftCodeFC: new FormControl(undefined, [Validators.required]),
-      bankRoutingNumberFC: new FormControl(undefined, [Validators.required]),
-      accountTypeFC: new FormControl(undefined, [Validators.required]),
-      residentialAddressFC: new FormControl(undefined, [Validators.required]),
+    return new UntypedFormGroup({
+      bankAddressFC: new UntypedFormControl(undefined, [Validators.required]),
+      bankSwiftCodeFC: new UntypedFormControl(undefined, [Validators.required]),
+      bankRoutingNumberFC: new UntypedFormControl(undefined, [Validators.required]),
+      accountTypeFC: new UntypedFormControl(undefined, [Validators.required]),
+      residentialAddressFC: new UntypedFormControl(undefined, [Validators.required]),
     });
   }
 }

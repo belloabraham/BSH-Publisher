@@ -8,7 +8,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
@@ -68,21 +68,21 @@ export class PublishYourBookComponent
   bookTags = bookTags;
   bookSalesCurrencies = currencies;
 
-  bookPublishForm!: FormGroup;
-  bookCoverFC = new FormControl(undefined, [Validators.required]);
-  bookDocumentFC = new FormControl(undefined, [Validators.required]);
+  bookPublishForm!: UntypedFormGroup;
+  bookCoverFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookDocumentFC = new UntypedFormControl(undefined, [Validators.required]);
 
-  bookPriceFC = new FormControl(undefined, [Validators.required]);
-  bookISBNFC = new FormControl(undefined, [Validators.pattern(Regex.ISBN)]);
-  bookDescFC = new FormControl(undefined, [Validators.required, Validators.maxLength(4000)]);
-  bookSaleCurrencyFC = new FormControl(undefined, [Validators.required]);
-  bookTagFC = new FormControl(undefined);
-  bookAuthorFC = new FormControl(undefined, [
+  bookPriceFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookISBNFC = new UntypedFormControl(undefined, [Validators.pattern(Regex.ISBN)]);
+  bookDescFC = new UntypedFormControl(undefined, [Validators.required, Validators.maxLength(4000)]);
+  bookSaleCurrencyFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookTagFC = new UntypedFormControl(undefined);
+  bookAuthorFC = new UntypedFormControl(undefined, [
     Validators.required,
     Validators.minLength(2),
   ]);
-  bookCatgoryFC = new FormControl(undefined, [Validators.required]);
-  bookNameFC = new FormControl(undefined, [Validators.required]);
+  bookCatgoryFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookNameFC = new UntypedFormControl(undefined, [Validators.required]);
 
   bookDetailsForm = this.getBookDetailsForm();
 
@@ -118,7 +118,7 @@ export class PublishYourBookComponent
   ) {}
 
   private getBookDetailsForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       bookPriceFC: this.bookPriceFC,
       bookISBNFC: this.bookISBNFC,
       bookDescFC: this.bookDescFC,
@@ -280,7 +280,7 @@ export class PublishYourBookComponent
   }
 
   private generateBookPublishForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       bookDocumentFC: this.bookDocumentFC,
       bookCoverFC: this.bookCoverFC,
       bookDetailsForm: this.bookDetailsForm,

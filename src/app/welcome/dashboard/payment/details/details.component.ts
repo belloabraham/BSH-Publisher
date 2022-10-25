@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
@@ -35,8 +35,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   updatePaymentDetails = false;
 
-  paymentDetailsForm!: FormGroup;
-  paymentTypeFC = new FormControl(undefined);
+  paymentDetailsForm!: UntypedFormGroup;
+  paymentTypeFC = new UntypedFormControl(undefined);
 
   skrillFormName = 'skrillForm';
   payPalFormName = 'payPalForm';
@@ -73,19 +73,19 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     this.updatePaymentDetails = !this.updatePaymentDetails;
   }
 
-  public get getSkrillForm(): FormGroup | null {
+  public get getSkrillForm(): UntypedFormGroup | null {
     const value = this.paymentDetailsForm.get(this.skrillFormName);
-    return value ? (value as FormGroup) : null;
+    return value ? (value as UntypedFormGroup) : null;
   }
 
-  public get getPayPalForm(): FormGroup | null {
+  public get getPayPalForm(): UntypedFormGroup | null {
     const value = this.paymentDetailsForm.get(this.payPalFormName);
-    return value ? (value as FormGroup) : null;
+    return value ? (value as UntypedFormGroup) : null;
   }
 
-  public get getBankTransferForm(): FormGroup | null {
+  public get getBankTransferForm(): UntypedFormGroup | null {
     const value = this.paymentDetailsForm.get(this.bankTransferFormName);
-    return value ? (value as FormGroup) : null;
+    return value ? (value as UntypedFormGroup) : null;
   }
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
@@ -194,7 +194,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   }
 
   generatePaymentDetailsForm() {
-    return new FormGroup({
+    return new UntypedFormGroup({
       paymentTypeFC: this.paymentTypeFC,
     });
   }
