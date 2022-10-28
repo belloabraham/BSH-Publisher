@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Config } from 'src/data/config';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
@@ -32,13 +32,13 @@ import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
-import { RouteDataVewModel } from '../route-data.viewmodel';
 import { IUpdatedBook } from 'src/data/models/entities/iupdated-book';
 import { PublishYourBookViewModel } from '../publish-your-book.viewmodel';
 import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
 import { ImagePickerDialogComponent } from 'src/app/shared/image-picker-dialog/image-picker-dialog.component';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
+import { RouteParams } from 'src/data/RouteParams';
 
 @Component({
   selector: 'app-edit-your-book',
@@ -90,7 +90,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
   pubData!: IPublisher;
   existingBookData?: IPublishedBook;
-  private readonly bookId = this.routeData.bookIdToEdit!;
+  private readonly bookId:string = this.activatedRoute.snapshot.params[RouteParams.BOOK_ID]; 
 
   constructor(
     private _dialog: LyDialog,
@@ -102,7 +102,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
     private pubDataVM: PubDataViewModel,
-    private routeData: RouteDataVewModel,
+    private activatedRoute: ActivatedRoute,
     private publishedBookVM: PublishedBookViewModel
   ) {
     this.notification.isClickToClose= true
@@ -224,7 +224,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
         this.bookSaleCurrencyFC.patchValue(this.sellerCurrency);
       });
 
-    this.loadExistingBookData(this.routeData.bookIdToEdit!);
+    this.loadExistingBookData(this.bookId);
   }
 
   private loadExistingBookData(bookId: string) {
@@ -383,7 +383,6 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routeData.bookIdToEdit = null;
     this.subscriptions.unsubscribe();
   }
 }

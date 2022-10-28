@@ -10,8 +10,9 @@ import { Route } from 'src/data/route';
 export class MyBooksComponent {
 
   salesRecord = Route.SALES_RECORD
+  published = Route.PUBLISHED
 
   constructor() {
-  
   }
+  
 }

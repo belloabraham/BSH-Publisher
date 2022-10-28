@@ -17,6 +17,7 @@ import { SubSink } from 'subsink';
 import { PubDataViewModel } from '../pub-data.viewmodels';
 import { StringResKeys } from './locale/string-res-keys';
 
+
 @Component({
   selector: 'app-empty-book-store',
   templateUrl: './empty-book-store.component.html',
@@ -26,6 +27,7 @@ import { StringResKeys } from './locale/string-res-keys';
 export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   pubFirstName = ''
+  isAdmin = this.userAuth.isAdmin()
 
   constructor(
     private title: Title,
@@ -64,6 +66,11 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   addABook() {
     this.incomingRouteS.route = this.router.url
     this.router.navigate([Route.WELCOME, Route.PUBLISH_YOUR_BOOK]);
+  }
+
+  gotoAdminDashBoard() {
+    this.incomingRouteS.route = this.router.url
+    this.router.navigate([Route.WELCOME, Route.ADMIN]);
   }
 
   logout() {

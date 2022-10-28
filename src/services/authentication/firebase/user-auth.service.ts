@@ -6,6 +6,8 @@ import { LocaleService } from 'src/services/transloco/locale.service';
 import { StringResKeys } from '../locale/string-res-keys';
 import { ErrorCodes } from './error-codes';
 import { IUserAuth } from '../iuser-auth';
+import { Config } from 'src/data/config';
+import { getuid } from 'process';
 
 @Injectable()
 export class UserAuthService implements IUserAuth {
@@ -16,6 +18,16 @@ export class UserAuthService implements IUserAuth {
     @Optional() private auth: Auth,
     private localeService: LocaleService,
   ) {
+  }
+
+  isAdmin(): boolean {
+   const pubId = this.getPubId()
+   for (let index = 0; index < Config.admins.length; index++) {
+     if (Config.admins[index] === pubId) {
+      return true
+     }
+   }
+   return false
   }
 
   updateDisplayName(name:string): Promise<void> {

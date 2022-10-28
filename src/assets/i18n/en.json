@@ -64,7 +64,7 @@
     "empty_book_store_title":"Empty Book Store - {{value}}",
     "empty_book_store_heading":"You currently have no book in your store shelf",
     "logout":"Log out",
-
+    "admin_dashboard":"Admin Dashboard",
 
     "dashboard_title":"Dashboard - {{value}}",
     "notifications":"Notifications",

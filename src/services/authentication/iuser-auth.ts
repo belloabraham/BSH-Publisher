@@ -5,6 +5,7 @@ export interface IUserAuth {
   signInWithGoogleRedirect: () => Promise<never>;
   getErrorMessage: (authError: any) => string;
   getPubId: () => string | null;
+  isAdmin: () => boolean;
   getEmail: () => string | null;
   isSignInWithEmailLink: (emailLink: string) => boolean;
   signInWithEmailLink: (

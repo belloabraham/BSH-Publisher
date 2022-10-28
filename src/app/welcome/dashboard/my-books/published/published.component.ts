@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { RouteDataVewModel } from 'src/app/welcome/route-data.viewmodel';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Fields } from 'src/data/remote-data-source/fields';
@@ -40,7 +39,6 @@ export class PublishedComponent implements OnInit, OnDestroy {
   constructor(
     private publishedBookVM: PublishedBookViewModel,
     private localeService: LocaleService,
-    private routeData: RouteDataVewModel,
     private router: Router,
     private cdRef: ChangeDetectorRef
   ) {}
@@ -55,8 +53,7 @@ export class PublishedComponent implements OnInit, OnDestroy {
   }
 
   edit(bookId: string) {
-    this.routeData.bookIdToEdit = bookId;
-    this.router.navigate([Route.ROOT, Route.WELCOME, Route.EDIT_YOUR_BOOK]);
+    this.router.navigate([Route.ROOT, Route.WELCOME, Route.EDIT_YOUR_BOOK, bookId]);
   }
 
   getBookRating(book: IPublishedBook) {

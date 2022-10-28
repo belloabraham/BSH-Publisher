@@ -74,12 +74,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   isNewNotification = false;
 
-  collaborators = Route.COLLABORATORS;
-  payment = Route.PAYMENT;
-  myBooks = Route.MY_BOOKS;
-  profile = Route.PROFILE;
-  publishYourBook = Route.PUBLISH_YOUR_BOOK;
-  salesRecord = Route.SALES_RECORD;
+  collaboratorsRoute = Route.COLLABORATORS;
+  paymentRoute = Route.PAYMENT;
+  myBooksRoute = Route.MY_BOOKS;
+  adminLink = `${Config.HOME}/${Route.WELCOME}/${Route.ADMIN}`;
+  profileRoute = Route.PROFILE;
+  publishBookRoute = Route.PUBLISH_YOUR_BOOK;
+  salesRecordRoute = Route.SALES_RECORD;
 
   private showLoaderEvent$!: Observable<boolean>;
   private hideLoaderEvent$!: Observable<boolean>;

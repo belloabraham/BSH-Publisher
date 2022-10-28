@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
+import { RouteParams } from 'src/data/RouteParams';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { PublishedBooksResolver } from './dashboard/published-books.resolver';
-import { EditBookGuard } from './edit-your-book/edit-book.guard';
 import { WelcomeComponent } from './welcome.component';
 
 const routes: Routes = [
@@ -29,6 +30,17 @@ const routes: Routes = [
           ),
       },
       {
+        path: Route.ADMIN,
+        canMatch: [() => {
+          const userAuth = inject(USER_AUTH_IJTOKEN)
+          return userAuth.isAdmin()
+        }],
+        loadChildren: () =>
+          import('./admin-dashboard/admin-dashboard.module').then(
+            (m) => m.AdminDashboardModule
+          ),
+      },
+      {
         path: Route.PUBLISH_YOUR_BOOK,
         loadChildren: () =>
           import('./publish-your-book/publish-your-book.module').then(
@@ -36,8 +48,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: Route.EDIT_YOUR_BOOK,
-        canLoad:[EditBookGuard],
+        path: `${Route.EDIT_YOUR_BOOK}:${RouteParams.BOOK_ID}`,
         loadChildren: () =>
           import('./edit-your-book/edit-your-book.module').then(
             (m) => m.EditYourBookModule
