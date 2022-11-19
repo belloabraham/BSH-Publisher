@@ -446,7 +446,7 @@ export class PublishYourBookComponent
       bookId: bookId,
       name: escapeJSONNewlineChars(this.bookNameFC.value),
       author: escapeJSONNewlineChars(this.bookAuthorFC.value),
-      coverUrl: this.croppedImage!,
+      coverDataUrl: this.croppedImage!,
       lastUpdated: serverTimestamp(),
       description: escapeJSONNewlineChars(this.bookDescFC.value),
       category: this.bookCatgoryFC.value,

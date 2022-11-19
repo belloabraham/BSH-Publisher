@@ -38,7 +38,7 @@ export const currencies: ICurrency[] = [
   { name: 'Euro Member Countries', abbrev: 'EUR' },
   { name: 'Falkland Islands (Malvinas) Pound', abbrev: 'FKP' },
   { name: 'Fiji Dollar', abbrev: 'FJD' },
-  { name: 'Ghana Cedis', abbrev: 'GHC' },
+  { name: 'Ghana Cedis', abbrev: 'GHS' },
   { name: 'Gibraltar Pound', abbrev: 'GIP' },
   { name: 'Guatemala Quetzal', abbrev: 'GTQ' },
   { name: 'Guernsey Pound', abbrev: 'GGP' },

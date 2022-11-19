@@ -193,16 +193,16 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
   private addForiegnBankFormData(paymentDetails: IPaymentDetails) {
     if (this.bankForeignForm) {
       paymentDetails.accountType = this.getEncrypted(this.accountTypeFC.value);
-      paymentDetails.bankAddress = this.getEncrypted(this.bankAddressFC.value);
+      paymentDetails.bankAddress = this.getEncrypted(escapeJSONNewlineChars(this.bankAddressFC.value));
       paymentDetails.country = this.getEncrypted(this.countryFC.value);
       paymentDetails.bankRoutingNumber = this.getEncrypted(
-        this.bankRoutingNumberFC.value
+        escapeJSONNewlineChars(this.bankRoutingNumberFC.value)
       );
       paymentDetails.bankSwiftCode = this.getEncrypted(
-        this.bankSwiftCodeFC.value
+        escapeJSONNewlineChars(this.bankSwiftCodeFC.value)
       );
       paymentDetails.address = this.getEncrypted(
-        this.residentialAddressFC.value
+        escapeJSONNewlineChars(this.residentialAddressFC.value)
       );
     }
   }

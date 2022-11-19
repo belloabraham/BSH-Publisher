@@ -124,6 +124,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         email: email,
         registeredDate: this.registeredDate,
         lastUpdated: this.lastUpdated,
+        sellingCurrency: this.paymentCurrencyFC.value
       };
       try {
         await this.userAuth.updateDisplayName(publisher.firstName);
