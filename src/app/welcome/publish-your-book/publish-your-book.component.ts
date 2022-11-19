@@ -8,7 +8,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
@@ -73,8 +77,13 @@ export class PublishYourBookComponent
   bookDocumentFC = new UntypedFormControl(undefined, [Validators.required]);
 
   bookPriceFC = new UntypedFormControl(undefined, [Validators.required]);
-  bookISBNFC = new UntypedFormControl(undefined, [Validators.pattern(Regex.ISBN)]);
-  bookDescFC = new UntypedFormControl(undefined, [Validators.required, Validators.maxLength(4000)]);
+  bookISBNFC = new UntypedFormControl(undefined, [
+    Validators.pattern(Regex.ISBN),
+  ]);
+  bookDescFC = new UntypedFormControl(undefined, [
+    Validators.required,
+    Validators.maxLength(4000),
+  ]);
   bookSaleCurrencyFC = new UntypedFormControl(undefined, [Validators.required]);
   bookTagFC = new UntypedFormControl(undefined);
   bookAuthorFC = new UntypedFormControl(undefined, [
@@ -109,7 +118,7 @@ export class PublishYourBookComponent
     private title: Title,
     private localeService: LocaleService,
     private router: Router,
-    private ngZone:NgZone,
+    private ngZone: NgZone,
     private incominRouteS: IncomingRouteService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
@@ -231,7 +240,7 @@ export class PublishYourBookComponent
       .getPublisher$()
       .subscribe((pubData) => {
         this.pubData = pubData;
-        this.sellerCurrency = pubData.sellerCurrency;
+        this.sellerCurrency = pubData.sellingCurrency;
         if (this.sellerCurrency) {
           this.bookSaleCurrencyFC.patchValue(this.sellerCurrency);
         }
@@ -270,8 +279,8 @@ export class PublishYourBookComponent
         unsavedFieldsMsgTitle,
         yes,
         no,
-        () => this.ngZone.run(()=> this.canExitRoute.next(true)),
-        () => this.ngZone.run(()=> this.canExitRoute.next(false))
+        () => this.ngZone.run(() => this.canExitRoute.next(true)),
+        () => this.ngZone.run(() => this.canExitRoute.next(false))
       );
       return this.canExitRoute;
     } else {
@@ -286,7 +295,6 @@ export class PublishYourBookComponent
       bookDetailsForm: this.bookDetailsForm,
     });
   }
-
 
   private translateStringRes() {
     this.bookUploadErrorMsg = this.localeService.translate(
@@ -357,7 +365,7 @@ export class PublishYourBookComponent
           this.bookUploadErrorTitle,
           this.tryAgain,
           () => {
-            this.ngZone.run(()=>this.submitFormData());
+            this.ngZone.run(() => this.submitFormData());
           }
         );
       }
@@ -378,7 +386,7 @@ export class PublishYourBookComponent
     this.isPublishedBookSucess = true;
     const actionTxt = this.localeService.translate(StringResKeys.goToMyBooks);
     AlertDialog.success(msg, title, actionTxt, () => {
-      this.ngZone.run(()=> this.navigateToMyBooks())
+      this.ngZone.run(() => this.navigateToMyBooks());
     });
   }
 
@@ -387,7 +395,7 @@ export class PublishYourBookComponent
       const newBookData = this.getBookData(bookId);
 
       if (this.sellerCurrency === undefined || this.sellerCurrency === null) {
-        this.pubData.sellerCurrency = newBookData.sellerCurrency;
+        this.pubData.sellingCurrency = newBookData.sellerCurrency;
         await this.pubDataVM.updatePublisher(
           { pubData: this.pubData },
           this.pubId
@@ -402,12 +410,11 @@ export class PublishYourBookComponent
         [bookId]
       );
 
-        await this.publishYouBookVM.uploadBookDataTransaction(
-          sNDocRef,
-          bookUploadDocRef,
-          newBookData
-        );
-      
+      await this.publishYouBookVM.uploadBookDataTransaction(
+        sNDocRef,
+        bookUploadDocRef,
+        newBookData
+      );
 
       this.uploadProgress = this.uploadProgress + 10;
       this._cd.detectChanges();

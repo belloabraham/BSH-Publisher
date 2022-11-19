@@ -7,7 +7,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Config } from 'src/data/config';
@@ -90,7 +94,8 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
   pubData!: IPublisher;
   existingBookData?: IPublishedBook;
-  private readonly bookId:string = this.activatedRoute.snapshot.params[RouteParams.BOOK_ID]; 
+  private readonly bookId: string =
+    this.activatedRoute.snapshot.params[RouteParams.BOOK_ID];
 
   constructor(
     private _dialog: LyDialog,
@@ -105,7 +110,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private publishedBookVM: PublishedBookViewModel
   ) {
-    this.notification.isClickToClose= true
+    this.notification.isClickToClose = true;
   }
 
   private getBookDetailsForm() {
@@ -220,7 +225,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
       .getPublisher$()
       .subscribe((pubData) => {
         this.pubData = pubData;
-        this.sellerCurrency = pubData.sellerCurrency!;
+        this.sellerCurrency = pubData.sellingCurrency!;
         this.bookSaleCurrencyFC.patchValue(this.sellerCurrency);
       });
 
@@ -274,7 +279,6 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
     Shield.pulse('.form-book', Display.remToPixel(1.5), bookUploadingMsg);
     let bookFileName = '';
-
 
     if (this.bookId.includes(this.pubId)) {
       bookFileName = this.bookId.split('-')[1];
@@ -349,7 +353,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
         Collection.PUBLISHED_BOOKS,
         [this.bookId],
         {
-          coverUrl: this.croppedImage!,
+          coverDataUrl: this.croppedImage!,
           approved: false,
         }
       );

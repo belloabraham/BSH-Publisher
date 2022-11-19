@@ -2,7 +2,7 @@ export interface IPublishedBook {
   bookId: string;
   name: string;
   author: string;
-  coverUrl: string;
+  coverDataUrl: string;
   totalDownloads: number;
   description: string;
   publishedDate: any;

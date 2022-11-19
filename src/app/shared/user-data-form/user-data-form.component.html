@@ -36,6 +36,26 @@
         </div>
     </div>
 
+    <p class="mt-2"> {{ t('selling_currency_message') }} </p>
+
+    <div class="d-flex mb-2 country">
+        <label class="form-label label-lg flex-shrink-0">{{ t('paying_currency_message') }}</label>
+    
+        <div class="form-group w-100"
+            [ngClass]="{'has-error':paymentCurrencyFC.hasError('required') && paymentCurrencyFC.touched}">
+    
+            <select formControlName="paymentCurrencyFC" class="form-select select-lg">
+                <option *ngFor="let payingCurrency of payingCurrencies" value="{{ payingCurrency.abbrev }}">
+                    {{payingCurrency.name}}</option>
+            </select>
+    
+            <p *ngIf="paymentCurrencyFC.hasError('required') && paymentCurrencyFC.touched" class="form-input-hint">
+                {{ t('payment_currency_req') }}
+            </p>
+    
+        </div>
+    </div>
+
     <div class="d-flex mb-2 phone align-items-start">
 
         <label class="form-label label-lg flex-shrink-0 ">{{ t('phone') }}</label>

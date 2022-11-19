@@ -21,6 +21,7 @@ import { ICountry } from 'src/data/models/icountry';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
 import { SubSink } from 'subsink';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
+import { payingCurrencies } from 'src/data/paying-currencies';
 
 @Component({
   selector: 'app-user-data-form',
@@ -47,6 +48,8 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   dataUpdatedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   countries: ICountry[] = countries;
+  payingCurrencies = payingCurrencies;
+
   diallingCodes: ICountry[] = diallingCodes;
   dialingCodeByCountry? = countries[0].callingCode;
   isInvalidPhoneNum = false;
@@ -55,6 +58,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   lastNameFC!: UntypedFormControl;
   genderFC!: UntypedFormControl;
   phoneFC!: UntypedFormControl;
+  paymentCurrencyFC!: UntypedFormControl;
   countryFC!: UntypedFormControl;
 
   constructor(
@@ -63,11 +67,16 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.firstNameFC = this.userDataForm.get('firstNameFC') as UntypedFormControl;
+    this.firstNameFC = this.userDataForm.get(
+      'firstNameFC'
+    ) as UntypedFormControl;
     this.lastNameFC = this.userDataForm.get('lastNameFC') as UntypedFormControl;
     this.countryFC = this.userDataForm.get('countryFC') as UntypedFormControl;
     this.genderFC = this.userDataForm.get('genderFC') as UntypedFormControl;
     this.phoneFC = this.userDataForm.get('phoneFC') as UntypedFormControl;
+    this.paymentCurrencyFC = this.userDataForm.get(
+      'paymentCurrencyFC'
+    ) as UntypedFormControl;
 
     this.subscriptions.sink = this.pubDataViewModel
       .getPublisher$()
@@ -92,6 +101,9 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       genderFC: new UntypedFormControl(undefined, [Validators.required]),
       phoneFC: new UntypedFormControl(undefined, [Validators.required]),
       countryFC: new UntypedFormControl(undefined, [Validators.required]),
+      paymentCurrencyFC: new UntypedFormControl(undefined, [
+        Validators.required,
+      ]),
     });
   }
 
@@ -101,7 +113,6 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
 
       this.isInvalidPhoneNum = false;
 
-      const pubId = this.userAuth.getPubId()!;
       const email = this.userAuth.getEmail()!;
 
       const publisher: IPublisher = {
@@ -115,8 +126,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         lastUpdated: this.lastUpdated,
       };
       try {
-
-        await this.userAuth.updateDisplayName(publisher.firstName)
+        await this.userAuth.updateDisplayName(publisher.firstName);
         this.onDataUpdate(true);
       } catch (error: any) {
         Shield.remove('.form');

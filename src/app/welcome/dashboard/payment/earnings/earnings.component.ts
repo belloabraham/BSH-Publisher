@@ -36,9 +36,9 @@ export class EarningsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   earnings?: IEarnings[];
   allPublisedBooks: IPublishedBook[] = [];
-   private pubId = this.userAuth.getPubId()!;
+  private pubId = this.userAuth.getPubId()!;
   bottom = YPosition.below;
-  sellerCurrency = this.pubDataVM.getPublisher()?.sellerCurrency
+  sellerCurrency = this.pubDataVM.getPublisher()?.sellingCurrency;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -48,14 +48,13 @@ export class EarningsComponent implements OnInit, OnDestroy {
     private paymentDetailsVM: PaymentDetailsViewModel,
     private pubDataVM: PubDataViewModel,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.sink = this.publishedBooksVM
       .getAllBooks$()
       .subscribe((allBooks) => {
-        this.allPublisedBooks.push(...allBooks)
+        this.allPublisedBooks.push(...allBooks);
       });
 
     this.subscriptions.sink = this.activatedRoute.data
@@ -72,22 +71,26 @@ export class EarningsComponent implements OnInit, OnDestroy {
   }
 
   async requestPayment(bookId: string) {
-  const paymentDetails = this.paymentDetailsVM.getPaymentDetails();
+    const paymentDetails = this.paymentDetailsVM.getPaymentDetails();
     if (paymentDetails) {
-        const notification = new NotificationBuilder().build();
-    
+      const notification = new NotificationBuilder().build();
+
       try {
         const paymentRequest = this.getPaymentRequest(bookId, paymentDetails);
         await this.paymentDetailsVM.sendPaymentRequest(
           Collection.PAYMENT_REQUEST,
-          [this.pubId+bookId],
+          [this.pubId + bookId],
           paymentRequest
-        )
-        const sucessMsg = this.localeService.translate(StringResKeys.paymentReqSuccessMsg);
+        );
+        const sucessMsg = this.localeService.translate(
+          StringResKeys.paymentReqSuccessMsg
+        );
         notification.success(sucessMsg);
       } catch (error) {
-        Logger.error(this, this.requestPayment.name, error)
-        const errorMsg =this.localeService.translate(StringResKeys.paymentReqErrorMsg)
+        Logger.error(this, this.requestPayment.name, error);
+        const errorMsg = this.localeService.translate(
+          StringResKeys.paymentReqErrorMsg
+        );
         notification.error(errorMsg);
       }
     } else {

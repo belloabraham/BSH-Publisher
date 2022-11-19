@@ -7,6 +7,5 @@ export interface IPublisher {
   email: string;
   registeredDate?: any;
   lastUpdated?: any;
-  sellerCurrency?: string;
-
+  sellingCurrency?: string;
 }

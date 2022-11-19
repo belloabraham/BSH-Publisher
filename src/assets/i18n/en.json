@@ -66,6 +66,12 @@
     "logout":"Log out",
     "admin_dashboard":"Admin Dashboard",
 
+
+    "selling_currency_message":"Note that all books will be sold in Nigerian Naira for now",
+    "paying_currency_message":"What currency do you want to get paid in?",
+    "payment_currency_req":"Payment currency is required",
+
+
     "dashboard_title":"Dashboard - {{value}}",
     "notifications":"Notifications",
     "profile":"Profile",

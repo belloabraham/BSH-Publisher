@@ -38,7 +38,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   constructor(
     private title: Title,
     private localeService: LocaleService,
-    private router: Router,
+    private router: Router
   ) {}
 
   onDataUpdate(isSuccessful: boolean) {
@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getStringRes()
+    this.getStringRes();
 
     this.completeSignUpForm = new UntypedFormGroup({
       userDataForm: UserDataFormComponent.getUserDataForm(),
@@ -61,7 +61,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   private getStringRes() {
-     this.subscriptions.sink = this.localeService
+    this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {
         this.setTitle();
