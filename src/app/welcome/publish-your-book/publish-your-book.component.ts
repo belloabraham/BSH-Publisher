@@ -27,7 +27,6 @@ import { Regex } from 'src/data/regex';
 import { ImgCropperEvent } from '@alyle/ui/image-cropper';
 import { FileType } from 'src/data/file-type';
 import { currencies } from 'src/data/currencies';
-import { bookTags } from 'src/data/book-tag';
 import { bookCategories } from 'src/data/book-categories';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
@@ -69,7 +68,6 @@ export class PublishYourBookComponent
   private pubId = this.userAuth.getPubId()!;
 
   bookCategories = bookCategories;
-  bookTags = bookTags;
   bookSalesCurrencies = currencies;
 
   bookPublishForm!: UntypedFormGroup;
@@ -84,8 +82,6 @@ export class PublishYourBookComponent
     Validators.required,
     Validators.maxLength(4000),
   ]);
-  bookSaleCurrencyFC = new UntypedFormControl(undefined, [Validators.required]);
-  bookTagFC = new UntypedFormControl(undefined);
   bookAuthorFC = new UntypedFormControl(undefined, [
     Validators.required,
     Validators.minLength(2),
@@ -98,6 +94,8 @@ export class PublishYourBookComponent
   private canExitRoute = new Subject<boolean>();
 
   isDetailsFormExpanded = true;
+  sellerCurrency = 'NGN';
+  private autoGenIdNumb = this.generate13DigitNumb();
 
   private readonly MAX_ALLOWED_COVER_SIZE_IN_BYTES = 70 * 1024; //*70KB
   private readonly MAX_ALLOWED_BOOK_SIZE_IN_BYTES = 100 * 1024 * 1024; //*100Mb
@@ -109,7 +107,6 @@ export class PublishYourBookComponent
   private bookUploadErrorTitle = '';
   private tryAgain = '';
 
-  sellerCurrency?: string;
   pubData!: IPublisher;
 
   constructor(
@@ -131,8 +128,6 @@ export class PublishYourBookComponent
       bookPriceFC: this.bookPriceFC,
       bookISBNFC: this.bookISBNFC,
       bookDescFC: this.bookDescFC,
-      bookSaleCurrencyFC: this.bookSaleCurrencyFC,
-      bookTagFC: this.bookTagFC,
       bookAuthorFC: this.bookAuthorFC,
       bookCatgoryFC: this.bookCatgoryFC,
       bookNameFC: this.bookNameFC,
@@ -240,10 +235,7 @@ export class PublishYourBookComponent
       .getPublisher$()
       .subscribe((pubData) => {
         this.pubData = pubData;
-        this.sellerCurrency = pubData.sellingCurrency;
-        if (this.sellerCurrency) {
-          this.bookSaleCurrencyFC.patchValue(this.sellerCurrency);
-        }
+        this.sellerCurrency = pubData.sellingCurrency!;
       });
   }
 
@@ -319,21 +311,21 @@ export class PublishYourBookComponent
     const bookUploadingMsg = this.localeService.translate(
       StringResKeys.bookUploadingMsg
     );
+
     Shield.pulse(
       '.publish-book-container',
       Display.remToPixel(1.5),
       bookUploadingMsg
     );
     let bookId = '';
-    const autoGenIdNumb = this.generate13DigitNumb();
     let bookFileName = '';
 
     if (this.bookISBNFC.value) {
       bookId = this.bookISBNFC.value;
       bookFileName = bookId;
     } else {
-      bookId = `${this.pubId}-${autoGenIdNumb}`;
-      bookFileName = autoGenIdNumb;
+      bookId = `${this.pubId}-${this.autoGenIdNumb}`;
+      bookFileName = this.autoGenIdNumb; //*So as to not get file name too long exception
     }
     bookFileName = `${bookFileName}.pdf`;
     const bookFileToUpload = FileUtil.rename(
@@ -394,14 +386,6 @@ export class PublishYourBookComponent
     try {
       const newBookData = this.getBookData(bookId);
 
-      if (this.sellerCurrency === undefined || this.sellerCurrency === null) {
-        this.pubData.sellingCurrency = newBookData.sellerCurrency;
-        await this.pubDataVM.updatePublisher(
-          { pubData: this.pubData },
-          this.pubId
-        );
-      }
-
       const sNDocRef = this.publishYouBookVM.getDocRef(Collection.INVENTORY, [
         Document.BOOK,
       ]);
@@ -450,8 +434,7 @@ export class PublishYourBookComponent
       lastUpdated: serverTimestamp(),
       description: escapeJSONNewlineChars(this.bookDescFC.value),
       category: this.bookCatgoryFC.value,
-      tag: this.bookTagFC.value,
-      sellerCurrency: this.bookSaleCurrencyFC.value,
+      sellerCurrency: this.sellerCurrency,
       recommended: false,
       price: this.bookPriceFC.value,
       pubId: this.pubId,

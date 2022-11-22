@@ -7,7 +7,6 @@ export interface IPublishedBook {
   description: string;
   publishedDate: any;
   category: string;
-  tag: string | undefined;
   sellerCurrency: string;
   totalReviews: number;
   totalRatings: number;

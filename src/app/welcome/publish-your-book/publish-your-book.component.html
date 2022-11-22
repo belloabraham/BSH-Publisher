@@ -64,8 +64,7 @@
                             <div class="form-group category"
                                 [ngClass]="{'has-error':bookCatgoryFC.hasError('required') && bookCatgoryFC.touched}">
                                 <select formControlName="bookCatgoryFC" class="form-select select-lg category">
-                                    <option *ngFor="let bookCategory of bookCategories"
-                                        value="{{bookCategory.category}}">{{bookCategory.category}}</option>
+                                    <option *ngFor="let bookCategory of bookCategories" value="{{bookCategory}}">{{bookCategory}}</option>
                                 </select>
 
                                 <p *ngIf="bookCatgoryFC.hasError('required') && bookCatgoryFC.touched"
@@ -93,18 +92,6 @@
                             </div>
                         </div>
 
-                        <div class="d-flex mb-2 gap-1">
-                            <label class="form-label label-lg flex-shrink-0">{{ t('tag') }}</label>
-
-                            <div class="form-group tag">
-                                <select formControlName="bookTagFC" class="form-select select-lg tag">
-                                    <option *ngFor="let bookTag of bookTags" value="{{bookTag.tag}}">{{bookTag.tag}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-
                         <div class="d-flex gap-1 mb-2">
                             <label class="form-label label-lg flex-shrink-0" for="bookISBNFC">{{ t('isbn') }}</label>
 
@@ -125,28 +112,15 @@
                                     class="text-muted">*</span> </label>
 
                             <div class="form-group price"
-                                [ngClass]="{'has-error':(bookPriceFC.hasError('required') || bookSaleCurrencyFC.hasError('required')) && (bookSaleCurrencyFC.touched || bookPriceFC.touched)}">
+                                [ngClass]="{'has-error':bookPriceFC.hasError('required')  && bookPriceFC.touched}">
                                 <div class="input-group price">
+                                    <span class="input-group-addon">{{sellerCurrency}}</span>
                                     <input class="form-input input-lg" type="number" formControlName="bookPriceFC">
-                                    <select class="form-select select-lg w-100" formControlName="bookSaleCurrencyFC">
-
-                                        <option *ngIf="sellerCurrency else firstTimeCurrencyOptionTemplate" selected
-                                            value="{{sellerCurrency}}">
-                                            {{sellerCurrency}}
-                                        </option>
-
-                                        <ng-template  #firstTimeCurrencyOptionTemplate>
-                                            <option *ngFor="let bookSalesCurrency of bookSalesCurrencies"
-                                                value="{{bookSalesCurrency.abbrev}}">{{bookSalesCurrency.name}}
-                                                ({{bookSalesCurrency.abbrev}})</option>
-                                        </ng-template>
-
-                                    </select>
                                 </div>
 
-                                <p *ngIf="(bookPriceFC.hasError('required') || bookSaleCurrencyFC.hasError('required')) && (bookSaleCurrencyFC.touched || bookPriceFC.touched)"
+                                <p *ngIf="bookPriceFC.hasError('required') &&  bookPriceFC.touched"
                                     class="form-input-hint">
-                                    {{ t('price_currency_req') }}
+                                    {{ t('price_req') }}
                                 </p>
                             </div>
                         </div>
@@ -159,7 +133,8 @@
 
                             <div class="form-group"
                                 [ngClass]="{'has-error':bookDescFC.hasError('required') && bookDescFC.touched}">
-                                <textarea maxlength="4000" class="form-input" formControlName="bookDescFC" id="bookDescFC"></textarea>
+                                <textarea maxlength="4000" class="form-input" formControlName="bookDescFC"
+                                    id="bookDescFC"></textarea>
 
                                 <p *ngIf="bookDescFC.hasError('required') && bookDescFC.touched"
                                     class="form-input-hint">

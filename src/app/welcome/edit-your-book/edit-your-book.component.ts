@@ -21,7 +21,6 @@ import { StringResKeys } from './locale/string-res-keys';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { ImgCropperEvent } from '@alyle/ui/image-cropper';
 import { FileType } from 'src/data/file-type';
-import { bookTags } from 'src/data/book-tag';
 import { bookCategories } from 'src/data/book-categories';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
@@ -62,19 +61,16 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   private pubId = this.userAuth.getPubId()!;
 
   bookCategories = bookCategories;
-  bookTags = bookTags;
 
   bookCoverFC = new UntypedFormControl(undefined, [Validators.required]);
   bookDocumentFC = new UntypedFormControl(undefined, [Validators.required]);
 
   bookPriceFC = new UntypedFormControl(undefined, [Validators.required]);
   bookDescFC = new UntypedFormControl(undefined, [Validators.required]);
-  bookTagFC = new UntypedFormControl(undefined);
   bookAuthorFC = new UntypedFormControl(undefined, [
     Validators.required,
     Validators.minLength(2),
   ]);
-  bookSaleCurrencyFC = new UntypedFormControl(undefined, [Validators.required]);
   bookCatgoryFC = new UntypedFormControl(undefined, [Validators.required]);
   bookNameFC = new UntypedFormControl(undefined, [Validators.required]);
 
@@ -90,12 +86,11 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   bookDocUploadProgress = 0;
   private notification = new NotificationBuilder().build();
 
-  sellerCurrency = '';
+  sellerCurrency = "NGN";
 
   pubData!: IPublisher;
   existingBookData?: IPublishedBook;
-  private readonly bookId: string =
-    this.activatedRoute.snapshot.params[RouteParams.BOOK_ID];
+  private readonly bookId: string = this.activatedRoute.snapshot.params[RouteParams.BOOK_ID];
 
   constructor(
     private _dialog: LyDialog,
@@ -117,9 +112,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
     return new UntypedFormGroup({
       bookPriceFC: this.bookPriceFC,
       bookDescFC: this.bookDescFC,
-      bookTagFC: this.bookTagFC,
       bookAuthorFC: this.bookAuthorFC,
-      bookSaleCurrencyFC: this.bookSaleCurrencyFC,
       bookCatgoryFC: this.bookCatgoryFC,
       bookNameFC: this.bookNameFC,
     });
@@ -225,8 +218,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
       .getPublisher$()
       .subscribe((pubData) => {
         this.pubData = pubData;
-        this.sellerCurrency = pubData.sellingCurrency!;
-        this.bookSaleCurrencyFC.patchValue(this.sellerCurrency);
+        this.sellerCurrency = pubData.sellingCurrency;
       });
 
     this.loadExistingBookData(this.bookId);
@@ -239,7 +231,6 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
     this.bookDescFC.patchValue(book.description);
     this.bookPriceFC.patchValue(book.price);
     this.bookNameFC.patchValue(book.name);
-    this.bookTagFC.patchValue(book.tag);
 
     this._cd.detectChanges();
   }
@@ -380,7 +371,6 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
       lastUpdated: serverTimestamp(),
       description: escapeJSONNewlineChars(this.bookDescFC.value),
       category: this.bookCatgoryFC.value,
-      tag: this.bookTagFC.value,
       price: this.bookPriceFC.value,
       approved: false,
     };

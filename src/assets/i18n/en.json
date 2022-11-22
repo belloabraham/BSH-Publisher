@@ -223,7 +223,6 @@
     "book_file_req":"Your book file is required",
     "book_name_req":"Your book name is required",
     "author_name_req":"Author name is required",
-    "price_currency_req":"Your book sales price and currency is required",
      "price_req":"Your book sales price is required",
     "book_desc_req":"Your book description is required",
     "req_fields":"All fields marked with * are required",

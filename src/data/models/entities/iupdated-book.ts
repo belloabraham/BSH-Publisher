@@ -3,7 +3,6 @@ export interface IUpdatedBook {
   author: string;
   description: string;
   category: string;
-  tag: string | undefined;
   lastUpdated: any;
   price: number;
   approved: boolean;
