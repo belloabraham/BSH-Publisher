@@ -75,9 +75,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isNewNotification = false;
 
   collaboratorsRoute = Route.COLLABORATORS;
+  collaborationsRoute = Route.COLLABORATIONS;
   paymentRoute = Route.PAYMENT;
   myBooksRoute = Route.MY_BOOKS;
-  adminLink = `${Config.HOME}/${Route.WELCOME}/${Route.ADMIN}`;
+  adminLink = `${location.origin}/${Route.WELCOME}/${Route.ADMIN}`;
   profileRoute = Route.PROFILE;
   publishBookRoute = Route.PUBLISH_YOUR_BOOK;
   salesRecordRoute = Route.SALES_RECORD;
@@ -93,6 +94,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   pubFirstName = '';
   unsubscribeFromNotification!: Unsubscribe;
+  isAdmin =  this.userAuth.isAdmin();
 
   constructor(
     private title: Title,
@@ -111,8 +113,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.listenForBookChanges();
 
+    this.listenForBookChanges();
     this.listenForPubDataChanges();
 
     this.getStrinRes();

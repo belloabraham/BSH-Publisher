@@ -53,7 +53,12 @@ export class PublishedComponent implements OnInit, OnDestroy {
   }
 
   edit(bookId: string) {
-    this.router.navigate([Route.ROOT, Route.WELCOME, Route.EDIT_YOUR_BOOK, bookId]);
+    this.router.navigate([
+      Route.ROOT,
+      Route.WELCOME,
+      Route.EDIT_YOUR_BOOK,
+      bookId,
+    ]);
   }
 
   getBookRating(book: IPublishedBook) {
@@ -127,6 +132,16 @@ export class PublishedComponent implements OnInit, OnDestroy {
       return this.localeService.translate(StringResKeys.unPublished);
     } else {
       return this.localeService.translate(StringResKeys.published);
+    }
+  }
+
+  getBookStatusColor(book: IPublishedBook) {
+    if (book.approved === false) {
+      return 'orangered'
+    } else if (book.published === false) {
+      return 'red'
+    } else {
+      return 'green'
     }
   }
 

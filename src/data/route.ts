@@ -19,4 +19,7 @@ export class Route {
   static readonly DETAILS = 'details';
   static readonly EARNINGS = 'earnings';
   static readonly SIGN_UP = 'sign-up';
+  static readonly PAYMENT_REQUEST = 'payment-request';
+  static readonly PENDING_APPROVAL = 'pending-approval';
+  static readonly COLLABORATIONS = 'collaborations';
 }

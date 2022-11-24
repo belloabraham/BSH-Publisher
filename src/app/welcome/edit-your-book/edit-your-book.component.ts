@@ -78,7 +78,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   bookDocumentForm!: UntypedFormGroup;
   bookCoverForm!: UntypedFormGroup;
 
-  private readonly MAX_ALLOWED_COVER_SIZE_IN_BYTES = 70 * 1024; //*70KB
+  private readonly MAX_ALLOWED_COVER_SIZE_IN_BYTES = 100 * 1024; //*100KB
   private readonly MAX_ALLOWED_BOOK_SIZE_IN_BYTES = 100 * 1024 * 1024; //*100Mb
 
   croppedImage?: string;

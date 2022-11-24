@@ -51,7 +51,6 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   payingCurrencies = payingCurrencies;
 
   diallingCodes: ICountry[] = diallingCodes;
-  dialingCodeByCountry? = countries[0].callingCode;
   isInvalidPhoneNum = false;
 
   firstNameFC!: UntypedFormControl;
@@ -59,6 +58,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   genderFC!: UntypedFormControl;
   phoneFC!: UntypedFormControl;
   paymentCurrencyFC!: UntypedFormControl;
+  dialingCodeFC!: UntypedFormControl;
   countryFC!: UntypedFormControl;
 
   constructor(
@@ -72,6 +72,9 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
     ) as UntypedFormControl;
     this.lastNameFC = this.userDataForm.get('lastNameFC') as UntypedFormControl;
     this.countryFC = this.userDataForm.get('countryFC') as UntypedFormControl;
+    this.dialingCodeFC = this.userDataForm.get(
+      'dialingCodeFC'
+    ) as UntypedFormControl;
     this.genderFC = this.userDataForm.get('genderFC') as UntypedFormControl;
     this.phoneFC = this.userDataForm.get('phoneFC') as UntypedFormControl;
     this.paymentCurrencyFC = this.userDataForm.get(
@@ -86,6 +89,8 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         this.countryFC.patchValue(pubData.nationality);
         this.genderFC.patchValue(pubData.gender);
         this.phoneFC.patchValue(pubData.phoneNumber);
+        this.dialingCodeFC.patchValue(pubData.dialingCode);
+        this.paymentCurrencyFC.patchValue(pubData.payingCurrency);
       });
   }
 
@@ -101,6 +106,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       genderFC: new UntypedFormControl(undefined, [Validators.required]),
       phoneFC: new UntypedFormControl(undefined, [Validators.required]),
       countryFC: new UntypedFormControl(undefined, [Validators.required]),
+      diallingCodes: new UntypedFormControl(undefined, [Validators.required]),
       paymentCurrencyFC: new UntypedFormControl(undefined, [
         Validators.required,
       ]),
@@ -108,12 +114,13 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
   }
 
   async submitFormData() {
-    if (this.isValidPhoneNumber(this.phoneFC.value)) {
+    if (this.isValidPhoneNumber(this.phoneFC.value, this.dialingCodeFC.value)) {
       Shield.standard('.form');
 
       this.isInvalidPhoneNum = false;
 
       const email = this.userAuth.getEmail()!;
+      const pubId = this.userAuth.getPubId()!;
 
       const publisher: IPublisher = {
         firstName: escapeJSONNewlineChars(this.firstNameFC.value),
@@ -121,13 +128,20 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
         gender: this.genderFC.value,
         nationality: this.countryFC.value,
         phoneNumber: this.phoneFC.value,
+        dialingCode: this.dialingCodeFC.value,
         email: email,
         registeredDate: this.registeredDate,
         lastUpdated: this.lastUpdated,
-        sellingCurrency: this.paymentCurrencyFC.value
+        sellingCurrency: 'NGN',
+        payingCurrency: this.paymentCurrencyFC.value,
       };
       try {
         await this.userAuth.updateDisplayName(publisher.firstName);
+        await this.pubDataViewModel.updatePublisher(
+          { pubData: publisher },
+          pubId
+        );
+        Shield.remove('.form');
         this.onDataUpdate(true);
       } catch (error: any) {
         Shield.remove('.form');
@@ -139,22 +153,11 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCountrySelectChanged(event: any) {
-    const value = event.target.value;
-    this.dialingCodeByCountry = this.countries.find((country) => {
-      return country.name === value;
-    })?.callingCode;
-  }
-
-  onDiallinCodeSelectedChanged(event: any) {
-    this.dialingCodeByCountry = event.target.value;
-  }
-
-  private isValidPhoneNumber(phoneNumber: string) {
+  private isValidPhoneNumber(phoneNumber: string, dialingCode:string) {
     const countryCode = this.countries.find((country) => {
-      return country.callingCode === this.dialingCodeByCountry;
+      return country.callingCode === dialingCode;
     })?.code;
-    return isValidPhone(phoneNumber, countryCode!, this.dialingCodeByCountry!);
+    return isValidPhone(phoneNumber, countryCode!, dialingCode);
   }
 
   ngOnDestroy(): void {

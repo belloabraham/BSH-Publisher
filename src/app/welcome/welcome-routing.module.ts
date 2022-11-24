@@ -31,10 +31,12 @@ const routes: Routes = [
       },
       {
         path: Route.ADMIN,
-        canMatch: [() => {
-          const userAuth = inject(USER_AUTH_IJTOKEN)
-          return userAuth.isAdmin()
-        }],
+        canMatch: [
+          () => {
+            const userAuth = inject(USER_AUTH_IJTOKEN);
+            return userAuth.isAdmin();
+          },
+        ],
         loadChildren: () =>
           import('./admin-dashboard/admin-dashboard.module').then(
             (m) => m.AdminDashboardModule
@@ -52,6 +54,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./edit-your-book/edit-your-book.module').then(
             (m) => m.EditYourBookModule
+          ),
+      },
+      {
+        path: Route.COLLABORATIONS,
+        loadChildren: () =>
+          import('./collaborations/collaborations.module').then(
+            (m) => m.CollaborationsModule
           ),
       },
     ],

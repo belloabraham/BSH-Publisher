@@ -66,10 +66,15 @@
     "logout":"Log out",
     "admin_dashboard":"Admin Dashboard",
 
+    "administrator":"Administrator",
 
-    "selling_currency_message":"Note that all books will be sold in Nigerian Naira for now",
-    "paying_currency_message":"What currency do you want to get paid in?",
+
+    "selling_currency_message":"Note that all books will be sold on Bookshelfhub in Nigerian Naira for now",
+    "paying_currency_message":"In what currency would you like to get paid for your books that are sold on this platform?",
     "payment_currency_req":"Payment currency is required",
+
+    "books_pending_approv":"Books Pending Approval",
+    "payment_req":"Payment Request",
 
 
     "dashboard_title":"Dashboard - {{value}}",
@@ -81,6 +86,7 @@
     "my_books":"My Books",
     "payment":"Payment",
     "collaborators":"Collaborators",
+    "collaborations":"Collaborations",
     "delete_all":"Delete all",
     "learn_more":"Learn more",
     "no_notification_msg":"You currently have no new notification, check back later.",

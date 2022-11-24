@@ -22,7 +22,9 @@ const routes: Routes = [
       {
         path: Route.SALES_RECORD,
         loadChildren: () =>
-          import('./sales-record/sales-record.module').then((m) => m.SalesRecordModule),
+          import('./sales-record/sales-record.module').then(
+            (m) => m.SalesRecordModule
+          ),
       },
       {
         path: Route.PAYMENT,
@@ -31,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: Route.COLLABORATORS,
-        resolve: {collaborators: CollaboratorsResolver},
+        resolve: { collaborators: CollaboratorsResolver },
         loadChildren: () =>
           import('./collaborators/collaborators.module').then(
             (m) => m.CollaboratorsModule
@@ -41,6 +43,13 @@ const routes: Routes = [
         path: Route.PROFILE,
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
+      },
+      {
+        path: Route.COLLABORATIONS,
+        loadChildren: () =>
+          import(
+            './publisher-collaborations/publisher-collaborations.module'
+          ).then((m) => m.PublisherCollaborationsModule),
       },
     ],
   },

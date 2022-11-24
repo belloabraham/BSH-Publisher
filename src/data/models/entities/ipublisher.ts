@@ -4,8 +4,10 @@ export interface IPublisher {
   gender: string;
   nationality: string;
   phoneNumber: string;
+  dialingCode:string,
   email: string;
   registeredDate?: any;
   lastUpdated?: any;
   sellingCurrency: string;
+  payingCurrency: string;
 }

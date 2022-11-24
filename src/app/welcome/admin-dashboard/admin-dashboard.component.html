@@ -1,1 +1,79 @@
 <p>admin-dashboard works!</p>
+<div *transloco="let t" [ngClass]="{'minimize':openLeftNav}" class="root">
+
+    <div
+        class="tool-bar fixed-top top-toolbar align-items-end d-flex justify-content-between align-items-center ph-2 bg-light">
+
+        <div class="welcome d-flex align-items-center gap-1">
+            <h2 class="m-0 p-0"> {{t('hi_username', {value: pubFirstName})}} </h2>
+            <span class="wave">👋🏽</span>
+        </div>
+    </div>
+
+
+    <div class="text-white left-nav d-flex flex-column justify-content-between" id="nav-bar">
+
+        <a class="text-gray-100 logo no-select" [routerLink]="['./']">
+            <svg viewBox="0 0 146.68 177.63">
+                <path d="M25.34,13.51c1.88,0,103.63-23.77,104.55-24.32V-24C127.56-23.89,26.78,13.47,25.34,13.51Z"
+                    transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
+                <path
+                    d="M41.06,4.14c9.56-2.67,20-6.5,29.68-9.68s19.81-6.81,29.78-9.81v-9C98.28-23.79,42.41,3.47,41.06,4.14Z"
+                    transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
+                <path d="M59.84-8.17l19.58-8.36v-6.7C78-22.58,60.82-9.36,59.84-8.17Z"
+                    transform="translate(-25.34 24.38)" fill="#06a5d5" fill-rule="evenodd" />
+                <path
+                    d="M33.13,51c15.9-16.75,35-28.81,60.92-32.45C113.29,17.14,134.17,33,128.4,64.74c0,7.84,6,4.17,11.47.92,1.65-.7,3.81-1.83,5.57-2.51A59.54,59.54,0,0,1,152.63,61c7.28-.72,23.33,7.27,18.49,23.83-4.23,22.17-15.35,41.77-28.74,60.53-2.1-.82-3.5,1.34-4.81,0-4.55-4.57-5.13-17.31-1.41-25.3,1.53.2,3.28,1,4.87-.77,5.31-5.79,11.64-19.65,9.76-30.92-10.91,3.64-34.09,22-36,33.13-1.33,7.76.7,12.84,6.23,15.47a20.3,20.3,0,0,1,4.89,16.28c-7.26-2-15.79-10.37-23.69-15.56-2.63-.2-5.9-1.81-11-7.5C75,111.66,66.2,92.68,49,75.9c-1.18-1.85-3.76,3.19-7,.72-4.47-3.43-8.71-5.76-13.42-10.29L27,57.62c-.12-.64,4.26-5,6.11-6.64Zm31.26,5.74c7.07-6.09,14.39-10.33,22.18-11.07,4,.1,6,1.43,6,4,0,5.72-1,13.32-1.43,19.28l-3,28.74C77.23,86.35,68.66,76.81,63.25,66.53c-3-5.75-3-6.21,1.14-9.81Z"
+                    transform="translate(-25.34 24.38)" fill="currentColor" fill-rule="evenodd" />
+            </svg>
+
+            <span>
+                {{ t('app_name') | slice:1}}
+            </span>
+        </a>
+
+        <hr>
+
+        <nav class="nav mt-2 scrollbar-light">
+            <div>
+                <div class="nav_list">
+
+                    <a [routerLink]="pendingApprovalRoute" [routerLinkActive]="'active'" class="nav_link">
+                        <svg lyTooltip="{{ t('books_pending_approv') }}" [lyTooltipPlacement]="right"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M16.5 17.25L19.36 18.94L18.61 20.16L15 18V13H16.5V17.25M23 17C23 20.87 19.87 24 16 24C14.09 24 12.37 23.24 11.11 22H6C4.89 22 4 21.11 4 20V4C4 2.9 4.89 2 6 2H7V9L9.5 7.5L12 9V2H18C19.1 2 20 2.89 20 4V11.26C21.81 12.53 23 14.62 23 17M21 17C21 14.24 18.76 12 16 12S11 14.24 11 17 13.24 22 16 22 21 19.76 21 17Z" />
+                        </svg>
+                        <span class="nav_name">{{ t('books_pending_approv') }}</span>
+                    </a>
+
+                    <a [routerLink]="paymentReqRoute" [routerLinkActive]="'active'" class="nav_link">
+                        <svg lyTooltip="{{ t('payment_req') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M5,6H23V18H5V6M14,9A3,3 0 0,1 17,12A3,3 0 0,1 14,15A3,3 0 0,1 11,12A3,3 0 0,1 14,9M9,8A2,2 0 0,1 7,10V14A2,2 0 0,1 9,16H19A2,2 0 0,1 21,14V10A2,2 0 0,1 19,8H9M1,10H3V20H19V22H1V10Z" />
+                        </svg>
+                        <span class="nav_name">{{ t('payment_req') }}</span>
+                    </a>
+
+                </div>
+            </div>
+
+        </nav>
+        <div class="collapse-icon">
+            <label [lyTooltip]="openLeftNav ? t('expand'): t('collapse')" [lyTooltipPlacement]="right"
+                [ngClass]="{'float-end':!openLeftNav}" class="arrow-label no-select" for="arrow-checkbox">
+                <input (change)="toggleLeftNav()" type="checkbox" id="arrow-checkbox" />
+                <span [ngClass]="{'left':!openLeftNav, 'right':openLeftNav}" class="arrow--l-r">
+                    <span></span><span></span><span></span><span></span><span></span></span>
+            </label>
+        </div>
+
+    </div>
+
+    <div class="main bg-light dashboard-main">
+
+        <router-outlet></router-outlet>
+
+    </div>
+
+</div>

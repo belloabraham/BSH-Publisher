@@ -7,6 +7,6 @@ export class Config {
   static readonly defaultFontFamily = 'Stickler';
   static readonly admins = [
     'p7FMnfdrS0WEHLxXvKKYJGteYvz1', //Ogboriologbo
-    'yWn7EK6ScLUqsu3gvCKX9GA0O2q2', 
+    'yWn7EK6ScLUqsu3gvCKX9GA0O2q2',
   ];
 }

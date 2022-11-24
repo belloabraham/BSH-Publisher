@@ -52,7 +52,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
       collabId: null,
       link: null,
       collabEmail: escapeJSONNewlineChars(this.emailFC.value),
-      collabComm: this.commissionFC.value,
+      collabCommissionInPercent: this.commissionFC.value,
     };
 
      this.lyDialogRef.close(data);
