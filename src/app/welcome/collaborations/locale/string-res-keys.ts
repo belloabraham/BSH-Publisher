@@ -1,3 +1,3 @@
 export enum StringResKeys {
-  title = 'collaborations',
+  title = 'collaborations_title',
 }

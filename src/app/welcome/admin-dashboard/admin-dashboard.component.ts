@@ -5,6 +5,7 @@ import {
   Component,
   OnInit,
   OnDestroy,
+  AfterViewInit,
 } from '@angular/core';
 import { SubSink } from 'subsink';
 import { PubDataViewModel } from '../pub-data.viewmodels';
@@ -12,11 +13,13 @@ import { Route } from 'src/data/route';
 import { Settings } from 'src/data/settings';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { Router } from '@angular/router';
+import { ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { Title } from '@angular/platform-browser';
 import { StringResKeys } from './locale/string-res-keys';
 import { Config } from 'src/data/config';
+import { filter, map, mapTo, merge, Observable } from 'rxjs';
+import { Shield } from 'src/helpers/utils/shield';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -24,7 +27,7 @@ import { Config } from 'src/data/config';
   styleUrls: ['./admin-dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminDashboardComponent implements OnInit, OnDestroy {
+export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   pubFirstName = '';
   private subscriptions = new SubSink();
   openLeftNav = false;
@@ -33,19 +36,48 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   paymentReqRoute = Route.PAYMENT_REQUEST;
   pendingApprovalRoute = Route.PENDING_APPROVAL;
 
+  private showLoaderEvent$!: Observable<boolean>;
+  private hideLoaderEvent$!: Observable<boolean>;
+
   constructor(
     private pubDataVM: PubDataViewModel,
     private title: Title,
     private localeService: LocaleService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.getStringRes();
-    this.listenForPubDataChanges();
+  ) { }
+  
+  ngAfterViewInit(): void {
+      // this.getStringRes();
+    console.log()
   }
 
+  ngOnInit(): void {
+     this.getStringRes();
+    this.listenForPubDataChanges();
+
+    this.showLoaderEvent$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveStart),
+      mapTo(true)
+    );
+
+    this.hideLoaderEvent$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveEnd),
+      mapTo(false)
+    );
+
+    this.subscriptions.sink = merge(
+      this.hideLoaderEvent$,
+      this.showLoaderEvent$
+    ).subscribe((isResolving) => {
+      if (isResolving) {
+        Shield.standard('.admin-dashboard-main', 'Loading please wait...');
+      } else {
+        Shield.remove('.admin-dashboard-main');
+      }
+    });
+  }
+  
   private getStringRes() {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()

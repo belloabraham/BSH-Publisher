@@ -1,3 +1,3 @@
 export enum StringResKeys {
-  title = 'administrator',
+  title = 'administrator_title',
 }

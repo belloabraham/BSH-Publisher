@@ -66,7 +66,7 @@
     "logout":"Log out",
     "admin_dashboard":"Admin Dashboard",
 
-    "administrator":"Administrator",
+    "administrator_title":"Administrator - {{value}}",
 
 
     "selling_currency_message":"Note that all books will be sold on Bookshelfhub in Nigerian Naira for now",
@@ -97,6 +97,9 @@
     "expand":"Expand",
     "yesterday":"Yesterday",
     "xdays_ago":"{{value}} days ago",
+
+
+    "collaborations_title":"Collaborations - {{value}}",
 
 
     "no_collaborators_heading":"Collaborators are {{value}}'s mobile app users that sell your book on your behalf for a commission you assign to them. This is particularly useful in the case of academic institutions selling your book to it's student on your behalf.", 

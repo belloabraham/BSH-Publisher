@@ -81,6 +81,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       'paymentCurrencyFC'
     ) as UntypedFormControl;
 
+
     this.subscriptions.sink = this.pubDataViewModel
       .getPublisher$()
       .subscribe((pubData) => {
@@ -106,7 +107,9 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       genderFC: new UntypedFormControl(undefined, [Validators.required]),
       phoneFC: new UntypedFormControl(undefined, [Validators.required]),
       countryFC: new UntypedFormControl(undefined, [Validators.required]),
-      diallingCodes: new UntypedFormControl(undefined, [Validators.required]),
+      dialingCodeFC: new UntypedFormControl("+234", [
+        Validators.required,
+      ]),
       paymentCurrencyFC: new UntypedFormControl(undefined, [
         Validators.required,
       ]),
