@@ -59,9 +59,9 @@ const routes: Routes = [
       {
         path: Route.COLLABORATIONS,
         loadChildren: () =>
-          import('./collaborations/collaborations.module').then(
-            (m) => m.CollaborationsModule
-          ),
+          import(
+            './collaborator-collaborations/collaborator-collaborations.module'
+          ).then((m) => m.CollaboratorCollaborationsModule),
       },
     ],
   },

@@ -7,17 +7,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 
 @NgModule({
-  declarations: [
-    CollaborationsComponent
-  ],
-  imports: [
-    CommonModule,
-    CollaborationsRoutingModule,
-    TranslocoModule
-  ],
-  exports: [
-    CollaborationsComponent,
-    TranslocoModule
-  ]
+  declarations: [CollaborationsComponent],
+  imports: [CommonModule, CollaborationsRoutingModule, TranslocoModule],
+  exports: [CollaborationsComponent, TranslocoModule],
 })
-export class CollaborationsModule { }
+export class CollaborationsModule {}

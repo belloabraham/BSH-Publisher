@@ -28,6 +28,7 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   pubFirstName = ''
   isAdmin = this.userAuth.isAdmin()
+  collaborationsRoute = Route.COLLABORATIONS
 
   constructor(
     private title: Title,

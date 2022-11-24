@@ -5,7 +5,6 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  AfterViewInit,
 } from '@angular/core';
 import { SubSink } from 'subsink';
 import { PubDataViewModel } from '../pub-data.viewmodels';
@@ -27,7 +26,7 @@ import { Shield } from 'src/helpers/utils/shield';
   styleUrls: ['./admin-dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AdminDashboardComponent implements OnInit, OnDestroy {
   pubFirstName = '';
   private subscriptions = new SubSink();
   openLeftNav = false;
@@ -47,11 +46,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit
     private router: Router
   ) { }
   
-  ngAfterViewInit(): void {
-      // this.getStringRes();
-    console.log()
-  }
-
   ngOnInit(): void {
      this.getStringRes();
     this.listenForPubDataChanges();

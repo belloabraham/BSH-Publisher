@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   pubFirstName = '';
   unsubscribeFromNotification!: Unsubscribe;
-  isAdmin =  this.userAuth.isAdmin();
+  isAdmin = this.userAuth.isAdmin();
 
   constructor(
     private title: Title,
@@ -113,12 +113,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
+     this.getStringRes();
     this.listenForBookChanges();
     this.listenForPubDataChanges();
-
-    this.getStrinRes();
-
+   
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
       mapTo(true)
@@ -215,7 +213,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getStrinRes() {
+  private getStringRes() {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()
       .subscribe((_) => {

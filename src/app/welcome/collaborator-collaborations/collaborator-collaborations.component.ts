@@ -1,22 +1,17 @@
-import {
-  ChangeDetectionStrategy,
-  OnDestroy,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Config } from 'src/data/config';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
-import { StringResKeys } from './locale/string-res-keys';
+import { StringResKeys } from '../../welcome/collaborator-collaborations/locale/string-res-keys';
 
 @Component({
-  selector: 'app-collaborations',
-  templateUrl: './collaborations.component.html',
-  styleUrls: ['./collaborations.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-collaborator-collaborations',
+  templateUrl: './collaborator-collaborations.component.html',
+  styleUrls: ['./collaborator-collaborations.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CollaborationsComponent implements OnInit, OnDestroy{
+export class CollaboratorCollaborationsComponent implements OnInit, OnDestroy{
   private subscriptions = new SubSink();
 
   constructor(private title: Title, private localeService: LocaleService) {}
@@ -41,5 +36,4 @@ export class CollaborationsComponent implements OnInit, OnDestroy{
     this.subscriptions.unsubscribe();
   }
 }
-
 
