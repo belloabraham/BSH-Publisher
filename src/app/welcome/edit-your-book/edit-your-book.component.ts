@@ -33,11 +33,11 @@ import { FileUtil } from 'src/helpers/utils/file-util';
 import { UploadTaskSnapshot } from '@angular/fire/storage';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
-import { PubDataViewModel } from '../pub-data.viewmodels';
+import { PubDataViewModel } from '../pub-data.service';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { IUpdatedBook } from 'src/data/models/entities/iupdated-book';
-import { PublishYourBookViewModel } from '../publish-your-book.viewmodel';
-import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
+import { PublishYourBookViewModel } from '../publish-your-book.service';
+import { PublishedBookViewModel } from '../dashboard/published-book.service';
 import { ImagePickerDialogComponent } from 'src/app/shared/image-picker-dialog/image-picker-dialog.component';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
@@ -86,11 +86,12 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   bookDocUploadProgress = 0;
   private notification = new NotificationBuilder().build();
 
-  sellerCurrency = "NGN";
+  sellerCurrency = 'NGN';
 
   pubData!: IPublisher;
   existingBookData?: IPublishedBook;
-  private readonly bookId: string = this.activatedRoute.snapshot.params[RouteParams.BOOK_ID];
+  private readonly bookId: string =
+    this.activatedRoute.snapshot.params[RouteParams.BOOK_ID];
 
   constructor(
     private _dialog: LyDialog,

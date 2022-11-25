@@ -9,7 +9,11 @@ import {
   Output,
 } from '@angular/core';
 import { serverTimestamp } from '@angular/fire/firestore';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { PaymentType } from 'src/data/payment-type';
 import { Regex } from 'src/data/regex';
 import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
@@ -19,7 +23,7 @@ import { Shield } from 'src/helpers/utils/shield';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
-import { PaymentDetailsViewModel } from '../../payment-details.viewmodel';
+import { PaymentDetailsViewModel } from '../../payment-details.service';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 
 @Component({
@@ -70,7 +74,9 @@ export class PaypalFormComponent implements OnInit, OnDestroy {
   async submitFormData() {
     if (this.emailFC.valid) {
       this.hasError = false;
-      await this.updatedPaymentDetails( escapeJSONNewlineChars(this.emailFC.value));
+      await this.updatedPaymentDetails(
+        escapeJSONNewlineChars(this.emailFC.value)
+      );
     } else {
       this.hasError = true;
     }

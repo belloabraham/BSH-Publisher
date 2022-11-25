@@ -15,7 +15,7 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
-import { NotificationsViewModel } from './notifications.viewmodel';
+import { NotificationsViewModel } from './notifications.service';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -26,14 +26,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
   left = XPosition.left;
 
   private subscriptions = new SubSink();
-  private  pubId = this.userAuth.getPubId()!;
+  private pubId = this.userAuth.getPubId()!;
 
   notifications?: INotification[] | null;
 
   constructor(
     private notificationVM: NotificationsViewModel,
     private localeService: LocaleService,
-     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     const isNotUptoADayOrGreaterThan3Days =
       timeDiffFromNowInDays < 1 || timeDiffFromNowInDays > 3;
     if (isNotUptoADayOrGreaterThan3Days) {
-      return DateUtil.getHumanReadbleDateTime(notificationDate) 
+      return DateUtil.getHumanReadbleDateTime(notificationDate);
     } else if (timeDiffFromNowInDays === 1) {
       return this.localeService.translate(StringResKeys.yesterday);
     } else {
@@ -73,7 +73,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   deleteNotification(notifID?: string) {
-    this.notificationVM.deleteANotification(notifID!, this.pubId)
+    this.notificationVM.deleteANotification(notifID!, this.pubId);
   }
 
   ngOnDestroy(): void {

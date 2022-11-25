@@ -1,12 +1,16 @@
 import { LyDialogRef } from '@alyle/ui/dialog';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { PubDataViewModel } from 'src/app/welcome/pub-data.service';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { Regex } from 'src/data/regex';
 import { getBookId } from 'src/helpers/get-book-id';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
-import { PublishedBookViewModel } from '../../published-book.viewmodel';
+import { PublishedBookViewModel } from '../../published-book.service';
 
 @Component({
   selector: 'app-add-collaborators-dialog',
@@ -27,6 +31,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
   nameFC = new UntypedFormControl(undefined, [Validators.required]);
   commissionFC = new UntypedFormControl(undefined, [Validators.required]);
   bookFC = new UntypedFormControl(undefined, [Validators.required]);
+  rootDomain = location.origin;
 
   constructor(
     private pubBookVM: PublishedBookViewModel,
@@ -38,7 +43,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
     this.collaboratorsForm = this.getCollaboratorsForm();
   }
 
-   createAcollaborator() {
+  createAcollaborator() {
     const pub = this.pubData.getPublisher()!;
     const bookId: string = this.bookFC.value;
     const book = this.pubBookVM.getPublishedBookById(bookId)!;
@@ -46,16 +51,17 @@ export class AddCollaboratorsDialogComponent implements OnInit {
       collabName: escapeJSONNewlineChars(this.nameFC.value),
       bookName: book.name,
       bookId: bookId,
-      pubId: book.pubId,
       pubName: pub.firstName,
       dateCreated: null,
       collabId: null,
       link: null,
       collabEmail: escapeJSONNewlineChars(this.emailFC.value),
       collabCommissionInPercent: this.commissionFC.value,
+      totalEarningsInNGN: 0,
+      totalEarningsInUSD: 0,
     };
 
-     this.lyDialogRef.close(data);
+    this.lyDialogRef.close(data);
   }
 
   getCollaboratorsForm() {

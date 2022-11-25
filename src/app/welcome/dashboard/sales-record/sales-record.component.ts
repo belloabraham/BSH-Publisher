@@ -5,7 +5,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { UserConfig } from 'gridjs';
 import { Config } from 'src/data/config';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
@@ -14,8 +18,8 @@ import { Collection } from 'src/data/remote-data-source/collection';
 import { getBookId } from 'src/helpers/get-book-id';
 import { Shield } from 'src/helpers/utils/shield';
 import { SubSink } from 'subsink';
-import { PublishedBookViewModel } from '../published-book.viewmodel';
-import { SalesRecordViewModel } from './sales-record.viewmodel';
+import { PublishedBookViewModel } from '../published-book.service';
+import { SalesRecordViewModel } from './sales-record.service';
 
 @Component({
   selector: 'app-sales-record',
@@ -31,7 +35,7 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
 
   orderedBookQueryForm!: UntypedFormGroup;
   yearFC = new UntypedFormControl(undefined, [Validators.required]);
-  bookFC= new UntypedFormControl(undefined, [Validators.required]);
+  bookFC = new UntypedFormControl(undefined, [Validators.required]);
   fromMonthFC = new UntypedFormControl(undefined, [Validators.required]);
   toMonthFC = new UntypedFormControl(undefined, [Validators.required]);
 

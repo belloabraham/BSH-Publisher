@@ -8,7 +8,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { isValidPhone } from 'src/helpers/utils/validators';
@@ -18,7 +22,7 @@ import { countries } from 'src/data/countries';
 import { diallingCodes } from 'src/data/dialling-code';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { ICountry } from 'src/data/models/icountry';
-import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
+import { PubDataViewModel } from 'src/app/welcome/pub-data.service';
 import { SubSink } from 'subsink';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 import { payingCurrencies } from 'src/data/paying-currencies';
@@ -81,7 +85,6 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       'paymentCurrencyFC'
     ) as UntypedFormControl;
 
-
     this.subscriptions.sink = this.pubDataViewModel
       .getPublisher$()
       .subscribe((pubData) => {
@@ -107,9 +110,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
       genderFC: new UntypedFormControl(undefined, [Validators.required]),
       phoneFC: new UntypedFormControl(undefined, [Validators.required]),
       countryFC: new UntypedFormControl(undefined, [Validators.required]),
-      dialingCodeFC: new UntypedFormControl("+234", [
-        Validators.required,
-      ]),
+      dialingCodeFC: new UntypedFormControl('+234', [Validators.required]),
       paymentCurrencyFC: new UntypedFormControl(undefined, [
         Validators.required,
       ]),
@@ -156,7 +157,7 @@ export class UserDataFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  private isValidPhoneNumber(phoneNumber: string, dialingCode:string) {
+  private isValidPhoneNumber(phoneNumber: string, dialingCode: string) {
     const countryCode = this.countries.find((country) => {
       return country.callingCode === dialingCode;
     })?.code;

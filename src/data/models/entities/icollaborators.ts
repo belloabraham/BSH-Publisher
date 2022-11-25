@@ -4,9 +4,10 @@ export interface ICollaborators {
   bookName: string;
   dateCreated?: any;
   pubName: string;
-  pubId: string;
   bookId: string;
   collabCommissionInPercent: number;
   link: string | null;
   collabEmail: string;
+  totalEarningsInNGN: number;
+  totalEarningsInUSD: number;
 }

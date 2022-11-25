@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
 import {
-  Resolve,
+  Router, Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-  Router,
+  ActivatedRouteSnapshot
 } from '@angular/router';
 import { ErrorService } from 'src/app/error/error.service';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { Providers } from 'src/data/providers';
 import { Route } from 'src/data/route';
 import { Logger } from 'src/helpers/utils/logger';
-import { PublishedBookViewModel } from './published-book.service';
+import { UnapprovedPublishedBooksViewMdel } from '../unapproved-published-books.service';
 
 @Injectable({
   providedIn: Providers.ANY,
 })
-export class PublishedBooksResolver
+export class UnapprovedPublishedBooksResolver
   implements Resolve<IPublishedBook[] | null>
 {
   constructor(
-    private publishedBooksVM: PublishedBookViewModel,
+    private unApprovedBooksVM: UnapprovedPublishedBooksViewMdel,
     private router: Router,
     private errorService: ErrorService
   ) {}
@@ -29,17 +28,14 @@ export class PublishedBooksResolver
     state: RouterStateSnapshot
   ): Promise<IPublishedBook[] | null> {
     try {
-      const allBooks = await this.publishedBooksVM.getAllPublishedBook();
-
-      const isBookExist = allBooks.length > 0;
-      if (!isBookExist) {
-        this.router.navigate([Route.WELCOME, Route.EMPTY_BOOK_STORE]);
-        return null;
-      }
-      return allBooks;
-    } catch (error: any) {
-      Logger.error('PublishedBooksResolver', this.resolve.name, error.message);
-      this.errorService.errorRoute = [Route.WELCOME, Route.DASHBOARD];
+      return await this.unApprovedBooksVM.getUnApprovedPublishedBooks();
+    } catch (error) {
+      Logger.error(
+        'UnapprovedPublishedBooksResolver',
+        this.resolve.name,
+        error
+      );
+      this.errorService.errorRoute = [Route.WELCOME, Route.ADMIN];
       this.router.navigateByUrl(Route.ERROR);
       return null;
     }

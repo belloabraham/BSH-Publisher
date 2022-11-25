@@ -50,7 +50,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: `${Route.EDIT_YOUR_BOOK}:${RouteParams.BOOK_ID}`,
+        path: `${Route.EDIT_YOUR_BOOK}/:${RouteParams.BOOK_ID}`,
         loadChildren: () =>
           import('./edit-your-book/edit-your-book.module').then(
             (m) => m.EditYourBookModule

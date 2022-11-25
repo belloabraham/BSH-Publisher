@@ -41,10 +41,10 @@ import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
 import { Route } from 'src/data/route';
 import { Document } from 'src/data/remote-data-source/document';
-import { PublishYourBookViewModel } from '../publish-your-book.viewmodel';
-import { PubDataViewModel } from '../pub-data.viewmodels';
+import { PublishYourBookViewModel } from '../publish-your-book.service';
+import { PubDataViewModel } from '../pub-data.service';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
-import { PublishedBookViewModel } from '../dashboard/published-book.viewmodel';
+import { PublishedBookViewModel } from '../dashboard/published-book.service';
 import { ImagePickerDialogComponent } from '../../shared/image-picker-dialog/image-picker-dialog.component';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 

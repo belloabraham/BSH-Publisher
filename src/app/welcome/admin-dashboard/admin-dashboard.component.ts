@@ -7,7 +7,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { SubSink } from 'subsink';
-import { PubDataViewModel } from '../pub-data.viewmodels';
+import { PubDataViewModel } from '../pub-data.service';
 import { Route } from 'src/data/route';
 import { Settings } from 'src/data/settings';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
@@ -17,14 +17,19 @@ import { LocaleService } from 'src/services/transloco/locale.service';
 import { Title } from '@angular/platform-browser';
 import { StringResKeys } from './locale/string-res-keys';
 import { Config } from 'src/data/config';
-import { filter, map, mapTo, merge, Observable } from 'rxjs';
+import { filter, mapTo, merge, Observable } from 'rxjs';
 import { Shield } from 'src/helpers/utils/shield';
+import { PaymentRequestViewModel } from './payment-request.service';
+import { UnapprovedPublishedBooksViewMdel } from './unapproved-published-books.service';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    PaymentRequestViewModel, UnapprovedPublishedBooksViewMdel
+  ]
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
   pubFirstName = '';
@@ -44,10 +49,10 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     private localeService: LocaleService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router
-  ) { }
-  
+  ) {}
+
   ngOnInit(): void {
-     this.getStringRes();
+    this.getStringRes();
     this.listenForPubDataChanges();
 
     this.showLoaderEvent$ = this.router.events.pipe(
@@ -71,7 +76,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   private getStringRes() {
     this.subscriptions.sink = this.localeService
       .getIsLangLoadSuccessfullyObs()

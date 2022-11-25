@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
 import { AdminDashboardComponent } from './admin-dashboard.component';
+import { UnapprovedPublishedBooksResolver } from './books-pending-approval/unapproved-published-books.resolver';
+import { PaymentRequestResolver } from './publishers-payment-request/payment-request.resolver';
 
 const routes: Routes = [
   {
@@ -15,6 +17,7 @@ const routes: Routes = [
       },
       {
         path: Route.PENDING_APPROVAL,
+        resolve: { unApprovedBooks: UnapprovedPublishedBooksResolver },
         loadChildren: () =>
           import('./books-pending-approval/books-pending-approval.module').then(
             (m) => m.BooksPendingApprovalModule
@@ -22,6 +25,7 @@ const routes: Routes = [
       },
       {
         path: Route.PAYMENT_REQUEST,
+        resolve: { paymentRequests: PaymentRequestResolver },
         loadChildren: () =>
           import(
             './publishers-payment-request/publishers-payment-request.module'

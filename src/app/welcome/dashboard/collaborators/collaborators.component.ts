@@ -23,7 +23,7 @@ import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 import { ICloudFunctions } from 'src/services/function/icloud-function';
 import { SubSink } from 'subsink';
 import { AddCollaboratorsDialogComponent } from './add-collaborators-dialog/add-collaborators-dialog.component';
-import { CollaboratorsViewModel } from './collaborators.viewmodel';
+import { CollaboratorsViewModel } from './collaborators.service';
 
 @Component({
   selector: 'app-collaborators',
@@ -35,6 +35,8 @@ import { CollaboratorsViewModel } from './collaborators.viewmodel';
 export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   collaborators: ICollaborators[] | null = null;
+  rootDomain = location.origin
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -78,7 +80,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     );
   }
 
-  addACollaborator() {
+  async addACollaborator() {
     const dialogRef = this._dialog.open<AddCollaboratorsDialogComponent>(
       AddCollaboratorsDialogComponent,
       {
@@ -88,14 +90,17 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = dialogRef.afterClosed.subscribe(async (data) => {
       if (data) {
         const notification = new NotificationBuilder().build();
-        if (this.collaborators) {
-          const existingCollab = this.collaborators!.find(
+        //*Check if there is any collaborators at all
+        const aCollaboratorsHaveBeenCreatedBefore = this.collaborators !== null 
+    
+        if (aCollaboratorsHaveBeenCreatedBefore) {
+          const isAnExistingCollabForBook = this.collaborators!.find(
             (collab) =>
               collab.collabEmail === data.collabEmail &&
               collab.bookId === data.bookId
           );
-          if (existingCollab) {
-            const errorMsg = `Collaborator with ${data.collabEmail} already exist`;
+          if (isAnExistingCollabForBook) {
+            const errorMsg = `Collaborator with ${data.collabEmail} already exist for book with ID/ISBN ${data.bookId}`;
             notification.error(errorMsg);
           } else {
             await this.createACollaborator(data);
@@ -120,9 +125,11 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
       Shield.remove('.collaborators');
       notification.success('Collaborator was created successfully');
       try {
-        let collab = await this.collaboratorsVM.getRemoteCollaborators();
+        const collab = await this.collaboratorsVM.getRemoteCollaborators();
         this.collaboratorsVM.setCollaborators(collab);
-      } catch (error) {}
+      } catch (error) {
+          Logger.error(this, this.createACollaborator.name, error);
+      }
     } catch (error: any) {
       Logger.error(this, this.createACollaborator.name, error);
       Shield.remove('.collaborators');

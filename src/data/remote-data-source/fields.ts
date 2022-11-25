@@ -11,4 +11,5 @@ export class Fields {
   static readonly month = 'month';
   static readonly bookId = 'bookId';
   static readonly sellerCurrency = 'sellerCurrency';
+  static readonly approved = 'approved';
 }

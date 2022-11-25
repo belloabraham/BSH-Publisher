@@ -29,16 +29,16 @@ import { XPosition, YPosition } from '@alyle/ui';
 import { Settings } from 'src/data/settings';
 import { Route } from 'src/data/route';
 import { Config } from 'src/data/config';
-import { PublishedBookViewModel } from './published-book.viewmodel';
+import { PublishedBookViewModel } from './published-book.service';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
-import { NotificationsViewModel } from './notification/notifications.viewmodel';
+import { NotificationsViewModel } from './notification/notifications.service';
 import { INotification } from 'src/data/models/entities/inotifications';
 import { Unsubscribe, where } from '@angular/fire/firestore';
 import { Logger } from 'src/helpers/utils/logger';
-import { PubDataViewModel } from '../pub-data.viewmodels';
+import { PubDataViewModel } from '../pub-data.service';
 import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { Fields } from 'src/data/remote-data-source/fields';
-import { SalesRecordViewModel } from './sales-record/sales-record.viewmodel';
+import { SalesRecordViewModel } from './sales-record/sales-record.service';
 import { CloudFunctionService } from 'src/services/function/firebase/cloud-function.service';
 import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 
@@ -113,10 +113,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-     this.getStringRes();
+    this.getStringRes();
     this.listenForBookChanges();
     this.listenForPubDataChanges();
-   
+
     this.showLoaderEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
       mapTo(true)

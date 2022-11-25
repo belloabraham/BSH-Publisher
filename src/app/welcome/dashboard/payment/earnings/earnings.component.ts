@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
-import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
+import { PubDataViewModel } from 'src/app/welcome/pub-data.service';
 import { IEarnings } from 'src/data/models/entities/iearnings';
 import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
 import { IPaymentRequest } from 'src/data/models/entities/ipayment-request';
@@ -22,8 +22,8 @@ import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
-import { PublishedBookViewModel } from '../../published-book.viewmodel';
-import { PaymentDetailsViewModel } from '../payment-details.viewmodel';
+import { PublishedBookViewModel } from '../../published-book.service';
+import { PaymentDetailsViewModel } from '../payment-details.service';
 import { StringResKeys } from './locale/string-res-keys';
 
 @Component({

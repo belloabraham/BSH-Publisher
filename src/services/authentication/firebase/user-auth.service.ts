@@ -7,7 +7,6 @@ import { StringResKeys } from '../locale/string-res-keys';
 import { ErrorCodes } from './error-codes';
 import { IUserAuth } from '../iuser-auth';
 import { Config } from 'src/data/config';
-import { getuid } from 'process';
 
 @Injectable()
 export class UserAuthService implements IUserAuth {

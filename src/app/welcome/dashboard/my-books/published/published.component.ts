@@ -20,7 +20,7 @@ import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
-import { PublishedBookViewModel } from '../../published-book.viewmodel';
+import { PublishedBookViewModel } from '../../published-book.service';
 import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
@@ -137,11 +137,11 @@ export class PublishedComponent implements OnInit, OnDestroy {
 
   getBookStatusColor(book: IPublishedBook) {
     if (book.approved === false) {
-      return 'orangered'
+      return 'orangered';
     } else if (book.published === false) {
-      return 'red'
+      return 'red';
     } else {
-      return 'green'
+      return 'green';
     }
   }
 

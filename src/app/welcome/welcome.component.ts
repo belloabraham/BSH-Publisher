@@ -16,9 +16,9 @@ import { CloudStorageService } from 'src/services/storage/firebase/cloud-storage
 import { CLOUD_STORAGE_IJTOKEN } from 'src/services/storage/icloud-storage-token';
 import { SubSink } from 'subsink';
 import { IncomingRouteService } from '../shared/incoming-route.service';
-import { PaymentDetailsViewModel } from './dashboard/payment/payment-details.viewmodel';
-import { PubDataViewModel } from './pub-data.viewmodels';
-import { PublishYourBookViewModel } from './publish-your-book.viewmodel';
+import { PaymentDetailsViewModel } from './dashboard/payment/payment-details.service';
+import { PubDataViewModel } from './pub-data.service';
+import { PublishYourBookViewModel } from './publish-your-book.service';
 
 @Component({
   selector: 'app-welcome',

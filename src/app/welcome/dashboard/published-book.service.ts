@@ -72,6 +72,5 @@ export class PublishedBookViewModel {
   getPublishedBookById(bookId: string) {
     return this.allBooks.find((pubBook) => pubBook.bookId === bookId);
   }
-
-  publishMyBook(publishedBooks: IPublishedBook, pubId: string) {}
+  
 }

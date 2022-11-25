@@ -9,7 +9,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { ICanDeactivate } from 'src/app/shared/i-can-deactivate';
-import { PubDataViewModel } from 'src/app/welcome/pub-data.viewmodels';
+import { PubDataViewModel } from 'src/app/welcome/pub-data.service';
 import { PaymentType } from 'src/data/payment-type';
 import { IPaymentDetails } from 'src/data/models/entities/ipayment-details';
 import { LocaleService } from 'src/services/transloco/locale.service';
@@ -18,7 +18,7 @@ import { DateUtil } from 'src/helpers/utils/date-util';
 import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { SubSink } from 'subsink';
-import { PaymentDetailsViewModel } from '../payment-details.viewmodel';
+import { PaymentDetailsViewModel } from '../payment-details.service';
 import { BankTransferFormComponent } from './bank-transfer-form/bank-transfer-form.component';
 import { StringResKeys } from './locale/string-res-keys';
 import { PaypalFormComponent } from './paypal-form/paypal-form.component';
@@ -65,7 +65,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     private localeService: LocaleService,
     private paymentDetailsVM: PaymentDetailsViewModel,
     private pubDataVM: PubDataViewModel,
-    private ngZone:NgZone
+    private ngZone: NgZone
   ) {}
 
   goToPayment() {
@@ -95,8 +95,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
         this.unsavedFieldsMsgTitle,
         this.yes,
         this.no,
-        () => this.ngZone.run(()=>this.canExitRoute.next(true)),
-        () => this.ngZone.run(()=>this.canExitRoute.next(false))
+        () => this.ngZone.run(() => this.canExitRoute.next(true)),
+        () => this.ngZone.run(() => this.canExitRoute.next(false))
       );
       return this.canExitRoute;
     } else {
@@ -128,7 +128,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
         this.paymentDetails = paymentDetails;
         if (this.paymentDetails) {
           this.setPaymentDetailsLastUpdated(this.paymentDetails);
-          this.paymentTypeFC.patchValue(this.paymentDetails.paymentType)
+          this.paymentTypeFC.patchValue(this.paymentDetails.paymentType);
         }
       });
   }
@@ -219,10 +219,11 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   onDataUpdate(isSuccessful: boolean) {
     const notification = new NotificationBuilder()
-      .setTimeOut(Notification.SHORT_LENGHT).build();
+      .setTimeOut(Notification.SHORT_LENGHT)
+      .build();
     if (isSuccessful) {
       notification.success(this.updatedSucessMsg);
-       this.goToPayment()
+      this.goToPayment();
     } else {
       notification.error(this.updatedFailedMsg);
     }

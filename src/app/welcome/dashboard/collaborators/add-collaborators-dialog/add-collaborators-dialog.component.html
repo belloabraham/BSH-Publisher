@@ -14,7 +14,7 @@
             <div class="form-group"
                 [ngClass]="{'has-error':(emailFC.hasError('required') || emailFC.hasError('pattern')) && emailFC.touched}">
                 <label class="form-label label-lg" for="emailFC">{{ t('collab_email') }} <span
-                        lyColor="primary">collab.bookshelfhub.com</span> </label>
+                        lyColor="primary">{{rootDomain}}</span> </label>
                 <input class="form-input input-lg" id="emailFC" type="email" placeholder="name@example.com"
                     formControlName="emailFC">
                 <p *ngIf="(emailFC.hasError('required') || emailFC.hasError('pattern')) && emailFC.touched"

@@ -54,7 +54,7 @@
     <ng-template #addACollaboratorMsg>
     <div *ngIf="collaborators === null"  class="empty-state d-flex flex-column justify-content-center align-items-center gap-2">
         <div>
-            <p class="d-inline">{{t('no_collaborators_heading', {value: t('app_name')})}}</p>
+            <p class="d-inline">{{t('no_collaborators_heading', {value: rootDomain})}}</p>
 
             <a class="learn-more underline ml-1" href="https://www.bookshelfhub.com/help#collaborators" target="_blank"
                 rel="noopener noreferrer">{{t('learn_more')}} <svg viewBox="0 0 24 24">

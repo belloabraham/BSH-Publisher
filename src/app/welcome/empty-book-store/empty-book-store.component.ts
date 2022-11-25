@@ -14,9 +14,8 @@ import { LocaleService } from 'src/services/transloco/locale.service';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { SubSink } from 'subsink';
-import { PubDataViewModel } from '../pub-data.viewmodels';
+import { PubDataViewModel } from '../pub-data.service';
 import { StringResKeys } from './locale/string-res-keys';
-
 
 @Component({
   selector: 'app-empty-book-store',
@@ -26,9 +25,9 @@ import { StringResKeys } from './locale/string-res-keys';
 })
 export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  pubFirstName = ''
-  isAdmin = this.userAuth.isAdmin()
-  collaborationsRoute = Route.COLLABORATIONS
+  pubFirstName = '';
+  isAdmin = this.userAuth.isAdmin();
+  collaborationsRoute = Route.COLLABORATIONS;
 
   constructor(
     private title: Title,
@@ -36,20 +35,20 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router,
     private pubDataVM: PubDataViewModel,
-    private incomingRouteS:IncomingRouteService
-  ) {
-  }
+    private incomingRouteS: IncomingRouteService
+  ) {}
 
   ngOnInit(): void {
     this.getStringRes();
-    this.listenForChangesInPubData()
+    this.listenForChangesInPubData();
   }
 
   private listenForChangesInPubData() {
-   this.subscriptions.sink =  this.pubDataVM.getPublisher$()
-      .subscribe(pubData => {
-      this.pubFirstName = pubData.firstName
-    })
+    this.subscriptions.sink = this.pubDataVM
+      .getPublisher$()
+      .subscribe((pubData) => {
+        this.pubFirstName = pubData.firstName;
+      });
   }
 
   private getStringRes() {
@@ -65,12 +64,12 @@ export class EmptyBookStoreComponent implements OnInit, OnDestroy {
   }
 
   addABook() {
-    this.incomingRouteS.route = this.router.url
+    this.incomingRouteS.route = this.router.url;
     this.router.navigate([Route.WELCOME, Route.PUBLISH_YOUR_BOOK]);
   }
 
   gotoAdminDashBoard() {
-    this.incomingRouteS.route = this.router.url
+    this.incomingRouteS.route = this.router.url;
     this.router.navigate([Route.WELCOME, Route.ADMIN]);
   }
 
