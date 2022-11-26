@@ -39,11 +39,11 @@
                         <th scope="row">{{earnings!.indexOf(earning)+1}}</th>
                         <td>{{earning.bookName}}</td>
                         <td>{{earning.bookId}}</td>
-                        <td>{{(earning.totalEarnings - earning.totalPaid) | currency:sellerCurrency:'symbol-narrow'}}
+                        <td>{{(earning.totalEarnings - earning.totalPaid) | currency:sellingCurrency:'symbol-narrow'}}
                         </td>
-                        <td>{{earning.totalEarnings | currency:sellerCurrency:'symbol-narrow' }}</td>
-                        <td>{{earning.totalPaid | currency:sellerCurrency:'symbol-narrow' }}</td>
-                        <td> <button ly-button [disabled]="(earning.totalEarnings - earning.totalPaid)<=0"
+                        <td>{{earning.totalEarnings | currency:sellingCurrency:'symbol-narrow' }}</td>
+                        <td>{{earning.totalPaid | currency:sellingCurrency:'symbol-narrow' }}</td>
+                        <td> <button ly-button [disabled]="(earning.totalEarnings - earning.totalPaid) <= 0"
                                 (click)="requestPayment(earning.bookId)"> {{ t('request_payment') }}</button> </td>
                     </tr>
                 </tbody>

@@ -5,5 +5,6 @@ export interface IPaymentRequest {
   pubId: string;
   bookName: string;
   bookId: string;
+  sellingCurrency: string;
   amount: number;
 }

@@ -36,6 +36,7 @@ export class PublishedComponent implements OnInit, OnDestroy {
 
   bottom = YPosition.below;
 
+
   constructor(
     private publishedBookVM: PublishedBookViewModel,
     private localeService: LocaleService,

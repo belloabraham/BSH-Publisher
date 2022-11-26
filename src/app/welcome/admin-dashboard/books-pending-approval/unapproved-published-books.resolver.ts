@@ -1,15 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable } from '@angular/core';
 import {
-  Router, Resolve,
+  Router,
+  Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
 } from '@angular/router';
 import { ErrorService } from 'src/app/error/error.service';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { Providers } from 'src/data/providers';
+import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
+import { Fields } from 'src/data/remote-data-source/fields';
+import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { Route } from 'src/data/route';
 import { Logger } from 'src/helpers/utils/logger';
-import { UnapprovedPublishedBooksViewMdel } from '../unapproved-published-books.service';
+import { where } from '@angular/fire/firestore';
+import { Collection } from 'src/data/remote-data-source/collection';
+
 
 @Injectable({
   providedIn: Providers.ANY,
@@ -18,8 +24,8 @@ export class UnapprovedPublishedBooksResolver
   implements Resolve<IPublishedBook[] | null>
 {
   constructor(
-    private unApprovedBooksVM: UnapprovedPublishedBooksViewMdel,
     private router: Router,
+    @Inject(DATABASE_IJTOKEN) private remoteData: IDatabase,
     private errorService: ErrorService
   ) {}
 
@@ -28,7 +34,12 @@ export class UnapprovedPublishedBooksResolver
     state: RouterStateSnapshot
   ): Promise<IPublishedBook[] | null> {
     try {
-      return await this.unApprovedBooksVM.getUnApprovedPublishedBooks();
+      const queryConstraint = where(Fields.approved, '==', false);
+      return this.remoteData.getArrayOfDocDataWhere<IPublishedBook>(
+        Collection.PUBLISHED_BOOKS,
+        [],
+        [queryConstraint]
+      );
     } catch (error) {
       Logger.error(
         'UnapprovedPublishedBooksResolver',

@@ -94,10 +94,10 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
     return {
       language: {
         search: {
-          placeholder: 'Type any word from the record',
+          placeholder: 'Type to search records',
         },
       },
-      columns: ['Book name', 'Book Id', 'Additional info'],
+      columns: ['Book Name', 'Book ID/ISBN', 'Additional Info'],
       pagination: {
         enabled: true,
         limit: 50,
@@ -110,6 +110,9 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
       },
       style: {
         td: {
+          'font-family': Config.defaultFontFamily,
+        },
+        th: {
           'font-family': Config.defaultFontFamily,
         },
       },

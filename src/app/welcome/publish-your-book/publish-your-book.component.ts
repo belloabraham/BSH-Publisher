@@ -47,6 +47,7 @@ import { IPublisher } from 'src/data/models/entities/ipublisher';
 import { PublishedBookViewModel } from '../dashboard/published-book.service';
 import { ImagePickerDialogComponent } from '../../shared/image-picker-dialog/image-picker-dialog.component';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
+import { Settings } from 'src/data/settings';
 
 @Component({
   selector: 'app-publish-your-book',
@@ -320,13 +321,22 @@ export class PublishYourBookComponent
     let bookId = '';
     let bookFileName = '';
 
+
+    const savedBookId= localStorage.getItem(Settings.LAST_UNPUBLIHED_BOOK_ID)
     if (this.bookISBNFC.value) {
       bookId = this.bookISBNFC.value;
       bookFileName = bookId;
+    } else if (
+      savedBookId !== null &&
+      savedBookId !== '' && savedBookId.indexOf(this.pubId) === 0
+    ) {
+      bookId = savedBookId
+      bookFileName = savedBookId.split('-')[1];
     } else {
       bookId = `${this.pubId}-${this.autoGenIdNumb}`;
       bookFileName = this.autoGenIdNumb; //*So as to not get file name too long exception
     }
+
     bookFileName = `${bookFileName}.pdf`;
     const bookFileToUpload = FileUtil.rename(
       this.bookFileChosenByUser,
@@ -403,8 +413,10 @@ export class PublishYourBookComponent
       this._cd.detectChanges();
       Shield.remove('.publish-book-container');
 
+      localStorage.setItem(Settings.LAST_UNPUBLIHED_BOOK_ID, '');
       this.showBookUploadSuccessMsg();
     } catch (error) {
+      localStorage.setItem(Settings.LAST_UNPUBLIHED_BOOK_ID, bookId)
       Logger.error(this, this.uploadBookData.name, error);
       Shield.remove('.publish-book-container');
       AlertDialog.error(

@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, OnDestroy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { SubSink } from 'subsink';
-import { UnapprovedPublishedBooksViewMdel } from '../unapproved-published-books.service';
+import { UnapprovedPublishedBooksViewMdel } from './unapproved-published-books.service';
 
 @Component({
   selector: 'app-books-pending-approval',
@@ -10,21 +10,25 @@ import { UnapprovedPublishedBooksViewMdel } from '../unapproved-published-books.
   styleUrls: ['./books-pending-approval.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BooksPendingApprovalComponent implements OnInit {
+export class BooksPendingApprovalComponent implements OnInit, OnDestroy{
   private subscriptions = new SubSink();
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private unapprovedBooksVM:UnapprovedPublishedBooksViewMdel
-  ) { }
+    private unapprovedBooksVM: UnapprovedPublishedBooksViewMdel
+  ) {}
 
   ngOnInit(): void {
-     this.subscriptions.sink = this.activatedRoute.data
-       .pipe(map((data) => data['unApprovedBooks']))
-       .subscribe((unApprovedBooks) => {
-         if (unApprovedBooks) {
-           this.unapprovedBooksVM.setAllBooks(unApprovedBooks);
-         }
-       });
+    this.subscriptions.sink = this.activatedRoute.data
+      .pipe(map((data) => data['unApprovedBooks']))
+      .subscribe((unApprovedBooks) => {
+        if (unApprovedBooks) {
+          this.unapprovedBooksVM.setAllBooks(unApprovedBooks);
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

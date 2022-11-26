@@ -4,12 +4,12 @@ import { Display } from "src/helpers/utils/display";
 export class AlyleGlobalThemeVariables implements PartialThemeVariables {
   button = {
     root: () => lyl`{
-      font-size: 1.2rem
+      font-size: 1rem
     }`,
   };
 
   typography = {
-    fontFamily: `Stickler`,
-    fontSize: Display.remToPixel(1.2),
+    fontFamily: `Source Sans Pro`,
+    fontSize: Display.remToPixel(1),
   };
 }

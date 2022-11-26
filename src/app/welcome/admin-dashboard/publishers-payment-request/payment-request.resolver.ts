@@ -1,20 +1,30 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable } from '@angular/core';
 import {
-  Router, Resolve,
+  Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { IPaymentRequest } from 'src/data/models/entities/ipayment-request';
 import { Providers } from 'src/data/providers';
+import { Collection } from 'src/data/remote-data-source/collection';
+import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
+import { IDatabase } from 'src/data/remote-data-source/idatabase';
 
 @Injectable({
-  providedIn: Providers.ANY
+  providedIn: Providers.ANY,
 })
-export class PaymentRequestResolver implements Resolve<IPaymentRequest[] | null> {
+export class PaymentRequestResolver
+  implements Resolve<IPaymentRequest[] | null>
+{
+  constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
-  constructor(){}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<IPaymentRequest[] | null> {
-    return of(true);
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<IPaymentRequest[] | null> {
+    return this.remoteData.getArrayOfDocData<IPaymentRequest>(
+      Collection.PAYMENT_REQUEST,
+      []
+    );
   }
 }

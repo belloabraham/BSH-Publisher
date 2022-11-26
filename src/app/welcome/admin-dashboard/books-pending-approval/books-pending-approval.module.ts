@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BooksPendingApprovalRoutingModule } from './books-pending-approval-routing.module';
 import { BooksPendingApprovalComponent } from './books-pending-approval.component';
+import { TranslocoModule } from '@ngneat/transloco';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { BooksPendingApprovalComponent } from './books-pending-approval.componen
   ],
   imports: [
     CommonModule,
-    BooksPendingApprovalRoutingModule
+    BooksPendingApprovalRoutingModule,
+    TranslocoModule
   ]
 })
 export class BooksPendingApprovalModule { }

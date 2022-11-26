@@ -19,17 +19,14 @@ import { StringResKeys } from './locale/string-res-keys';
 import { Config } from 'src/data/config';
 import { filter, mapTo, merge, Observable } from 'rxjs';
 import { Shield } from 'src/helpers/utils/shield';
-import { PaymentRequestViewModel } from './payment-request.service';
-import { UnapprovedPublishedBooksViewMdel } from './unapproved-published-books.service';
+import { PaymentRequestViewModel } from './publishers-payment-request/payment-request.service';
+import { UnapprovedPublishedBooksViewMdel } from './books-pending-approval/unapproved-published-books.service';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    PaymentRequestViewModel, UnapprovedPublishedBooksViewMdel
-  ]
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
   pubFirstName = '';

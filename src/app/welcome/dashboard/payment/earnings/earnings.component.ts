@@ -38,7 +38,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
   allPublisedBooks: IPublishedBook[] = [];
   private pubId = this.userAuth.getPubId()!;
   bottom = YPosition.below;
-  sellerCurrency = this.pubDataVM.getPublisher()?.sellingCurrency;
+  sellingCurrency = this.pubDataVM.getPublisher()?.sellingCurrency;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -108,6 +108,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
       pubId: this.pubId,
       bookName: bookName,
       bookId: bookId,
+      sellingCurrency: this.sellingCurrency!,
       amount: 0,
     };
   }

@@ -1,1 +1,46 @@
-<p>publishers-payment-request works!</p>
+<div *transloco="let t" class="payment-request d-flex justify-content-center w-100">
+
+    <div class="m-4">
+
+        <table ly-table [dataSource]="dataSource" class="demo-table"  >
+
+            <ng-container lyColumnDef="demo-position">
+                <th ly-header-cell *lyHeaderCellDef> No. </th>
+                <td ly-cell *lyCellDef="let star"> {{star.position}} </td>
+            </ng-container>
+
+            <ng-container lyColumnDef="demo-name">
+                <th ly-header-cell *lyHeaderCellDef> &nbsp; &nbsp; &nbsp;Payment Request </th>
+                <td ly-cell *lyCellDef="let star">
+                    <ly-accordion>
+                        <ly-expansion-panel elevation="0">
+                            <ly-expansion-panel-header>
+                                <ly-panel-title> {{star.name}} - <span class="amount">&nbsp; NGN3000</span>
+                                </ly-panel-title>
+                                <ly-panel-description>ID/ISBN: 3456789123467789036523567892-1234678902345</ly-panel-description>
+                            </ly-expansion-panel-header>
+                            <p>
+                                Natus vitae, iusto corrupti ex sint perferendis, suscipit temporibus tenetur, laboriosam
+                                fugit vel!
+                                Veritatis alias fugit vero iste a voluptas minima recusandae!
+                            </p>
+                            <ly-action-row class="d-flex justify-content-between">
+                                <button  ly-button>
+                                    {{ t('delete') }}
+                                </button>
+
+                                <button class="action-button" ly-button color="primary">{{ t('mark_paid') }}</button>
+                            </ly-action-row>
+                        </ly-expansion-panel>
+                    </ly-accordion>
+
+                </td>
+            </ng-container>
+
+            <tr ly-header-row *lyHeaderRowDef="displayedColumns"></tr>
+            <tr ly-row *lyRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+
+</div>

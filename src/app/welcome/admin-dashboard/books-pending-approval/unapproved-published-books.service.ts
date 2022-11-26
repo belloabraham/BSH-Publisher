@@ -7,8 +7,11 @@ import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { Collection } from 'src/data/remote-data-source/collection';
+import { Providers } from 'src/data/providers';
 
-@Injectable()
+@Injectable({
+  providedIn:Providers.ANY
+})
 export class UnapprovedPublishedBooksViewMdel {
   private allBooks$ = new ReplaySubject<IPublishedBook[]>(MaxCachedItem.ONE);
   private allBooks: IPublishedBook[] = [];
