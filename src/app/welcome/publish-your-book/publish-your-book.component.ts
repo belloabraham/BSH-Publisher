@@ -315,7 +315,7 @@ export class PublishYourBookComponent
 
     Shield.pulse(
       '.publish-book-container',
-      Display.remToPixel(1.5),
+      Display.remToPixel(1.2),
       bookUploadingMsg
     );
     let bookId = '';

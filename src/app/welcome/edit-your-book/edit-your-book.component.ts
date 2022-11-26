@@ -269,7 +269,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
       StringResKeys.bookUpdatingMsg
     );
 
-    Shield.pulse('.form-book', Display.remToPixel(1.5), bookUploadingMsg);
+    Shield.pulse('.form-book', Display.remToPixel(1.2), bookUploadingMsg);
     let bookFileName = '';
 
     if (this.bookId.includes(this.pubId)) {
