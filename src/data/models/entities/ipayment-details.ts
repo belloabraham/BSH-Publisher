@@ -1,12 +1,12 @@
 export interface IPaymentDetails {
   paymentType: string;
   paypalEmail?: string;
-  country?: string;
+  bankCountry?: string;
   skrillEmail?: string;
   bankName?: string;
   accountNumber?: string;
   accountName?: string;
-  address?: string;
+  residentialAddress?: string;
   accountType?: string;
   bankSwiftCode?: string;
   bankAddress?: string;

@@ -2,34 +2,79 @@
 
     <div class="m-4">
 
-        <table ly-table [dataSource]="dataSource" class="demo-table"  >
+        <table *ngIf="allPaymentRequest" ly-table [dataSource]="allPaymentRequest" class="demo-table">
 
-            <ng-container lyColumnDef="demo-position">
+            <ng-container lyColumnDef="position">
                 <th ly-header-cell *lyHeaderCellDef> No. </th>
-                <td ly-cell *lyCellDef="let star"> {{star.position}} </td>
+                <td ly-cell *lyCellDef="let paymentReq"> {{allPaymentRequest.indexOf(paymentReq)+1}} </td>
             </ng-container>
 
-            <ng-container lyColumnDef="demo-name">
-                <th ly-header-cell *lyHeaderCellDef> &nbsp; &nbsp; &nbsp;Payment Request </th>
-                <td ly-cell *lyCellDef="let star">
-                    <ly-accordion>
+            <ng-container lyColumnDef="payment-request">
+                <th ly-header-cell *lyHeaderCellDef> &nbsp; &nbsp; &nbsp;{{t('payment_req')}} </th>
+                <td ly-cell *lyCellDef="let paymentReq">
+                    <ly-accordion >
                         <ly-expansion-panel elevation="0">
                             <ly-expansion-panel-header>
-                                <ly-panel-title> {{star.name}} - <span class="amount">&nbsp; NGN3000</span>
+                                <ly-panel-title> {{paymentReq.bookName}} &nbsp;- &nbsp;<span class="amount">&nbsp;
+                                        {{paymentReq.amount | currency:paymentReq.sellingCurrency:'symbol-narrow'}}</span>
                                 </ly-panel-title>
-                                <ly-panel-description>ID/ISBN: 3456789123467789036523567892-1234678902345</ly-panel-description>
+                                <ly-panel-description>ID/ISBN: {{paymentReq.bookId}}
+                                </ly-panel-description>
                             </ly-expansion-panel-header>
-                            <p>
-                                Natus vitae, iusto corrupti ex sint perferendis, suscipit temporibus tenetur, laboriosam
-                                fugit vel!
-                                Veritatis alias fugit vero iste a voluptas minima recusandae!
+                            <p><span class="label"> {{ t('payment_type') }} : &nbsp; </span>
+                                {{paymentReq.paymentDetails.paymentType}}
                             </p>
+
+                            <div *ngIf="paymentReq.paymentDetails.paymentType === bankTransfer else payPalOrSkrill">
+                                <p><span class="label"> {{ t('acct_name') }} : &nbsp; </span>
+                                    {{paymentReq.paymentDetails.accountName}}
+                                </p>
+                                <p><span class="label"> {{ t('acct_number') }} : &nbsp; </span>
+                                    {{paymentReq.paymentDetails.accountNumber}}
+                                </p>
+                                <p><span class="label"> {{ t('bank_name') }} : &nbsp; </span>
+                                    {{paymentReq.paymentDetails.bankName}}
+                                </p>
+                                <p><span class="label"> {{ t('bank_country') }} : &nbsp; </span>
+                                    {{paymentReq.paymentDetails.bankCountry}}
+                                </p>
+
+                                <div *ngIf="paymentReq.paymentDetails.bankCountry !== nigeria">
+                                    <p><span class="label"> {{ t('account_type') }} : &nbsp; </span>
+                                        {{paymentReq.paymentDetails.accountType}}
+                                    </p>
+                                    <p><span class="label"> {{ t('bank_swift_code') }} : &nbsp; </span>
+                                        {{paymentReq.paymentDetails.bankSwiftCode}}
+                                    </p>
+                                    <p><span class="label"> {{ t('bank_routing_numb') }} : &nbsp; </span>
+                                        {{paymentReq.paymentDetails.bankRoutingNumber}}
+                                    </p>
+                                    <p><span class="label"> {{ t('bank_address') }} : &nbsp; </span>
+                                        {{paymentReq.paymentDetails.bankAddress}}
+                                    </p>
+                                    <p><span class="label"> {{ t('residential_address') }} : &nbsp; </span>
+                                        {{paymentReq.paymentDetails.residentialAddress}}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <ng-template #payPalOrSkrill>
+                                <p>
+                                    <span class="label"> {{ t('email') }} : &nbsp;</span>
+                                    {{paymentReq.paymentDetails.skrillEmail}}{{paymentReq.paymentDetails.paypalEmail}}
+                                </p>
+                            </ng-template>
+
                             <ly-action-row class="d-flex justify-content-between">
-                                <button  ly-button>
+                                <button (click)="delete(paymentReq.pubId+paymentReq.bookId, paymentReq.bookName)"
+                                    elevation="1" class="action-button" raised ly-button>
                                     {{ t('delete') }}
                                 </button>
 
-                                <button class="action-button" ly-button color="primary">{{ t('mark_paid') }}</button>
+                                <button (click)="markAsPaid(paymentReq.pubId+paymentReq.bookId, paymentReq.bookName)"
+                                    elevation="1" class="action-button" ly-button
+                                    bg="primary">{{ t('mark_paid') }}</button>
                             </ly-action-row>
                         </ly-expansion-panel>
                     </ly-accordion>

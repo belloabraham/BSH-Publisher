@@ -120,7 +120,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       this.accountNumberFC.patchValue(
         this.decrypt(paymentDetail.accountNumber!)
       );
-      this.countryFC.patchValue(this.decrypt(paymentDetail.country!));
+      this.countryFC.patchValue(this.decrypt(paymentDetail.bankCountry!));
       this.updateForeignFormData(paymentDetail);
     }
   }
@@ -136,7 +136,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       );
       this.accountTypeFC.patchValue(this.decrypt(paymentDetail.accountType!));
       this.residentialAddressFC.patchValue(
-        this.decrypt(paymentDetail.address!)
+        this.decrypt(paymentDetail.residentialAddress!)
       );
     }
   }
@@ -178,7 +178,7 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       bankName: this.getEncrypted(
         escapeJSONNewlineChars(this.bankNameFC.value)
       ),
-      country: this.getEncrypted(this.countryFC.value),
+      bankCountry: this.getEncrypted(this.countryFC.value),
       lastUpdated: serverTimestamp(),
     };
     this.addForiegnBankFormData(paymentDetails);
@@ -206,14 +206,14 @@ export class BankTransferFormComponent implements OnDestroy, OnInit {
       paymentDetails.bankAddress = this.getEncrypted(
         escapeJSONNewlineChars(this.bankAddressFC.value)
       );
-      paymentDetails.country = this.getEncrypted(this.countryFC.value);
+      paymentDetails.bankCountry = this.getEncrypted(this.countryFC.value);
       paymentDetails.bankRoutingNumber = this.getEncrypted(
         escapeJSONNewlineChars(this.bankRoutingNumberFC.value)
       );
       paymentDetails.bankSwiftCode = this.getEncrypted(
         escapeJSONNewlineChars(this.bankSwiftCodeFC.value)
       );
-      paymentDetails.address = this.getEncrypted(
+      paymentDetails.residentialAddress = this.getEncrypted(
         escapeJSONNewlineChars(this.residentialAddressFC.value)
       );
     }

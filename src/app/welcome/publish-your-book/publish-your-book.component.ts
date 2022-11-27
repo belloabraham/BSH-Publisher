@@ -121,7 +121,6 @@ export class PublishYourBookComponent
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
     private pubDataVM: PubDataViewModel,
-    private publishedBookVM: PublishedBookViewModel
   ) {}
 
   private getBookDetailsForm() {
@@ -328,9 +327,10 @@ export class PublishYourBookComponent
       bookFileName = bookId;
     } else if (
       savedBookId !== null &&
-      savedBookId !== '' && savedBookId.indexOf(this.pubId) === 0
+      savedBookId !== '' &&
+      savedBookId.includes(this.pubId)
     ) {
-      bookId = savedBookId
+      bookId = savedBookId;
       bookFileName = savedBookId.split('-')[1];
     } else {
       bookId = `${this.pubId}-${this.autoGenIdNumb}`;

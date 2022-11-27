@@ -113,6 +113,14 @@
     
     "add_your_book":"Add your book",
 
+    "mark_paid_tile":"Mark as paid?",
+    "mark_paid_msg":"Do you really want to mark {{value}} payment's request as paid?",
+    "delete_payment_req_msg":"Delete {{value}} payment's request",
+    "delete_payment_req_title":"Delete Payment Request?",
+    "email":"Email",
+
+
+
     "profile_updated_sucess_msg":"Profile updated successfuly",
     "profile_update_failed_msg":"Oops, unable to update your profile, check your internet connection and try again",
     "update":"Update",
@@ -197,6 +205,7 @@
     "bank_name_req":"Your bank name is required",
     "acct_numb_req":"Your account number is required",
     "country":"Country",
+    "bank_country":"Bank country",
     "acct_name_req":"Your account name is required",
     "bank_country_req":"Your bank location country is required",
     "bank_swift_code":"Bank swift code",
