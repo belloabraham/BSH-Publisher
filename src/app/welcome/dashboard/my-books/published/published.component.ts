@@ -138,11 +138,11 @@ export class PublishedComponent implements OnInit, OnDestroy {
 
   getBookStatusColor(book: IPublishedBook) {
     if (book.approved === false) {
-      return 'orangered';
+      return '#ffc107';
     } else if (book.published === false) {
-      return 'red';
+      return '#f20000';
     } else {
-      return 'green';
+      return '#00cc33';
     }
   }
 
