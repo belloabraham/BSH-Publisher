@@ -2,7 +2,7 @@
 
     <div  class="m-4">
 
-        <table *ngIf="allPaymentRequest" ly-table [dataSource]="allPaymentRequest" class="demo-table">
+        <table *ngIf="allPaymentRequest else noPaymentRequest" ly-table [dataSource]="allPaymentRequest" class="demo-table">
 
             <ng-container lyColumnDef="position">
                 <th  ly-header-cell *lyHeaderCellDef> No. </th>
@@ -84,6 +84,10 @@
             <tr ly-header-row *lyHeaderRowDef="displayedColumns"></tr>
             <tr ly-row *lyRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+
+        <ng-template #noPaymentRequest>
+            <h1 class="no-payment-req" >No payment request</h1>
+        </ng-template>
 
     </div>
 
