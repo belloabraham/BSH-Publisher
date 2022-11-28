@@ -90,7 +90,7 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
       });
   }
 
-  markAsPaid(pubId: string, bookId: string, bookName: string, amount: number) {
+  markAsPaid(pubId: string, bookId: string, bookName: string, id:string, amount: number) {
     const msg = this.localeService.paramTranslate(
       StringResKeys.MARK_AS_PAID_MSG,
       {
@@ -111,7 +111,7 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
           const markingMsg = this.localeService.translate(
             StringResKeys.MARKING_PAYMENT_REQ_AS_PAID
           );
-          Shield.pulse(`.${pubId}`, markingMsg);
+          Shield.pulse(`.${id}`, markingMsg);
           await this.paymentReqVM.updateEarningAndDeletePaymentReqForBookTrans(
             pubId,
             bookId,
@@ -134,13 +134,13 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
           );
           notification.error(errorMsg);
         } finally {
-          Shield.remove(`.${pubId}`);
+          Shield.remove(`.${id}`);
         }
       });
     });
   }
 
-  delete(pubId: string, bookId: string, bookName: string) {
+  delete(id: string, bookId: string, bookName: string) {
     const no = this.localeService.translate(StringResKeys.NO);
     const yes = this.localeService.translate(StringResKeys.YES);
     const msg = this.localeService.paramTranslate(
@@ -160,7 +160,7 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
           const deletingMsg = this.localeService.translate(
             StringResKeys.DELETING_PAYMENT_REQUEST
           );
-          Shield.pulse(`.${pubId}`, deletingMsg);
+          Shield.pulse(`.${id}`, deletingMsg);
           await this.paymentReqVM.deletePaymentRequest(bookId);
           const successMsg = this.localeService.paramTranslate(
             StringResKeys.PAYMENT_REQ_DELETE_SUCCESS_MSG,
@@ -179,7 +179,7 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
           );
           notification.error(errorMsg);
         } finally {
-          Shield.remove(`.${pubId}`);
+          Shield.remove(`.${id}`);
         }
       });
     });
