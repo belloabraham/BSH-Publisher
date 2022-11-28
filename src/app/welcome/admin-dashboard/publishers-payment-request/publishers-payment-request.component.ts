@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
   NgZone,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
@@ -26,6 +27,8 @@ import { countries } from 'src/data/countries';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
+import { removeItem } from 'src/helpers/utils/array';
+import { Notification } from 'src/helpers/notification/notification';
 
 const STYLES = (theme: ThemeVariables, _ref: ThemeRef) => {
   const { before, after, shadow } = theme;
@@ -61,7 +64,7 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   nigeria = countries[0].name;
 
-  allPaymentRequest?: IPaymentRequest[];
+  allPaymentRequest?: IPaymentRequest[]
   readonly classes = this.sRenderer.renderSheet(STYLES, 'root');
   displayedColumns: string[] = ['position', 'payment-request'];
   bankTransfer = PaymentType.bankTransfer;
@@ -71,7 +74,8 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
     private paymentReqVM: PaymentRequestViewModel,
     readonly sRenderer: StyleRenderer,
     private localeService: LocaleService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private _cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -87,14 +91,15 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
       .getPaymentReq$()
       .subscribe((paymentRequests) => {
         this.allPaymentRequest = paymentRequests;
+        this._cdRef.detectChanges();
       });
   }
 
-  markAsPaid(pubId: string, bookId: string, bookName: string, id:string, amount: number) {
+  markAsPaid(paymentReq: IPaymentRequest) {
     const msg = this.localeService.paramTranslate(
       StringResKeys.MARK_AS_PAID_MSG,
       {
-        value: bookName,
+        value: paymentReq.bookName,
       }
     );
     const title = this.localeService.translate(
@@ -103,7 +108,7 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
     const no = this.localeService.translate(StringResKeys.NO);
     const yes = this.localeService.translate(StringResKeys.YES);
 
-    const notification = new NotificationBuilder().build();
+    const notification = new NotificationBuilder();
 
     AlertDialog.warn(msg, title, yes, no, () => {
       this.ngZone.run(async () => {
@@ -111,75 +116,88 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
           const markingMsg = this.localeService.translate(
             StringResKeys.MARKING_PAYMENT_REQ_AS_PAID
           );
-          Shield.pulse(`.${id}`, markingMsg);
+          Shield.pulse(`.${paymentReq.id}`, markingMsg);
           await this.paymentReqVM.updateEarningAndDeletePaymentReqForBookTrans(
-            pubId,
-            bookId,
-            amount
+            paymentReq.pubId,
+            paymentReq.bookId,
+            paymentReq.amount
           );
           const successMsg = this.localeService.paramTranslate(
             StringResKeys.PAYMENT_REQ_MARK_PAID_SUCCESS_MSG,
             {
-              value: bookName,
+              value: paymentReq.bookName,
             }
           );
-          notification.success(successMsg);
+          this.allPaymentRequest = removeItem(
+            this.allPaymentRequest!,
+            paymentReq
+          ).concat([]);
+          this.paymentReqVM.setPaymentRequest(this.allPaymentRequest);
+          notification.setTimeOut(Notification.SHORT_LENGHT);
+          notification.build().success(successMsg);
         } catch (error) {
           Logger.error(this, this.markAsPaid.name, error);
           const errorMsg = this.localeService.paramTranslate(
             StringResKeys.PAYMENT_REQ_MARK_PAID_FAILED_MSG,
             {
-              value: bookName,
+              value: paymentReq.bookName,
             }
           );
-          notification.error(errorMsg);
+          notification.build().error(errorMsg);
         } finally {
-          Shield.remove(`.${id}`);
+          Shield.remove(`.${paymentReq.id}`);
         }
       });
     });
   }
 
-  delete(id: string, bookId: string, bookName: string) {
+  delete(paymentReq: IPaymentRequest) {
     const no = this.localeService.translate(StringResKeys.NO);
     const yes = this.localeService.translate(StringResKeys.YES);
     const msg = this.localeService.paramTranslate(
       StringResKeys.DELETE_PAYMENT_REQ_MSG,
       {
-        value: bookName,
+        value: paymentReq.bookName,
       }
     );
     const title = this.localeService.translate(
       StringResKeys.DELETE_PAYMENT_REQ_TITLE
     );
 
-    const notification = new NotificationBuilder().build();
+    const notification = new NotificationBuilder();
     AlertDialog.warn(msg, title, yes, no, () => {
       this.ngZone.run(async () => {
         try {
           const deletingMsg = this.localeService.translate(
             StringResKeys.DELETING_PAYMENT_REQUEST
           );
-          Shield.pulse(`.${id}`, deletingMsg);
-          await this.paymentReqVM.deletePaymentRequest(bookId);
+          Shield.pulse(`.${paymentReq.id}`, deletingMsg);
+          await this.paymentReqVM.deletePaymentRequest(paymentReq.bookId);
           const successMsg = this.localeService.paramTranslate(
             StringResKeys.PAYMENT_REQ_DELETE_SUCCESS_MSG,
             {
-              value: bookName,
+              value: paymentReq.bookName,
             }
           );
-          notification.success(successMsg);
+          this.allPaymentRequest = removeItem(
+            this.allPaymentRequest!,
+            paymentReq
+          ).concat([]);
+          this.paymentReqVM.setPaymentRequest(this.allPaymentRequest);
+          notification.setTimeOut(Notification.SHORT_LENGHT);
+          notification.build().success(successMsg);
         } catch (error) {
           Logger.error(this, this.delete.name, error);
+
           const errorMsg = this.localeService.paramTranslate(
             StringResKeys.PAYMENT_REQ_DELETE_FAILED_MSG,
             {
-              value: bookName,
+              value: paymentReq.bookName,
             }
           );
-          notification.error(errorMsg);
+          notification.build().error(errorMsg);
         } finally {
-          Shield.remove(`.${id}`);
+          Shield.remove(`.${paymentReq.id}`);
         }
       });
     });

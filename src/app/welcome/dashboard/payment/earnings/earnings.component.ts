@@ -110,15 +110,15 @@ export class EarningsComponent implements OnInit, OnDestroy {
       bookId: bookId,
       sellingCurrency: this.sellingCurrency!,
       amount: 0,
-      id: this.generate5DigitRandNumb()
+      id: this.generatePaymentRequestID()
     };
   }
 
-  private generate5DigitRandNumb() {
-    const bookId = `${Math.floor(
+  private generatePaymentRequestID() {
+    const fiveDigit = `${Math.floor(
       10000 + Math.random() * 90000
     )}`;
-    return bookId;
+    return `id-${fiveDigit}`;
   }
 
   private showPaymentRequiredAlert() {

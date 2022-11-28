@@ -2,7 +2,7 @@
 
     <div  class="m-4">
 
-        <table *ngIf="allPaymentRequest else noPaymentRequest" ly-table [dataSource]="allPaymentRequest" class="demo-table">
+        <table *ngIf="allPaymentRequest !== undefined && allPaymentRequest!.length > 0 else noPaymentRequest" ly-table [dataSource]="allPaymentRequest" class="demo-table">
 
             <ng-container lyColumnDef="position">
                 <th  ly-header-cell *lyHeaderCellDef> No. </th>
@@ -67,12 +67,12 @@
                             </ng-template>
 
                             <ly-action-row class="d-flex justify-content-between">
-                                <button (click)="delete(paymentReq.id, paymentReq.bookId, paymentReq.bookName)"
+                                <button (click)="delete(paymentReq)"
                                     elevation="1" class="action-button" raised ly-button>
                                     {{ t('delete') }}
                                 </button>
 
-                                <button  (click)="markAsPaid(paymentReq.pubId, paymentReq.bookId, paymentReq.bookName, paymentReq.amount, paymentReq.id)"
+                                <button  (click)="markAsPaid(paymentReq)"
                                     elevation="1" class="action-button" ly-button
                                     bg="primary">{{ t('mark_paid') }}</button>
                             </ly-action-row>
