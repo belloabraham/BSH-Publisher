@@ -1,21 +1,21 @@
 <div *transloco="let t" class="payment-request d-flex justify-content-center w-100">
 
-    <div class="m-4">
+    <div  class="m-4">
 
         <table *ngIf="allPaymentRequest" ly-table [dataSource]="allPaymentRequest" class="demo-table">
 
             <ng-container lyColumnDef="position">
-                <th ly-header-cell *lyHeaderCellDef> No. </th>
+                <th  ly-header-cell *lyHeaderCellDef> No. </th>
                 <td ly-cell *lyCellDef="let paymentReq"> {{allPaymentRequest.indexOf(paymentReq)+1}} </td>
             </ng-container>
 
-            <ng-container lyColumnDef="payment-request">
+            <ng-container class="234" lyColumnDef="payment-request">
                 <th ly-header-cell *lyHeaderCellDef> &nbsp; &nbsp; &nbsp;{{t('payment_req')}} </th>
-                <td ly-cell *lyCellDef="let paymentReq">
+                <td *lyCellDef="let paymentReq" [ngClass]="paymentReq.pubId"  ly-cell >
                     <ly-accordion >
                         <ly-expansion-panel elevation="0">
                             <ly-expansion-panel-header>
-                                <ly-panel-title> {{paymentReq.bookName}} &nbsp;- &nbsp;<span class="amount">&nbsp;
+                                <ly-panel-title>  {{paymentReq.bookName}} &nbsp;- &nbsp;<span  class="amount">&nbsp;
                                         {{paymentReq.amount | currency:paymentReq.sellingCurrency:'symbol-narrow'}}</span>
                                 </ly-panel-title>
                                 <ly-panel-description>ID/ISBN: {{paymentReq.bookId}}
@@ -29,7 +29,7 @@
                                 <p><span class="label"> {{ t('acct_name') }} : &nbsp; </span>
                                     {{paymentReq.paymentDetails.accountName}}
                                 </p>
-                                <p><span class="label"> {{ t('acct_number') }} : &nbsp; </span>
+                                <p><span  class="label"> {{ t('acct_number') }} : &nbsp; </span>
                                     {{paymentReq.paymentDetails.accountNumber}}
                                 </p>
                                 <p><span class="label"> {{ t('bank_name') }} : &nbsp; </span>
@@ -67,18 +67,17 @@
                             </ng-template>
 
                             <ly-action-row class="d-flex justify-content-between">
-                                <button (click)="delete(paymentReq.pubId+paymentReq.bookId, paymentReq.bookName)"
+                                <button (click)="delete(paymentReq.pubId, paymentReq.bookId, paymentReq.bookName)"
                                     elevation="1" class="action-button" raised ly-button>
                                     {{ t('delete') }}
                                 </button>
 
-                                <button (click)="markAsPaid(paymentReq.pubId+paymentReq.bookId, paymentReq.bookName)"
+                                <button  (click)="markAsPaid(paymentReq.pubId, paymentReq.bookId, paymentReq.bookName, paymentReq.amount)"
                                     elevation="1" class="action-button" ly-button
                                     bg="primary">{{ t('mark_paid') }}</button>
                             </ly-action-row>
                         </ly-expansion-panel>
                     </ly-accordion>
-
                 </td>
             </ng-container>
 

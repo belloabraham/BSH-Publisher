@@ -33,6 +33,19 @@ import { ErrorCodes } from './ErrorCodes';
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
 
+  updateEarningAndDeletePaymentReqForBookTrans(
+    bookEarningsDodRef: DocumentReference<DocumentData>,
+    paymentReqDocRef: DocumentReference<DocumentData>,
+    amount:number
+  ) {
+    return runTransaction(this.firestore,
+      async (transaction) => {
+        transaction.update(bookEarningsDodRef, {totalPaid : amount});
+        transaction.delete(paymentReqDocRef);
+      }
+    );
+  }
+
   uploadBookDataTransaction(
     sNDocRef: DocumentReference<DocumentData>,
     bookUploadDocRef: DocumentReference<DocumentData>,
@@ -129,7 +142,6 @@ export class FirestoreService implements IDatabase {
     collection: string,
     queryConstraint: QueryConstraint[]
   ): Promise<QuerySnapshot<DocumentData>> {
-
     const q = query(
       collectionGroup(this.firestore, collection),
       ...queryConstraint
@@ -210,7 +222,7 @@ export class FirestoreService implements IDatabase {
     const docRef = doc(this.firestore, path, ...pathSegment);
     const docSnapShot = await getDoc(docRef);
 
-   return this.documentDataSnapshotToType<T>(docSnapShot);
+    return this.documentDataSnapshotToType<T>(docSnapShot);
   }
 
   getLiveDocData<T>(
@@ -241,7 +253,7 @@ export class FirestoreService implements IDatabase {
     return unsubscribe;
   }
 
-  documentDataSnapshotToType<T>(docSnapShot:DocumentSnapshot<DocumentData>) {
+  documentDataSnapshotToType<T>(docSnapShot: DocumentSnapshot<DocumentData>) {
     if (docSnapShot.exists()) {
       const data = docSnapShot.data();
       const json = JSON.stringify(data);

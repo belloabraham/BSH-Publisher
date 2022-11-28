@@ -3,6 +3,7 @@ import {
   OnDestroy,
   Component,
   OnInit,
+  NgZone,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
@@ -22,6 +23,9 @@ import { LocaleService } from 'src/services/transloco/locale.service';
 import { StringResKeys } from './locale/string-res-keys';
 import { PaymentType } from 'src/data/payment-type';
 import { countries } from 'src/data/countries';
+import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
+import { Logger } from 'src/helpers/utils/logger';
+import { Shield } from 'src/helpers/utils/shield';
 
 const STYLES = (theme: ThemeVariables, _ref: ThemeRef) => {
   const { before, after, shadow } = theme;
@@ -57,30 +61,7 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   nigeria = countries[0].name;
 
-  allPaymentRequest: IPaymentRequest[] = [
-    {
-      paymentDetails: {
-        paymentType: PaymentType.bankTransfer,
-        paypalEmail: 'hello@hi.com',
-        bankCountry: 'Ghana',
-        // skrillEmail: 'david@gmail.com',
-        bankName: 'GTBank',
-        accountNumber: '5780000988',
-        accountName: 'Bello Ridwan',
-        residentialAddress: '18, Abolade Street Mushin',
-        accountType: 'Savings',
-        bankSwiftCode: 'GTBINGLA',
-        bankAddress: 'Olorunsogo Mushin Lagos',
-        bankRoutingNumber: '567890-09877776',
-        lastUpdated: new Date().getDay(),
-      },
-      pubId: 'ut7578578hyjj786',
-      bookName: 'Things fall Apart',
-      bookId: '13546788799987676',
-      sellingCurrency: 'NGN',
-      amount: 2330,
-    },
-  ];
+  allPaymentRequest?: IPaymentRequest[];
   readonly classes = this.sRenderer.renderSheet(STYLES, 'root');
   displayedColumns: string[] = ['position', 'payment-request'];
   bankTransfer = PaymentType.bankTransfer;
@@ -89,14 +70,15 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private paymentReqVM: PaymentRequestViewModel,
     readonly sRenderer: StyleRenderer,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
     this.subscriptions.sink = this.activatedRoute.data
       .pipe(map((data) => data['paymentRequests']))
       .subscribe((paymentRequests) => {
-        if (paymentRequests !== null) {
+        if (paymentRequests.length > 0) {
           this.paymentReqVM.setPaymentRequest(paymentRequests);
         }
       });
@@ -104,11 +86,11 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.paymentReqVM
       .getPaymentReq$()
       .subscribe((paymentRequests) => {
-        // this.allPaymentRequest = paymentRequests;
+        this.allPaymentRequest = paymentRequests;
       });
   }
 
-  markAsPaid(pubIdAndBookId: string, bookName: string) {
+  markAsPaid(pubId: string, bookId: string, bookName: string, amount: number) {
     const msg = this.localeService.paramTranslate(
       StringResKeys.MARK_AS_PAID_MSG,
       {
@@ -121,14 +103,48 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
     const no = this.localeService.translate(StringResKeys.NO);
     const yes = this.localeService.translate(StringResKeys.YES);
 
-    AlertDialog.warn(msg, title, yes, no, () => {});
+    const notification = new NotificationBuilder().build();
+
+    AlertDialog.warn(msg, title, yes, no, () => {
+      this.ngZone.run(async () => {
+        try {
+          const markingMsg = this.localeService.translate(
+            StringResKeys.MARKING_PAYMENT_REQ_AS_PAID
+          );
+          Shield.pulse(`.${pubId}`, markingMsg);
+          await this.paymentReqVM.updateEarningAndDeletePaymentReqForBookTrans(
+            pubId,
+            bookId,
+            amount
+          );
+          const successMsg = this.localeService.paramTranslate(
+            StringResKeys.PAYMENT_REQ_MARK_PAID_SUCCESS_MSG,
+            {
+              value: bookName,
+            }
+          );
+          notification.success(successMsg);
+        } catch (error) {
+          Logger.error(this, this.markAsPaid.name, error);
+          const errorMsg = this.localeService.paramTranslate(
+            StringResKeys.PAYMENT_REQ_MARK_PAID_FAILED_MSG,
+            {
+              value: bookName,
+            }
+          );
+          notification.error(errorMsg);
+        } finally {
+          Shield.remove(`.${pubId}`);
+        }
+      });
+    });
   }
 
-  delete(pubIdAndBookId: string, bookName: string) {
+  delete(pubId: string, bookId: string, bookName: string) {
     const no = this.localeService.translate(StringResKeys.NO);
     const yes = this.localeService.translate(StringResKeys.YES);
     const msg = this.localeService.paramTranslate(
-      StringResKeys.DELETE_PAYMENT_REQ_TITLE,
+      StringResKeys.DELETE_PAYMENT_REQ_MSG,
       {
         value: bookName,
       }
@@ -137,7 +153,36 @@ export class PublishersPaymentRequestComponent implements OnInit, OnDestroy {
       StringResKeys.DELETE_PAYMENT_REQ_TITLE
     );
 
-    AlertDialog.warn(msg, title, yes, no, () => {});
+    const notification = new NotificationBuilder().build();
+    AlertDialog.warn(msg, title, yes, no, () => {
+      this.ngZone.run(async () => {
+        try {
+          const deletingMsg = this.localeService.translate(
+            StringResKeys.DELETING_PAYMENT_REQUEST
+          );
+          Shield.pulse(`.${pubId}`, deletingMsg);
+          await this.paymentReqVM.deletePaymentRequest(bookId);
+          const successMsg = this.localeService.paramTranslate(
+            StringResKeys.PAYMENT_REQ_DELETE_SUCCESS_MSG,
+            {
+              value: bookName,
+            }
+          );
+          notification.success(successMsg);
+        } catch (error) {
+          Logger.error(this, this.delete.name, error);
+          const errorMsg = this.localeService.paramTranslate(
+            StringResKeys.PAYMENT_REQ_DELETE_FAILED_MSG,
+            {
+              value: bookName,
+            }
+          );
+          notification.error(errorMsg);
+        } finally {
+          Shield.remove(`.${pubId}`);
+        }
+      });
+    });
   }
 
   ngOnDestroy(): void {

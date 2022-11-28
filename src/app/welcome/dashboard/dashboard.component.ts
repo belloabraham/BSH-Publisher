@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   collaborationsRoute = Route.COLLABORATIONS;
   paymentRoute = Route.PAYMENT;
   myBooksRoute = Route.MY_BOOKS;
-  adminLink = `${location.origin}/${Route.WELCOME}/${Route.ADMIN}`;
+  adminRoute = Route.ADMIN;
   profileRoute = Route.PROFILE;
   publishBookRoute = Route.PUBLISH_YOUR_BOOK;
   salesRecordRoute = Route.SALES_RECORD;

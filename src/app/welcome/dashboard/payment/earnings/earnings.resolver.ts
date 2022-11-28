@@ -11,7 +11,6 @@ import { IEarnings } from 'src/data/models/entities/iearnings';
 import { Providers } from 'src/data/providers';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { DATABASE_IJTOKEN } from 'src/data/remote-data-source/database.token';
-import { Fields } from 'src/data/remote-data-source/fields';
 import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { Route } from 'src/data/route';
 import { Logger } from 'src/helpers/utils/logger';

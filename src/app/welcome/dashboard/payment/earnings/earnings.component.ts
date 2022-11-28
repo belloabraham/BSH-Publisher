@@ -79,7 +79,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
         const paymentRequest = this.getPaymentRequest(bookId, paymentDetails);
         await this.paymentDetailsVM.sendPaymentRequest(
           Collection.PAYMENT_REQUEST,
-          [this.pubId + bookId],
+          [bookId],
           paymentRequest
         );
         const sucessMsg = this.localeService.translate(

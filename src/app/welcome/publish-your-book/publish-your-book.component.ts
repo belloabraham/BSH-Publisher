@@ -33,7 +33,6 @@ import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { Shield } from 'src/helpers/utils/shield';
-import { Display } from 'src/helpers/utils/display';
 import { CloudStoragePath } from 'src/services/storage/storage-path';
 import { FileUtil } from 'src/helpers/utils/file-util';
 import { UploadTaskSnapshot } from '@angular/fire/storage';
@@ -314,7 +313,6 @@ export class PublishYourBookComponent
 
     Shield.pulse(
       '.publish-book-container',
-      Display.remToPixel(1.2),
       bookUploadingMsg
     );
     let bookId = '';

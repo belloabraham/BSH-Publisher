@@ -27,7 +27,6 @@ import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { Shield } from 'src/helpers/utils/shield';
-import { Display } from 'src/helpers/utils/display';
 import { CloudStoragePath } from 'src/services/storage/storage-path';
 import { FileUtil } from 'src/helpers/utils/file-util';
 import { UploadTaskSnapshot } from '@angular/fire/storage';
@@ -269,7 +268,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
       StringResKeys.bookUpdatingMsg
     );
 
-    Shield.pulse('.form-book', Display.remToPixel(1.2), bookUploadingMsg);
+    Shield.pulse('.form-book', bookUploadingMsg);
     let bookFileName = '';
 
     if (this.bookId.includes(this.pubId)) {
@@ -314,7 +313,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
   async uploadBookDataForm() {
     const msg = this.localeService.translate(StringResKeys.updatingBookDetails);
-    Shield.pulse('.form-book-details', Display.remToPixel(1.5), msg);
+    Shield.pulse('.form-book-details',  msg);
     try {
       await this.publishYouBookVM.updateBookData(
         Collection.PUBLISHED_BOOKS,
@@ -339,7 +338,7 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
   async uploadBookCover() {
     const msg = this.localeService.translate(StringResKeys.updatingBookCover);
-    Shield.pulse('.form-book-cover', Display.remToPixel(1.5), msg);
+    Shield.pulse('.form-book-cover', msg);
     try {
       await this.publishYouBookVM.updateBookCover(
         Collection.PUBLISHED_BOOKS,

@@ -15,7 +15,6 @@ import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
-import { Display } from 'src/helpers/utils/display';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
 import { CloudFunctions } from 'src/services/function/cloud-functions';
@@ -115,7 +114,6 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
   async createACollaborator(data: ICollaborators) {
     Shield.pulse(
       '.collaborators',
-      Display.remToPixel(1.2),
       'Creating collaborator, please wait...'
     );
     const notification = new NotificationBuilder().build();
