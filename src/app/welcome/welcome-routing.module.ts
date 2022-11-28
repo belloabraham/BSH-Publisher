@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
 import { RouteParams } from 'src/data/RouteParams';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
+import { UnapprovedPublishedBooksResolver } from './admin-dashboard/books-pending-approval/unapproved-published-books.resolver';
 import { PublishedBooksResolver } from './dashboard/published-books.resolver';
 import { WelcomeComponent } from './welcome.component';
 
@@ -37,6 +38,7 @@ const routes: Routes = [
             return userAuth.isAdmin();
           },
         ],
+        resolve: { unApprovedBooks: UnapprovedPublishedBooksResolver },
         loadChildren: () =>
           import('./admin-dashboard/admin-dashboard.module').then(
             (m) => m.AdminDashboardModule

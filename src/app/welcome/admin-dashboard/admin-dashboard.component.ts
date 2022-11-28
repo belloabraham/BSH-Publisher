@@ -12,21 +12,21 @@ import { Route } from 'src/data/route';
 import { Settings } from 'src/data/settings';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
-import { ResolveEnd, ResolveStart, Router } from '@angular/router';
+import { ActivatedRoute, ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { Title } from '@angular/platform-browser';
 import { StringResKeys } from './locale/string-res-keys';
 import { Config } from 'src/data/config';
-import { filter, mapTo, merge, Observable } from 'rxjs';
+import { filter, map, mapTo, merge, Observable } from 'rxjs';
 import { Shield } from 'src/helpers/utils/shield';
-import { PaymentRequestViewModel } from './publishers-payment-request/payment-request.service';
-import { UnapprovedPublishedBooksViewMdel } from './books-pending-approval/unapproved-published-books.service';
+import { UnapprovedPublishedBooksViewMdel } from './unapproved-published-books.service';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UnapprovedPublishedBooksViewMdel],
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
   pubFirstName = '';
@@ -44,11 +44,21 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     private pubDataVM: PubDataViewModel,
     private title: Title,
     private localeService: LocaleService,
+    private activatedRoute: ActivatedRoute,
+    private unapprovedBooksVM: UnapprovedPublishedBooksViewMdel,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.subscriptions.sink = this.activatedRoute.data
+      .pipe(map((data) => data['unApprovedBooks']))
+      .subscribe((unApprovedBooks) => {
+        if (unApprovedBooks.length > 0) {
+          this.unapprovedBooksVM.setAllBooks(unApprovedBooks);
+        }
+      });
+
     this.getStringRes();
     this.listenForPubDataChanges();
 

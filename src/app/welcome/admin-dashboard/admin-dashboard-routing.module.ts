@@ -17,7 +17,6 @@ const routes: Routes = [
       },
       {
         path: Route.PENDING_APPROVAL,
-        resolve: { unApprovedBooks: UnapprovedPublishedBooksResolver },
         loadChildren: () =>
           import('./books-pending-approval/books-pending-approval.module').then(
             (m) => m.BooksPendingApprovalModule
