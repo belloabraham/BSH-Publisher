@@ -5,6 +5,10 @@
 @use '../../../scss/variables/toolbar'as *;
 @use '../../../scss/components/logout-btn'as *;
 
+.empty-title {
+  font-size: 3.5rem !important;
+}
+
 $nav-width: 17rem;
 
 .wave {

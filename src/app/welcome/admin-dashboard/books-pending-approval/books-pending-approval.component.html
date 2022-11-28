@@ -1,1 +1,39 @@
-<p>books-pending-approval works!</p>
+<div *transloco="let t" class="books-pending-approval ph-3 d-flex justify-content-center">
+
+    <div>
+        <h1 class="my-2">Books Awaiting Approval</h1>
+        <ly-grid *ngIf="unApprovedBooks !== undefined && unApprovedBooks.length > 0 else noBooksPendingAproval"
+            container [spacing]="cardSpacing">
+
+            <ly-grid item *ngFor="let book of unApprovedBooks" col="6 12@Small">
+                <div [className]="classes.item" class="card">
+                    <div class="card-header">
+                        {{book.name}}
+                    </div>
+                    <ly-grid container item>
+                        <ly-grid class="d-flex align-items-center" item [col]="3">
+                            <img [src]="book.coverDataUrl" class="img-fluid rounded-start">
+                        </ly-grid>
+                        <ly-grid item [col]="9">
+                            <div class="card-body">
+                                <p class="card-title">Price: <span class="price">
+                                        {{book.price | currency:book.sellerCurrency:'symbol-narrow'}} </span> </p>
+                                <p class="card-text">{{book.description}} </p>
+                                <p class="small-text">Publisher's ID: <small class="text-muted">{{book.pubId}}</small>
+                                </p>
+                            </div>
+                        </ly-grid>
+                    </ly-grid>
+                    <div class="text-end"> <button ly-button class="w-100" color="primary"> APPROVE</button> </div>
+                </div>
+            </ly-grid>
+        </ly-grid>
+    </div>
+
+
+
+    <ng-template #noBooksPendingAproval>
+        <h1 class="empty-title">No book is pending approval</h1>
+    </ng-template>
+
+</div>

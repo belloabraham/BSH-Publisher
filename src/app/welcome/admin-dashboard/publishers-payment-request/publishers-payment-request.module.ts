@@ -7,7 +7,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { LyExpansionModule } from '@alyle/ui/expansion';
 import { LyButtonModule } from '@alyle/ui/button';
 import { LyTableModule } from '@alyle/ui/table';
-import { LyCommonModule, LyThemeModule } from '@alyle/ui';
 
 
 @NgModule({
