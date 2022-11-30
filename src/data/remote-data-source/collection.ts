@@ -10,12 +10,13 @@ export class Collection {
   //*published_books/bookId/{book info, book Id, pub Id}/
   static readonly PUBLISHED_BOOKS = 'published_books';
 
-  //*collaborators/colabId/{CollabData}/books/bookId/{bookData}
+  //*publishers/pubId/collaborators/collabIdAndBookId
   static readonly COLLABORATORS = 'collaborators';
 
   static readonly INVENTORY = 'inventory';
 
-  //*earnings/bookId/{pubId, bookId, totalEarnings, totalPaid}
+  //*publishers/pubId/earnings/{bookId}
+  //*users/userId/earnings/{earnings data}
   static readonly EARNINGS = 'earnings';
 
   //*users/userId/ordered_books/docId/{orderedBooksData} //This will be done as a query group

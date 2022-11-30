@@ -26,6 +26,7 @@ import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { IDocId } from 'src/data/models/idoc-id';
 import { Logger } from 'src/helpers/utils/logger';
+import { Collection } from '../collection';
 import { Fields } from '../fields';
 import { IDatabase } from '../idatabase';
 import { ErrorCodes } from './ErrorCodes';
@@ -34,17 +35,28 @@ import { ErrorCodes } from './ErrorCodes';
 export class FirestoreService implements IDatabase {
   constructor(private firestore: Firestore) {}
 
+  async getArrayOfDocDataFromCollGroup<T>(
+    path: string,
+    queryConstraint: QueryConstraint[]
+  ): Promise<T[]> {
+   const collecGroup = collectionGroup(this.firestore, path);
+    const _query = query(
+      collecGroup,
+      ...queryConstraint
+    );
+    const querySnapshot = await getDocs(_query);
+    return this.querySnapshotToArrayOfType<T>(querySnapshot);
+  }
+
   updateEarningAndDeletePaymentReqForBookTrans(
     bookEarningsDodRef: DocumentReference<DocumentData>,
     paymentReqDocRef: DocumentReference<DocumentData>,
-    amount:number
+    amount: number
   ) {
-    return runTransaction(this.firestore,
-      async (transaction) => {
-        transaction.update(bookEarningsDodRef, Fields.totalPaid, amount);
-        transaction.delete(paymentReqDocRef);
-      }
-    );
+    return runTransaction(this.firestore, async (transaction) => {
+      transaction.update(bookEarningsDodRef, Fields.totalPaid, amount);
+      transaction.delete(paymentReqDocRef);
+    });
   }
 
   uploadBookDataTransaction(
@@ -172,11 +184,10 @@ export class FirestoreService implements IDatabase {
       ...queryConstraint
     );
 
-   
     const unsubscribe = onSnapshot(q, {
       next: (querySnapShot) => {
-         const dataArray: T[] = [];
-         const arrayOfIds: string[] = [];
+        const dataArray: T[] = [];
+        const arrayOfIds: string[] = [];
         querySnapShot.forEach((queryDoc) => {
           if (queryDoc.exists()) {
             const data = queryDoc.data();

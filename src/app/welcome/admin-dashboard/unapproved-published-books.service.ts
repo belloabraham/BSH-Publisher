@@ -15,15 +15,6 @@ export class UnapprovedPublishedBooksViewMdel {
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
-  getUnApprovedPublishedBooks() {
-    const queryConstraint = where(Fields.approved, '==', false);
-    return this.remoteData.getArrayOfDocDataWhere<IPublishedBook>(
-      Collection.PUBLISHED_BOOKS,
-      [],
-      [queryConstraint]
-    );
-  }
-
   updatePublishedBook(bookId:string, approved:boolean) {
    return this.remoteData.updateDocField(Collection.PUBLISHED_BOOKS, [bookId], Fields.approved, approved)
   }

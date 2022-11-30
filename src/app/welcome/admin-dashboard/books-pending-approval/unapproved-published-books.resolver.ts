@@ -33,9 +33,10 @@ export class UnapprovedPublishedBooksResolver
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<IPublishedBook[] | null> {
+
     try {
       const queryConstraint = where(Fields.approved, '==', false);
-      return this.remoteData.getArrayOfDocDataWhere<IPublishedBook>(
+      return await this.remoteData.getArrayOfDocDataWhere<IPublishedBook>(
         Collection.PUBLISHED_BOOKS,
         [],
         [queryConstraint]

@@ -6,6 +6,11 @@ import { IPublishedBook } from '../models/entities/ipublished-books';
 export interface IDatabase {
   getArrayOfDocData: <T>(path: string, pathSegment: string[]) => Promise<T[]>;
 
+  getArrayOfDocDataFromCollGroup: <T>(
+    path: string,
+    queryConstraint: QueryConstraint[]
+  ) => Promise<T[]>;
+
   updateEarningAndDeletePaymentReqForBookTrans: (
     bookEarningsDodRef: DocumentReference<DocumentData>,
     paymentReqDocRef: DocumentReference<DocumentData>,

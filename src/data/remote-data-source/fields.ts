@@ -7,6 +7,7 @@ export class Fields {
   static readonly paymentDetails = 'paymentDetails';
   static readonly year = 'year';
   static readonly month = 'month';
+  static readonly collabId = 'collabId';
   static readonly bookId = 'bookId';
   static readonly sellerCurrency = 'sellerCurrency';
   static readonly approved = 'approved';

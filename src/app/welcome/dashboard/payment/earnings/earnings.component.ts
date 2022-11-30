@@ -1,4 +1,4 @@
-import { YPosition } from '@alyle/ui';
+import { LyTheme2, shadowBuilder, ThemeVariables, YPosition } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -26,6 +26,13 @@ import { PublishedBookViewModel } from '../../published-book.service';
 import { PaymentDetailsViewModel } from '../payment-details.service';
 import { StringResKeys } from './locale/string-res-keys';
 
+
+const styles = (theme: ThemeVariables) => ({
+  shadow: {
+    boxShadow: shadowBuilder(1),
+  },
+});
+
 @Component({
   selector: 'app-earnings',
   templateUrl: './earnings.component.html',
@@ -40,7 +47,10 @@ export class EarningsComponent implements OnInit, OnDestroy {
   bottom = YPosition.below;
   sellingCurrency = this.pubDataVM.getPublisher()?.sellingCurrency;
 
+  readonly classes = this.theme.addStyleSheet(styles);
+
   constructor(
+    private theme: LyTheme2,
     private activatedRoute: ActivatedRoute,
     private localeService: LocaleService,
     private router: Router,
@@ -110,14 +120,12 @@ export class EarningsComponent implements OnInit, OnDestroy {
       bookId: bookId,
       sellingCurrency: this.sellingCurrency!,
       amount: 0,
-      id: this.generatePaymentRequestID()
+      id: this.generatePaymentRequestID(),
     };
   }
 
   private generatePaymentRequestID() {
-    const fiveDigit = `${Math.floor(
-      10000 + Math.random() * 90000
-    )}`;
+    const fiveDigit = `${Math.floor(10000 + Math.random() * 90000)}`;
     return `id-${fiveDigit}`;
   }
 

@@ -7,9 +7,10 @@ import {
 } from '@angular/core';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { SubSink } from 'subsink';
+import { CollaborationsViewModel } from './collaborations.service';
 
 const styles = (theme: ThemeVariables) => ({
-  item: {
+  shadow: {
     boxShadow: shadowBuilder(1),
   },
 });
@@ -24,13 +25,48 @@ export class CollaborationsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   NGN = 'NGN';
   USD = 'USD';
-  collaborators?: ICollaborators[];
+  collaborators?: ICollaborators[] = [
+    /*{
+      collabName: 'Bello Abraham',
+      collabId: '67thjgvjkjdf',
+      bookName: '50 Shades of Grey',
+      dateCreated: new Date(),
+      pubName: 'David Afolayan',
+      bookId: '87564758690',
+      collabCommissionInPercent: 5,
+      link: 'hello.com',
+      collabEmail: '',
+      totalEarningsInNGN: 788,
+      totalEarningsInUSD: 99889,
+    },
+    {
+      collabName: 'Bello Abraham',
+      collabId: '67thjgvjkjdf',
+      bookName: '50 Shades of Grey',
+      dateCreated: new Date(),
+      pubName: 'David Afolayan',
+      bookId: '87564758690',
+      collabCommissionInPercent: 5,
+      link: 'hello.com',
+      collabEmail: '',
+      totalEarningsInNGN: 788,
+      totalEarningsInUSD: 99889,
+    },*/
+  ];
 
   readonly classes = this.theme.addStyleSheet(styles);
-  constructor(private theme: LyTheme2) {}
+
+  constructor(
+    private theme: LyTheme2,
+    private collaborationsVM: CollaborationsViewModel
+  ) {}
 
   ngOnInit(): void {
-    console.log();
+    this.subscriptions.sink = this.collaborationsVM
+      .getCollaborations$()
+      .subscribe((collaborations) => {
+         this.collaborators = collaborations;
+      });
   }
 
   ngOnDestroy(): void {

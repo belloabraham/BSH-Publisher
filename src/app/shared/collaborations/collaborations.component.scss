@@ -1,0 +1,12 @@
+@use '../../../scss/font'as *;
+
+.table {
+  font-size: 1rem;
+  font-family: $app-font;
+
+  tbody {
+    tr {
+      font-size: 1rem;
+    }
+  }
+}

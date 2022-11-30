@@ -87,11 +87,12 @@
     "date_created": "Date created",
     "commission": "Commission",
     "commission_in_percent":"Commission in %",
-    "sales_link": "Sales link",
+    "sales_link": "Sales Link",
     "collabs_email": "Collaborator's email",
     "add_your_book": "Add your book",
 
-    "no_collaboration_title":"You are not a Collaborator of any Book's Publisher",
+    "earnings_from_sales_collab":"Earnings from Collaborations Book Sales",
+    "no_collaboration_title":"You are not a Collaborator of any Publisher's Book",
     "no_collaboration_msg":"Have a book publisher add you as a collaborator to His/Her book and you will see your earnings from the Publisher's book sales here.",
 
 
@@ -108,6 +109,8 @@
     "payment_req_delete_success_msg": "{{value}} payment request was deleted successfully",
     "payment_req_mark_paid_failed_msg": "Unable to mark '{{value}}' payment request as paid. Try again later.",
     "payment_req_mark_paid_success_msg": "'{{value}}' payment request was successfully marked as paid",
+
+    "publishers_name":"Publishers Name",
 
     "profile_updated_sucess_msg": "Profile updated successfuly",
     "profile_update_failed_msg": "Oops, unable to update your profile, check your internet connection and try again",
@@ -181,6 +184,8 @@
     "mark_paid": "Mark as paid",
     "paym_details": "Payment Details",
     "earnings": "Earnings",
+    "earnings_from_book_sales": "Earnings from Book Sales",
+
     "no_payment_details_heading": "{{username}} add your payment details so that we can send you payment for your books that are sold on {{value}}.",
     "add_paym_details": "Add Payment Details",
     "payment_type": "Payment type",

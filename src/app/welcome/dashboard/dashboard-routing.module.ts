@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CollaborationsResolver } from 'src/app/shared/collaborations/collaborations.resolver';
 import { Route } from 'src/data/route';
 import { CollaboratorsResolver } from './collaborators/collaborators.resolver';
 import { DashboardComponent } from './dashboard.component';
@@ -46,6 +47,7 @@ const routes: Routes = [
       },
       {
         path: Route.COLLABORATIONS,
+        resolve: { collaborations: CollaborationsResolver },
         loadChildren: () =>
           import(
             './publisher-collaborations/publisher-collaborations.module'

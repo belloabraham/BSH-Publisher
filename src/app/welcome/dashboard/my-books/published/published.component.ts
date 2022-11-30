@@ -1,4 +1,4 @@
-import { YPosition } from '@alyle/ui';
+import { LyTheme2, shadowBuilder, ThemeVariables, YPosition } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -23,6 +23,12 @@ import { SubSink } from 'subsink';
 import { PublishedBookViewModel } from '../../published-book.service';
 import { StringResKeys } from './locale/string-res-keys';
 
+const styles = (theme: ThemeVariables) => ({
+  shadow: {
+    boxShadow: shadowBuilder(1),
+  },
+});
+
 @Component({
   selector: 'app-published',
   templateUrl: './published.component.html',
@@ -36,8 +42,10 @@ export class PublishedComponent implements OnInit, OnDestroy {
 
   bottom = YPosition.below;
 
+  readonly classes = this.theme.addStyleSheet(styles);
 
   constructor(
+    private theme: LyTheme2,
     private publishedBookVM: PublishedBookViewModel,
     private localeService: LocaleService,
     private router: Router,

@@ -54,13 +54,6 @@ export class PaymentRequestViewModel {
     return this.remoteData.deleteDoc(Collection.PAYMENT_REQUEST, [bookId]);
   }
 
-  getPaymentRequest() {
-    return this.remoteData.getArrayOfDocData<IPaymentRequest>(
-      Collection.PAYMENT_REQUEST,
-      []
-    );
-  }
-
   setPaymentRequest(value: IPaymentRequest[]) {
     this.allPaymentRequest = value;
     this.allPaymentRequest$.next(this.allPaymentRequest);
