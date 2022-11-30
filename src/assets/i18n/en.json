@@ -135,7 +135,6 @@
     "pending_approv": "Pending approval",
     "sales_record": "Sales Record",
     "unpublish": "Unpublish",
-    "options": "Options",
     "edit": "Edit",
     "year": "Year",
     "search_hint": "Type any word from the record",
@@ -160,6 +159,9 @@
 
     "earnings_in_usd":"Earnings in USD",
     "earnings_in_ngn":"Earnings in NGN",
+
+    "copy_sale_link":"Copy Sale Link",
+    "sale_link_copied_msg":"Sale link copied successfully",
 
     "total_earnings": "Total Earnings",
     "total_paid": "Total Paid",
@@ -186,7 +188,7 @@
     "earnings": "Earnings",
     "earnings_from_book_sales": "Earnings from Book Sales",
 
-    "no_payment_details_heading": "{{username}} add your payment details so that we can send you payment for your books that are sold on {{value}}.",
+    "no_payment_details_heading": "{{username}} add your payment details so that we can send you payment for your books that are sold on {{value}}, or for book sales collaboration's commission",
     "add_paym_details": "Add Payment Details",
     "payment_type": "Payment type",
     "bank_name": "Bank name",

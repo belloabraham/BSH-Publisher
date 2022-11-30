@@ -1,0 +1,122 @@
+@forward '../../../scss/components/side-nav-links';
+@forward '../../../scss/components/arrow_toggle_button';
+@use '../../../scss/variables/colors'as *;
+@use '../../../scss/variables/sidenav'as *;
+@use '../../../scss/variables/toolbar'as *;
+@use '../../../scss/components/logout-btn'as *;
+@use '../../../scss/font'as *;
+
+.wave {
+  font-size: 1.5rem;
+}
+
+.collapse-icon {
+  margin-bottom: 1rem;
+
+  label {
+    margin-left: .5rem;
+    transition: 0.3s;
+  }
+}
+
+.top-toolbar {
+  margin-left: $nav-width;
+  height: $tool-bar-height;
+  transition: .3s;
+}
+
+.tool-bar {
+  z-index: 40;
+}
+
+
+//*Changes when left nav collapse
+.minimize {
+
+  .main,
+  .top-toolbar {
+    margin-left: 4.3rem;
+  }
+
+
+  .left-nav {
+    width: 4.3rem;
+  }
+
+  .logo {
+    span {
+      display: none;
+    }
+
+    svg {
+      padding-bottom: .3rem;
+    }
+  }
+
+  .footer {
+    span {
+      display: none;
+    }
+  }
+}
+
+.footer {
+  padding: 1.5rem 0;
+  gap: .5rem;
+
+  a {
+    padding: 0 1.5rem;
+    font-size: 1rem;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+
+.logo {
+  padding: .6rem 1.5rem;
+  padding-bottom: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-color: $purple-900;
+  transition: .3s;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: baseline;
+
+  svg {
+    width: auto;
+    height: 2.2rem;
+  }
+}
+
+.logout {
+  @include logout-btn;
+}
+
+
+.main {
+  margin-top: $tool-bar-height;
+  margin-left: $nav-width;
+  position: relative;
+  min-height: calc(100vh - $tool-bar-height);
+  transition: transform 0.3s;
+}
+
+.left-nav {
+  background-color: $primary-dark;
+  position: fixed;
+  z-index: 25;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: .3s;
+  width: $nav-width;
+}

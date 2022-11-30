@@ -9,6 +9,7 @@ import { Logger } from 'src/helpers/utils/logger';
 
 @Injectable()
 export class FirebaseRemoteConfigService implements IRemoteConfig {
+
   constructor(@Optional() private remoteConfig: RemoteConfig) {
     
     if (remoteConfig) {
@@ -27,6 +28,7 @@ export class FirebaseRemoteConfigService implements IRemoteConfig {
         Logger.error(this, 'fetchAndActivate(remoteConfig)', error);
       }
     }
+    
   }
 
   getString(key: string): string {

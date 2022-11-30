@@ -1,19 +1,19 @@
-import { LyTheme2, shadowBuilder, ThemeVariables } from '@alyle/ui';
+import { LyTheme2} from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
   OnDestroy,
   Component,
   OnInit,
 } from '@angular/core';
+import { ClipboardService } from 'ngx-clipboard';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
+import { Notification } from 'src/helpers/notification/notification';
+import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
+import { LocaleService } from 'src/services/transloco/locale.service';
+import { shadow } from 'src/theme/styles';
 import { SubSink } from 'subsink';
 import { CollaborationsViewModel } from './collaborations.service';
-
-const styles = (theme: ThemeVariables) => ({
-  shadow: {
-    boxShadow: shadowBuilder(1),
-  },
-});
+import { StringResKeys } from './locale/string-res-keys';
 
 @Component({
   selector: 'app-collaborations',
@@ -54,10 +54,12 @@ export class CollaborationsComponent implements OnInit, OnDestroy {
     },*/
   ];
 
-  readonly classes = this.theme.addStyleSheet(styles);
+  readonly classes = this.theme.addStyleSheet(shadow());
 
   constructor(
     private theme: LyTheme2,
+    private localeService: LocaleService,
+    private clipboardService: ClipboardService,
     private collaborationsVM: CollaborationsViewModel
   ) {}
 
@@ -65,8 +67,17 @@ export class CollaborationsComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.collaborationsVM
       .getCollaborations$()
       .subscribe((collaborations) => {
-         this.collaborators = collaborations;
+        this.collaborators = collaborations;
       });
+  }
+
+  copySaleLink(link: string) {
+    this.clipboardService.copy(link);
+    const copyMsg = this.localeService.translate(StringResKeys.linkCopiedMsg);
+    const notification = new NotificationBuilder()
+      .setTimeOut(Notification.SHORT_LENGHT)
+      .build();
+    notification.success(copyMsg);
   }
 
   ngOnDestroy(): void {

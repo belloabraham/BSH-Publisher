@@ -60,7 +60,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: Route.COLLABORATIONS,
+        path: Route.COLLABORATOR,
         resolve: { collaborations: CollaborationsResolver },
         loadChildren: () =>
           import(

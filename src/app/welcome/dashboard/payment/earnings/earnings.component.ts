@@ -1,4 +1,4 @@
-import { LyTheme2, shadowBuilder, ThemeVariables, YPosition } from '@alyle/ui';
+import { LyTheme2,  YPosition } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,17 +21,11 @@ import { Logger } from 'src/helpers/utils/logger';
 import { IUserAuth } from 'src/services/authentication/iuser-auth';
 import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { LocaleService } from 'src/services/transloco/locale.service';
+import { shadow } from 'src/theme/styles';
 import { SubSink } from 'subsink';
 import { PublishedBookViewModel } from '../../published-book.service';
 import { PaymentDetailsViewModel } from '../payment-details.service';
 import { StringResKeys } from './locale/string-res-keys';
-
-
-const styles = (theme: ThemeVariables) => ({
-  shadow: {
-    boxShadow: shadowBuilder(1),
-  },
-});
 
 @Component({
   selector: 'app-earnings',
@@ -47,7 +41,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
   bottom = YPosition.below;
   sellingCurrency = this.pubDataVM.getPublisher()?.sellingCurrency;
 
-  readonly classes = this.theme.addStyleSheet(styles);
+  readonly classes = this.theme.addStyleSheet(shadow());
 
   constructor(
     private theme: LyTheme2,

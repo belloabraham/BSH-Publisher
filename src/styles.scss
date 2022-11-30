@@ -1,6 +1,6 @@
 //*Global styles only
 @forward './scss/global';
-@forward './scss/font';
+@use './scss/font' as *;
 @forward './scss/utils';
 @forward './scss/components/custom_scroll_bar';
 
@@ -9,6 +9,10 @@
 body{
   transition: .5s;
   position: relative;
+}
+
+.table {
+  font-family: $app-font !important;
 }
 
 .underline{

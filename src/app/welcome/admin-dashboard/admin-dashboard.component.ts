@@ -116,7 +116,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     if (this.openLeftNav === true) {
       value = 'true';
     }
-    localStorage.setItem(Settings.IS_DASHBOARD_COLLAPSED, value);
+    localStorage.setItem(Settings.IS_ADMIN_DASHBOARD_COLLAPSED, value);
   }
 
   ngOnDestroy(): void {

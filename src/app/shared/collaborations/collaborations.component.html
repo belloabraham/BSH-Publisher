@@ -20,6 +20,7 @@
                         </th>
                         <th scope="col">{{ t('earnings_in_usd')}}
                         </th>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,30 @@
                         </td>
                         <td>{{collaborator.totalEarningsInNGN | currency:NGN:'symbol-narrow' }}</td>
                         <td>{{collaborator.totalEarningsInUSD | currency:USD:'symbol-narrow' }}</td>
+
+                        <td class="text-start">
+                            <button [lyMenuTriggerFor]="menuTemplateRef" ly-button appearance="icon">
+                                <i>
+                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                                    </svg>
+                                </i>
+                            </button>
+                        
+                            <ng-template #menuTemplateRef let-M>
+                                <ly-menu [ref]="M">
+                                    <button (click)="copySaleLink(collaborator.link!)" ly-button ly-menu-item>
+                                        <i>
+                                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /> </svg>
+                                        </i>
+                                        <span lyMe="1">{{ t('copy_sale_link') }}</span>
+                                    </button>
+                                </ly-menu>
+                            </ng-template>
+                        </td>
                     </tr>
                 </tbody>
             </table>
