@@ -29,7 +29,7 @@ export class CloudStorageService implements ICloudStorage {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         onProgress(snapshot, progress);
-        console.log('Upload is ' + progress + '% done');
+       // console.log('Upload is ' + progress + '% done');
       },
       (error) => {
         onError(error);

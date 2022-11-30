@@ -1,11 +1,10 @@
-<div *transloco="let t" class="books-pending-approval ph-3 d-flex justify-content-center">
+<div class="books-pending-approval ph-3 d-flex justify-content-center">
 
-    <div>
+    <div *ngIf="unApprovedBooks !== undefined && unApprovedBooks.length > 0 else noBooksPendingAproval">
         <h1 class="my-2">Books Awaiting Approval</h1>
-        <ly-grid *ngIf="unApprovedBooks !== undefined && unApprovedBooks.length > 0 else noBooksPendingAproval"
-            container [spacing]="cardSpacing">
+        <ly-grid container [spacing]="cardSpacing">
 
-            <ly-grid item *ngFor="let book of unApprovedBooks" col="6 12@Small">
+            <ly-grid item *ngFor="let book of unApprovedBooks" col="6 12@Small" [ngClass]="'id-'+book.serialNo">
                 <div [className]="classes.item" class="card">
                     <div class="card-header">
                         {{book.name}}
@@ -19,21 +18,21 @@
                                 <p class="card-title">Price: <span class="price">
                                         {{book.price | currency:book.sellerCurrency:'symbol-narrow'}} </span> </p>
                                 <p class="card-text">{{book.description}} </p>
-                                <p class="small-text">Publisher's ID: <small class="text-muted">{{book.pubId}}</small>
+                                <p class="small-text">Book ID/ISBN: <span class="book-id">  {{book.bookId}}</span></p>
+                                <p class="small-text m-0" >Publisher's ID: <small class="text-muted">{{book.pubId}}</small>
                                 </p>
                             </div>
                         </ly-grid>
                     </ly-grid>
-                    <div class="text-end"> <button style="font-weight: 600;" ly-button class="w-100" color="primary"> APPROVE</button> </div>
+                    <div class="text-end"> <button (click)="approve(book)" style="font-weight: 600;" ly-button
+                            class="w-100" color="primary"> APPROVE</button> </div>
                 </div>
             </ly-grid>
         </ly-grid>
     </div>
 
-
-
     <ng-template #noBooksPendingAproval>
-        <h1 class="empty-title">No book is pending approval</h1>
+        <h1 class="empty-title mt-4">No book is awaiting approval</h1>
     </ng-template>
 
 </div>

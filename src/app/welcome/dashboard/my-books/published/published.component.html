@@ -18,12 +18,13 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    
                     <tr *ngFor="let book of books">
                         <th scope="row">{{books!.indexOf(book)+1}}</th>
                         <td>{{book.name}}</td>
                         <td>{{getBookId(book)}}</td>
-                        <td [ngStyle]="{'color':getBookStatusColor(book)}"> {{getBookStatus(book)}}</td>
+                        <td style="font-weight: 600;" [ngStyle]="{'color':getBookStatusColor(book)}">
+                            {{getBookStatus(book)}}</td>
                         <td>{{book.price | currency:book.sellerCurrency:'symbol-narrow'}}</td>
                         <td>{{book.category}}</td>
                         <td>{{book.totalDownloads}}</td>

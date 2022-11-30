@@ -1,6 +1,7 @@
 import { XPosition } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   OnDestroy,
@@ -28,17 +29,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   private pubId = this.userAuth.getPubId()!;
 
-  notifications?: INotification[] | null;
+  notifications?: INotification[];
 
   constructor(
     private notificationVM: NotificationsViewModel,
     private localeService: LocaleService,
+    private cdRef: ChangeDetectorRef,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
   ) {}
 
   ngOnInit(): void {
     this.notificationVM.getAllNotifications$().subscribe((notifications) => {
       this.notifications = notifications;
+      this.cdRef.detectChanges();
     });
   }
 
@@ -63,16 +66,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   deleteAllNotifications() {
-    if (this.notifications) {
       this.notificationVM.deleteAllNotifications(
         Collection.PUBLISHERS,
         [this.pubId, Collection.NOTIFICATIONS],
-        this.notifications
+        this.notifications!
       );
-    }
   }
 
-  deleteNotification(notifID?: string) {
+  deleteANotification(notifID: string) {
     this.notificationVM.deleteANotification(notifID!, this.pubId);
   }
 

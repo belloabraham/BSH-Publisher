@@ -164,10 +164,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   toggleNotificationPanel() {
     this.isNewNotification = false;
     this.openRightNav = !this.openRightNav;
-    this.notificationVM.markUnreadNotificationsAsRead(
-      this.pubId,
-      this.newNotifications
-    );
+    if (this.newNotifications.length > 0) {
+      try {
+        this.notificationVM.markUnreadNotificationsAsRead(
+          this.pubId,
+          this.newNotifications
+        );
+      } catch (error) {
+      }
+    }
   }
 
   private getLiveNotifications() {
@@ -175,6 +180,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       notifications: INotification[],
       arrayOfDocIds: string[]
     ) => {
+
       for (let index = 0; index < arrayOfDocIds.length; index++) {
         notifications[index].docId = arrayOfDocIds[index];
       }
@@ -183,16 +189,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         (notification) => notification.isRead === false
       );
 
+      const notificationsToPost = notifications.length > 0 ? notifications : [];
+      this.notificationVM.postNotifications(notificationsToPost);
+
       this.isNewNotification =
         this.newNotifications.length > 0 && !this.openRightNav;
 
       if (this.isNewNotification) {
         this.cdRef.detectChanges();
       }
-
-      const notificationsToPost =
-        notifications.length > 0 ? notifications : null;
-      this.notificationVM.postNotifications(notificationsToPost);
     };
 
     const onError = (errorCode: string) => {
@@ -204,10 +209,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     const queryConstraints = [where(Fields.message, '!=', '')];
-
     this.unsubscribeFromNotification = this.notificationVM.getLiveNotifications(
       this.pubId,
-      queryConstraints,
+      [],
       onNext,
       onError
     );

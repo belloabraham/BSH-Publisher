@@ -1,1 +1,38 @@
-<p>collaborations works!</p>
+<div *transloco="let t" class="my-books p-2">
+
+        <div *ngIf="collaborators !==undefined && collaborators.length > 0 else noCollaborations" [className]="classes.item"  class="table-responsive-lg">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">{{ t('book_name')}}</th>
+                        <th scope="col">{{ t('book_id')}}</th>
+                        <th scope="col">{{ t('commission_in_percent')}}
+                        </th>
+                        <th scope="col">{{ t('earnings_in_ngn')}}
+                        </th>
+                        <th scope="col">{{ t('earnings_in_usd')}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let collaborator of collaborators">
+                        <th scope="row">{{collaborators!.indexOf(collaborator)+1}}</th>
+                        <td>{{collaborator.bookName}}</td>
+                        <td>{{collaborator.bookId}}</td>
+                        <td>{{(collaborator.collabCommissionInPercent)}}%
+                        </td>
+                        <td>{{collaborator.totalEarningsInNGN | currency:NGN:'symbol-narrow' }}</td>
+                        <td>{{collaborator.totalEarningsInUSD | currency:USD:'symbol-narrow' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <ng-template #noCollaborations>
+            <h1> {{t('no_collaboration_title') }} </h1>
+            <p>{{t('no_collaboration_msg') }}</p>
+        </ng-template>
+
+</div>

@@ -119,7 +119,7 @@ export class PublishYourBookComponent
     private incominRouteS: IncomingRouteService,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
-    private pubDataVM: PubDataViewModel,
+    private pubDataVM: PubDataViewModel
   ) {}
 
   private getBookDetailsForm() {
@@ -311,17 +311,17 @@ export class PublishYourBookComponent
       StringResKeys.bookUploadingMsg
     );
 
-    Shield.pulse(
-      '.publish-book-container',
-      bookUploadingMsg
-    );
+    Shield.pulse('.publish-book-container', bookUploadingMsg);
     let bookId = '';
     let bookFileName = '';
 
-
-    const savedBookId= localStorage.getItem(Settings.LAST_UNPUBLIHED_BOOK_ID)
-    if (this.bookISBNFC.value) {
-      bookId = this.bookISBNFC.value;
+    const savedBookId = localStorage.getItem(Settings.LAST_UNPUBLIHED_BOOK_ID);
+    if (
+      this.bookISBNFC.value !==  null &&
+      this.bookISBNFC.value !== undefined &&
+      this.bookISBNFC.value !== ''
+    ) {
+      bookId = `${this.bookISBNFC.value}`;
       bookFileName = bookId;
     } else if (
       savedBookId !== null &&
@@ -414,7 +414,8 @@ export class PublishYourBookComponent
       localStorage.setItem(Settings.LAST_UNPUBLIHED_BOOK_ID, '');
       this.showBookUploadSuccessMsg();
     } catch (error) {
-      localStorage.setItem(Settings.LAST_UNPUBLIHED_BOOK_ID, bookId)
+      console.log(error);
+      localStorage.setItem(Settings.LAST_UNPUBLIHED_BOOK_ID, bookId);
       Logger.error(this, this.uploadBookData.name, error);
       Shield.remove('.publish-book-container');
       AlertDialog.error(

@@ -11,9 +11,10 @@ import { IDocId } from 'src/data/models/idoc-id';
 
 @Injectable()
 export class NotificationsViewModel {
-  private notifications$ = new ReplaySubject<INotification[] | null>(
+  private notifications$ = new ReplaySubject<INotification[]>(
     MaxCachedItem.ONE
   );
+  private notifications: INotification[] = [];
 
   constructor(@Inject(DATABASE_IJTOKEN) private remoteData: IDatabase) {}
 
@@ -21,15 +22,16 @@ export class NotificationsViewModel {
     return this.notifications$;
   }
 
-  postNotifications(notifications: INotification[] | null) {
-    this.notifications$.next(notifications);
+  postNotifications(notifications: INotification[]) {
+    this.notifications = notifications
+    this.notifications$.next(this.notifications);
   }
 
   deleteANotification(docId: string, pubId: string) {
     return this.remoteData.deleteDoc(Collection.PUBLISHERS, [
       pubId,
       Collection.NOTIFICATIONS,
-      pubId,
+      docId,
     ]);
   }
 
@@ -38,8 +40,8 @@ export class NotificationsViewModel {
     queryConstraints: QueryConstraint[],
     onNext: (type: INotification[], arrayOfDocIds: string[]) => void,
     onError: (errorCode: string) => void
-  ):Unsubscribe {
-   return  this.remoteData.getLiveArrayOfDocData<INotification>(
+  ): Unsubscribe {
+    return this.remoteData.getLiveArrayOfDocData<INotification>(
       Collection.PUBLISHERS,
       [pubId, Collection.NOTIFICATIONS],
       queryConstraints,

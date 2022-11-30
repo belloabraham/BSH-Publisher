@@ -26,6 +26,7 @@ import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { IDocId } from 'src/data/models/idoc-id';
 import { Logger } from 'src/helpers/utils/logger';
+import { Fields } from '../fields';
 import { IDatabase } from '../idatabase';
 import { ErrorCodes } from './ErrorCodes';
 
@@ -40,7 +41,7 @@ export class FirestoreService implements IDatabase {
   ) {
     return runTransaction(this.firestore,
       async (transaction) => {
-        transaction.update(bookEarningsDodRef, {totalPaid : amount});
+        transaction.update(bookEarningsDodRef, Fields.totalPaid, amount);
         transaction.delete(paymentReqDocRef);
       }
     );
@@ -170,10 +171,12 @@ export class FirestoreService implements IDatabase {
       collection(this.firestore, path, ...pathSegment),
       ...queryConstraint
     );
-    const dataArray: T[] = [];
-    const arrayOfIds: string[] = [];
+
+   
     const unsubscribe = onSnapshot(q, {
       next: (querySnapShot) => {
+         const dataArray: T[] = [];
+         const arrayOfIds: string[] = [];
         querySnapShot.forEach((queryDoc) => {
           if (queryDoc.exists()) {
             const data = queryDoc.data();
@@ -183,23 +186,11 @@ export class FirestoreService implements IDatabase {
             arrayOfIds.push(queryDoc.id);
           }
         });
-
         onNext(dataArray, arrayOfIds);
       },
       error: (error: FirestoreError) => {
-        const code = error.code.toString();
-        onError(code);
-        if (code !== ErrorCodes.permDenied && code !== ErrorCodes.unauth) {
-          setTimeout(() => {
-            this.getLiveArrayOfDocData(
-              path,
-              pathSegment,
-              queryConstraint,
-              onNext,
-              onError
-            );
-          }, 2000);
-        }
+        const errorCode = error.code.toString();
+        onError(errorCode);
       },
     });
     return unsubscribe;

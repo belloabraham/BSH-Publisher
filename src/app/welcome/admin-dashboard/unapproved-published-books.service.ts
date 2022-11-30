@@ -7,7 +7,6 @@ import { IDatabase } from 'src/data/remote-data-source/idatabase';
 import { where } from '@angular/fire/firestore';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { Collection } from 'src/data/remote-data-source/collection';
-import { Providers } from 'src/data/providers';
 
 @Injectable()
 export class UnapprovedPublishedBooksViewMdel {
@@ -23,6 +22,10 @@ export class UnapprovedPublishedBooksViewMdel {
       [],
       [queryConstraint]
     );
+  }
+
+  updatePublishedBook(bookId:string, approved:boolean) {
+   return this.remoteData.updateDocField(Collection.PUBLISHED_BOOKS, [bookId], Fields.approved, approved)
   }
 
   getUnApprovedPublishedBooks$() {
