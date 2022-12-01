@@ -57,7 +57,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
 
   pubFirstName = '';
 
-  paymentDetails: IPaymentDetails | null = null;
+  paymentDetails?: IPaymentDetails;
 
   canExitRoute = new Subject<boolean>();
 
@@ -125,8 +125,8 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
     this.subscriptions.sink = this.paymentDetailsVM
       .getPaymentDetails$()
       .subscribe((paymentDetails) => {
-        this.paymentDetails = paymentDetails;
-        if (this.paymentDetails) {
+        if (paymentDetails) {
+          this.paymentDetails = paymentDetails;
           this.setPaymentDetailsLastUpdated(this.paymentDetails);
           this.paymentTypeFC.patchValue(this.paymentDetails.paymentType);
         }

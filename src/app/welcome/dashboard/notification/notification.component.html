@@ -2,7 +2,7 @@
     <div class="panel-header text-white d-flex justify-content-between align-items-center" lyBg="primary">
         <h3 class="panel-title m-0 p-0">{{ t('notifications') }}</h3>
 
-        <button *ngIf="notifications !==undefined && notifications!.length > 0" (click)="deleteAllNotifications()" ly-button bg="primary">
+        <button *ngIf="notifications  && notifications!.length > 0" (click)="deleteAllNotifications()" ly-button bg="primary">
             <svg viewBox="0 0 24 24">
                 <path fill="currentColor"
                     d="M15,16H19V18H15V16M15,8H22V10H15V8M15,12H21V14H15V12M3,18A2,2 0 0,0 5,20H11A2,2 0 0,0 13,18V8H3V18M14,5H11L10,4H6L5,5H2V7H14V5Z" />
@@ -12,7 +12,7 @@
 
     </div>
 
-    <div *ngIf="notifications !==undefined && notifications!.length > 0 else noNotifications" class="h-100">
+    <div *ngIf="notifications && notifications!.length > 0 else noNotifications" class="h-100">
 
         <div class="panel-body bg-white p-0">
 

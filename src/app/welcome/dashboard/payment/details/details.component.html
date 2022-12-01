@@ -6,13 +6,13 @@
         
         <div *ngIf="paymentDetails else addPaymentDetailsMessage" class="p-2">
 
-            <div class="tile  tile-centered">
+            <div class="tile tile-centered">
                 <div class="tile-icon">
                     <div class="example-tile-icon">
                         <img  [src]="getPaymentTypeLogo(paymentDetails.paymentType)"  alt="">
                     </div>
                 </div>
-                <div class="tile-content ml-1">
+                <div class="tile-content">
                     <div class="tile-title">{{paymentDetails.paymentType}}</div>
                     <small class="tile-subtitle text-muted">{{paymentDetailsLastUpdated}}</small>
                 </div>

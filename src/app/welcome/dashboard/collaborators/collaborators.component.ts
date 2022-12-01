@@ -35,7 +35,7 @@ import { CollaboratorsViewModel } from './collaborators.service';
 })
 export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  collaborators: ICollaborators[] | null = null;
+  collaborators?: ICollaborators[]
   rootDomain = location.origin;
 
   readonly classes = this.theme.addStyleSheet(shadow());
@@ -62,7 +62,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     this.subscriptions.sink = this.collaboratorsVM
       .getCollaborators$()
       .subscribe((collaborators) => {
-        if (collaborators) {
+        if (collaborators.length > 0) {
           this.collaborators = collaborators;
           this.cdRef.detectChanges();
         }
@@ -94,7 +94,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
       if (data) {
         const notification = new NotificationBuilder().build();
         //*Check if there is any collaborators at all
-        const aCollaboratorsHaveBeenCreatedBefore = this.collaborators !== null;
+        const aCollaboratorsHaveBeenCreatedBefore = this.collaborators !== undefined;
 
         if (aCollaboratorsHaveBeenCreatedBefore) {
           const isAnExistingCollabForBook = this.collaborators!.find(
@@ -132,7 +132,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     } catch (error: any) {
       Logger.error(this, this.createACollaborator.name, error);
       Shield.remove('.collaborators');
-      notification.error(
+     notification.error(
         `Network error or ${data.collabEmail} is yet to sign up on Bookshelf Hub.`
       );
     }

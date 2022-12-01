@@ -29,7 +29,7 @@ import { PublishedBookViewModel } from '../published-book.service';
   styleUrls: ['./my-books.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyBooksComponent {
+export class MyBooksComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   books?: IPublishedBook[];
   getBookId = getBookId;
@@ -51,7 +51,7 @@ export class MyBooksComponent {
       .getAllBooks$()
       .subscribe((allBooks) => {
         this.books = allBooks;
-        this.cdRef.detectChanges();
+         this.cdRef.detectChanges();
       });
   }
 

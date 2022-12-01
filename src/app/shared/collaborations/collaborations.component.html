@@ -1,6 +1,6 @@
 <div *transloco="let t" class="my-books p-2">
 
-    <div *ngIf="collaborators !==undefined && collaborators.length > 0 else noCollaborations">
+    <div *ngIf="collaborators  && collaborators.length > 0 else noCollaborations">
         <h1>{{ t('earnings_from_sales_collab')}}</h1>
 
         <div [className]="classes.shadow" class="table-responsive-lg">
