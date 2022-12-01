@@ -7,18 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: MyBooksComponent,
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: Route.PUBLISHED,
-      },
-      {
-        path: Route.PUBLISHED,
-        loadChildren: () =>
-          import('./published/published.module').then((m) => m.PublishedModule),
-      }
-    ],
   },
 ];
 

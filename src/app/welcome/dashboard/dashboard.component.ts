@@ -113,6 +113,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+
     this.getStringRes();
     this.listenForBookChanges();
     this.listenForPubDataChanges();

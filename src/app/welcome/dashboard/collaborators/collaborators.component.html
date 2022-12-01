@@ -1,16 +1,8 @@
 <div *transloco="let t" class="collaborators ph-2">
 
-
-    <div class="navigation">
-        <ul class="tab">
-            <li class="tab-item">
-                <a [routerLink]="'./'" [routerLinkActive]="'active'">{{t('collaborators')}}</a>
-            </li>
-        </ul>
-    </div>
-
-    <ly-paper *ngIf="collaborators else addACollaboratorMsg"  [elevation]="2">
-        <div  class="table-responsive-lg">
+    <div *ngIf="collaborators else addACollaboratorMsg">
+        <h1>{{t('collaborators')}}</h1>
+        <div class="table-responsive-lg"  [className]="classes.shadow">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
@@ -25,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-    
+
                     <tr *ngFor="let collab of collaborators!">
                         <th scope="row">{{collaborators!.indexOf(collab)+1}}</th>
                         <td>{{collab.collabName}}</td>
@@ -36,50 +28,52 @@
                         <td>{{getDateTime(collab.dateCreated)}}</td>
                         <td>
                             {{collab.link}}
-                            <button (click)="copyLinkToClipBoard(collab.link!)"  lyTooltip="{{ t('copy') }}" class="ml-1" ly-button appearance="icon">
-                                 <svg style="width:22px;height:22px"
-                                    viewBox="0 0 24 24">
+                            <button (click)="copyLinkToClipBoard(collab.link!)" lyTooltip="{{ t('copy') }}" class="ml-1"
+                                ly-button appearance="icon">
+                                <svg style="width:22px;height:22px" viewBox="0 0 24 24">
                                     <path fill="currentColor"
                                         d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
                                 </svg>
                             </button>
                         </td>
                     </tr>
-    
+
                 </tbody>
             </table>
         </div>
-    </ly-paper>
+    </div>
+
 
     <ng-template #addACollaboratorMsg>
-    <div *ngIf="collaborators === null"  class="empty-state d-flex flex-column justify-content-center align-items-center gap-2">
-        <div>
-            <p class="d-inline">{{t('no_collaborators_heading', {value: rootDomain})}}</p>
+        <div *ngIf="collaborators === null"
+            class="empty-state d-flex flex-column justify-content-center align-items-center gap-2">
+            <div>
+                <p class="d-inline">{{t('no_collaborators_heading', {value: rootDomain})}}</p>
 
-            <a class="learn-more underline ml-1" href="https://www.bookshelfhub.com/help#collaborators" target="_blank"
-                rel="noopener noreferrer">{{t('learn_more')}} <svg viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
-                </svg> </a>
-        </div>
-
-        <div class="d-flex align-items-center ">
-            <img src="assets/images/collaborators.svg">
-
-            <button (click)="addACollaborator()"  ly-button raised bg="primary" >
-                <i>
-                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <a class="learn-more underline ml-1" href="https://www.bookshelfhub.com/help#collaborators"
+                    target="_blank" rel="noopener noreferrer">{{t('learn_more')}} <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
-                            d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
-                    </svg>
-                </i>
-                <span lyPe="1">
-                    {{t('add_collaborator')}}
-                </span>
+                            d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+                    </svg> </a>
+            </div>
 
-            </button>
+            <div class="d-flex align-items-center ">
+                <img src="assets/images/collaborators.svg">
+
+                <button (click)="addACollaborator()" ly-button raised bg="primary">
+                    <i>
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                        </svg>
+                    </i>
+                    <span lyPe="1">
+                        {{t('add_collaborator')}}
+                    </span>
+
+                </button>
+            </div>
         </div>
-    </div>
     </ng-template>
 
 </div>

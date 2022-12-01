@@ -5,6 +5,7 @@ import { CollaborationsComponent } from './collaborations.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LyMenuModule } from '@alyle/ui/menu';
 import { LyButtonModule } from '@alyle/ui/button';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [CollaborationsComponent],
@@ -14,6 +15,7 @@ import { LyButtonModule } from '@alyle/ui/button';
     TranslocoModule,
     LyButtonModule,
     LyMenuModule,
+    ClipboardModule,
   ],
   exports: [CollaborationsComponent, TranslocoModule],
 })

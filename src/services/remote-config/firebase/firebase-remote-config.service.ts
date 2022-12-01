@@ -24,6 +24,7 @@ export class FirebaseRemoteConfigService implements IRemoteConfig {
 
       try {
         fetchAndActivate(remoteConfig);
+
       } catch (error) {
         Logger.error(this, 'fetchAndActivate(remoteConfig)', error);
       }

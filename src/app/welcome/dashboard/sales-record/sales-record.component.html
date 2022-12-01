@@ -1,18 +1,9 @@
 <div *transloco="let t" class="sales-record pt-2">
 
-
-    <div class="navigation align-self-stretch">
-        <ul class="tab">
-            <li class="tab-item">
-                <a [routerLink]="'./'" [routerLinkActive]="'active'">{{t('sales_record')}}</a>
-            </li>
-        </ul>
-    </div>
-
-
 <div class="p-2">
-     <form [formGroup]="orderedBookQueryForm" (ngSubmit)="getOrderedBooks()" class="d-flex form mb-2">
+    <h1>{{ t('sales_record') }}</h1>
 
+     <form [formGroup]="orderedBookQueryForm" (ngSubmit)="getOrderedBooks()" class="d-flex form mb-2">
         <div class="form-group">
             <label class="form-label label-lg flex-shrink-0"> {{ t('record_for') }}
             </label>

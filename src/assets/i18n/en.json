@@ -91,7 +91,7 @@
     "collabs_email": "Collaborator's email",
     "add_your_book": "Add your book",
 
-    "earnings_from_sales_collab":"Earnings from Collaborations Book Sales",
+    "earnings_from_sales_collab":"Earnings from Collaboration's Book Sales",
     "no_collaboration_title":"You are not a Collaborator of any Publisher's Book",
     "no_collaboration_msg":"Have a book publisher add you as a collaborator to His/Her book and you will see your earnings from the Publisher's book sales here.",
 
@@ -127,9 +127,9 @@
     "cancel": "Cancel",
     "copy": "Copy",
     "copied_msg": "Copied to clipboard",
-    "internal_server_error": "Internal server error",
+    "internal_server_error": "Error",
     "try_again": "Try again",
-    "server_error_msg": "Unable to load the requested resource as a result of an internal server error. Wait a few minute and try again.",
+    "server_error_msg": "Unable to load the requested resource as a result of an internal server error or a poor internet connection. Wait a  minute and try again.",
     "published": "Published",
     "unpublished": "Unpublished",
     "pending_approv": "Pending approval",
@@ -187,6 +187,8 @@
     "paym_details": "Payment Details",
     "earnings": "Earnings",
     "earnings_from_book_sales": "Earnings from Book Sales",
+
+    "payment_details":"Payment Details",
 
     "no_payment_details_heading": "{{username}} add your payment details so that we can send you payment for your books that are sold on {{value}}, or for book sales collaboration's commission",
     "add_paym_details": "Add Payment Details",

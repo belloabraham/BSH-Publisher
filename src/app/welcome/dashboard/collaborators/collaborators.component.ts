@@ -1,3 +1,4 @@
+import { LyTheme2 } from '@alyle/ui';
 import { LyDialog } from '@alyle/ui/dialog';
 import {
   ChangeDetectionStrategy,
@@ -20,6 +21,7 @@ import { Shield } from 'src/helpers/utils/shield';
 import { CloudFunctions } from 'src/services/function/cloud-functions';
 import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 import { ICloudFunctions } from 'src/services/function/icloud-function';
+import { shadow } from 'src/theme/styles';
 import { SubSink } from 'subsink';
 import { AddCollaboratorsDialogComponent } from './add-collaborators-dialog/add-collaborators-dialog.component';
 import { CollaboratorsViewModel } from './collaborators.service';
@@ -34,10 +36,12 @@ import { CollaboratorsViewModel } from './collaborators.service';
 export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   collaborators: ICollaborators[] | null = null;
-  rootDomain = location.origin
+  rootDomain = location.origin;
 
+  readonly classes = this.theme.addStyleSheet(shadow());
 
   constructor(
+    private theme: LyTheme2,
     private activatedRoute: ActivatedRoute,
     private collaboratorsVM: CollaboratorsViewModel,
     private _dialog: LyDialog,
@@ -70,7 +74,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     const notification = new NotificationBuilder()
       .setTimeOut(Notification.SHORT_LENGHT)
       .build();
-    notification.success("Link copied successfully");
+    notification.success('Link copied successfully');
   }
 
   getDateTime(timeStamp: Timestamp) {
@@ -90,8 +94,8 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
       if (data) {
         const notification = new NotificationBuilder().build();
         //*Check if there is any collaborators at all
-        const aCollaboratorsHaveBeenCreatedBefore = this.collaborators !== null 
-    
+        const aCollaboratorsHaveBeenCreatedBefore = this.collaborators !== null;
+
         if (aCollaboratorsHaveBeenCreatedBefore) {
           const isAnExistingCollabForBook = this.collaborators!.find(
             (collab) =>
@@ -112,10 +116,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
   }
 
   async createACollaborator(data: ICollaborators) {
-    Shield.pulse(
-      '.collaborators',
-      'Creating collaborator, please wait...'
-    );
+    Shield.pulse('.collaborators', 'Creating collaborator, please wait...');
     const notification = new NotificationBuilder().build();
 
     try {
@@ -126,12 +127,14 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
         const collab = await this.collaboratorsVM.getRemoteCollaborators();
         this.collaboratorsVM.setCollaborators(collab);
       } catch (error) {
-          Logger.error(this, this.createACollaborator.name, error);
+        Logger.error(this, this.createACollaborator.name, error);
       }
     } catch (error: any) {
       Logger.error(this, this.createACollaborator.name, error);
       Shield.remove('.collaborators');
-      notification.error(`Network error or ${data.collabEmail} is yet to sign up on Bookshelf Hub.`);
+      notification.error(
+        `Network error or ${data.collabEmail} is yet to sign up on Bookshelf Hub.`
+      );
     }
   }
 

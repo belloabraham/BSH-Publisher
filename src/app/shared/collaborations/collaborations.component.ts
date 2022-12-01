@@ -1,11 +1,13 @@
-import { LyTheme2} from '@alyle/ui';
+import { LyTheme2 } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
   OnDestroy,
   Component,
   OnInit,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
+import { map } from 'rxjs';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
@@ -26,7 +28,7 @@ export class CollaborationsComponent implements OnInit, OnDestroy {
   NGN = 'NGN';
   USD = 'USD';
   collaborators?: ICollaborators[] = [
-    /*{
+    {
       collabName: 'Bello Abraham',
       collabId: '67thjgvjkjdf',
       bookName: '50 Shades of Grey',
@@ -51,7 +53,7 @@ export class CollaborationsComponent implements OnInit, OnDestroy {
       collabEmail: '',
       totalEarningsInNGN: 788,
       totalEarningsInUSD: 99889,
-    },*/
+    },
   ];
 
   readonly classes = this.theme.addStyleSheet(shadow());
@@ -60,14 +62,23 @@ export class CollaborationsComponent implements OnInit, OnDestroy {
     private theme: LyTheme2,
     private localeService: LocaleService,
     private clipboardService: ClipboardService,
-    private collaborationsVM: CollaborationsViewModel
+    private collaborationsVM: CollaborationsViewModel,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.subscriptions.sink = this.activatedRoute.data
+      .pipe(map((data) => data['collaborations']))
+      .subscribe((collaborations: ICollaborators[]) => {
+        this.collaborationsVM.setCollaborations(collaborations);
+      });
+
     this.subscriptions.sink = this.collaborationsVM
       .getCollaborations$()
       .subscribe((collaborations) => {
-        this.collaborators = collaborations;
+        if (collaborations.length > 0) {
+          this.collaborators = collaborations;
+        }
       });
   }
 

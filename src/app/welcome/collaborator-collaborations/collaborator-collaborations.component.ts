@@ -6,14 +6,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, ResolveEnd, ResolveStart, Router } from '@angular/router';
-import { CollaborationsViewModel } from 'src/app/shared/collaborations/collaborations.service';
+import {ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { Config } from 'src/data/config';
-import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { LocaleService } from 'src/services/transloco/locale.service';
 import { SubSink } from 'subsink';
 import { StringResKeys } from '../../welcome/collaborator-collaborations/locale/string-res-keys';
-import { filter, map, mapTo, merge, Observable } from 'rxjs';
+import { filter, mapTo, merge, Observable } from 'rxjs';
 import { Shield } from 'src/helpers/utils/shield';
 import { XPosition } from '@alyle/ui';
 import { Route } from 'src/data/route';
@@ -32,7 +30,6 @@ import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
   selector: 'app-collaborator-collaborations',
   templateUrl: './collaborator-collaborations.component.html',
   styleUrls: ['./collaborator-collaborations.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: REMOTE_CONFIG_IJTOKEN,
@@ -42,14 +39,14 @@ import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
       provide: CLOUD_FUNCTIONS,
       useClass: CloudFunctionService,
     },
-    CollaborationsViewModel,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CollaboratorCollaborationsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
 
   feedbackLink = this.remoteConfig.getString(RemoteConfig.feedBackLink);
-  helpLink =  this.remoteConfig.getString(RemoteConfig.helpLink);
+  helpLink = this.remoteConfig.getString(RemoteConfig.helpLink);
 
   pubFirstName = '';
   openLeftNav = false;
@@ -63,9 +60,7 @@ export class CollaboratorCollaborationsComponent implements OnInit, OnDestroy {
   private hideLoaderEvent$!: Observable<boolean>;
   constructor(
     private title: Title,
-    private collaborationsVM: CollaborationsViewModel,
     private localeService: LocaleService,
-    private activatedRoute: ActivatedRoute,
     private pubDataVM: PubDataViewModel,
     @Inject(REMOTE_CONFIG_IJTOKEN) private remoteConfig: IRemoteConfig,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
@@ -73,11 +68,6 @@ export class CollaboratorCollaborationsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscriptions.sink = this.activatedRoute.data
-      .pipe(map((data) => data['collaborations']))
-      .subscribe((collaborations: ICollaborators[]) => {
-        this.collaborationsVM.setCollaborations(collaborations);
-      });
 
     this.getStringRes();
 

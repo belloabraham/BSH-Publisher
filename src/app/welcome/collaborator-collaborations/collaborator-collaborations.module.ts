@@ -7,6 +7,12 @@ import { CollaborationsModule } from 'src/app/shared/collaborations/collaboratio
 import { LyTooltipModule } from '@alyle/ui/tooltip';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LyButtonModule } from '@alyle/ui/button';
+import { getFunctions, provideFunctions } from '@angular/fire/functions';
+import { CloudFunctions } from 'src/services/function/cloud-functions';
+import {
+  getRemoteConfig,
+  provideRemoteConfig,
+} from '@angular/fire/remote-config';
 
 @NgModule({
   declarations: [CollaboratorCollaborationsComponent],
@@ -16,7 +22,9 @@ import { LyButtonModule } from '@alyle/ui/button';
     CollaborationsModule,
     TranslocoModule,
     LyButtonModule,
-    LyTooltipModule
+    LyTooltipModule,
+    provideRemoteConfig(() => getRemoteConfig()),
+    provideFunctions(() => getFunctions(undefined, CloudFunctions.location)),
   ],
 })
 export class CollaboratorCollaborationsModule {}

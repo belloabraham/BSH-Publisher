@@ -50,8 +50,8 @@ const routes: Routes = [
         resolve: { collaborations: CollaborationsResolver },
         loadChildren: () =>
           import(
-            './publisher-collaborations/publisher-collaborations.module'
-          ).then((m) => m.PublisherCollaborationsModule),
+            '../../shared/collaborations/collaborations.module'
+          ).then((m) => m.CollaborationsModule),
       },
     ],
   },

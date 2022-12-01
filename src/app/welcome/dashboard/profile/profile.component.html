@@ -1,6 +1,6 @@
 <div class="profile d-flex flex-column no-select align-items-center justify-content-start" *transloco="let t">
 
-    <div class="navigation align-self-stretch">
+    <div *ngIf="false" class="navigation align-self-stretch">
         <ul class="tab">
             <li class="tab-item">
                 <a [routerLink]="'./'" [routerLinkActive]="'active'">{{t('profile')}}</a>
@@ -8,11 +8,13 @@
         </ul>
     </div>
 
+
+
     <div class="p-2">
+ <h1>{{ t('profile')}}</h1>
+
         <div class="card shadow-sm">
-            <div class="card-header">
-                <h4 class="m-0 p-0">{{t('profile')}}</h4>
-            </div>
+         
             <form class="m-2" [formGroup]="profileForm">
                 <app-user-data-form (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate"
                     [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm">
