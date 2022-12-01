@@ -1,20 +1,10 @@
-<div class="profile d-flex flex-column no-select align-items-center justify-content-start" *transloco="let t">
-
-    <div *ngIf="false" class="navigation align-self-stretch">
-        <ul class="tab">
-            <li class="tab-item">
-                <a [routerLink]="'./'" [routerLinkActive]="'active'">{{t('profile')}}</a>
-            </li>
-        </ul>
-    </div>
-
-
+<div class="profile d-flex flex-column no-select align-items-start" *transloco="let t">
 
     <div class="p-2">
- <h1>{{ t('profile')}}</h1>
+        <h1>{{ t('profile')}}</h1>
 
         <div class="card shadow-sm">
-         
+
             <form class="m-2" [formGroup]="profileForm">
                 <app-user-data-form (dataUpdatedEvent)="onDataUpdate($event)" [registeredDate]="registeredDate"
                     [lastUpdated]="lastUpdated" [action]="action" [userDataForm]="userDataForm">
@@ -35,9 +25,10 @@
                     </ly-expansion-panel-header>
 
                     <div>
-                        <p (click)="copyToClipboard(pubId)"  class="pub-id">{{ t('publishers_id')}} <span class="text-muted underline">{{pubId}}</span>
-                            <button lyTooltip="{{ t('copy') }}"  class="ml-1" ly-button appearance="icon"> <svg style="width:22px;height:22px"
-                                    viewBox="0 0 24 24">
+                        <p (click)="copyToClipboard(pubId)" class="pub-id">{{ t('publishers_id')}} <span
+                                class="text-muted underline">{{pubId}}</span>
+                            <button lyTooltip="{{ t('copy') }}" class="ml-1" ly-button appearance="icon"> <svg
+                                    style="width:22px;height:22px" viewBox="0 0 24 24">
                                     <path fill="currentColor"
                                         d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
                                 </svg>
@@ -62,7 +53,5 @@
         </div>
 
     </div>
-
-
 
 </div>

@@ -28,32 +28,6 @@ export class CollaborationsComponent implements OnInit, OnDestroy {
   NGN = 'NGN';
   USD = 'USD';
   collaborators?: ICollaborators[] = [
-    {
-      collabName: 'Bello Abraham',
-      collabId: '67thjgvjkjdf',
-      bookName: '50 Shades of Grey',
-      dateCreated: new Date(),
-      pubName: 'David Afolayan',
-      bookId: '87564758690',
-      collabCommissionInPercent: 5,
-      link: 'hello.com',
-      collabEmail: '',
-      totalEarningsInNGN: 788,
-      totalEarningsInUSD: 99889,
-    },
-    {
-      collabName: 'Bello Abraham',
-      collabId: '67thjgvjkjdf',
-      bookName: '50 Shades of Grey',
-      dateCreated: new Date(),
-      pubName: 'David Afolayan',
-      bookId: '87564758690',
-      collabCommissionInPercent: 5,
-      link: 'hello.com',
-      collabEmail: '',
-      totalEarningsInNGN: 788,
-      totalEarningsInUSD: 99889,
-    },
   ];
 
   readonly classes = this.theme.addStyleSheet(shadow());
