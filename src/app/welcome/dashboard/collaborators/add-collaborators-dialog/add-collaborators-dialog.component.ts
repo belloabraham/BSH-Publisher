@@ -55,7 +55,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
       dateCreated: null,
       collabId: null,
       link: null,
-      collabEmail: escapeJSONNewlineChars(this.emailFC.value),
+      collabEmail: `${this.emailFC.value}`.trim(),
       collabCommissionInPercent: this.commissionFC.value,
       totalEarningsInNGN: 0,
       totalEarningsInUSD: 0,

@@ -1,8 +1,9 @@
 <div *transloco="let t" class="collaborators p-2">
 
-    <div  *ngIf="collaborators && collaborators!.length > 0 else addACollaboratorMsg">
-        <h1>{{t('collaborators')}}</h1>
-        <div class="table-responsive-lg"  [className]="classes.shadow">
+
+    <h1>{{t('collaborators')}}</h1>
+    <div *ngIf="collaborators && collaborators!.length > 0 else addACollaboratorMsg">
+        <div class="table-responsive-lg" [className]="classes.shadow">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
