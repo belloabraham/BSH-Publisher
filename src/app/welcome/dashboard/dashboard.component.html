@@ -5,7 +5,7 @@
         class="tool-bar fixed-top top-toolbar align-items-end d-flex justify-content-between align-items-center ph-2 bg-light">
 
         <div class="welcome d-flex align-items-center gap-1">
-                   
+
             <h2 class="m-0 p-0"> {{t('hi_username', {value: pubFirstName})}} </h2>
             <span class="wave">👋🏽</span>
         </div>
@@ -72,10 +72,10 @@
 
         <nav class="nav mt-2 scrollbar-light">
             <div>
-                <div   class="nav_list">
+                <div class="nav_list">
 
-                    <a *ngIf="isAdmin" [routerLink]="['../', adminRoute]" target="_blank"  class="nav_link">
-                        
+                    <a *ngIf="isAdmin" [routerLink]="['../', adminRoute]" target="_blank" class="nav_link">
+
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                             <path fill="currentColor"
                                 d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
@@ -101,12 +101,12 @@
 
                     <a [routerLink]="collaboratorsRoute" [routerLinkActive]="'active'" class="nav_link">
                         <svg lyTooltip="{{ t('collaborators') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M19 17V19H7V17S7 13 13 13 19 17 19 17M16 8A3 3 0 1 0 13 11A3 3 0 0 0 16 8M19.2 13.06A5.6 5.6 0 0 1 21 17V19H24V17S24 13.55 19.2 13.06M18 5A2.91 2.91 0 0 0 17.11 5.14A5 5 0 0 1 17.11 10.86A2.91 2.91 0 0 0 18 11A3 3 0 0 0 18 5M8 10H5V7H3V10H0V12H3V15H5V12H8Z" />
-                            </svg>
+                            <path fill="currentColor"
+                                d="M16 17V19H2V17S2 13 9 13 16 17 16 17M12.5 7.5A3.5 3.5 0 1 0 9 11A3.5 3.5 0 0 0 12.5 7.5M15.94 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13M15 4A3.39 3.39 0 0 0 13.07 4.59A5 5 0 0 1 13.07 10.41A3.39 3.39 0 0 0 15 11A3.5 3.5 0 0 0 15 4Z" />
+                        </svg>
                         <span class="nav_name">{{ t('collaborators') }}</span>
                     </a>
-                    
+
                     <a [routerLink]="paymentRoute" [routerLinkActive]="'active'" class="nav_link">
                         <svg lyTooltip="{{ t('payment') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -123,7 +123,7 @@
                         <span class="nav_name">{{ t('collaborations') }}</span>
                     </a>
 
-                    <a  [routerLink]="profileRoute" [routerLinkActive]="'active'" class="nav_link">
+                    <a [routerLink]="profileRoute" [routerLinkActive]="'active'" class="nav_link">
                         <svg lyTooltip="{{ t('profile') }}" [lyTooltipPlacement]="right" viewBox="0 0 24 24">
                             <path fill="currentColor"
                                 d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />

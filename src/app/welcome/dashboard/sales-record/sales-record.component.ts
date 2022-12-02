@@ -15,7 +15,7 @@ import { Config } from 'src/data/config';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { years } from 'src/data/oredered-record-yeas';
 import { Collection } from 'src/data/remote-data-source/collection';
-import { getBookId } from 'src/helpers/get-book-id';
+import { unMergedBookId } from 'src/domain/unmeged-bookid';
 import { Shield } from 'src/helpers/utils/shield';
 import { SubSink } from 'subsink';
 import { PublishedBookViewModel } from '../published-book.service';
@@ -42,7 +42,7 @@ export class SalesRecordComponent implements OnInit, OnDestroy {
   data: string[][] = [];
 
   gridConfig: UserConfig = this.getOrderedBooksTableConfig();
-  getBookId = getBookId;
+  getUnMergedBookId = unMergedBookId;
 
   constructor(
     private salesRecordVM: SalesRecordViewModel,

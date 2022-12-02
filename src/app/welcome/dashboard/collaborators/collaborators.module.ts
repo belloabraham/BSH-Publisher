@@ -6,11 +6,11 @@ import { CollaboratorsComponent } from './collaborators.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LyButtonModule } from '@alyle/ui/button';
 import { LyDialogModule } from '@alyle/ui/dialog';
-import { LyCommonModule, LyOverlayModule } from '@alyle/ui';
+import { LyOverlayModule } from '@alyle/ui';
 import { AddCollaboratorsDialogComponent } from './add-collaborators-dialog/add-collaborators-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LyTooltipModule } from '@alyle/ui/tooltip';
 import { ClipboardModule } from 'ngx-clipboard';
+import { LyMenuModule } from '@alyle/ui/menu';
 
 @NgModule({
   declarations: [CollaboratorsComponent, AddCollaboratorsDialogComponent],
@@ -19,12 +19,11 @@ import { ClipboardModule } from 'ngx-clipboard';
     CollaboratorsRoutingModule,
     TranslocoModule,
     ReactiveFormsModule,
-    LyCommonModule,
     LyButtonModule,
     LyOverlayModule,
-    LyTooltipModule,
     LyDialogModule,
     ClipboardModule,
+    LyMenuModule,
   ],
 })
 export class CollaboratorsModule {}

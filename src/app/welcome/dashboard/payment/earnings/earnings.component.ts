@@ -15,6 +15,7 @@ import { IPaymentRequest } from 'src/data/models/entities/ipayment-request';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Route } from 'src/data/route';
+import { unMergedBookId } from 'src/domain/unmeged-bookid';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { Logger } from 'src/helpers/utils/logger';
@@ -42,6 +43,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
   sellingCurrency = this.pubDataVM.getPublisher()?.sellingCurrency;
 
   readonly classes = this.theme.addStyleSheet(shadow());
+  getUnMergedBookId = unMergedBookId;
 
   constructor(
     private theme: LyTheme2,

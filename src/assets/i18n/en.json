@@ -163,6 +163,8 @@
     "copy_sale_link":"Copy Sale Link",
     "sale_link_copied_msg":"Sale link copied successfully",
 
+    "update_commission":"Update Commission",
+
     "total_earnings": "Total Earnings",
     "total_paid": "Total Paid",
     "request_payment": "Request Payment",

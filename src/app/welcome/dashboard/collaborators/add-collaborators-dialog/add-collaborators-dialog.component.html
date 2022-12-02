@@ -1,6 +1,6 @@
 <div class="collab-dialog">
     <ly-paper [lyP]="'2rem'" [elevation]="2">
-        <h3>Add a collaborator</h3>
+        <h3>Add a Collaborator</h3>
         <form *transloco="let t" [formGroup]="collaboratorsForm">
 
             <div class="form-group" [ngClass]="{'has-error':nameFC.hasError('required') && nameFC.touched}">
@@ -21,14 +21,14 @@
                     class="form-input-hint">{{ t('invalid_email_msg') }}</p>
             </div>
 
-            <div class="form-group" [ngClass]="{'has-error':bookFC.hasError('required') && bookFC.touched}">
+            <div class="form-group" [ngClass]="{'has-error':bookIDFC.hasError('required') && bookIDFC.touched}">
                 <label class="form-label label-lg" for="bookFC">{{ t('book') }}</label>
                 <select formControlName="bookFC" class="form-select select-lg">
                     <option *ngFor="let book of allBooks" value="{{ book.bookId }}">{{ book.name }}
-                        ({{ getBookId(book) }})</option>
+                        ({{getUnMergedBookId(book.pubId, book.bookId) }})</option>
                 </select>
 
-                <p *ngIf="bookFC.hasError('required') && bookFC.touched" class="form-input-hint">
+                <p *ngIf="bookIDFC.hasError('required') && bookIDFC.touched" class="form-input-hint">
                     {{ t('book_red') }}
                 </p>
 
@@ -44,8 +44,8 @@
             </div>
 
             <div class="text-end">
-                <button (click)="createAcollaborator()"  disabled [disabled]="!collaboratorsForm.valid" [elevation]="1" class="w-100" type="submit"
-                    ly-button raised bg="primary">{{ t('create_collab') }}</button>
+                <button (click)="createAcollaborator()" disabled [disabled]="!collaboratorsForm.valid" [elevation]="1"
+                    class="w-100" type="submit" ly-button raised bg="primary">{{ t('create_collab') }}</button>
             </div>
 
         </form>

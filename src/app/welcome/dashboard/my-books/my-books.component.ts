@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Fields } from 'src/data/remote-data-source/fields';
-import { getBookId } from 'src/helpers/get-book-id';
 import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
@@ -23,6 +22,7 @@ import { shadow } from 'src/theme/styles';
 import { SubSink } from 'subsink';
 import { StringResKeys } from './locale/string-res-keys';
 import { PublishedBookViewModel } from '../published-book.service';
+import { unMergedBookId } from 'src/domain/unmeged-bookid';
 @Component({
   selector: 'app-my-books',
   templateUrl: './my-books.component.html',
@@ -32,7 +32,7 @@ import { PublishedBookViewModel } from '../published-book.service';
 export class MyBooksComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
   books?: IPublishedBook[];
-  getBookId = getBookId;
+  getUnMergedBookId = unMergedBookId;
 
   bottom = YPosition.below;
 

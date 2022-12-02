@@ -24,7 +24,7 @@
                 <tr *ngFor="let book of books">
                     <th scope="row">{{books!.indexOf(book)+1}}</th>
                     <td>{{book.name}}</td>
-                    <td>{{getBookId(book)}}</td>
+                    <td>{{getUnMergedBookId(book.pubId, book.bookId)}}</td>
                     <td style="font-weight: 600;" [ngStyle]="{'color':getBookStatusColor(book)}">
                         {{getBookStatus(book)}}
                     </td>

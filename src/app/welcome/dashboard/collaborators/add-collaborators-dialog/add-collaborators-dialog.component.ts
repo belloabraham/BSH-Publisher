@@ -8,7 +8,7 @@ import {
 import { PubDataViewModel } from 'src/app/welcome/pub-data.service';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { Regex } from 'src/data/regex';
-import { getBookId } from 'src/helpers/get-book-id';
+import { unMergedBookId } from 'src/domain/unmeged-bookid';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 import { PublishedBookViewModel } from '../../published-book.service';
 
@@ -22,7 +22,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
   allBooks = this.pubBookVM.getAllBooks();
 
   collaboratorsForm!: UntypedFormGroup;
-  getBookId = getBookId;
+  getUnMergedBookId = unMergedBookId;
 
   emailFC = new UntypedFormControl('', [
     Validators.required,
@@ -30,7 +30,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
   ]);
   nameFC = new UntypedFormControl(undefined, [Validators.required]);
   commissionFC = new UntypedFormControl(undefined, [Validators.required]);
-  bookFC = new UntypedFormControl(undefined, [Validators.required]);
+  bookIDFC = new UntypedFormControl(undefined, [Validators.required]);
   rootDomain = location.origin;
 
   constructor(
@@ -45,7 +45,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
 
   createAcollaborator() {
     const pub = this.pubData.getPublisher()!;
-    const bookId: string = this.bookFC.value;
+    const bookId: string = this.bookIDFC.value;
     const book = this.pubBookVM.getPublishedBookById(bookId)!;
     const data: ICollaborators = {
       collabName: escapeJSONNewlineChars(this.nameFC.value),
@@ -67,7 +67,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
   getCollaboratorsForm() {
     return new UntypedFormGroup({
       nameFC: this.nameFC,
-      bookFC: this.bookFC,
+      bookFC: this.bookIDFC,
       commissionFC: this.commissionFC,
       emailFC: this.emailFC,
     });

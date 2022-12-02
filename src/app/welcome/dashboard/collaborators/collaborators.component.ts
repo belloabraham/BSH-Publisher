@@ -12,12 +12,15 @@ import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { map } from 'rxjs';
-import { ICollaborators } from 'src/data/models/entities/icollaborators';
+import { ICollaborators as ICollaborator } from 'src/data/models/entities/icollaborators';
+import { unMergedBookId } from 'src/domain/unmeged-bookid';
 import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
 import { DateUtil } from 'src/helpers/utils/date-util';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
+import { IUserAuth } from 'src/services/authentication/iuser-auth';
+import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { CloudFunctions } from 'src/services/function/cloud-functions';
 import { CLOUD_FUNCTIONS } from 'src/services/function/function-token';
 import { ICloudFunctions } from 'src/services/function/icloud-function';
@@ -35,8 +38,10 @@ import { CollaboratorsViewModel } from './collaborators.service';
 })
 export class CollaboratorsComponent implements OnInit, OnDestroy {
   private subscriptions = new SubSink();
-  collaborators?: ICollaborators[];
+  collaborators?: ICollaborator[];
   rootDomain = location.origin;
+  pubId = this.userAuth.getPubId()!!;
+  getUnMergedBookId = unMergedBookId;
 
   readonly classes = this.theme.addStyleSheet(shadow());
 
@@ -47,6 +52,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     private _dialog: LyDialog,
     private cdRef: ChangeDetectorRef,
     private clipboardService: ClipboardService,
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     @Inject(CLOUD_FUNCTIONS) private cloudFunctions: ICloudFunctions
   ) {}
 
@@ -67,6 +73,12 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
           this.cdRef.detectChanges();
         }
       });
+  }
+ 
+
+  editCollaborator(collaborator: ICollaborator) {
+   // getUnMergedBookId()
+    //*Update commission to zerror as a way to delete a collaborator
   }
 
   copyLinkToClipBoard(link: string) {
@@ -116,17 +128,21 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     });
   }
 
-  async createACollaborator(data: ICollaborators) {
+  async createACollaborator(collaborator: ICollaborator) {
     Shield.pulse('.collaborators', 'Creating collaborator, please wait...');
     const notification = new NotificationBuilder().build();
 
     try {
-      await this.cloudFunctions.call(CloudFunctions.createACollaborator, data);
+      await this.cloudFunctions.call(
+        CloudFunctions.createACollaborator,
+        collaborator
+      );
       Shield.remove('.collaborators');
       notification.success('Collaborator was created successfully');
       try {
-        const collab = await this.collaboratorsVM.getRemoteCollaborators();
-        this.collaboratorsVM.setCollaborators(collab);
+        const collaborators =
+          await this.collaboratorsVM.getRemoteCollaborators();
+        this.collaboratorsVM.setCollaborators(collaborators);
       } catch (error) {
         Logger.error(this, this.createACollaborator.name, error);
       }
@@ -134,7 +150,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
       Logger.error(this, this.createACollaborator.name, error);
       Shield.remove('.collaborators');
       notification.error(
-        `Network error or ${data.collabEmail} is yet to sign up on Bookshelf Hub.`
+        `Network error or ${collaborator.collabEmail} is yet to sign up on Bookshelf Hub.`
       );
     }
   }
