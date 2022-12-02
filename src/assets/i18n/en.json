@@ -274,7 +274,7 @@
     "collab_name_req": "Collaborators name is required",
     "collab_email": "Collaborator's email used to sign up at",
     "commission_req": "Sales commission is required",
-    "collab_sales_comm": "Collaborator's sales commission",
+    "sales_comm_in": "Sales commission in %",
     "create_collab": "Create collaborator",
     "fit_screen": "Fit to screen",
     "zoom_in": "Zoom in",

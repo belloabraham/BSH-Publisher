@@ -13,6 +13,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { map } from 'rxjs';
+import { Config } from 'src/data/config';
 import { ICollaborators as ICollaborator } from 'src/data/models/entities/icollaborators';
 import { Fields } from 'src/data/remote-data-source/fields';
 import { unMergedBookId } from 'src/domain/unmeged-bookid';
@@ -45,6 +46,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
   rootDomain = location.origin;
   pubId = this.userAuth.getPubId()!!;
   getUnMergedBookId = unMergedBookId;
+  readonly maxAllowedCommission = Config.MAX_ALLOWED_COLLAB_COMMISSION;
 
   readonly classes = this.theme.addStyleSheet(shadow());
 
@@ -84,41 +86,70 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     AlertDialog.prompt(
       `${oldCommission}`,
       "Update Colaborator's Commission",
-      "Enter new collaborator's commission for book sale earnings (%)",
+      "Enter new collaborator's commission in % ("+this.maxAllowedCommission+" max)",
       'Update',
       'Cancel',
       (value) =>
         this.ngZone.run(async () => {
-          const newCommission = Number(value);
-          if (typeof newCommission === 'number') {
+          let commission = Number(value);
+          if (typeof commission === 'number') {
+            const newCommission =
+              commission > this.maxAllowedCommission
+                ? this.maxAllowedCommission
+                : commission;
             const notification = new NotificationBuilder();
             try {
-              Shield.pulse('.collaborators-table', "Updating collaborators commission. Please wait");
+              Shield.pulse(
+                '.collaborators-table',
+                'Updating collaborators commission. Please wait'
+              );
               const collabIdAndBookId = `${collaborator.collabId}-${collaborator.bookId}`;
               await this.collaboratorsVM.updateCollaborator(
                 collabIdAndBookId,
                 Fields.collabCommissionInPercent,
                 newCommission
               );
-              notification.setTimeOut(Notification.SHORT_LENGHT)
-              notification.build().success("Updated "+collaborator.collabName+" collaboration's commission successfully.");
-            
-              const indexOfCollaborator = this.collaborators!.indexOf(collaborator)
-              this.collaborators![
-                indexOfCollaborator
-              ].collabCommissionInPercent = newCommission;
-              this.collaboratorsVM.setCollaborators(this.collaborators!.concat([]))
+              notification.setTimeOut(Notification.SHORT_LENGHT);
+              notification
+                .build()
+                .success(
+                  'Updated ' +
+                    collaborator.collabName +
+                    " collaboration's commission successfully."
+                );
+
+              this.updateCollaboratorsState(collaborator, newCommission);
             } catch (error) {
-              Logger.error(this, this.editCollaborator.name, error)
-              notification.build().error("Connection Error: Unable to update "+collaborator.collabName+" collaboration's commission. Try again later." );
+              Logger.error(this, this.editCollaborator.name, error);
+              notification
+                .build()
+                .error(
+                  'Connection Error: Unable to update ' +
+                    collaborator.collabName +
+                    " collaboration's commission. Try again later."
+                );
             } finally {
               Shield.remove('.collaborators-table');
             }
           } else {
-            AlertDialog.error("Enater a valid number for collaborator's commission", "Invalid Number", "OK")
+            AlertDialog.error(
+              "Enater a valid number for collaborator's commission",
+              'Invalid Number',
+              'OK'
+            );
           }
         })
     );
+  }
+
+  private updateCollaboratorsState(
+    collaborator: ICollaborator,
+    newCommission: number
+  ) {
+    const indexOfCollaborator = this.collaborators!.indexOf(collaborator);
+    this.collaborators![indexOfCollaborator].collabCommissionInPercent =
+      newCommission;
+    this.collaboratorsVM.setCollaborators(this.collaborators!.concat([]));
   }
 
   copyLinkToClipBoard(link: string) {

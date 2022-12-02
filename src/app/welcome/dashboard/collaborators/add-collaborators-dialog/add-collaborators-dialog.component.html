@@ -1,5 +1,5 @@
 <div class="collab-dialog">
-    <ly-paper [lyP]="'2rem'" [elevation]="2">
+    <ly-paper lyP="1rem" [elevation]="2">
         <h3>Add a Collaborator</h3>
         <form *transloco="let t" [formGroup]="collaboratorsForm">
 
@@ -36,8 +36,8 @@
 
             <div class="form-group mb-1 w-50"
                 [ngClass]="{'has-error':(commissionFC.hasError('required') || commissionFC.hasError('pattern')) && commissionFC.touched}">
-                <label class="form-label label-lg" for="commissionFC">{{ t('collab_sales_comm') }} (%) </label>
-                <input class="form-input input-lg" id="commissionFC" type="number" formControlName="commissionFC">
+                <label class="form-label label-lg"  for="commissionFC">{{ t('sales_comm_in') }} </label>
+                <input class="form-input input-lg" id="commissionFC" type="number" placeholder="{{maxAllowedCommission}} max"  formControlName="commissionFC">
                 <p *ngIf="commissionFC.hasError('required') && commissionFC.touched" class="form-input-hint">
                     {{ t('commission_req') }}
                 </p>

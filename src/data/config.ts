@@ -9,4 +9,5 @@ export class Config {
     'p7FMnfdrS0WEHLxXvKKYJGteYvz1', //Ogboriologbo
     'yWn7EK6ScLUqsu3gvCKX9GA0O2q2',
   ];
+  static readonly MAX_ALLOWED_COLLAB_COMMISSION = 90;
 }

@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PubDataViewModel } from 'src/app/welcome/pub-data.service';
+import { Config } from 'src/data/config';
 import { ICollaborators } from 'src/data/models/entities/icollaborators';
 import { Regex } from 'src/data/regex';
 import { unMergedBookId } from 'src/domain/unmeged-bookid';
@@ -20,6 +21,7 @@ import { PublishedBookViewModel } from '../../published-book.service';
 })
 export class AddCollaboratorsDialogComponent implements OnInit {
   allBooks = this.pubBookVM.getAllBooks();
+  readonly maxAllowedCommission = Config.MAX_ALLOWED_COLLAB_COMMISSION;
 
   collaboratorsForm!: UntypedFormGroup;
   getUnMergedBookId = unMergedBookId;
@@ -47,6 +49,9 @@ export class AddCollaboratorsDialogComponent implements OnInit {
     const pub = this.pubData.getPublisher()!;
     const bookId: string = this.bookIDFC.value;
     const book = this.pubBookVM.getPublishedBookById(bookId)!;
+    const commission = Number(this.commissionFC.value);
+    const collabCommission =
+      commission > this.maxAllowedCommission ? this.maxAllowedCommission : commission;
     const data: ICollaborators = {
       collabName: escapeJSONNewlineChars(this.nameFC.value),
       bookName: book.name,
@@ -56,7 +61,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
       collabId: null,
       link: null,
       collabEmail: `${this.emailFC.value}`.trim(),
-      collabCommissionInPercent: this.commissionFC.value,
+      collabCommissionInPercent: collabCommission,
       totalEarningsInNGN: 0,
       totalEarningsInUSD: 0,
     };
