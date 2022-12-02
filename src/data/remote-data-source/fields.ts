@@ -12,4 +12,5 @@ export class Fields {
   static readonly sellerCurrency = 'sellerCurrency';
   static readonly approved = 'approved';
   static readonly totalPaid = 'totalPaid';
+  static readonly collabCommissionInPercent = 'collabCommissionInPercent';
 };

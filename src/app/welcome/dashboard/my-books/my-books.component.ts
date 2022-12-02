@@ -73,7 +73,6 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   async unpublish(bookId: string) {
     const notification = new NotificationBuilder()
       .setTimeOut(Notification.SHORT_LENGHT)
-      .setIsClickToClose(true)
       .build();
     Shield.standard('.my-books', 'Updating book');
     try {
@@ -108,7 +107,6 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   async publish(bookId: string) {
     const notification = new NotificationBuilder()
       .setTimeOut(Notification.SHORT_LENGHT)
-      .setIsClickToClose(true)
       .build();
     Shield.standard('.my-books', 'Updating book');
     try {

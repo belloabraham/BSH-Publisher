@@ -1,7 +1,9 @@
 
 import { Confirm, Report } from 'notiflix';
+import { Color } from 'src/theme/color';
 
 export class AlertDialog {
+
   static warn(
     msg: string,
     title: string,
@@ -9,13 +11,13 @@ export class AlertDialog {
     noText: string,
     yesCallBack?: () => void | undefined,
     noCallBack?: () => void | undefined,
-    options: Notiflix.IConfirmOptions | undefined = {
-      titleColor: '#320066',
-      okButtonBackground: '#320066',
-      messageMaxLength: 200,
-    }
   ) {
-    Confirm.show(title, msg, yesText, noText, yesCallBack, noCallBack, options);
+    const color = Color.primary().css();
+    Confirm.show(title, msg, yesText, noText, yesCallBack, noCallBack, {
+      titleColor: color,
+      okButtonBackground: color,
+      messageMaxLength: 200,
+    });
   }
 
   static success(
@@ -37,4 +39,24 @@ export class AlertDialog {
   ) {
     Report.failure(title, msg, btnTxt, callBackOrOption, options);
   }
+
+  static prompt(
+    defaultValue: string, title: string, msg: string,
+    yesText: string, noText: string,
+    yesCallBack?: (answer: string) => void, noCallBack?: (answer: string) => void) {
+    const color = Color.primary().css();
+    Confirm.prompt(
+      title,
+      msg,
+      defaultValue,
+      yesText,
+      noText,
+      yesCallBack,
+      noCallBack, {
+        okButtonBackground: color,
+        titleColor: color,
+      }
+    );
+  }
+
 }

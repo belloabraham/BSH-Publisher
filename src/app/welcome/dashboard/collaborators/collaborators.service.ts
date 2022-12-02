@@ -26,6 +26,14 @@ export class CollaboratorsViewModel {
     return this.collaborators$;
   }
 
+  updateCollaborator(collabIdAndBookId:string, field:string, value:any) {
+    return this.remoteData.updateDocField(
+      Collection.PUBLISHERS,
+      [this.pubId, Collection.COLLABORATORS, collabIdAndBookId],
+      field,value
+    )
+  }
+
    getRemoteCollaborators() {
     return  this.remoteData.getArrayOfDocData<ICollaborators>(
       Collection.PUBLISHERS,

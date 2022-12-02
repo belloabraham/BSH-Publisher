@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
+  NgZone,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -13,9 +14,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { map } from 'rxjs';
 import { ICollaborators as ICollaborator } from 'src/data/models/entities/icollaborators';
+import { Fields } from 'src/data/remote-data-source/fields';
 import { unMergedBookId } from 'src/domain/unmeged-bookid';
 import { Notification } from 'src/helpers/notification/notification';
 import { NotificationBuilder } from 'src/helpers/notification/notification-buider';
+import { AlertDialog } from 'src/helpers/utils/alert-dialog';
 import { DateUtil } from 'src/helpers/utils/date-util';
 import { Logger } from 'src/helpers/utils/logger';
 import { Shield } from 'src/helpers/utils/shield';
@@ -52,6 +55,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     private _dialog: LyDialog,
     private cdRef: ChangeDetectorRef,
     private clipboardService: ClipboardService,
+    private ngZone: NgZone,
     @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     @Inject(CLOUD_FUNCTIONS) private cloudFunctions: ICloudFunctions
   ) {}
@@ -74,11 +78,47 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
         }
       });
   }
- 
 
-  editCollaborator(collaborator: ICollaborator) {
-   // getUnMergedBookId()
-    //*Update commission to zerror as a way to delete a collaborator
+  async editCollaborator(collaborator: ICollaborator) {
+    const oldCommission = collaborator.collabCommissionInPercent;
+    AlertDialog.prompt(
+      `${oldCommission}`,
+      "Update Colaborator's Commission",
+      "Enter new collaborator's commission for book sale earnings (%)",
+      'Update',
+      'Cancel',
+      (value) =>
+        this.ngZone.run(async () => {
+          const newCommission = Number(value);
+          if (typeof newCommission === 'number') {
+            const notification = new NotificationBuilder();
+            try {
+              Shield.pulse('.collaborators-table', "Updating collaborators commission. Please wait");
+              const collabIdAndBookId = `${collaborator.collabId}-${collaborator.bookId}`;
+              await this.collaboratorsVM.updateCollaborator(
+                collabIdAndBookId,
+                Fields.collabCommissionInPercent,
+                newCommission
+              );
+              notification.setTimeOut(Notification.SHORT_LENGHT)
+              notification.build().success("Updated "+collaborator.collabName+" collaboration's commission successfully.");
+            
+              const indexOfCollaborator = this.collaborators!.indexOf(collaborator)
+              this.collaborators![
+                indexOfCollaborator
+              ].collabCommissionInPercent = newCommission;
+              this.collaboratorsVM.setCollaborators(this.collaborators!.concat([]))
+            } catch (error) {
+              Logger.error(this, this.editCollaborator.name, error)
+              notification.build().error("Connection Error: Unable to update "+collaborator.collabName+" collaboration's commission. Try again later." );
+            } finally {
+              Shield.remove('.collaborators-table');
+            }
+          } else {
+            AlertDialog.error("Enater a valid number for collaborator's commission", "Invalid Number", "OK")
+          }
+        })
+    );
   }
 
   copyLinkToClipBoard(link: string) {
