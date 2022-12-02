@@ -1,6 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { increment } from '@angular/fire/firestore';
-import { FieldValue } from 'firebase/firestore';
 import { ReplaySubject } from 'rxjs';
 import { MaxCachedItem } from 'src/data/max-cached-item';
 import { IPaymentRequest } from 'src/data/models/entities/ipayment-request';

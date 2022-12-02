@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'src/data/route';
 import { AdminDashboardComponent } from './admin-dashboard.component';
-import { UnapprovedPublishedBooksResolver } from './books-pending-approval/unapproved-published-books.resolver';
 import { PaymentRequestResolver } from './publishers-payment-request/payment-request.resolver';
 
 const routes: Routes = [

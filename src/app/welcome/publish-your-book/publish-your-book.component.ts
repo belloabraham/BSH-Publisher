@@ -43,7 +43,6 @@ import { Document } from 'src/data/remote-data-source/document';
 import { PublishYourBookViewModel } from '../publish-your-book.service';
 import { PubDataViewModel } from '../pub-data.service';
 import { IPublisher } from 'src/data/models/entities/ipublisher';
-import { PublishedBookViewModel } from '../dashboard/published-book.service';
 import { ImagePickerDialogComponent } from '../../shared/image-picker-dialog/image-picker-dialog.component';
 import { escapeJSONNewlineChars } from 'src/helpers/utils/string-util';
 import { Settings } from 'src/data/settings';

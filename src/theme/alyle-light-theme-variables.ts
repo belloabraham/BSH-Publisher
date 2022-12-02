@@ -1,5 +1,4 @@
 import { PartialThemeVariables } from '@alyle/ui';
-import { color } from '@alyle/ui/color';
 import { Color } from './color';
 
 export class AlyleLightThemeVariables implements PartialThemeVariables {
