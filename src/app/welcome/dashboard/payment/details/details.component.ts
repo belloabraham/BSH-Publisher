@@ -53,7 +53,7 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   private updatedSucessMsg = '';
   private updatedFailedMsg = '';
 
-  paymentDetailsLastUpdated = '';
+  paymentDetailsLastUpdated?: string;
 
   pubFirstName = '';
 
@@ -134,12 +134,19 @@ export class DetailsComponent implements OnInit, OnDestroy, ICanDeactivate {
   }
 
   setPaymentDetailsLastUpdated(paymentDetails: IPaymentDetails) {
-    const lastUpdatedTimestamp = paymentDetails.lastUpdated! as Timestamp;
-    const lastUpdated = DateUtil.getLocalDateTime(lastUpdatedTimestamp);
-    this.paymentDetailsLastUpdated = this.localeService.paramTranslate(
-      StringResKeys.lastUpdated,
-      { value: DateUtil.getHumanReadbleDateTime(lastUpdated) }
-    );
+
+    if (paymentDetails.lastUpdated) {
+      const lastUpdatedTimestamp = paymentDetails.lastUpdated! as Timestamp;
+      const lastUpdated = DateUtil.getLocalDateTime(lastUpdatedTimestamp);
+      this.paymentDetailsLastUpdated = this.localeService.paramTranslate(
+        StringResKeys.lastUpdated,
+        { value: DateUtil.getHumanReadbleDateTime(lastUpdated) }
+      );
+    } else {
+       this.paymentDetailsLastUpdated = this.localeService.translate(
+         StringResKeys.lastUpdatedNow
+       );
+    }
   }
 
   getPaymentTypeLogo(paymentType: string) {

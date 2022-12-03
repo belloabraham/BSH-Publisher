@@ -194,7 +194,9 @@
     "paym_details": "Payment Details",
     "earnings": "Earnings",
     "earnings_from_book_sales": "Earnings from Book Sales",
+    "hidden":"Hidden",
 
+    "last_updated_now":"Last updated: Now",
     "payment_details":"Payment Details",
 
     "no_payment_details_heading": "{{username}} add your payment details so that we can send you payment for your books that are sold on {{value}}, or for book sales collaboration's commission",

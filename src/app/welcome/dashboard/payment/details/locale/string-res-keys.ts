@@ -6,6 +6,7 @@ export enum StringResKeys {
   paymDetailsUpdateFailedMsg = 'profile_update_failed_msg',
   paymDetailsUpdateSuccess = 'profile_updated_sucess_msg',
   lastUpdated = 'last_updated',
+  lastUpdatedNow = 'last_updated_now',
   updatedSuccfly = 'updated_successfly',
   updatedFailed = 'payment_updated_failed_msg',
 }

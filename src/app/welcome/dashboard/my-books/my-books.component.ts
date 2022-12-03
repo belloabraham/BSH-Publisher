@@ -130,7 +130,7 @@ export class MyBooksComponent implements OnInit, OnDestroy {
     if (book.approved === false) {
       return this.localeService.translate(StringResKeys.pendingApproval);
     } else if (book.published === false) {
-      return this.localeService.translate(StringResKeys.unPublished);
+      return this.localeService.translate(StringResKeys.hidden);
     } else {
       return this.localeService.translate(StringResKeys.published);
     }

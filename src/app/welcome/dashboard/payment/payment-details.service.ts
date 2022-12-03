@@ -27,6 +27,7 @@ export class PaymentDetailsViewModel {
     return await this.remoteData
       .updateDocData(Collection.PUBLISHERS, [pubId], paymentDetails)
       .then((_) => {
+        paymentDetails.paymentDetails.lastUpdated = undefined;
         this.setPaymentDetails(paymentDetails.paymentDetails);
       });
   }

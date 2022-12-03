@@ -11,5 +11,5 @@ export interface IPaymentDetails {
   bankSwiftCode?: string;
   bankAddress?: string;
   bankRoutingNumber?: string;
-  lastUpdated: any;
+  lastUpdated?: any;
 }
