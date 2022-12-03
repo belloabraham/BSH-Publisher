@@ -31,8 +31,7 @@ export class PublishedBookViewModel {
 
   setPublishedStatus(value:boolean, bookId:string) {
     this.allBooks.find(book => book.bookId === bookId)!.published = value
-    const empty: IPublishedBook[] = []
-    const updatedBooks = this.allBooks.concat(empty)
+    const updatedBooks = this.allBooks.concat([])
     this.setAllBooks(updatedBooks)
   }
 

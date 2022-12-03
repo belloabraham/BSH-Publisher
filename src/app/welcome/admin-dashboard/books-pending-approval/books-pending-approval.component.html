@@ -1,4 +1,4 @@
-<div class="books-pending-approval ph-3 d-flex justify-content-center">
+<div class="books-pending-approval ph-3 pt-2">
 
     <div *ngIf="unApprovedBooks !== undefined && unApprovedBooks.length > 0 else noBooksPendingAproval">
         <h1 class="my-2">Books Awaiting Approval</h1>
@@ -32,7 +32,7 @@
     </div>
 
     <ng-template #noBooksPendingAproval>
-        <h1 class="empty-title mt-4">No Published or Updated Book is Awaiting Approval</h1>
+        <h1 class="empty-title mt-2">No Published or Updated Book is Awaiting Approval</h1>
     </ng-template>
 
 </div>

@@ -47,7 +47,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
 
   createAcollaborator() {
     const pub = this.pubData.getPublisher()!;
-    const bookId: string = this.bookIDFC.value;
+    const bookId = `${this.bookIDFC.value}`.trim();
     const book = this.pubBookVM.getPublishedBookById(bookId)!;
     const commission = Number(this.commissionFC.value);
     const collabCommission =
@@ -72,7 +72,7 @@ export class AddCollaboratorsDialogComponent implements OnInit {
   getCollaboratorsForm() {
     return new UntypedFormGroup({
       nameFC: this.nameFC,
-      bookFC: this.bookIDFC,
+      bookIDFC: this.bookIDFC,
       commissionFC: this.commissionFC,
       emailFC: this.emailFC,
     });

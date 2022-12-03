@@ -26,7 +26,7 @@ export class UserAuthService implements IUserAuth {
       return true
      }
    }
-   return true
+   return false
   }
 
   updateDisplayName(name:string): Promise<void> {

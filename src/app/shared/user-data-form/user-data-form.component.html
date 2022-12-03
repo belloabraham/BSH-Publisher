@@ -27,6 +27,7 @@
 
         <div class="form-group w-100" [ngClass]="{'has-error':countryFC.hasError('required') && countryFC.touched}">
             <select formControlName="countryFC" class="form-select select-lg">
+                <option>{{ t('select_country') }}</option>
                 <option *ngFor="let country of countries" value="{{ country.name }}">{{ country.name }}</option>
             </select>
 

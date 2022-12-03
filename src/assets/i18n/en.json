@@ -105,6 +105,11 @@
     "deleting_payment_req": "Deleting payment request...",
     "marking_payment_req_as_paid": "Marking payment request as paid...",
 
+    "select_country":"Select a Country",
+    "select_book":"Select a Book",
+
+    "hide_from_bk_store":"Hide from Book Store",
+
     "payment_req_delete_failed_msg": "Unable to delete {{value}} payment request. Try again later.",
     "payment_req_delete_success_msg": "{{value}} payment request was deleted successfully",
     "payment_req_mark_paid_failed_msg": "Unable to mark '{{value}}' payment request as paid. Try again later.",
@@ -183,7 +188,7 @@
     "rating": "Rating",
     "last_updated_hed": "Last updated",
     "published_date": "Published date",
-    "unpublished_success_msg": "Book removed from book store successfully",
+    "unpublished_success_msg": "Book has been hidden from the book store successfully",
     "unpublished_failed_msg": "Network Error: Unable to unpublish book",
     "mark_paid": "Mark as paid",
     "paym_details": "Payment Details",
