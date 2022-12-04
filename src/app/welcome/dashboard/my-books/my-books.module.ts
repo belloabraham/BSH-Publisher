@@ -5,7 +5,6 @@ import { MyBooksRoutingModule } from './my-books-routing.module';
 import { MyBooksComponent } from './my-books.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LyButtonModule } from '@alyle/ui/button';
-import { LyMenuModule } from '@alyle/ui/menu';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { LyMenuModule } from '@alyle/ui/menu';
     MyBooksRoutingModule,
     TranslocoModule,
     LyButtonModule,
-    LyMenuModule,
   ]
 })
 export class MyBooksModule { }

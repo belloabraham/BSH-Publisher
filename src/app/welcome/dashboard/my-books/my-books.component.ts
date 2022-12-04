@@ -129,9 +129,7 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   getBookStatus(book: IPublishedBook) {
     if (book.approved === false) {
       return this.localeService.translate(StringResKeys.pendingApproval);
-    } else if (book.published === false) {
-      return this.localeService.translate(StringResKeys.hidden);
-    } else {
+    }else {
       return this.localeService.translate(StringResKeys.published);
     }
   }
@@ -139,9 +137,7 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   getBookStatusColor(book: IPublishedBook) {
     if (book.approved === false) {
       return '#ffc107';
-    } else if (book.published === false) {
-      return '#f20000';
-    } else {
+    }else {
       return '#00cc33';
     }
   }
