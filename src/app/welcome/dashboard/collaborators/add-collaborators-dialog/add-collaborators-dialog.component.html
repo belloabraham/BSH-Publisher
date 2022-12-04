@@ -22,8 +22,8 @@
             </div>
 
             <div class="form-group" [ngClass]="{'has-error':bookIDFC.hasError('required') && bookIDFC.touched}">
-                <label class="form-label label-lg" for="bookFC">{{ t('book') }}</label>
-                <select formControlName="bookFC" class="form-select select-lg">
+                <label class="form-label label-lg" for="bookIDFC">{{ t('book') }}</label>
+                <select formControlName="bookIDFC" class="form-select select-lg">
                     <option>{{ t('select_book') }}</option>
                     <option *ngFor="let book of allBooks" value="{{ book.bookId }}">{{ book.name }}
                         ({{getUnMergedBookId(book.pubId, book.bookId) }})</option>
