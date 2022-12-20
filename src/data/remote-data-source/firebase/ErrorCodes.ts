@@ -1,4 +1,4 @@
-export enum ErrorCodes {
-  permDenied = 'permission-denied',
-  unauth = 'unauthenticated',
+export class ErrorCodes {
+  static readonly permDenied = 'permission-denied';
+  static readonly unauth = 'unauthenticated';
 }

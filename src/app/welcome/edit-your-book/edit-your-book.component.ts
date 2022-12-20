@@ -22,14 +22,9 @@ import { IncomingRouteService } from 'src/app/shared/incoming-route.service';
 import { ImgCropperEvent } from '@alyle/ui/image-cropper';
 import { FileType } from 'src/data/file-type';
 import { bookCategories } from 'src/data/book-categories';
-import { IUserAuth } from 'src/services/authentication/iuser-auth';
-import { USER_AUTH_IJTOKEN } from 'src/services/authentication/user-auth.token';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { serverTimestamp } from '@angular/fire/firestore';
 import { Shield } from 'src/helpers/utils/shield';
-import { CloudStoragePath } from 'src/services/storage/storage-path';
-import { FileUtil } from 'src/helpers/utils/file-util';
-import { UploadTaskSnapshot } from '@angular/fire/storage';
 import { Collection } from 'src/data/remote-data-source/collection';
 import { Logger } from 'src/helpers/utils/logger';
 import { PubDataViewModel } from '../pub-data.service';
@@ -57,12 +52,9 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
   isInValidBook = false;
   inValidBookMsg = '';
 
-  private pubId = this.userAuth.getPubId()!;
-
   bookCategories = bookCategories;
 
   bookCoverFC = new UntypedFormControl(undefined, [Validators.required]);
-  bookDocumentFC = new UntypedFormControl(undefined, [Validators.required]);
 
   bookPriceFC = new UntypedFormControl(undefined, [Validators.required]);
   bookDescFC = new UntypedFormControl(undefined, [Validators.required]);
@@ -99,7 +91,6 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
     private localeService: LocaleService,
     private router: Router,
     private incominRouteS: IncomingRouteService,
-    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
     private publishYouBookVM: PublishYourBookViewModel,
     private pubDataVM: PubDataViewModel,
     private activatedRoute: ActivatedRoute,
@@ -210,7 +201,6 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.bookDetailsForm = this.getBookDetailsForm();
-    this.bookDocumentForm = this.getBookDocumentForm();
     this.bookCoverForm = this.getBookCoverForm();
 
     this.getStrinRes();
@@ -251,64 +241,10 @@ export class EditYourBookComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getBookDocumentForm() {
-    return new UntypedFormGroup({
-      bookDocumentFC: this.bookDocumentFC,
-    });
-  }
-
   private getBookCoverForm() {
     return new UntypedFormGroup({
       bookCoverFC: this.bookCoverFC,
     });
-  }
-
-  async uploadBookDocForm() {
-    const bookUploadingMsg = this.localeService.translate(
-      StringResKeys.bookUpdatingMsg
-    );
-
-    Shield.pulse('.form-book', bookUploadingMsg);
-    let bookFileName = '';
-
-    if (this.bookId.includes(this.pubId)) {
-      bookFileName = this.bookId.split('-')[1];
-    } else {
-      bookFileName = this.bookId;
-    }
-
-    bookFileName = `${bookFileName}.pdf`;
-    const bookFileToUpload = FileUtil.rename(
-      this.bookFileChosenByUser,
-      bookFileName
-    );
-
-    const pathToBookFile = `${CloudStoragePath.publishedBooks}/${this.pubId}/${this.bookId}/${bookFileName}`;
-
-    this.publishYouBookVM.uploadBookFile(
-      pathToBookFile,
-      bookFileToUpload,
-      (snapshot: UploadTaskSnapshot, progress: number) => {
-        this.bookDocUploadProgress = Math.floor(progress);
-        this._cd.detectChanges();
-      },
-      (_) => {
-        Shield.remove('.form-book');
-        const successMsg = this.localeService.translate(
-          StringResKeys.updatedSucess
-        );
-
-        this.notification.success(successMsg);
-      },
-      (error: any) => {
-        Logger.error(this, this.uploadBookDocForm.name, error);
-        Shield.remove('.form-book');
-        const errorMsg = this.localeService.translate(
-          StringResKeys.updatedSucess
-        );
-        this.notification.error(errorMsg);
-      }
-    );
   }
 
   async uploadBookDataForm() {

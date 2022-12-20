@@ -26,7 +26,6 @@ import { IBookInventory } from 'src/data/models/entities/ibook-inventory';
 import { IPublishedBook } from 'src/data/models/entities/ipublished-books';
 import { IDocId } from 'src/data/models/idoc-id';
 import { Logger } from 'src/helpers/utils/logger';
-import { Collection } from '../collection';
 import { Fields } from '../fields';
 import { IDatabase } from '../idatabase';
 import { ErrorCodes } from './ErrorCodes';

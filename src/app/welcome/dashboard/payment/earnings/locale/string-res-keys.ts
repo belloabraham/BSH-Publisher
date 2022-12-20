@@ -4,4 +4,5 @@ export enum StringResKeys {
   paymentDetailsReqTitle = 'paymnet_details_req',
   paymentReqSuccessMsg = 'payment_req_success_msg',
   paymentReqErrorMsg = 'payment_req_error_msg',
+  pendingPaymentReqErrMsg = 'pending_payment_req_error_msg',
 }

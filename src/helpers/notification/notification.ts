@@ -15,7 +15,7 @@ export class Notification {
   timeOut = 3000;
   messageMaxLenght = 110;
 
-  static readonly SHORT_LENGHT=1000
+  static readonly SHORT_LENGHT = 1000;
 
   constructor() {}
 
@@ -33,6 +33,22 @@ export class Notification {
     }
   ) {
     Notify.failure(msg, callback, options);
+  }
+
+  info(
+    msg: string,
+    callback?: () => void,
+    options: Notiflix.INotifyOptions = {
+      position: this.position,
+      plainText: this.isPlainText,
+      backOverlay: this.isBackOverlay,
+      clickToClose: this.isClickToClose,
+      messageMaxLength: this.messageMaxLenght,
+      timeout: this.timeOut,
+      cssAnimationStyle: 'from-top',
+    }
+  ) {
+    Notify.info(msg, callback, options);
   }
 
   success(

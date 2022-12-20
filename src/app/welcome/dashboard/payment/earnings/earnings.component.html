@@ -42,7 +42,7 @@
                         <td>{{earning.totalEarnings | currency:sellingCurrency:'symbol-narrow' }}</td>
                         <td>{{earning.totalPaid | currency:sellingCurrency:'symbol-narrow' }}</td>
                         <td> <button ly-button [disabled]="(earning.totalEarnings - earning.totalPaid) <= 0"
-                                (click)="requestPayment(earning.bookId)"> {{ t('request_payment') }}</button> </td>
+                                (click)="requestPayment(earning.bookId, earning.totalEarnings-earning.totalPaid)"> {{ t('request_payment') }}</button> </td>
                     </tr>
                 </tbody>
             </table>

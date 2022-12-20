@@ -1,8 +1,9 @@
-import { LyTheme2,  YPosition } from '@alyle/ui';
+import { LyTheme2, YPosition } from '@alyle/ui';
 import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  NgZone,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -27,6 +28,7 @@ import { SubSink } from 'subsink';
 import { PublishedBookViewModel } from '../../published-book.service';
 import { PaymentDetailsViewModel } from '../payment-details.service';
 import { StringResKeys } from './locale/string-res-keys';
+import { ErrorCodes } from 'src/data/remote-data-source/firebase/ErrorCodes';
 
 @Component({
   selector: 'app-earnings',
@@ -44,6 +46,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
 
   readonly classes = this.theme.addStyleSheet(shadow());
   getUnMergedBookId = unMergedBookId;
+  paymentDetailsRoute = Route.DETAILS;
 
   constructor(
     private theme: LyTheme2,
@@ -53,7 +56,8 @@ export class EarningsComponent implements OnInit, OnDestroy {
     private publishedBooksVM: PublishedBookViewModel,
     private paymentDetailsVM: PaymentDetailsViewModel,
     private pubDataVM: PubDataViewModel,
-    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth
+    @Inject(USER_AUTH_IJTOKEN) private userAuth: IUserAuth,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -76,13 +80,20 @@ export class EarningsComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  async requestPayment(bookId: string) {
-    const paymentDetails = this.paymentDetailsVM.getPaymentDetails();
-    if (paymentDetails) {
+  async requestPayment(bookId: string, totalEarnings: number) {
+    if (this.paymentDetailsVM.getPaymentDetails()) {
+      const paymentDetails = this.paymentDetailsVM.getDecrpytedPaymentDetails(
+        this.pubId
+      );
+
       const notification = new NotificationBuilder().build();
 
       try {
-        const paymentRequest = this.getPaymentRequest(bookId, paymentDetails);
+        const paymentRequest = this.getPaymentRequest(
+          bookId,
+          paymentDetails,
+          totalEarnings
+        );
         await this.paymentDetailsVM.sendPaymentRequest(
           Collection.PAYMENT_REQUEST,
           [bookId],
@@ -92,12 +103,20 @@ export class EarningsComponent implements OnInit, OnDestroy {
           StringResKeys.paymentReqSuccessMsg
         );
         notification.success(sucessMsg);
-      } catch (error) {
+      } catch (error: any) {
+        if (error.code === ErrorCodes.permDenied) {
+          const errorMsg = this.localeService.translate(
+            StringResKeys.pendingPaymentReqErrMsg
+          );
+          notification.info(errorMsg);
+        } else {
+          const errorMsg = this.localeService.translate(
+            StringResKeys.paymentReqErrorMsg
+          );
+          notification.error(errorMsg);
+        }
+
         Logger.error(this, this.requestPayment.name, error);
-        const errorMsg = this.localeService.translate(
-          StringResKeys.paymentReqErrorMsg
-        );
-        notification.error(errorMsg);
       }
     } else {
       this.showPaymentRequiredAlert();
@@ -106,7 +125,8 @@ export class EarningsComponent implements OnInit, OnDestroy {
 
   private getPaymentRequest(
     bookId: string,
-    paymentDetails: IPaymentDetails
+    paymentDetails: IPaymentDetails,
+    totalEarningsSoFar: number
   ): IPaymentRequest {
     const bookName = this.getBookName(bookId)!;
     return {
@@ -115,7 +135,7 @@ export class EarningsComponent implements OnInit, OnDestroy {
       bookName: bookName,
       bookId: bookId,
       sellingCurrency: this.sellingCurrency!,
-      amount: 0,
+      amount: totalEarningsSoFar,
       id: this.generatePaymentRequestID(),
     };
   }
@@ -136,7 +156,9 @@ export class EarningsComponent implements OnInit, OnDestroy {
       StringResKeys.addPaymentDetails
     );
     AlertDialog.error(msg, title, actionTxt, () => {
-      this.router.navigate([Route.WELCOME, Route.DASHBOARD, Route.PAYMENT]);
+      this.ngZone.run(() => {
+        this.router.navigate([Route.WELCOME, Route.DASHBOARD, Route.PAYMENT]);
+      });
     });
   }
 
