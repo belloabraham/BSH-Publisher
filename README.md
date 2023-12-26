@@ -1,27 +1,42 @@
-# Publisher
+# BookshelfHub Publisher's Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.2.
+## Author
 
-## Development server
+[Bello Abraham](https://www.linkedin.com/in/belloabraham) (Single handedly built by me)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Live Demo
 
-## Code scaffolding
+- [BookshelfHub Publisher's Dashboard](https://pubs-bookshelhub.firebaseapp.com/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies Used
 
-## Build
+- Angular
+- Rxjs
+- Google Firebase
+- Transloco
+- Others
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Description
 
-## Running unit tests
+BookshelfHub Publisher's and Admin Dashboard is a web application built using Angular, HTML, SCSS, and JavaScript. It provides a comprehensive solution for managing and organizing a book collection, offering separate dashboards for publishers and administrators.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Features
 
-## Running end-to-end tests
+### Publisher's Dashboard
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Book Management:**
+  Publishers can easily add, edit, and remove books from the collection through an intuitive interface.
 
-## Further help
+- **Submission Tracking:**
+  Track the status of book submissions, from pending to approved, helping publishers stay organized.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Admin Dashboard
+
+- **User Management:**
+  Administrators can manage user accounts, granting or revoking permissions as needed.
+
+- **Content Moderation:**
+  Ensure the quality and appropriateness of submitted books through a content moderation system.
+
+- **Analytics and Reporting:**
+  Access analytics and generate reports on book submissions, user activities, and more.
